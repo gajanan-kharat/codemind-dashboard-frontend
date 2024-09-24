@@ -1,0 +1,113 @@
+.slider-container {
+  width: 48%; /* Adjust width as needed */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  margin-left: 21%;
+  margin-top: 25px;
+  align-items: center;
+  justify-content: center;
+
+  .slider-header {
+    background-color:#e5e5e7d1;
+    color: #1a6a9a;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    height: 17px;
+  }
+
+  h1 {
+    margin: 0;
+    flex: 1;
+    font-size: 1rem;
+  }
+
+  .toggle-btn {
+    border: none;
+    background: #1a6a9a;
+    color: white;
+    padding: 4px;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 28px;
+    width: 28px;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .dropdown-content {
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 80%;
+    margin-left: 41px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    transform: translateY(100%);
+  }
+
+  .dropdown-content.open {
+    max-height: 100%; /* Adjust as needed */
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .dropdown-content.closed {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  hr{
+    margin-left: -40px;
+  }
+}
+
+.slidername {
+  text-align: center;
+  color: #fff;
+  background-color: #1a6a9a;
+  height: 24px;
+  padding: 10px;
+  font-size: large;
+}
+
+@media (max-width: 767px) {
+  .slider-container {
+    width: 125%;
+    margin-left: -9%;
+    .dropdown-content {
+      margin-left: 29px;
+    }
+  }
+}
+
+.slider-container {
+  .dropdown-content {
+    display: none;
+
+    &.open {
+      display: block;
+    }
+
+    &.closed {
+      display: none;
+    }
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px){
+  .slider-container{
+    width: 55%;
+    .dropdown-content{
+      margin-left: 41px;
+    }
+  }
+}

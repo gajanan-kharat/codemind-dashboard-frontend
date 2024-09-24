@@ -1,0 +1,65 @@
+<section class="li_section li_skyblue">
+    <div class="li_page-padding">
+      <div class="li_container-medium-m w-container">
+        <div class="li_section-large">
+          <div class="container" data-aos="fade-up">
+            <div class="heads-title">
+              <h2>Our On Job Trainings​</h2>
+            
+            </div>
+  
+            <!-- First Row: 3 Cards -->
+            <div class="services-row">
+              <div *ngFor="let service of services.slice(0, 3)" class="service-col"   data-aos="zoom-in" [attr.data-aos-delay]="service.delay">
+                <div class="home-service">
+                  <div class="img"><img [src]="service.image" class="img-fluid" [alt]="service.title" loading="lazy"></div>
+                  <div class="home-details">
+                    <div class="icon"><i [class]="service.icon"></i></div>
+                    <h3>{{ service.title }}</h3>
+                    <p>{{ service.description }}</p>
+                    <p class="off">20% OFF</p>
+                    <a [href]="service.link"><button class="button button-2">Read More</button></a>
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Second Row: 3 Cards -->
+            <div class="services-row">
+              <div *ngFor="let service of services.slice(3, 6)" class="service-col"   data-aos="zoom-in" [attr.data-aos-delay]="service.delay">
+                <div class="home-service">
+                  <div class="img"><img [src]="service.image" class="img-fluid" [alt]="service.title" loading="lazy"></div>
+                  <div class="home-details">
+                    <div class="icon"><i [class]="service.icon"></i></div>
+                    <h3>{{ service.title }}</h3>
+                    <p>{{ service.description }}</p>
+                    <p class="off">20% OFF</p>
+                    <a [href]="service.link"><button class="button button-2">Read More</button></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Third Row: 2 Cards -->
+            <div class="services-row third-row">
+              <div *ngFor="let service of services.slice(6, 8)" class="service-col"   data-aos="zoom-in" [attr.data-aos-delay]="service.delay">
+                <div class="home-service">
+                  <div class="img"><img [src]="service.image" class="img-fluid" [alt]="service.title" loading="lazy"></div>
+                  <div class="home-details">
+                    <div class="icon"><i [class]="service.icon"></i></div>
+                    <h3>{{ service.title }}</h3>
+                    <p>{{ service.description }}</p>
+                    <p class="off">20% OFF</p>
+                    <a [href]="service.link"><button class="button button-2">Read More</button></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

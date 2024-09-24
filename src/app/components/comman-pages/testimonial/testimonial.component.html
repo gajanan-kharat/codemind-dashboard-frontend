@@ -1,0 +1,42 @@
+<h3 class="testimonials">Testimonials</h3>
+<section class="li_section li_lightblue">
+  <div class="li_page-padding">
+    <div class="w-layout-blockcontainer li_container-medium w-container">
+      <div class="stories-section">
+        <div class="stories-title">
+          <!-- <p>Our Recent Placements</p> -->
+           <p>Our Latest Achievers: Recent Placements!</p>
+        </div>
+      </div>
+
+      <div class="owl-carousel-section2">
+        <owl-carousel-o [options]="candidateSlides" class="shadow">
+          <ng-container *ngFor="let item of items">
+            <ng-template carouselSlide>
+              <div class="testimonial-box" (click)="openModal(item.src)">
+                <a data-lightbox="placement">
+                  <img class="display-doc" [src]="item.src" alt="Document">
+                </a>
+              </div>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="testimonialModal" class="modal" *ngIf="modalImage" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="close" (click)="closeModal()">×</span>
+    <div class="modal-body">
+      <img [src]="modalImage" alt="Modal Image" class="modal-image">
+    </div>
+  </div>
+</div>
+
+<app-success-stories></app-success-stories>
+
+
+<app-student-reviews></app-student-reviews>
+<app-placements></app-placements>

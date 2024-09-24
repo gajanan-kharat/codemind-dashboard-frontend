@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>Edit Student</h2>
+<mat-dialog-content>
+  <form [formGroup]="editStudentForm">
+    <!-- Name Fields -->
+    <mat-form-field appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstname">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastname">
+    </mat-form-field>
+
+    <!-- Mobile Number Field -->
+    <mat-form-field appearance="fill">
+      <mat-label>Mobile Number</mat-label>
+      <input matInput formControlName="mobile_number">
+    </mat-form-field>
+
+    <!-- Email Field -->
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+
+    <!-- Course Field -->
+    <mat-form-field appearance="fill">
+      <mat-label>Course</mat-label>
+      <input matInput formControlName="course">
+    </mat-form-field>
+
+    <!-- Role Dropdown Field -->
+    <mat-form-field appearance="fill">
+      <mat-label>Role</mat-label>
+      <mat-select formControlName="role">
+        <mat-option value="Student">Student</mat-option>
+        <mat-option value="Admin">Admin</mat-option>
+        <mat-option value="Counselor">Counselor</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onSave()" color="primary">Save</button>
+</mat-dialog-actions>
+

@@ -1,0 +1,63 @@
+<section class="li_section dark-blue">
+    <div class="li_page-placement">
+        <div class="w-layout-blockcontainer li_container-medium placement-container">
+    <div class="placement-section">
+        <div class="whatsapp-title">
+            <!-- <p>Our Recent Placements</p> -->
+             <p>Highlighting Our Latest Placement Achievements!</p>
+        </div>
+        <div class="owl-carousel-section3">
+            <owl-carousel-o [options]="carouselOptions">
+                <ng-container *ngFor="let student of placedStudent;  let i = index">
+                    <ng-template carouselSlide>
+                        <article class="testimonial-box2">
+                            <header class="company">
+                                <h3>{{student.designation}}</h3>
+                            </header>
+                            <div class="box-top">
+                                <div class="profile">
+                                    <img [src]="student.image" alt="{{student.name}}" class="profile-image"
+                                        loading="lazy">
+                                </div>
+                                <div class="student-details">
+                                    <p><strong>Name : </strong> {{student.name}}</p>
+                                    <p><strong>Degree : </strong> {{student.from}}</p>
+                                    <p><strong>Company : </strong> {{student.company}}</p>
+                                </div>
+                            </div>
+                            <div class="package">
+                                <p><strong>Package : </strong>{{student.package}}</p>
+                            </div>
+                            <button type="button" class="default-btn" (click)="openModal(student, i)">Read More</button>
+
+                        </article>
+                    </ng-template>
+                </ng-container>
+            </owl-carousel-o>
+        </div>
+</div>
+</div>
+    </div>
+</section>
+<div class="modal-backdrop" [ngStyle]="{'display': displayBackdrop}" (click)="onCloseHandled()">
+    <div class="modal popup shadow" tabindex="-1" role="dialog" [ngStyle]="{'display': display}">
+        <div class="modal-dialog-center" role="document">
+            <div class="modal-content-center ">
+                <div class="modal-header-center">
+                    <h4 class="modal-title"> {{ placedStudent[selectedCandidateIndex]?.name }}</h4>
+                </div>
+                <div class="modal-body row align-items-center">
+                    <div class="iconimg">
+                        <img [src]="placedStudent[selectedCandidateIndex]?.image" alt="">
+                    </div>
+                    <p class="align-items-center">
+                        {{placedStudent[selectedCandidateIndex]?.quote }}
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-danger" (click)="onCloseHandled()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

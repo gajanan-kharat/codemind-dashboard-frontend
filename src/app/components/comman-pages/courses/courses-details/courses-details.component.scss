@@ -1,0 +1,563 @@
+.mat-typography {
+    font-family: IBM Plex Sans Condensed, sans-serif !important;
+}
+
+.li_section.li_skyblue {
+    font-family: IBM Plex Sans Condensed, sans-serif;
+    margin-bottom: 6rem;
+    overflow: hidden;
+}
+
+.li_section {
+    z-index: 1;
+    position: relative;
+}
+
+.li_page-paging {
+    padding-left: 6.5rem;
+    padding-right: 6.5rem;
+}
+
+.li_container-medium-m {
+    max-width: 66.25rem;
+}
+
+.w-layout-blockcontainer {
+    max-width: 940px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.li_section-large {
+    padding-top: 6.25rem;
+    padding-bottom: 6.25rem;
+}
+
+#sec5 {
+    font-family: IBM Plex Sans Condensed, sans-serif;
+    background-image:
+        linear-gradient(0deg, transparent, transparent 26%, rgba(1, 45, 100, 0.447) 0, rgba(6, 176, 255, 0.272) 56%, transparent 0, transparent),
+        linear-gradient(135deg, transparent, transparent 36%, rgba(1, 45, 100, 0.15) 0, rgba(6, 176, 255, 0.15) 71%, transparent 0, transparent),
+        linear-gradient(135deg, transparent, transparent 31%, rgba(6, 176, 255, 0.482) 31%, rgba(1, 45, 100, 0.311) 56%, transparent 0, transparent),
+        linear-gradient(90deg, #fff, #fff);
+    border-radius: 30px;
+    margin-top: 40px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1019607843);
+margin-bottom: 60px;
+    .coursetitle {
+        font-family: IBM Plex Sans Condensed, sans-serif !important;
+        font-size: 1.5rem;
+        padding: 20px;
+        font-weight: bold;
+    }
+
+    .text_large {
+        color: #000;
+    }
+
+}
+
+.discription {
+    display: flex;
+    padding: 2rem;
+    column-gap: 20px;
+    align-items: center;
+
+    img {
+        height: 50%;
+        width: 40%;
+        border-radius: 30px;
+    }
+
+    .que {
+        font-weight: bold;
+    }
+}
+
+.stepper {
+
+    margin-top: 50px;
+
+}
+
+::ng-deep.mat-horizontal-stepper-header .mat-step-icon {
+    background-image: linear-gradient(99deg, #012d64, #06b0ff) !important;
+}
+
+.mat-stepper-horizontal {
+    border-radius: 20px;
+    background-color: #e5f5fb !important;
+}
+
+::ng-deep.mat-step-label {
+    font-family: IBM Plex Sans Condensed, sans-serif ;
+    font-weight: bold !important;
+  
+}
+::ng-deep.mat-typography p {
+    margin: 5 0 0px;
+}
+.mat-accordion .mat-expansion-panel {
+
+    background-color: #f4f9ff;
+    border: 1px solid #06b0ff;
+    margin-top: 10px;
+}
+
+.mat-typography p {
+    margin: 0 0 0px !important;
+
+}
+
+.mat-step-icon .mat-icon {
+    font-family: 'Material Icons' !important;
+}
+
+
+
+
+.roadmap-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    text-align: center;
+    font-family: IBM Plex Sans Condensed, sans-serif !important;
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+}
+
+
+
+.roadmap {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 1px;
+    justify-items: center;
+    align-items: flex-start;
+}
+
+.step {
+    text-align: center;
+    width: 88%;
+}
+
+.fa-arrow-right,.fa-arrow-left {
+    position: relative; 
+    top: -112px;
+    left: 104px !important;
+    z-index: 1000; 
+    font-size: 2rem;
+  }
+.fa-arrow-down{
+    position: relative; 
+    //top: -112px;
+    left: -2px;
+    z-index: 1000; 
+    font-size: 2rem;
+  }
+.circle {
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto -1rem auto;
+    border: 3px solid #fff;
+    position: relative;
+    z-index: 10;
+    font-size: large;
+    font-weight: bold;
+}
+
+.content {
+    background-color: #f5f5f5;
+    padding: 1rem;
+    min-height: 30vh;
+    max-height: 30vh;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border: 2px solid #fff;
+    h3{
+        padding: 15px 15px 0px 15px;
+
+        font-weight: bold;
+    }
+    p{
+        margin-left: -20px;
+        text-align: start;
+    }
+}
+
+.content.orange {
+    background-color: #f4b081;
+}
+
+.content.blue {
+    background-color: #8facdf;
+}
+
+.content.yellow {
+    background-color: #feda66;
+}
+
+.content.light-blue {
+    background-color: #8be1ff;
+}
+.content.purple {
+    background-color: #d5a9d5;
+
+}
+
+.content.peach {
+    background-color: #9fd1ab;
+
+}
+.content.pink {
+    background-color: #f6c1c1;
+
+}
+.circle.orange {
+    background-color: #c55b10;
+}
+
+.circle.blue {
+    background-color: #305590;
+}
+
+.circle.yellow {
+    background-color: #ba9103;
+}
+
+.circle.light-blue {
+    background-color: #07adea;
+}
+.circle.purple {
+    background-color: #631663;
+
+}
+
+.circle.peach {
+    background-color: #53b069;
+
+}
+.circle.pink {
+    background-color: #ce7878;
+
+}
+.triangle.orange {
+    border-top: 40px solid #f4b081;
+}
+
+.triangle.blue {
+    border-top: 40px solid #8facdf;
+}
+
+.triangle.yellow  {
+    border-top: 40px solid  #feda66;
+    
+}
+.triangle.light-blue {
+    border-top: 40px solid  #8be1ff;
+}
+.line-container {
+    position: relative;
+    margin-top: 2rem;
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+
+    position: relative;
+    z-index: 10;
+    margin: 0 auto -1rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+    font-weight: bold;
+    //color: black; /* Text color inside the triangle */
+}
+
+.line {
+    height: 4px;
+    background-color: #333;
+    position: absolute;
+    width: 79%;
+    left: 10%;
+    top: 50%;
+}
+
+.dot {
+    width: 20px;
+    height: 20px;
+    background-color: #333;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.dot:nth-child(2) {
+    left: 10%;
+}
+
+.dot:nth-child(3) {
+    left: 36%;
+}
+
+.dot:nth-child(4) {
+    left: 62%;
+}
+
+.dot:nth-child(5) {
+    left: 88%;
+}
+::ng-deep{
+    @media screen and (max-width: 767px) {
+        .mat-vertical-stepper-header .mat-step-icon {
+            background-image: linear-gradient(99deg, #012d64, #06b0ff) !important;
+        }
+}
+}
+@media screen and (max-width: 767px) {
+    .mat-vertical-stepper-header .mat-step-icon {
+        background-image: linear-gradient(99deg, #012d64, #06b0ff) !important;
+    }
+
+    .li_page-paging {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .discription {
+        flex-direction: column;
+        margin-top: -30px;
+
+        img {
+            width: 85%;
+        }
+
+        .detail {
+            padding: 19px;
+        }
+    }
+    .roadmap-container h2{
+        font-size: 1.5rem;
+    }
+}
+
+
+@keyframes slideY {
+    0% {
+        transform: translateY(0);
+        opacity: 1; 
+    }
+    100% {
+        transform: translateY(50px);
+    }
+}
+
+@media (max-width: 768px) {
+    .roadmap {
+        grid-template-columns: 1fr; /* Display one card per row */
+    }
+    .step {
+        width: 100%;
+        margin-bottom: 2rem;
+        position: relative;
+        padding-left: 10px;
+    }
+
+    .line-container {
+        display: none;
+    }
+
+    .roadmap::before {
+        content: '';
+        position: absolute;
+        height: 81%;
+        width: 3px;
+        background-image: linear-gradient(98deg, #0b66c2, #009ad6);
+        left: 35px;
+        top: 243px;
+        z-index: 0;
+    }
+
+    .circle {
+        position: relative;
+        z-index: 4;
+        margin-left: 63px;
+    }
+
+    .content {
+        position: relative;
+        z-index: 1;
+    }
+    .step::before {
+        content: '';
+        position: absolute;
+        height: 15px;
+        width: 15px;
+        background-image: linear-gradient(98deg, #0b66c2, #009ad6);
+        border-radius: 50%;
+        left: -23px;
+        top: 52px;
+        z-index: 1;
+        animation: slideY 1s linear forwards;
+        animation-play-state: running;
+        opacity: 0; 
+        opacity: 1; 
+    }
+    .arrow{
+        display: none;
+    }
+    .about{
+        color:black !important;
+    }
+    .profile-header{
+        flex-direction: column;
+        align-items: center;
+    }
+    .bottom-area{
+        margin-top:250px !important ;
+    }
+}
+
+
+
+
+
+.profile-container {
+    font-family: IBM Plex Sans Condensed, sans-serif !important;
+    background-color: #fff;
+    color: black;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+    display: flex;
+    background-image: url('https://cdn.prod.website-files.com/5fdb2866020c200cd7fd7369/661511eb7522b300facbf8fc_Group%2048098594.png'),
+    linear-gradient(101deg, #012d64, #06b0ff);
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: -100% center; 
+    animation: slideBackground 3s infinite linear;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    height: 20vh;
+    border-radius: 10px 10px 0px 0px;
+    column-gap: 40px;
+}
+
+.profile-image img {
+    background-color: #FFF;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin-top: 43px;
+    border: 10px solid #07adea;
+}
+
+.about {
+   color:#fff;
+    padding: 20px;
+   // width: 60%;
+    text-align: left;
+}
+
+@keyframes slideBackground {
+    0% {
+        background-position: -100% center; 
+    }
+    50% {
+        background-position: center center; 
+    }
+    100% {
+        background-position: 100% center; 
+    }
+}
+
+
+.profile-details {
+    //margin: 20px 0;
+    padding: 20px;
+    h1{
+        font-weight: bold;
+    }
+}
+
+.personal-info {
+    justify-content: space-between;
+}
+
+.profile-content {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.bottom-area{
+    display: flex;
+    column-gap: 100px;
+    flex-wrap: wrap;
+    align-content: stretch;
+    margin-top: 50px;
+    padding: 25px;
+}
+
+.progress-bar {
+    width: 60%;
+    background-color: #ccc;
+    border-radius: 10px;
+    margin: 0 10px;
+}
+
+.progress {
+    height: 10px;
+    background-color: #e16d38;
+    border-radius: 10px;
+}
+.skills {
+    padding: 20px;
+    h2{
+        font-weight: bold;
+    }
+}
+.skills ul {
+  
+    list-style: none;
+    padding: 0;
+}
+.personality{
+    h2{
+        font-weight: bold;
+    }
+}
+.personality ul {
+  
+    list-style: none;
+    padding: 0;
+}
+.skills ul li {
+    margin: 5px 0;
+    display: list-item;
+    list-style: circle inside;
+}
+
+.personality ul li{
+    margin: 5px 0;
+    display: list-item;
+    list-style: circle inside;
+}

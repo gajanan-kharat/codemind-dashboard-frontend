@@ -1,0 +1,85 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'ngx-toastr/toastr';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;700&display=swap');
+@import "~aos/dist/aos.css";
+html, body { height: 100%; }
+:root {
+    --primary-color: #012d64;
+    --secondary-color: #06b0ff;
+    --light-blue: #f4f9ff;
+    --white: #fff;
+    --dark-blue: #038ed2;
+    --border-color: #e2e2e2;
+    --box-shadow: 0 4px 10px #0000001a;
+    --border-radius: 12px;
+    --font-size-large: 2.5rem;
+    --font-size-medium: 1.5rem;
+    --font-size-small: 1.3rem;
+    --font-size-xsmall: 1rem;
+    --font-size-xxsmall: 13px;
+    --padding: 10px;
+    --margin: 20px;
+}
+
+
+body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    background-color: #f5f5f5;
+    
+
+    
+}
+.mat-typography,h1,h2,h3,h4,h5,h6,p {
+    font-family: IBM Plex Sans Condensed, sans-serif !important;
+}
+
+.container {/* Enable Grid */
+    place-items: center;
+    position: relative; 
+    width: 95%;
+    height: auto;
+}
+.owl-carousel .owl-nav .owl-prev, 
+.owl-carousel .owl-nav .owl-next {
+    background-image: linear-gradient(99deg, #012d64, #06b0ff);
+    border-radius: 100%; 
+    width: 40px; 
+    height: 40px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: transparent; 
+    font-size: 1.5rem; 
+    line-height: 1; 
+    text-align: center; 
+    text-decoration: none; 
+    transition: background 0.3s ease, transform 0.3s ease; 
+    position: relative;
+}
+.owl-carousel .owl-nav .owl-prev::before {
+    content: ''; 
+    position: absolute;
+    width: 20px; 
+    height: 20px; 
+    background: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M14%2019l-7-7%207-7%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22/%3E%3C/svg%3E') no-repeat center center;
+    background-size: contain;
+}
+
+.owl-carousel .owl-nav .owl-next::before {
+    content: ''; 
+    position: absolute;
+    width: 20px; 
+    height: 20px; 
+    background: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M10%2019l7-7-7-7%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22/%3E%3C/svg%3E') no-repeat center center;
+    background-size: contain;
+}
+
+.owl-carousel .owl-nav .owl-prev:hover,
+.owl-carousel .owl-nav .owl-next:hover {
+    background: #026ba5;
+    transform: scale(1.1); 
+    color: transparent; 
+}

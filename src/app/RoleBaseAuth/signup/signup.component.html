@@ -1,0 +1,97 @@
+<div *ngIf="showSignUpPopup" class="popup" id="popup">
+  <!-- <button class="close" (click)="closeSignUpPopup()">&times;</button> -->
+  <div class="popup-container">
+    <div class="popup-top">
+      <div class="image">
+        <img src="../../assets/img/logo-shape.png" alt="codemind-image">
+      </div>
+    </div>
+    <div class="popup-content">
+      <h2>Sign Up</h2>
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div class="fullname">
+          <div>
+          <div class="input-wrapper">
+            <input class="firstname" type="text" id="firstname" formControlName="firstname" placeholder="First Name" autocomplete="firstname" [class.invalid]="signupForm.get('firstname')?.invalid && (signupForm.get('firstname')?.dirty || signupForm.get('firstname')?.touched)">
+            <!-- <i class="fas fa-user icon icon-name"></i> -->
+          </div>
+          <div *ngIf="signupForm.get('firstname')?.invalid && (signupForm.get('firstname')?.dirty || signupForm.get('firstname')?.touched)" class="error">
+            First Name is required
+          </div>
+          </div>
+          <div>
+          <div class="input-wrapper">
+            <input class="lastname" type="text" id="lastname" formControlName="lastname" placeholder="Last Name" autocomplete="lastname" [class.invalid]="signupForm.get('lastname')?.invalid && (signupForm.get('lastname')?.dirty || signupForm.get('lastname')?.touched)">
+            <!-- <i class="fas fa-user icon icon-name"></i> -->
+          </div>
+          <div *ngIf="signupForm.get('lastname')?.invalid && (signupForm.get('lastname')?.dirty || signupForm.get('lastname')?.touched)" class="error">
+            Last Name is required
+          </div>
+          </div>
+        </div>
+        <div class="input-wrapper">
+          <input class="email" type="email" id="email" formControlName="email" placeholder="xyz@gmail.com" autocomplete="email" [class.invalid]="signupForm.get('email')?.invalid && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)">
+          <i class="fas fa-envelope icon icon-email"></i>
+        </div>
+        <div *ngIf="signupForm.get('email')?.invalid && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)" class="error">
+          <div *ngIf="signupForm.get('email')?.errors?.['required']">Email is required</div>
+          <div *ngIf="signupForm.get('email')?.errors?.['email']">Invalid email address</div>
+        </div>
+
+        <div class="input-wrapper">
+          <input class="number" id="mobile_number" formControlName="mobile_number" type="tel" placeholder="+91 0000000000" autocomplete="tel" [class.invalid]="signupForm.get('mobile_number')?.invalid && (signupForm.get('mobile_number')?.dirty || signupForm.get('mobile_number')?.touched)">
+          <i class="fas fa-phone icon icon-number"></i>
+        </div>
+        <div *ngIf="signupForm.get('mobile_number')?.invalid && (signupForm.get('mobile_number')?.dirty || signupForm.get('mobile_number')?.touched)" class="error">
+          <div *ngIf="signupForm.get('mobile_number')?.errors?.['required']">Mobile number is required</div>
+          <div *ngIf="signupForm.get('mobile_number')?.errors?.['pattern']">Invalid mobile number format</div>
+        </div>                
+
+        <div class="input-wrapper">
+          <input class="password" type="password" id="password" formControlName="password" placeholder="Password" autocomplete="current-password" [class.invalid]="signupForm.get('password')?.invalid && (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)">
+          <i class="fas fa-lock icon icon-password"></i>
+        </div>
+        <div *ngIf="signupForm.get('password')?.invalid && (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)" class="error">
+          Password is required
+        </div>
+
+        <!-- <div class="input-wrapper">
+          <select id="role" formControlName="role" class="role" [class.invalid]="signupForm.get('role')?.invalid && (signupForm.get('role')?.dirty || signupForm.get('role')?.touched)">
+            <option value="">Select Role</option>
+            <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+          </select>
+        </div>
+         <div *ngIf="signupForm.get('role')?.invalid && (signupForm.get('role')?.dirty || signupForm.get('role')?.touched)" class="error">
+          Role is required
+        </div>  -->
+
+        <div class="input-wrapper">
+          <select id="role" formControlName="role" class="role">
+            <option value="Student">Select Role</option>
+            <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+          </select>
+        </div>
+
+        <div class="input-wrapper">
+          <select id="course" formControlName="course" class="course">
+            <option value="Angular">Select Courses</option>
+            <option *ngFor="let course of courses" [value]="course">{{course}}</option>
+          </select>
+        </div>
+
+        <button class="submit-btn" type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+
+        <div class="button-container">
+            <p  class="text-and-button"> Already on CodeMind? <button class="login-btn" (click)="navigateToLoginIn()">Log In</button></p>
+        </div>
+       
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+  
+  

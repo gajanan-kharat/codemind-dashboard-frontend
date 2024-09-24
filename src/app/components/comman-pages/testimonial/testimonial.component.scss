@@ -1,0 +1,284 @@
+.testimonials{
+    text-align: center;
+    justify-content: center;
+    font-size: 2.5rem !important; 
+    margin-top: 30px !important;
+    line-height: 1.3;
+    height: 60px;
+    font-family: IBM Plex Sans Condensed, sans-serif !important;
+    letter-spacing: 2px !important;
+    overflow: hidden !important;
+    background: linear-gradient(97deg, #0b66c2, #009ad6); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    
+}
+
+.li_body {
+    font-family: IBM Plex Sans, sans-serif ;
+    line-height: 1.5;
+}
+.li_section.li_lightblue {
+    background-color: #e5f5fb;
+}
+.li_section {
+  
+    position: relative;
+}
+.li_page-padding {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+.li_container-medium {
+    max-width: 56.25rem;
+}
+.w-layout-blockcontainer {
+    max-width: 940px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+.w-container {
+    max-width: 1170px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.document-section {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 45px 20px 20px 0;
+    margin-bottom: 100px;
+    background-color: #e5f5fb;
+}
+
+
+
+/* Title Styling */
+.stories-title p {
+    font-size: 30px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 2rem;
+    letter-spacing: 2px;
+    font-family: IBM Plex Sans Condensed, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+.owl-carousel-section2 {
+    margin-left: 15px;
+    margin-right: 10px;
+  
+}
+
+.owl-carousel {
+    margin-top: 45px;
+}
+
+.testimonial-box{
+    width: 210px;
+    height: 330px;
+    /* border: 1px solid orange; */
+    border-radius: 20px;
+    box-shadow: #038ed2 0px 2px 4px, #038ed2 0px 7px 13px -3px, #038ed2 0px -3px 0px inset;
+    background-color: #ffffff;
+    padding: 15px;
+    margin: 12px;
+    cursor: pointer;
+    font-family: "Nunito", sans-serif;
+    transition: transform 0.3s ease-in-out;
+    overflow: hidden;
+    object-fit: cover;
+}
+.testimonial-box:hover {
+    transform: scale(1.05); /* Slightly zooms in the box on hover */
+}
+.carousel-item-container {
+    padding: 10px; 
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease-in-out;
+}
+.carousel-item-container:hover {
+    transform: scale(1.05); 
+}
+.carousel-item-container img {
+    border: 2px solid  #038ed2;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+
+.owl-carousel .owl-nav {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    transform: translateY(-50%);
+    margin-top: 50px;
+}
+
+
+.owl-carousel .owl-nav .owl-prev, 
+.owl-carousel .owl-nav .owl-next {
+    background-image: linear-gradient(99deg, #012d64, #06b0ff);
+    border-radius: 100%; 
+    width: 40px; 
+    height: 40px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: transparent; 
+    font-size: 1.5rem; 
+    line-height: 1; 
+    text-align: center; 
+    text-decoration: none; 
+    transition: background 0.3s ease, transform 0.3s ease; 
+    position: relative;
+}
+.owl-carousel .owl-nav .owl-prev::before {
+    content: ''; 
+    position: absolute;
+    width: 20px; 
+    height: 20px; 
+    background: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M14%2019l-7-7%207-7%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22/%3E%3C/svg%3E') no-repeat center center;
+    background-size: contain;
+}
+
+.owl-carousel .owl-nav .owl-next::before {
+    content: ''; 
+    position: absolute;
+    width: 20px; 
+    height: 20px; 
+    background: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M10%2019l7-7-7-7%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22/%3E%3C/svg%3E') no-repeat center center;
+    background-size: contain;
+}
+
+.owl-carousel .owl-nav .owl-prev:hover,
+.owl-carousel .owl-nav .owl-next:hover {
+    background: #026ba5;
+    transform: scale(1.1); 
+    color: transparent; 
+}
+
+.modal {
+    display: block; 
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    animation: scaleX 0.5s ease-in-out forwards; 
+  }
+  @keyframes scaleX {
+    from {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    to {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    max-width: 800px;
+    border-radius: 10px;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .modal-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+@media only screen and (max-width: 767px) {
+    .owl-carousel .owl-nav .owl-prev,
+    .owl-carousel .owl-nav .owl-next {
+        width: 30px;
+        height: 30px;
+        font-size: 1.2rem;
+    }
+    .owl-carousel .owl-nav{
+        margin-top:63px ;
+    }
+    .w-container{
+        max-width: 350px;
+    }
+    .owl-carousel-section2 {
+        margin-left: 0px;
+        margin-right: 0px;
+       
+    }
+    .modal-content {
+        width: 82%;
+        margin: 40% auto;
+      }
+      .w-container {
+        max-width: 277px;
+    }
+   
+}
+@media only screen and (max-width: 360px) {
+   
+    .document-section {
+        padding-right: 6px;
+    }
+    .document-title {
+        font-size: 34px;
+    }
+}
+@media only screen and (max-width: 767px) {
+    .display-doc {
+        margin-right: 0;
+    }
+    .document-section {
+        padding-top: 30px;
+    }
+    .document-title {
+        font-size: 32px;
+    }
+   
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .display-doc {
+        margin-right: 20px;
+        margin-top: 20px;
+    }
+    .owl-carousel-section2 {
+        margin-left: 105px;
+    }
+    .document-section {
+        padding-right: 55px;
+    }
+    .owl-carousel .owl-item img {
+        width: 90%;
+    }
+    .w-container{
+        max-width: 572px;
+        margin-left: 55px;
+    }
+}

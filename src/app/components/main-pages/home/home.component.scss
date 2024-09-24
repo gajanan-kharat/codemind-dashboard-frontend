@@ -1,0 +1,34 @@
+.zoom{
+    margin-top: 100px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2em;
+    color: #3498db; 
+    animation: moveAndColorChange 3s ease-in-out forwards;
+    opacity: 0; 
+    position: relative; 
+}
+
+@keyframes moveAndColorChange {
+    0% {
+        opacity: 0;
+        left: -100%;
+    }
+    50% {
+        opacity: 1;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #e91e63; 
+    }
+    100% {
+        opacity: 1;
+        left: 50%;
+        transform: translateX(-50%);
+        color: black; 
+        text-shadow:  2px 2px #b8b4b4;;
+    }
+}
+@media (max-width:599px) {
+   h3{ font-size: 1.5em;
+   }
+}

@@ -1,0 +1,73 @@
+<div *ngIf="showPopup" class="popup" id="popup">
+  <div class="popup-content">
+    <div class="title-section">
+      <!-- <button class="close" (click)="closePopup()">&times;</button> -->
+      <div class="image">
+        <img src="../../assets/img/logo-shape.png" alt="codemind-image">
+      </div>
+      <h2><span class="Join">Join Our Free Demo Class </span></h2>
+      <h2 class="register">Register Now!</h2>
+    </div>
+    <div>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="fullName">
+          <div>
+            <div class="input-wrapper">
+              <label class="firstName_label">First Name</label>
+              <input class="firstName" type="text" id="firstName" formControlName="firstName" placeholder="First Name"
+                autocomplete="firstName"
+                [class.invalid]="firstName?.invalid && (firstName?.dirty || firstName?.touched)">
+              <!-- <i class="fas fa-user icon icon-name"></i> -->
+            </div>
+            <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="error">
+                First Name is required
+            </div>
+          </div>
+          <div>
+            <div class="input-wrapper">
+              <label class="lastName_label">Last Name</label>
+              <input class="lastName" type="text" id="lastName" formControlName="lastName" placeholder="Last Name"
+                autocomplete="lastName" [class.invalid]="lastName?.invalid && (lastName?.dirty || lastName?.touched)">
+              <!-- <i class="fas fa-user icon icon-name"></i> -->
+            </div>
+            <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)" class="error">
+              Last Name is required
+            </div>
+          </div>
+        </div>
+        
+        <div class="input-wrapper">
+          <label class="email_label">Email</label>
+          <input class="email" type="email" id="email" formControlName="email" placeholder="xyz@gmail.com"
+            autocomplete="email" [class.invalid]="email?.invalid && (email?.dirty || email?.touched)">
+          <!-- <i class="fas fa-envelope icon icon-email"></i> -->
+        </div>
+        <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="error">
+          <div *ngIf="email?.errors?.['required']">Email is required</div>
+          <div *ngIf="email?.errors?.['email']">Invalid email address</div>
+        </div>
+
+        <div class="input-wrapper">
+          <label class="mobileNumber_label">Mobile Number</label>
+          <input class="mobileNumber" id="mobileNumber" formControlName="mobileNumber" type="tel"
+            placeholder="+91 0000000000" autocomplete="tel"
+            [class.invalid]="mobileNumber?.invalid && (mobileNumber?.dirty ||  mobileNumber?.touched)">
+          <!-- <i class="fas fa-phone icon icon-number"></i> -->
+        </div>
+        <div *ngIf="mobileNumber?.invalid && (mobileNumber?.dirty ||  mobileNumber?.touched)" class="error">
+          <div *ngIf="mobileNumber?.errors?.['required']">Mobile number is required</div>
+          <div *ngIf="mobileNumber?.errors?.['pattern']">Invalid mobile number format</div>
+        </div>
+
+        <div class="input-wrapper">
+          <label class="course_label">Courses</label>
+          <select id="course" formControlName="course" class="course">
+            <option value="Angular">Select Course</option>
+            <option *ngFor="let course of courses" [value]="course">{{course}}</option>
+          </select>
+        </div>
+
+        <button class="submit-btn" type="submit" [disabled]="form.invalid">Register Now</button>
+      </form>
+    </div>
+  </div>

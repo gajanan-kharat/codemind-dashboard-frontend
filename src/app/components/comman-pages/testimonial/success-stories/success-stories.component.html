@@ -1,0 +1,27 @@
+<section class="li_section dark-blue">
+    <div class="li_page-padding">
+        <div class="w-layout-blockcontainer li_container-medium w-container">
+<div class="success-section">
+    <div class="success-title">
+      <!-- <p>Success Stories from the course Students</p> -->
+       <p>From Classroom to Career: Success Stories</p>
+    </div>
+    <div class="owl-carousel-section2">
+        <owl-carousel-o [options]="videoSlides" class="custom-carousel shadow">
+            <ng-container *ngFor="let video of videos">
+                <ng-template carouselSlide>
+                    <div class="video-gallery">
+                        <iframe class="display-video1"
+                                [src]="video.src"
+                                frameborder="0"
+                                allow="autoplay; encrypted-media"
+                                allowfullscreen></iframe>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+    </div>
+  </div>
+  </div>
+  </div>
+</section>

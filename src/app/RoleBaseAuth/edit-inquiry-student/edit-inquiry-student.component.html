@@ -1,0 +1,76 @@
+<div *ngIf="isLoading" class="loader-container">
+    <mat-spinner></mat-spinner>
+  </div>
+  
+  <div class="inquiry-container">
+  <h1 mat-dialog-title>Edit Inquiry Student</h1>
+  <button class="cancel-btn" (click)="onCancel()">
+    <mat-icon>close</mat-icon>
+  </button>
+  
+  <div mat-dialog-content>
+    <form [formGroup]="inquiryForm">
+      <div class="section">
+        <div class="form-container">
+        <mat-form-field appearance="fill">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName">
+          <mat-error *ngIf="inquiryForm.get('firstName')?.hasError('required') && inquiryForm.get('firstName')?.touched">
+            First Name is required.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName">
+          <mat-error *ngIf="inquiryForm.get('lastName')?.hasError('required') && inquiryForm.get('lastName')?.touched">
+            Last Name is required.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+          <mat-error *ngIf="inquiryForm.get('email')?.hasError('required') && inquiryForm.get('email')?.touched">
+            Email is required.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Mobile Number</mat-label>
+          <input matInput formControlName="mobileNumber">
+          <mat-error *ngIf="inquiryForm.get('mobileNumber')?.hasError('required') && inquiryForm.get('mobileNumber')?.touched">
+            Mobile Number is required.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Course</mat-label>
+            <input matInput formControlName="course">
+            <mat-error *ngIf="inquiryForm.get('course')?.hasError('required') && inquiryForm.get('course')?.touched">
+                course is required.
+            </mat-error>
+          </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Inquiry Status</mat-label>
+          <mat-select formControlName="inquiryStatus">
+            <mat-option *ngFor="let status of inquiryStatuses" [value]="status">{{ status }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="inquiryForm.get('inquiryStatus')?.hasError('required') && inquiryForm.get('inquiryStatus')?.touched">
+            Inquiry Status is required.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="inquiryForm.get('date')?.hasError('required') && inquiryForm.get('date')?.touched">
+            Date is required.
+          </mat-error>
+        </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+  
+  <div class="bottom-section" mat-dialog-actions>
+    <button class="save-btn" mat-button (click)="onSave()">Save</button>
+  </div>
+  </div>

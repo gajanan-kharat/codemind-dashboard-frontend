@@ -1,0 +1,185 @@
+.content {
+    padding: 16px;
+  }
+  
+  .top-cards {
+    margin-bottom: 16px;
+  }
+  
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+  
+  .card {
+    width: 100%;
+    max-width: 250px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.4s ease-in-out;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .card-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+    margin-bottom: 16px;
+  }
+  
+  .card-icon {
+    font-size: 30px;
+    color: white;
+  }
+  
+  .filter-container{
+    display: flex;
+    justify-content: space-between;
+  }
+  .card-content {
+    text-align: center;
+  }
+  .card-content  .length{
+    font-size: 20px;
+    font-weight: bold;
+    color: #eef8f0;
+    // background-color: #6198ec;
+    border-radius: 20px;
+    padding: 5px 12px;
+    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+  } 
+  
+  .card-title {
+    font-size: 20px;
+    margin-top: 10px;
+    font-weight: bold;
+    color:#3fb554;
+
+    // background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+    // -webkit-text-fill-color: transparent;
+    // background-clip: text;
+    // color: transparent;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    background-color: #e0f7e9;
+  }
+
+  .student-table {
+    margin-bottom: 16px;
+  }
+  
+  .dropdown-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .filters{
+    display: flex;
+    gap: 20px;
+  }
+  
+  .mat-elevation-z8 {
+    margin-top: 16px;
+  }
+  
+  .mat-icon-button {
+    margin: 0;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+  }
+  
+  .red-icon {
+    color: red;
+  }
+  
+  .edit {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  ::ng-deep .mat-mdc-table thead {
+    background-color: #d1d4d0 !important;
+    color: white !important;
+  }
+  
+  /* Material Design Adjustments */
+  ::ng-deep .mat-primary .mat-mdc-select-arrow {
+    color: #3fb554;
+  }
+  
+  ::ng-deep .mat-mdc-form-field.mat-focused.mat-primary .mat-mdc-select-arrow {
+    color: #3fb554;
+  }
+  
+  ::ng-deep .mat-primary .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
+    color: var(--mdc-theme-primary, #3fb554);
+  }
+  
+  ::ng-deep .mat-primary .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal::after {
+    color: var(--mdc-theme-primary, #3fb554);
+  }
+  
+  :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-floating-label,
+  :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-floating-label--float-above {
+    color: #3fb554;
+  }
+  
+  /* Paginator */
+  ::ng-deep .mat-mdc-paginator-container {
+    background-color: rgb(241, 245, 240);
+  }
+  
+  :host ::ng-deep .mat-paginator-page-size {
+    color: #3fb554 !important;
+  }
+  
+  @media (max-width: 600px) {
+ 
+    :host ::ng-deep .mdc-data-table__cell,
+    .mdc-data-table__header-cell {
+      padding: 0 2px !important;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .card-container {
+      gap: 12px;
+      // width: 50px;
+      // height: 50px;
+    }
+    .card {
+      width: 40% !important;
+      padding: 15px;
+    }
+    .card-icon-container{
+      height: 50px;
+      width: 50px;
+    }
+    .content {
+      margin-top: 10px;
+    }
+    .filter-container {
+      display:block;
+    }
+    :host ::ng-deep .mdc-data-table__cell,
+    .mdc-data-table__header-cell {
+      padding: 0 10px;
+    }
+  }
+  

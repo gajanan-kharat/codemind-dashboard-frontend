@@ -1,0 +1,16 @@
+<div class="slider-container" *ngIf="sliderData && programmingFundamentals">
+  <div class="slider-header" (click)="toggleSlider()">
+    <h1 [innerHTML]="programmingFundamentals?.name"></h1>
+    <button class="toggle-btn">
+      {{ isOpen ? '-' : '+' }}
+    </button>
+  </div>
+  <div class="dropdown-content" [ngClass]="{ 'open': isOpen, 'closed': !isOpen }">
+   
+      <div *ngFor="let slider of sliderData">
+        <p class="slidername" [innerHTML]="slider?.name"></p>
+        <p [innerHTML]="slider?.discription"></p>
+      </div>
+    </div>
+  </div>
+

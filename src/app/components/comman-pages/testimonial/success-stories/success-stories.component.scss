@@ -1,0 +1,146 @@
+.success-section{
+    margin-top: 200px;
+ background-color: #e5f5fb;
+
+ border-radius: 30px;
+ padding: 7.25rem 4.625rem;
+}
+
+.success-title{
+    font-size: 30px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 2rem;
+    letter-spacing: 2px;
+    text-align: center;
+}
+.video-gallery {
+    padding: 10px;
+    margin-top: 29px;
+}
+
+.display-video1 {
+    width: 100%;
+    height: 200px; /* Set a fixed height for video */
+    border-radius: 10px; /* Rounded corners for video */
+}
+.owl-carousel-section2{
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    background-color: #FFF;
+    border-radius: 30px;
+}
+
+
+
+
+.li_body {
+
+    line-height: 1.5;
+}
+.li_section.li_lightblue {
+    background-color: #e5f5fb;
+}
+.li_section {
+  
+    position: relative;
+}
+.li_page-padding {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+.li_container-medium {
+    max-width: 56.25rem;
+}
+.w-layout-blockcontainer {
+    max-width: 940px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+.w-container {
+    max-width: 1170px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 767px) {
+    .w-container{
+        max-width: 277px;
+    }
+    .success-section{
+        padding: 4.25rem 1.625rem ;
+        width: 77vw;
+        margin-left: -26px;
+        margin-top: 100px;
+        .success-title{
+            font-size: 23px;
+            letter-spacing: 1px;
+           
+        }
+    }
+    .owl-carousel-section2{
+        height: 45vh;
+    }
+}
+
+/* Small screens (up to 360px) */
+@media only screen and (max-width: 390px) {
+   
+    .document-section {
+        padding-right: 6px;
+    }
+    .document-title {
+        font-size: 34px;
+    }
+    .success-section{
+        margin-left: -30px;
+    }
+    
+}
+
+/* Medium screens (up to 767px) */
+@media only screen and (max-width: 767px) {
+    .display-doc {
+        margin-right: 0;
+        margin-left: 10px;
+    }
+    .document-section {
+        padding-top: 30px;
+    }
+    .document-title {
+        font-size: 32px;
+    }
+    .owl-carousel .owl-item img {
+        width: 265px;
+    }
+}
+@media only screen and (min-width: 414px) and (max-width: 767px) {
+    .success-section{
+        margin: -46px;
+        margin-top: 70px;
+    }
+}
+/* Larger screens (768px to 1024px) */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .display-doc {
+        margin-right: 20px;
+        margin-top: 20px;
+    }
+    .owl-carousel-section2 {
+        margin-left: 105px;
+    }
+    .document-section {
+        padding-right: 55px;
+    }
+    .owl-carousel .owl-item img {
+        width: 90%;
+    }
+    .w-container{
+        max-width: 572px;
+        margin-left: 55px;
+    }
+}
+
+

@@ -1,0 +1,241 @@
+.li_body {
+  
+    line-height: 1.5;
+}
+
+.li_section.li_lightblue {
+    background-color: #e5f5fb; // Light blue background for the section
+   
+}
+
+.li_section {
+    position: relative;
+}
+
+.li_page-padding {
+    padding-left: 5.5rem;
+    padding-right: 2.5rem;
+
+}
+
+.li_container-medium {
+    max-width: 56.25rem;
+}
+
+.w-container {
+    max-width: 1170px;
+    margin-left: auto;
+    margin-right: auto;
+  
+}
+
+.heads-title h2 {
+    font-size: 32px;
+    margin-top: 40px;
+    text-align: center;
+    font-family: IBM Plex Sans Condensed, sans-serif;
+    font-weight: bold;
+}
+
+.para_serv {
+    font-size: 16px;
+    color: #342f2f;
+    text-align: center;
+    margin-bottom: 40px;
+}
+.container{
+    margin-top: 100px;
+}
+/* Services Row */
+.services-row {
+    font-family: IBM Plex Sans Condensed, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-between;
+    margin-top: 80px;
+}
+
+.service-col {
+    flex: 1 1 calc(33.333% - 30px); 
+    box-sizing: border-box;
+    margin-bottom: 30px; 
+}
+.services-row.third-row .service-col {
+    flex: 0 1 calc(33.333% - 30px); /* Ensure three columns */
+    box-sizing: border-box;
+    margin-bottom: 30px; /* Space between rows */
+}
+.services-row.third-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px; /* Remove space between cards */
+    justify-content: center;
+}
+/* Home Service Box */
+.home-service {
+   
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+.home-service .img {
+    overflow: hidden;
+    border-radius: 10px;
+}
+h3{
+    
+    font-family: IBM Plex Sans Condensed, sans-serif !important;
+    font-size: 20px;
+    margin-bottom: 35px;
+    font-weight: bold;
+    height: 32px;
+    
+}
+.img img {
+    width: 100%;
+   min-height: 28vh;
+   max-height: 28vh;
+    border-radius: 10px;
+    transition: transform 0.6s ease-in-out;
+}
+.home-service:hover img {
+    transform: scale(1.2); /* Zoom in effect */
+}
+.home-details {
+    font-family: IBM Plex Sans Condensed, sans-serif;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 0 25px rgba(var(--color-black-rgb), .1);
+    height: 190px;
+    margin: -100px 30px 0;
+    padding: 40px 30px;
+    position: relative;
+    text-align: center;
+    transition: all .3s ease-in-out;
+}
+.service-icon-img {
+    width: 40px; /* Adjust size as needed */
+    height: auto;
+    display: block;
+    margin: 0 auto 15px; /* Center the image and add some margin below */
+  }
+.icon {
+    align-items: center;
+    background-image: linear-gradient(101deg, #012d64, #06b0ff);
+    border: 2px solid #fff;
+    border-radius: 50px;
+    color: #fff;
+    display: flex;
+    font-size: 28px;
+    height: 62px;
+    justify-content: center;
+    left: calc(50% - 36px);
+    margin: 0 0 20px;
+    position: absolute;
+    top: -36px;
+    transition: .3s ease-in-out;
+    width: 62px;
+}
+
+.icon:hover {
+    border: none;
+}
+p {
+    font-size: 14px;
+    color:  #342f2f;
+    margin-bottom: 20px;
+}
+
+.button {
+    font-family: IBM Plex Sans Condensed, sans-serif;
+    position: relative;
+    color: #fff;
+    text-transform: uppercase;
+    border-radius: 25px;
+    height: 50px;
+    width: 160px;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+    overflow: hidden;
+    box-shadow: 0 10px 20px #0586ceb3;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-image: url('https://cdn.prod.website-files.com/5fdb2866020c200cd7fd7369/661511eb7522b300facbf8fc_Group%2048098594.png'),
+    linear-gradient(101deg, #012d64, #06b0ff);
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: -100% center; 
+    animation: slideBackground 3s infinite linear;
+}
+@keyframes slideBackground {
+    0% {
+      background-position: -100% center; 
+    }
+    50% {
+      background-position: center center; 
+    }
+    100% {
+      background-position: 100% center; 
+    }
+  }
+  
+.button:hover {
+    background-color: #0056b3;
+}
+.off {
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 28px;
+    padding: 5px 11px;
+    font-size: .875rem;
+    position: absolute;
+    inset: 173px 15px auto auto;
+    box-shadow: 0 4px 10px #00000040;
+    animation: zoomInOut 1s ease-in-out infinite;
+}
+@keyframes zoomInOut {
+    0%, 100% {
+      transform: scale(1); 
+    }
+    50% {
+      transform: scale(1.1); 
+    }
+  }
+/* Responsive Styles */
+@media (max-width: 991px) {
+    .service-col {
+        flex: 1 1 calc(50% - 30px); /* 2 columns on medium screens */
+    }
+}
+
+@media (max-width: 767px) {
+    .service-col {
+        flex: 1 1 100%; /* 1 column on small screens */
+    }
+    .li_page-padding{
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+    }
+    .button{
+        margin-top: 0px;
+    }
+    .img img{
+        height: 30vh;
+    }
+    .services-row.third-row{
+        flex-direction: column;
+    }
+    .heads-title h2{
+        font-size: 29px;
+    }
+    .off{
+        inset: 191px 15px auto auto;
+    }
+}

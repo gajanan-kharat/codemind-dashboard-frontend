@@ -1,0 +1,125 @@
+<div class="event-container">
+    <div class="event-title">
+        <p>CODEMIND Events & Highlights</p>
+    </div>
+    <!-- Upcoming Batches Section -->
+    <div class="event stricky-1" id="upcoming-batches">
+        <h1 class="title">Upcoming Batches</h1>
+        <div class="owl-carousel-container">
+            <owl-carousel-o [options]="carouselOptions">
+                <ng-container *ngFor="let service of upcomingBatches">
+                    <ng-template carouselSlide>
+                        <div class="services-row">
+                            <div class="service-col" data-aos="zoom-in" [attr.data-aos-delay]="service.delay">
+                                <div class="home-service">
+                                    <div class="img">
+                                        <img [src]="service.image" class="img-fluid" [alt]="service.title"
+                                            loading="lazy">
+                                        <div class="Schedule" *ngFor="let date of service.dateInfo">
+                                            <p>{{date.day}}
+                                                {{date.dayNumber}}<sup>th</sup> {{date.month}}
+                                                {{date.time}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="home-details">
+                                        <div class="icon">
+                                            <i [class]="service.icon"></i>
+                                        </div>
+                                        <h3>{{ service.title }}</h3>
+                                        <p>{{ service.hightlight}}</p>
+                                        <p>{{ service.hightlight1}}</p>
+                                        <p>{{ service.hightlight2}}</p>
+                                        <div class="off-container">
+                                            <p class="off">20% OFF</p>
+                                        </div>
+                                        <button class="button button-2" (click)="navigateToRegisterNow()">Register
+                                            Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ng-container>
+            </owl-carousel-o>
+        </div>
+    </div>
+
+    <!-- Bootcamps Section -->
+    <div class="event stricky-2" id="bootcamps">
+        <h1 class="title">Bootcamps</h1>
+        <div class="owl-carousel-container">
+            <owl-carousel-o [options]="carouselOptions">
+                <ng-container *ngFor="let service of bootcamps">
+                    <ng-template carouselSlide>
+                        <div class="services-row">
+                            <div class="service-col" data-aos="zoom-in" [attr.data-aos-delay]="service.delay">
+                                <div class="home-service">
+                                    <div class="img">
+                                        <img [src]="service.image" class="img-fluid" [alt]="service.title"
+                                            loading="lazy">
+                                        <div class="Schedule" *ngFor="let date of service.dateInfo">
+                                            <p>{{date.day}}
+                                                {{date.dayNumber}}<sup>th</sup> {{date.month}}
+                                                {{date.time}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="home-details">
+                                        <div class="icon"><i [class]="service.icon"></i></div>
+                                        <h3>{{ service.title }}</h3>
+                                        <p>{{ service.description }}</p>
+                                        <div class="off-container">
+                                            <p class="off">20% OFF</p>
+                                        </div>
+                                        <button class="button button-2" (click)="navigateToRegisterNow()">Register
+                                            Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ng-container>
+            </owl-carousel-o>
+        </div>
+    </div>
+
+    <!-- Campus Connections Section -->
+    <div class="event stricky-3" id="campus-connections">
+        <h1 class="title">Campus Connections</h1>
+        <div class="owl-carousel-container">
+            <owl-carousel-o [options]="carouselOptions">
+                <ng-container *ngFor="let service of campusConnections">
+                    <ng-template carouselSlide>
+                        <div class="services-row">
+                            <div class="service-col" data-aos="zoom-in" [attr.data-aos-delay]="service.delay">
+                                <div class="home-service">
+                                    <div class="img">
+                                        <img [src]="service.image" class="img-fluid" [alt]="service.title"
+                                            loading="lazy">
+                                        <div class="Schedule" *ngFor="let date of service.dateInfo">
+                                            <p>
+                                                {{date.day}}
+                                                {{date.dayNumber}}<sup>th</sup> {{date.month}}
+                                                {{date.time}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="home-details">
+                                        <div class="icon"><i [class]="service.icon"></i></div>
+                                        <h3>{{ service.title }}</h3>
+                                        <p>{{ service.description }}</p>
+                                        <div class="off-container">
+                                            <p class="off">20% OFF</p>
+                                        </div>
+                                        <button class="button button-2" (click)="navigateToRegisterNow()">Register
+                                            Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </ng-template>
+                </ng-container>
+            </owl-carousel-o>
+        </div>
+    </div>
+</div>

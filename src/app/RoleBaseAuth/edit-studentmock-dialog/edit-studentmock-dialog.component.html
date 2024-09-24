@@ -1,0 +1,116 @@
+<h1 mat-dialog-title>Edit Student</h1>
+<button class="cancel-btn" (click)="onCancel()">
+  <mat-icon>close</mat-icon>
+</button>
+<div mat-dialog-content>
+  <form [formGroup]="studentMockForm">
+    <!-- Student Fields -->
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name">
+      <mat-error *ngIf="studentMockForm.get('name')?.hasError('required') && studentMockForm.get('name')?.touched">
+        Name is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+      <mat-error *ngIf="studentMockForm.get('email')?.hasError('required') && studentMockForm.get('email')?.touched">
+        Email is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Contact No</mat-label>
+      <input matInput formControlName="contactNo">
+      <mat-error *ngIf="studentMockForm.get('contactNo')?.hasError('required') && studentMockForm.get('contactNo')?.touched">
+        Contact is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Course</mat-label>
+      <mat-select formControlName="course">
+        <mat-option *ngFor="let course of courses" [value]="course">{{ course }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="studentMockForm.get('course')?.hasError('required') && studentMockForm.get('course')?.touched">
+        Course is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Batch</mat-label>
+      <mat-select formControlName="batch">
+        <mat-option *ngFor="let batch of batches" [value]="batch">{{ batch }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="studentMockForm.get('batch')?.hasError('required') && studentMockForm.get('batch')?.touched">
+        Course is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Graduation</mat-label>
+      <input matInput formControlName="graduation">
+      <mat-error *ngIf="studentMockForm.get('graduation')?.hasError('required') && studentMockForm.get('graduation')?.touched">
+        Graduation is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Passing Year</mat-label>
+      <mat-select formControlName="passingYear">
+        <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="studentMockForm.get('passingYear')?.hasError('required') && studentMockForm.get('passingYear')?.touched">
+        Passing Year is required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Mocks Section -->
+    <div formArrayName="mocks">
+      <div *ngFor="let mock of mocks.controls; let i = index" [formGroupName]="i">
+        <h2 class="mock">Mock Information</h2>
+        <mat-form-field appearance="fill">
+          <mat-label>Mock Number</mat-label>
+          <mat-select formControlName="mockNumber">
+            <mat-option *ngFor="let number of mockNumbers" [value]="number">{{ number }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="studentMockForm.get('mockNumber')?.hasError('required') && studentMockForm.get('mockNumber')?.touched">
+            Passing Year is required.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Mock Date</mat-label>
+          <input matInput [matDatepicker]="datepicker" formControlName="mockDate" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+          <mat-datepicker #datepicker></mat-datepicker>
+          <mat-error *ngIf="studentMockForm.get('mockDate')?.hasError('required') && studentMockForm.get('mockDate')?.touched">
+             Mock Date is required.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Mock Time</mat-label>
+          <input matInput formControlName="mockTime">
+          <mat-error *ngIf="studentMockForm.get('mockTime')?.hasError('required') && studentMockForm.get('mockTime')?.touched">
+            Mock Time is required.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Mock Status</mat-label>
+          <mat-select formControlName="mockStatus">
+            <mat-option *ngFor="let status of mockStatuses" [value]="status">{{ status }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="studentMockForm.get('mockStatus')?.hasError('required') && studentMockForm.get('mockStatus')?.touched">
+            Mock status is required.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Feedback</mat-label>
+          <textarea matInput formControlName="feedback"></textarea>
+          <mat-error *ngIf="studentMockForm.get('feedback')?.hasError('required') && studentMockForm.get('feedback')?.touched">
+            Mock Feedback is required.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <button mat-stroked-button class="custom-color-button" (click)="addMock()">Add Mock</button>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button class="save-btn" mat-button (click)="onSave()">Save</button>
+</div>

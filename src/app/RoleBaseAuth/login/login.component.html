@@ -1,0 +1,41 @@
+<div *ngIf="showLoginPopup" class="popup" id="popup-login"> 
+  <!-- <button class="close" (click)="closeLoginPopup()">&times;</button> -->
+  <div class="popup-container">
+    <div class="popup-top">
+      <div class="image">
+        <img src="../../assets/img/logo-shape.png" alt="codemind-image">
+      </div>
+      
+    </div>
+    <div class="popup-content">
+      <h2><span class="Join">Log In</span></h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="input-wrapper">
+          <label class="email_label">Email</label>
+          <input class="email" id="email" formControlName="email" type="email" placeholder="xyz@gmail.com"
+            autocomplete="email" [class.invalid]="email?.invalid && (email?.dirty || email?.touched)">
+          <i class="fas fa-envelope icon icon-email"></i>
+        </div>
+        <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="error">
+          <div *ngIf="email?.errors?.['required']">Please enter your email</div>
+          <div *ngIf="email?.errors?.['email']">Invalid email address</div>
+        </div>
+        <div class="input-wrapper">
+          <label class="password_label">Password</label>
+          <input class="password" id="password" type="password" formControlName="password" placeholder="********"
+            autocomplete="current-password"
+            [class.invalid]="password?.invalid && (password?.dirty || password?.touched)">
+          <i class="fas fa-lock icon icon-password"></i>
+        </div>
+        <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="error">
+          Please enter your password
+        </div>
+        <button class="submit-btn" type="submit" [disabled]="loginForm.invalid">Login</button>
+        <div class="button-container">
+          <p class="text-and-button"> New to CodeMind?<button class="singup-btn" (click)="navigateToSignUp()"> Sign
+              Up</button></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,298 @@
+.whatsapp-section{
+    margin-top: 100px;
+}
+.testimonial-box{
+    width: 290px;
+    height: 320px;
+    /* border: 1px solid orange; */
+    border-radius: 20px;
+    box-shadow: #038ed2 0px 2px 4px, #038ed2 0px 7px 13px -3px, #038ed2 0px -3px 0px inset;
+
+    background-color: #ffffff;
+    padding: 15px;
+    margin: 12px;
+    cursor: pointer;
+    font-family: "Nunito", sans-serif;
+    transition: transform 0.3s ease-in-out;
+}
+.testimonial-box:hover {
+    transform: scale(1.05); /* Slightly zooms in the box on hover */
+}
+.whatsapp-title{
+    font-size: 30px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 2rem;
+    letter-spacing: 2px;
+    font-family: IBM Plex Sans Condensed, sans-serif;
+    text-align: center;
+}
+.box-top {
+    text-align: start;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.client-comment p {
+    font-size: 0.9rem;
+    color: #4b4b4b;
+    text-align: center; /* Center the paragraph text */
+    margin: 10px 0;
+    line-height: 1.6;
+    font-size: 14px;
+    color: #333;
+    font-family: IBM Plex Sans Condensed, sans-serif;
+}
+.profile {
+    display: flex;
+    align-items: center;
+}
+.profile-img {
+    overflow: hidden;
+    margin-right: 5px;
+}
+.name-user {
+    display: flex;
+    flex-direction: column;
+}
+.name-user strong {
+    color: #3d3d3d;
+    font-size: 1rem;
+    letter-spacing: 0.2px;
+}
+.name-user span {
+    color: #979797;
+    font-size: 0.8rem;
+}
+.reviews {
+    color: #f9d71c;
+    font-size: 12px;
+    text-align: center;
+}
+@keyframes slideRight {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+.li_body {
+    
+    line-height: 1.5;
+}
+.li_section.li_lightblue {
+    background-color: #e5f5fb;
+}
+.li_section {
+  
+    position: relative;
+}
+.li_page-padding {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+.li_container-medium {
+    max-width: 56.25rem;
+}
+.w-layout-blockcontainer {
+    max-width: 940px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+.w-container {
+    max-width: 1170px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.document-section {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 45px 20px 20px 0;
+    margin-bottom: 100px;
+    background-color: #e5f5fb;
+}
+
+
+
+/* Title Styling */
+.stories-title p {
+    font-size: 30px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 2rem;
+    letter-spacing: 2px;
+    text-align: center;
+}
+.owl-carousel-section2 {
+    margin-left: 50px;
+    margin-right: 20px;
+   
+}
+
+.owl-carousel {
+    margin-top: 45px;
+}
+
+.display-doc {
+    border: 2px solid rgb(241, 207, 132);
+    border-radius: 20px;
+    width: 200px;
+    height: 380px;
+    object-fit: cover; /* Ensure images cover the area without distortion */
+}
+
+/* Style for each carousel item to add shadow */
+.carousel-item-container {
+    padding: 10px; /* Optional: adds spacing around the image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-item-container img {
+    border: 2px solid  #038ed2;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.owl-carousel .owl-item img {
+    
+    width: 250px;
+}
+//* Modal Container */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: hidden; /* Disable scrolling */
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  }
+  
+  /* Modal Content Box */
+  .modal-content {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* Add this to the 'show' class for displaying the modal */
+  .show {
+    display: block;
+  }
+  
+
+
+/* Responsive adjustments */
+@media only screen and (max-width: 767px) {
+    .owl-carousel .owl-nav .owl-prev,
+    .owl-carousel .owl-nav .owl-next {
+        width: 30px;
+        height: 30px;
+        font-size: 1.2rem;
+    }
+    .w-container{
+        max-width: 277px;
+    }
+    .owl-carousel-section2 {
+        margin-left: 0px;
+        margin-right: 0px;
+       
+    }
+    .owl-carousel .owl-nav{
+        display: none;
+    }
+    .modal-content{
+        width: 77%;
+    }
+}
+
+/* Small screens (up to 360px) */
+@media only screen and (max-width: 360px) {
+   
+    .document-section {
+        padding-right: 6px;
+    }
+    .document-title {
+        font-size: 34px;
+    }
+}
+
+/* Medium screens (up to 767px) */
+@media only screen and (max-width: 767px) {
+    .display-doc {
+        margin-right: 0;
+        margin-left: 10px;
+    }
+    .document-section {
+        padding-top: 30px;
+    }
+    .document-title {
+        font-size: 32px;
+    }
+    .owl-carousel .owl-item img {
+        width: 265px;
+    }
+    .whatsapp-section{
+        margin-top: 100px;
+    }
+    .testimonial-box{
+        width: 225px;
+    }
+}
+@media only screen and (min-width: 414px) and (max-width: 767px) {
+    .testimonial-box{
+        margin: 10px;
+    }
+}
+/* Larger screens (768px to 1024px) */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .display-doc {
+        margin-right: 20px;
+        margin-top: 20px;
+    }
+    .owl-carousel-section2 {
+        margin-left: 105px;
+    }
+    .document-section {
+        padding-right: 55px;
+    }
+    .owl-carousel .owl-item img {
+        width: 90%;
+    }
+    .w-container{
+        max-width: 572px;
+        margin-left: 55px;
+    }
+}

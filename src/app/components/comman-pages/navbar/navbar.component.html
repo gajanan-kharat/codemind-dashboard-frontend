@@ -1,0 +1,97 @@
+<div class="header">
+  <div class="header-row">
+    <div class="header-item email">
+      <p class="title">Email Us:</p>
+      <a href="mailto:info@codemindtechnology.com">info@codemindtechnology.com</a>
+    </div>
+    <div class="header-item google-rating">
+      <p class="title">Google Rating:</p>
+      <div class="review-stars">
+        <i class="bx bxs-star checked"></i>
+        <i class="bx bxs-star checked"></i>
+        <i class="bx bxs-star checked"></i>
+        <i class="bx bxs-star checked"></i>
+        <i class="bx bxs-star checked"></i>
+      </div>
+    </div>
+    <div class="header-item call">
+      <p class="title">Call Us:</p>
+      <div class="numbers">
+        <a href="tel:+919665044698">(+91) - 9665 0446 98</a>
+        <span>&nbsp;</span>
+        <a href="tel:+919665044598">(+91) - 9665 0445 98</a>
+      </div>
+    </div>
+    <div class="header-item social-links">
+      <ul>
+        <li><a href="https://www.instagram.com/codemind_technology_official/" target="_blank"><i class="bx bxl-instagram"></i></a></li>
+        <li><a href="https://in.linkedin.com/company/codemind-technology" target="_blank"><i class="bx bxl-linkedin"></i></a></li>
+        <li><a href="https://www.facebook.com/CodemindTechnologyLLP/" target="_blank"><i class="bx bxl-facebook"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="sticky-nav navbar-area">
+    <div class="container-fluid">
+      <mat-toolbar>
+        <a class="navbar-brand" routerLink="/">
+          <img class="logoImg" src="assets/img/logo-shape.png" alt="logo" loading="lazy" />
+        </a>
+        <button class="navbar-toggler" (click)="isNavbarCollapsed = !isNavbarCollapsed">
+          <span class="burger-menu">
+            <span class="top-bar"></span>
+            <span class="middle-bar"></span>
+            <span class="bottom-bar"></span>
+          </span>
+        </button>
+        <ul class="navbar-nav" [ngClass]="{'collapsed': isNavbarCollapsed}">   
+          <li class="nav-item"><a routerLink="/" class="nav-link"  (click)="closeNavbar()">HOME</a></li>
+          <li class="nav-item"><a routerLink="/placements" class="nav-link"  (click)="closeNavbar()">PLACEMENTS</a></li>
+          <li class="nav-item dropdown"><a routerLink="/courses" class="nav-link dropbtn"  (click)="closeNavbar()">COURSES</a>
+            <ul class="dropdown-content" [ngClass]="{'show': isDropdownOpen}">
+              <li>
+                <img src="/assets/img/courseslogo/java.png" alt="Java Logo">
+                <div class="dropdown-text">
+                  <a routerLink="/course1">Full Stack Java Mastery</a>
+                  <p>Java with go live projects</p>
+                  <span><a [routerLink]="['/courses/java']" class="readmore">Read more →</a></span>
+                </div>
+              </li>
+              <li>
+                <img src="/assets/img/courseslogo/angular.png" alt="Angular Logo">
+                <div class="dropdown-text">
+                  <a routerLink="/course2">Angular Mean Stack</a>
+                  <p>Professional Web Development</p>
+                  <span><a [routerLink]="['/courses/angular']" class="readmore">Read more →</a></span>
+                </div>
+              </li>
+              <li>
+                <img src="/assets/img/courseslogo/react.png" alt="React Logo">
+                <div class="dropdown-text">
+                  <a routerLink="/course3">React Mern Stack</a>
+                  <p>.NET with go live projects</p>
+                  <span><a [routerLink]="['/courses/react']" class="readmore">Read more →</a></span>
+                </div>
+              </li>
+              <li>
+                <img src="/assets/img/courseslogo/dotnet.png" alt="DotNet Logo">
+                <div class="dropdown-text">
+                  <a routerLink="/course4">Full Stack .NET Excellence</a>
+                  <p>Mastering Modern Web Development</p>
+                  <span><a [routerLink]="['/courses/dotnet']" class="readmore">Read more →</a></span>
+                </div>
+              </li>
+            </ul>
+            
+            
+        
+          <li class="nav-item"><a routerLink="/events" class="nav-link"  (click)="closeNavbar()">EVENTS</a></li>
+          <li class="nav-item"><a routerLink="/about" class="nav-link"  (click)="closeNavbar()">ABOUT US</a></li>
+          <li class="nav-item"><a routerLink="/contact" class="nav-link"  (click)="closeNavbar()">CONTACT US</a></li>
+          <button class="login-in" (click)="navigateToSignUp()">Log In</button>
+        </ul>
+      </mat-toolbar>
+    </div>
+  </div>
+  <div class="overlay" *ngIf="isNavbarOpen" (click)="toggleNavbar()"></div>
+  <!-- <app-enroll-btn></app-enroll-btn> -->

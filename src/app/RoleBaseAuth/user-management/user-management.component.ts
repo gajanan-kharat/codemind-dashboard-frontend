@@ -3,10 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { TOP_ITEMS, BATCHES, DISPLAYED_COLUMNS } from 'src/app/models/admin-content';
+import { TOP_ITEMS, BATCHES, DISPLAYED_COLUMNSUSERS, DISPLAYED_COLUMNS } from 'src/app/models/admin-content';
 import { AuthService } from 'src/app/services/auth.service';
 import { MongodbService } from 'src/app/services/mongodb.service';
-import { EditStudentDialogComponent } from '../edit-student-dialog/edit-student-dialog.component';
 import { EditUserDialogComponent } from '../edit-user-dialog/edit-user-dialog.component';
 
 @Component({
@@ -79,7 +78,7 @@ export class UserManagementComponent {
     
     topItems = TOP_ITEMS;   
     batches:string[] =  BATCHES; 
-    displayedColumns: string[] = DISPLAYED_COLUMNS;
+    displayedColumnsUsers:string[] =  DISPLAYED_COLUMNSUSERS;
   
     selectedBatch = 'All';
     selectedCourse = '';
@@ -140,21 +139,36 @@ export class UserManagementComponent {
     // onBatchChange() {
     //   this.filterStudents();
     // }
+
+    addNewUser() {
+      const dialogRef = this.dialog.open(EditUserDialogComponent, {
+        width: '50%',
+        data: { student: null }  // Passing `null` indicates creating a new user
+      });
+    
+      dialogRef.afterClosed().subscribe((result: any) => {
+        if (result) {
+          this.students.push(result);  // Add the new student to the students list
+          this.filterStudents();       // Update the displayed list
+        }
+      });
+    }
    
     editStudent(student: any) {
       const dialogRef = this.dialog.open(EditUserDialogComponent, {
         width: '50%',
         data: { student }
       });
-  
+    
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result) {
           const index = this.students.findIndex(s => s._id === student._id);
           if (index !== -1) {
             this.students[index] = result;
-            this.filterStudents();
+            this.dataSource.data = this.students;
+            this.filterStudents(); 
           }
         }
       });
-    }    
+    }  
 }

@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
   mobile_number: { type: String, required: true },
   password: { type: String, required: true },
   role: { type: String, required: true },
-  course: { type: String, required: true },
+  // course: { type: String, required: true },
   city: { type: String },
   gitUrl: { type: String },
   resume: { type: String },

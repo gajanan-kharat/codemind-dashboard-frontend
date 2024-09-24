@@ -40,7 +40,7 @@ export class AuthGuard implements CanActivate {
   private redirectBasedOnRole(role: string) {
     if (role === 'Admin') {
       this.router.navigate(['/admin/admin-dashboard']);
-    } else if (role === 'Student') {
+    } else if (role === 'Sub-Admin') {
       this.router.navigate(['/admin/student-dashboard']);
     } else if (role === 'Counselor') {
       this.router.navigate(['/admin/counselor-dashboard']);

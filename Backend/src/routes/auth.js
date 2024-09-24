@@ -7,9 +7,9 @@ const User = require('../models/user');
 const router = express.Router();
 
 router.post('/signup', async (req, res) => {
-  const { firstname, lastname, email, mobile_number, password, role, course } = req.body;
+  const { firstname, lastname, email, mobile_number, password, role } = req.body;
   try {
-    const user = new User({ firstname, lastname, email, mobile_number, password, role, course });
+    const user = new User({ firstname, lastname, email, mobile_number, password, role });
     await user.save();
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
@@ -56,7 +56,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // PUT request to update users data
-router.put('usersmanagement/:id', async (req, res) => {
+router.put('/usersmanagement/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const updatedData = req.body;
@@ -69,8 +69,8 @@ router.put('usersmanagement/:id', async (req, res) => {
     
     res.status(200).send(updatedUser);
   } catch (error) {
-    console.error('Error updating student mock information:', error);
-    res.status(500).json({ message: 'Failed to update student mock information' });
+    console.error('Error updating user information:', error);
+    res.status(500).json({ message: 'Failed to update user information' });
   }
 });
 

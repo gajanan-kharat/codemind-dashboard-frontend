@@ -14,6 +14,7 @@ export const TOP_ITEMS = [
   export const DISPLAYED_COLUMNS = ['name', 'email', 'course', 'actions'];
   export const DISPLAYED_COLUMNSFOLLOW = ['name', 'email', 'course', 'inquiryStatus','date','actions'];
   export const DISPLAYED_COLUMNSBOOTCAMP= ['name', 'email', 'paymentStatus','actions'];
+  export const DISPLAYED_COLUMNSUSERS = ['name', 'email', 'mobile_number', 'role','actions'];
   export const COURSES = ['Angular', 'React', 'Java', '.NET', 'Automation and Munual Testing'];
 
   export const INQUIRYSTATUSES = ['Interested', 'Next Batch', 'Not Interested', 'No Response'];

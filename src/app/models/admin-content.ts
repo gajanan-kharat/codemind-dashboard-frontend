@@ -4,6 +4,14 @@ export const TOP_ITEMS = [
     { course: 'Java', batch: 'Batch-12', icon: 'fa-brands fa-java' },
     { course: 'Testing', batch: 'Batch-12', icon: 'fa-solid fa-vial' },
   ];
+
+  export const TOP_ROLES = [
+    { role: 'Admin', icon: 'fas fa-user-shield' },
+    { role: 'Sub-Admin', icon: 'fas fa-users-cog' },
+    { role: 'Counselor', icon: 'fas fa-headset' }
+  ];
+  
+
   interface Comment {
     comment: string;
     commentDate: Date;

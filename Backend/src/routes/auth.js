@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const User = require('../models/user');
+const { sendUserCreationEmail } = require('../routes/usersEmail');
 
 const router = express.Router();
 
@@ -11,6 +12,7 @@ router.post('/signup', async (req, res) => {
   try {
     const user = new User({ firstname, lastname, email, mobile_number, password, role });
     await user.save();
+    await sendUserCreationEmail(user);
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });

@@ -13,7 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
@@ -38,7 +38,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatNativeDateModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
-    MatSortModule
+    MatSortModule,
+    MatRippleModule
   ]
 })
 export class MaterialModule { }

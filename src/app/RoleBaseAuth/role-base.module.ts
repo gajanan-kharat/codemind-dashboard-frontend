@@ -20,8 +20,8 @@ import { EditInquiryStudentComponent } from './Admin/dialogs/edit-inquiry-studen
 import { EditFollowupStudentComponent } from './Admin/dialogs/edit-followup-student/edit-followup-student.component';
 import { EditBootcampStudentComponent } from './Admin/dialogs/edit-bootcamp-student/edit-bootcamp-student.component';
 import { StudentFilterPipe } from '../pipes/student-filter.pipe';
-import { UserManagementComponent } from './user-management/user-management.component';
-import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
+import { UserManagementComponent } from './Root-Admin/user-management/user-management.component';
+import { EditUserDialogComponent } from './Root-Admin/dialogs/edit-user-dialog/edit-user-dialog.component';
 import { SidenavHeaderComponent } from './sidenav-header/sidenav-header.component';
 
 @NgModule({

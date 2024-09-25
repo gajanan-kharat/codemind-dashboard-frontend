@@ -90,8 +90,8 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button (click)="onSave()" color="primary">
+  <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSave()">
     {{  isEditing ? 'Save' : 'Create' }}
   </button>
 </mat-dialog-actions>

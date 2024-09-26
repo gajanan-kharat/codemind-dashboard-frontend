@@ -27,3 +27,6 @@ export const TOP_ITEMS = [
 
   export const INQUIRYSTATUSES = ['Interested', 'Next Batch', 'Not Interested', 'No Response'];
   export const PAYMENT_STATUS = ['Success','Fail']; 
+  export const FEEDBACK_OPTIONS = ['All', 'Poor', 'Average', 'Good', 'Excellent'];
+  export const PAYMENT_STATUSES = ['Not Paid', 'Partially Paid', 'Fully Paid'];
+  export const PLACEMENT_STATUSES = ['Placement Done', 'Not Placed'];

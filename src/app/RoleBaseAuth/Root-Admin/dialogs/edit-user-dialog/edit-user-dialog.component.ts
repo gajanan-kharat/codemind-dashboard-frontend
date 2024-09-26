@@ -12,70 +12,11 @@ import { Role } from 'src/app/models/role';
   styleUrls: ['./edit-user-dialog.component.scss']
 })
 export class EditUserDialogComponent {
-  /*editStudentForm: FormGroup;
-  roles = Object.values(Role); 
-
-  constructor(
-    public dialogRef: MatDialogRef<EditStudentDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, 
-    private fb: FormBuilder,
-    private toastr: ToastrService,
-    private authService: AuthService
-  ) {
-    
-    this.editStudentForm = this.fb.group({
-      firstname: [data.student.firstname, Validators.required],
-      lastname: [data.student.lastname, Validators.required],
-      mobile_number: [data.student.mobile_number, [Validators.required, Validators.pattern('[0-9]{10}')]], // Mobile number validation
-      email: [data.student.email, [Validators.required, Validators.email]],
-      course: [data.student.course, Validators.required],
-      role: [data.student.role || Role.Student, Validators.required]  
-    });
-  }
-
-  onSave(): void {
-    if (this.editStudentForm.valid) {
-      const updatedUser = { ...this.editStudentForm.value };
-      const userId = this.data.student._id; 
-
-    // Send update request to MongoDB with the student ID
-    this.authService.updateUserManagement( userId, updatedUser).subscribe(
-      () => {
-        // Show success notification
-        this.toastr.success('User Updated successfully.', 'Success', {
-          timeOut: 3000, 
-          positionClass: 'toast-top-right',
-          progressBar: true,
-          closeButton: true
-        });
-        // Close dialog and return updated data
-        this.dialogRef.close(updatedUser);
-      },
-      (error) => {
-        // Handle error case
-        console.error('Error updating student:', error);
-        this.toastr.error('Error Updating User Information. Please try again.', 'Error', {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-          progressBar: true,
-          closeButton: true
-        });
-      }
-    );
-  } else {
-    // Mark all form controls as touched to trigger validation messages
-    this.editStudentForm.markAllAsTouched();
-  }
-  }
-
-  onCancel(): void {
-    this.dialogRef.close(); 
-  }*/
-
 
     editStudentForm: FormGroup;
     roles = Object.values(Role); 
     isEditing: boolean; 
+    isLoading:Boolean = false;
   
     constructor(
       public dialogRef: MatDialogRef<EditUserDialogComponent>, 
@@ -123,14 +64,11 @@ export class EditUserDialogComponent {
     }
   
     updateUser(userId: string, updatedUser: any): void {
-      debugger;
-      console.log("user Id:=>",userId);
-      console.log("updated user :=>",updatedUser);
-    
-    this.authService.updateUserManagement( userId, updatedUser).subscribe(
+      this.isLoading = true;
+      this.authService.updateUserManagement( userId, updatedUser).subscribe(
       () => {
-       
-        this.toastr.success('User Updated successfully.', 'Success', {
+          this.isLoading = false;
+          this.toastr.success('User Updated successfully.', 'Success', {
           timeOut: 3000, 
           positionClass: 'toast-top-right',
           progressBar: true,
@@ -152,8 +90,10 @@ export class EditUserDialogComponent {
     }
   
     createUser(newUser: any): void {
+      this.isLoading = true;
       this.authService.signup(newUser).subscribe(
         () => {
+          this.isLoading = false;
           this.toastr.success('User created successfully.', 'Success', {
             timeOut: 3000,
             positionClass: 'toast-top-right',

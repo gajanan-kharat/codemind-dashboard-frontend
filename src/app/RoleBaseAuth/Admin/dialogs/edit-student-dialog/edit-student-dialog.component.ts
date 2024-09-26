@@ -6,6 +6,7 @@ import { Course } from 'src/app/models/course';
 import { StudentInformation } from 'src/app/models/studentInformation';
 import { ToastrService } from 'ngx-toastr';
 import { MockStatuses } from 'src/app/models/mock';
+import { PAYMENT_STATUSES, PLACEMENT_STATUSES } from 'src/app/models/admin-content';
 
 @Component({
   selector: 'app-edit-student-dialog',
@@ -20,6 +21,8 @@ export class EditStudentDialogComponent {
     courses = Object.values(Course);
     mockStatuses = Object.values(MockStatuses);
     isLoading:Boolean = false;
+    paymentStatuses = PAYMENT_STATUSES;
+    placementStatuses = PLACEMENT_STATUSES;
   
     constructor(
       public dialogRef: MatDialogRef<EditStudentDialogComponent>,
@@ -38,20 +41,22 @@ export class EditStudentDialogComponent {
         lastName: [this.data.student.lastName, Validators.required],
         email: [this.data.student.email, [Validators.required, Validators.email]],
         mobileNumber: [this.data.student.mobileNumber, Validators.required],
-        course: [this.data.student.course, Validators.required],
-        batch: [this.data.student.batch, Validators.required],
-        graduation: [this.data.student.graduation, Validators.required],
-        passingYear: [this.data.student.passingYear, Validators.required],
-        collegeName: [this.data.student.collegeName, Validators.required],
-        address: [this.data.student.address, Validators.required],
-        cityName: [this.data.student.cityName, Validators.required],
-        state: [this.data.student.state, Validators.required],
-        attendance: [this.data.student.attendance, Validators.required],
+        course: [this.data.student.course,],
+        batch: [this.data.student.batch,],
+        graduation: [this.data.student.graduation,],
+        passingYear: [this.data.student.passingYear],
+        collegeName: [this.data.student.collegeName],
+        address: [this.data.student.address],
+        cityName: [this.data.student.cityName],
+        state: [this.data.student.state],
+        attendance: [this.data.student.attendance],
         parentEmail: [this.data.student.parentEmail],
         parentMobileNumber: [this.data.student.parentMobileNumber],
         mock1Feedback:[this.data.student.mock1Feedback],
         mock2Feedback:[this.data.student.mock2Feedback],
         mock3Feedback:[this.data.student.mock3Feedback],
+        paymentStatus: [this.data.student.paymentStatus],
+        placementStatus: [this.data.student.placementStatus],
       });
     }
   

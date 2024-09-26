@@ -37,6 +37,12 @@ export class MongodbService {
     });
   }
   
+  generateStudentsReport(studentsData: any): Observable<any> {
+    return this.http.post<any>(`${this.baseApiUrl}/generate-studentsReport`, { studentsData }, {
+      responseType: 'blob' as 'json'
+    });
+  }
+  
   getStudentMock(): Observable<StudentMockInfo[]> { 
     return this.http.get<StudentMockInfo[]>(`${this.baseApiUrl}/studentMockInformation`);  
   }

@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-const sendUserCreationEmail = async (user) => {
+const sendUserCreationEmail = async (user, plainPassword) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: user.email, 
@@ -22,9 +22,13 @@ const sendUserCreationEmail = async (user) => {
         <li><strong>Name:</strong> ${user.firstname} ${user.lastname}</li>
         <li><strong>Email:</strong> ${user.email}</li>
         <li><strong>Role:</strong> ${user.role}</li>
-        <li><strong>Password:</strong> ${user.password}</li>
+        <li><strong>Password:</strong> ${plainPassword}</li>
       </ul>
       <p>You can now log in to your dashboard with these credentials.</p>
+        <!-- Add the link to Codemind Dashboard here -->
+      <p>Visit the dashboard at: 
+        <a href="https://www.codemindtechnology.com/" target="_blank">Codemind Dashboard</a>
+      </p>
     `
   };
 

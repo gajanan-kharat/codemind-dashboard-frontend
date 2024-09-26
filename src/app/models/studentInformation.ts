@@ -17,4 +17,6 @@ export interface StudentInformation {
     mock1Feedback: string;
     mock2Feedback: string;
     mock3Feedback: string;
+    paymentStatus: string;
+    placementStatus: string;
   }

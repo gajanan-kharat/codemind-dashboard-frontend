@@ -35,7 +35,7 @@ export class UserManagementComponent {
 
   ngOnInit(): void {
     this.filterUsers();  
-    this.fetchUsers();   
+    this.fetchUsers(); 
   }
 
   ngAfterViewInit() {
@@ -68,7 +68,19 @@ export class UserManagementComponent {
     this.fetchUsers(); 
     this.selectedRole = ''; 
     this.filterUsers(); 
+    this.searchTerm = '';  
+    this.filteredUsers.filter = '';  
+
+    const searchInput = document.querySelector('input[matInput]') as HTMLInputElement;
+    if (searchInput) {
+        searchInput.value = ''; 
+    }
+
+    if (this.filteredUsers.paginator) {
+        this.filteredUsers.paginator.firstPage();  
+    }
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.filteredUsers.filter = filterValue.trim().toLowerCase();  
@@ -116,20 +128,14 @@ export class UserManagementComponent {
   } 
   
   downloadReport() {
-    this.moongodb.generateUsersReport(this.users).subscribe((response: Blob) => {
-      // Create a URL for the Blob
+    const reportData = this.filteredUsers.filteredData;
+    this.moongodb.generateUsersReport(reportData).subscribe((response: Blob) => {
       const url = window.URL.createObjectURL(response);
-
-      // For download
       const link = document.createElement('a');
       link.href = url;
       link.download = 'user-report.pdf';
       link.click();
-      
-      // For preview
       window.open(url);
-
-      // Clean up the URL object
       window.URL.revokeObjectURL(url);
     }, error => {
       console.error('Error generating report:', error);

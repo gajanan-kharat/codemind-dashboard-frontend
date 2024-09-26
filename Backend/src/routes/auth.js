@@ -12,7 +12,7 @@ router.post('/signup', async (req, res) => {
   try {
     const user = new User({ firstname, lastname, email, mobile_number, password, role });
     await user.save();
-    await sendUserCreationEmail(user);
+    await sendUserCreationEmail(user, user.plainPassword);
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });

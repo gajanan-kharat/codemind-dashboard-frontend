@@ -44,7 +44,13 @@
   <button mat-button (click)="onSave()" color="primary">Save</button>
 </mat-dialog-actions>-->
 
-<h2 mat-dialog-title>{{ isEditing ? 'Edit User' : 'Create User' }}</h2>
+<div *ngIf="isLoading" class="loader-container">
+  <mat-spinner></mat-spinner>
+</div>
+<h1 mat-dialog-title>{{ isEditing ? 'Edit User' : 'Create User' }}</h1>
+<button class="cancel-btn" (click)="onCancel()">
+  <mat-icon>close</mat-icon>
+</button>
 
 <mat-dialog-content>
   <form [formGroup]="editStudentForm">
@@ -90,7 +96,7 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+  <!-- <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button> -->
   <button mat-raised-button color="primary" (click)="onSave()">
     {{  isEditing ? 'Save' : 'Create' }}
   </button>

@@ -100,6 +100,7 @@ const studentInformationRoutes = require('./routes/studentInformation');
 const reportRoutes = require('./routes/report');
 const studentMockInformationRoutes = require('./routes/studentMockInformation');
 const usersReportRoutes = require('./routes/usersReport');
+const studentsReportRoutes = require('./routes/ReportGenerate/studentsreports');
 
 const app = express();
 
@@ -113,6 +114,7 @@ app.use(bodyParser.json());
 app.use('/upload', express.static(path.join(__dirname, 'upload')));
 app.use('/reports', express.static(path.join(__dirname, 'reports')));
 app.use('/usersReports', express.static(path.join(__dirname, 'usersReports')));
+app.use('/studentsReports', express.static(path.join(__dirname, 'studentsReports')));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/students', studentRoutes);
@@ -121,6 +123,7 @@ app.use('/api/bootcamp', bootCampRoutes);
 app.use('/api/studentInformation', studentInformationRoutes);
 app.use('/api', reportRoutes);
 app.use('/api/', usersReportRoutes);
+app.use('/api/',studentsReportRoutes);
 app.use('/api/studentMockInformation', studentMockInformationRoutes);
 
 app.use((err, req, res, next) => {

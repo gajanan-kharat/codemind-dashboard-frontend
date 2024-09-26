@@ -132,27 +132,54 @@
     <div class="section">
       <h3>Mock Feedback</h3>
       <mat-form-field appearance="fill">
-        <mat-label>Mock-1</mat-label>
+        <mat-label>Mock-1 Feedback</mat-label>
         <mat-select formControlName="mock1Feedback">
           <mat-option *ngFor="let status of mockStatuses" [value]="status">{{ status }}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Mock-2</mat-label>
+        <mat-label>Mock-2 Feedback</mat-label>
         <mat-select formControlName="mock2Feedback">
           <mat-option *ngFor="let status of mockStatuses" [value]="status">{{ status }}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Mock-3</mat-label>
+        <mat-label>Mock-3 Feedback</mat-label>
         <mat-select formControlName="mock3Feedback">
           <mat-option *ngFor="let status of mockStatuses" [value]="status">{{ status }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-  </form>
+    <!-- Payment Status Section -->
+<div class="section">
+  <h3>Payment & Placement Status</h3>
+  <mat-form-field appearance="fill">
+    <mat-label>Payment Status</mat-label>
+    <mat-select formControlName="paymentStatus">
+      <mat-option *ngFor="let status of paymentStatuses" [value]="status">{{ status }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="studentForm.get('paymentStatus')?.hasError('required') && studentForm.get('paymentStatus')?.touched">
+      Payment Status is required.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Placement Status Section -->
+  <!-- <h3>Placement Status</h3> -->
+  <mat-form-field appearance="fill">
+    <mat-label>Placement Status</mat-label>
+    <mat-select formControlName="placementStatus">
+      <mat-option *ngFor="let status of  placementStatuses" [value]="status">{{ status }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="studentForm.get('placementStatus')?.hasError('required') && studentForm.get('placementStatus')?.touched">
+      Placement Status is required.
+    </mat-error>
+  </mat-form-field>
 </div>
 
+
+
+  </form>
+</div>
 <div class="bottom-section" mat-dialog-actions>
   <button class="save-btn" mat-button (click)="onSave()">Save</button>
   <button class="report-btn" mat-button (click)="generateReport()">Generate Report</button>

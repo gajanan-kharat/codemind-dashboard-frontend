@@ -1,6 +1,6 @@
 <div class="content">
   <section class="top-cards">
-    <h2>Top Courses and Batches</h2>
+    <h2 class="student-title">Courses</h2>
     <div class="card-container">
       <mat-card *ngFor="let item of topItems" class="card" [ngClass]="{'selected': item.course === selectedCourse}"
         (click)="onCourseClick(item.course)">
@@ -13,9 +13,13 @@
       </mat-card>
     </div>
   </section>
+  <div>
+    
+  </div>
+  <h2 class="student-title">Students Information</h2>
+  
   <section class="student-table">
     <div class="dropdown-container">
-      <h2>Students</h2>
       <div class="filters">
         <mat-form-field appearance="fill">
           <mat-label>Search</mat-label>
@@ -27,8 +31,33 @@
             <mat-option *ngFor="let batch of batches" [value]="batch">{{batch}}</mat-option>
           </mat-select>
         </mat-form-field>
-      </div>
-     
+        <mat-form-field appearance="fill">
+          <mat-label>Filter by Feedback</mat-label>
+          <mat-select [(value)]="selectedFeedback" (selectionChange)="onFeedbackChange()">
+            <mat-option *ngFor="let feedback of feedbackOptions" [value]="feedback">
+              {{ feedback }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> 
+        <mat-form-field appearance="fill">
+          <mat-label>Payment Status</mat-label>
+          <mat-select [(value)]="selectedPaymentStatus" (selectionChange)="onPaymentStatusChange()">
+            <mat-option *ngFor="let status of paymentStatuses" [value]="status">
+              {{ status }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Placement Status</mat-label>
+          <mat-select [(value)]="selectedPlacementStatus" (selectionChange)="onPlacementStatusChange()">
+            <mat-option *ngFor="let status of placementStatuses" [value]="status">
+              {{ status }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>  
+        <mat-icon class="refresh-icon" (click)="refreshData()" mat-ripple>refresh</mat-icon>  
+        <mat-icon class="refresh-icon" (click)="downloadReport()">download</mat-icon>   
+      </div>    
     </div>
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="filteredStudents" matSort> 

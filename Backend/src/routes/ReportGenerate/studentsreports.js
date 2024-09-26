@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 
-const reportsDir = path.join(__dirname, '../usersReports');
+const reportsDir = path.join(__dirname, '../../studentsReports');
 if (!fs.existsSync(reportsDir)) {
   fs.mkdirSync(reportsDir);
 }
@@ -21,19 +21,20 @@ const loadTemplate = (filePath) => {
   });
 };
 
-router.post('/generate-usersReport', async (req, res) => {
+router.post('/generate-studentsReport', async (req, res) => {
   try {
-    const { usersData } = req.body;
-    const templatePath = path.join(__dirname, '../templates/usersReportTemplate.html');
-    let content = await loadTemplate(templatePath);
+    const { studentsData } = req.body;
+    const templatePath = path.join(__dirname, '../../templates/studentsReportTemplate.html');
 
-    const tableRows = usersData.map((user, index) => `
+    let content = await loadTemplate(templatePath);
+    const tableRows = studentsData.map((student, index) => `
       <tr>
         <td>${index + 1}</td>
-        <td>${user.firstname + ' ' + user.lastname}</td>
-        <td>${user.email}</td>
-        <td>${user.mobile_number}</td>
-        <td>${user.role}</td>
+        <td>${student.firstName + ' ' + student.lastName}</td>
+        <td>${student.email}</td>
+        <td>${student.mobileNumber}</td>
+        <td>${student.batch}</td>
+        <td>${student.course}</td>
       </tr>
     `).join('');
 

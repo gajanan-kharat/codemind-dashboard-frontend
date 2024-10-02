@@ -17,7 +17,7 @@ export const TOP_ITEMS = [
     commentDate: Date;
   }
   
-  export const BATCHES = ['All','Batch-7','Batch-8','Batch-9','Batch-10','Batch-11', 'Batch-12', 'Batch-13', 'Batch-14'];
+  export const BATCHES = ['All','Batch-1','Batch-2','Batch-3','Batch-4','Batch-5','Batch-6','Batch-7','Batch-8','Batch-9','Batch-10','Batch-11', 'Batch-12', 'Batch-13', 'Batch-14'];
   
   export const DISPLAYED_COLUMNS = ['name', 'email', 'course', 'actions'];
   export const DISPLAYED_COLUMNSFOLLOW = ['name', 'email', 'course', 'inquiryStatus','date','actions'];
@@ -28,5 +28,5 @@ export const TOP_ITEMS = [
   export const INQUIRYSTATUSES = ['Interested', 'Next Batch', 'Not Interested', 'No Response'];
   export const PAYMENT_STATUS = ['Success','Fail']; 
   export const FEEDBACK_OPTIONS = ['All', 'Poor', 'Average', 'Good', 'Excellent'];
-  export const PAYMENT_STATUSES = ['Not Paid', 'Partially Paid', 'Fully Paid'];
-  export const PLACEMENT_STATUSES = ['Placement Done', 'Not Placed'];
+  export const PAYMENT_STATUSES = ['Pending', 'Confirm Admission', 'Completed'];
+  export const PLACEMENT_STATUSES = ['Placement Complete', 'Placement Pending'];

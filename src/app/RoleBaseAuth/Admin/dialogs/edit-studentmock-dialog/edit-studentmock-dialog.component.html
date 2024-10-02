@@ -91,19 +91,19 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Mock Status</mat-label>
+          <mat-label>Mock Feedback</mat-label>
           <mat-select formControlName="mockStatus">
             <mat-option *ngFor="let status of mockStatuses" [value]="status">{{ status }}</mat-option>
           </mat-select>
           <mat-error *ngIf="studentMockForm.get('mockStatus')?.hasError('required') && studentMockForm.get('mockStatus')?.touched">
-            Mock status is required.
+            Mock Feedbackis required.
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>Feedback</mat-label>
+          <mat-label>Comments</mat-label>
           <textarea matInput formControlName="feedback"></textarea>
           <mat-error *ngIf="studentMockForm.get('feedback')?.hasError('required') && studentMockForm.get('feedback')?.touched">
-            Mock Feedback is required.
+            Comments is required.
           </mat-error>
         </mat-form-field>
       </div>

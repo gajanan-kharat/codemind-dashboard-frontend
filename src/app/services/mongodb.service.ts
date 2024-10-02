@@ -72,7 +72,24 @@ export class MongodbService {
   deleteStudent(studentId: string): Observable<any> {
     return this.http.delete<any>(`${this.baseApiUrl}/students/${studentId}`);
   }
-   
+
+  //Not Interested
+  addNotInterested(notInterestedData: any): Observable<any> {
+    return this.http.post<any>(`${this.baseApiUrl}/notInterested`, notInterestedData);
+  }
+
+  getNotInterested(): Observable<any> {
+    return this.http.get<any>(`${this.baseApiUrl}/notInterested`);
+  }
+
+  updateNotInterestedStudent(student: any): Observable<any> {
+    return this.http.put(`${this.baseApiUrl}/notInterested/${student._id}`, student);
+  }
+  
+  sendNotInterestedEmail(id: string): Observable<any> {
+    return this.http.post(`${this.baseApiUrl}/notInterested/${id}/send-email`, {});
+  }
+  
   //Bootcamp 
   getBootCamp(): Observable<any> {
     return this.http.get<any>(`${this.baseApiUrl}/bootcamp`);

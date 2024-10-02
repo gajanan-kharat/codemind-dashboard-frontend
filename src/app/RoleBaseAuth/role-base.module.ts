@@ -23,6 +23,7 @@ import { StudentFilterPipe } from '../pipes/student-filter.pipe';
 import { UserManagementComponent } from './Root-Admin/user-management/user-management.component';
 import { EditUserDialogComponent } from './Root-Admin/dialogs/edit-user-dialog/edit-user-dialog.component';
 import { SidenavHeaderComponent } from './sidenav-header/sidenav-header.component';
+import { EditNotintrestedStudentComponent } from './Admin/dialogs/edit-notintrested-student/edit-notintrested-student.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { SidenavHeaderComponent } from './sidenav-header/sidenav-header.componen
     EditBootcampStudentComponent,
     StudentFilterPipe,
     UserManagementComponent,
-    EditUserDialogComponent
+    EditUserDialogComponent,
+    EditNotintrestedStudentComponent
   ],
   imports: [
     CommonModule,

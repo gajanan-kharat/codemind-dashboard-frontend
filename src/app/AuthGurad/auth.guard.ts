@@ -41,7 +41,7 @@ export class AuthGuard implements CanActivate {
     if (role === 'Admin') {
       this.router.navigate(['/admin/admin-dashboard']);
     } else if (role === 'Sub-Admin') {
-      this.router.navigate(['/admin/student-dashboard']);
+      this.router.navigate(['/admin/subadmin-dashboard']);
     } else if (role === 'Counselor') {
       this.router.navigate(['/admin/counselor-dashboard']);
     } else {

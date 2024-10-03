@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const mockInformationSchema = new mongoose.Schema({
-  mockNumber: { type: String, required: true },
-  mockDate: { type: Date, required: true },
-  mockTime: { type: String, required: true },
-  mockStatus: { type: String, required: true },
-  feedback: { type: String, required: false }
+  mockNumber: { type: String,},
+  mockDate: { type: Date, },
+  mockTime: { type: String, },
+  mockStatus: { type: String, },
+  feedback: { type: String,}
 });
 
 const studentMockInformationSchema = new mongoose.Schema({

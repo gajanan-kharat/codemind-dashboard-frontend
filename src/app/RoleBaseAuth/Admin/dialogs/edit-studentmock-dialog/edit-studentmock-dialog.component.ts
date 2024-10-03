@@ -58,10 +58,10 @@ export class EditStudentmockDialogComponent {
 
   createMock(mock: Mock): FormGroup {
     return this.fb.group({
-      mockNumber: [mock.mockNumber, Validators.required],
-      mockDate: [mock.mockDate, Validators.required],
-      mockTime: [mock.mockTime, Validators.required],
-      mockStatus: [mock.mockStatus, Validators.required ],
+      mockNumber: [mock.mockNumber,],
+      mockDate: [mock.mockDate,],
+      mockTime: [mock.mockTime,],
+      mockStatus: [mock.mockStatus,  ],
       feedback: [mock.feedback]
     });
   }

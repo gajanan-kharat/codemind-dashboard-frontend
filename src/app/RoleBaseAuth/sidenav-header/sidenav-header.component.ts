@@ -40,7 +40,7 @@ export class SidenavHeaderComponent {
   }
 
   onLeads() {
-    this.sectionSelected.emit('leds');
+    this.sectionSelected.emit('leads');
   }
 
   onUsers(){

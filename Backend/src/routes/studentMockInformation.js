@@ -16,7 +16,34 @@ router.post('/', async (req, res) => {
 // API Endpoint to Get Student Mock Information Data
 router.get('/', async (req, res) => {
   try {
-    const studentMockInfo = await StudentMockInformation.find();
+    const searchQuery = req.query.search?.trim(); // Optional chaining and trimming the search query
+    let studentMockInfo;
+
+    if (searchQuery) {
+      // If there's a search query, build a regex and perform the search
+      const regex = new RegExp(searchQuery, 'i');
+      studentMockInfo = await StudentMockInformation.find({
+        $or: [
+          { name: regex },
+          { email: regex },
+          { course: regex },
+          { batch: regex },
+          { graduation: regex },
+          { contactNo: regex },
+          // { passingYear: regex },
+          { 'mocks.mockNumber': regex },
+          { 'mocks.mockStatus': regex }
+        ]
+      });
+    } else {
+      // If no search query, return all records
+      studentMockInfo = await StudentMockInformation.find();
+    }
+
+    // Log details for debugging
+    console.log('Search Query:', searchQuery);
+    console.log('Returned student mock info:', studentMockInfo);
+
     res.status(200).send(studentMockInfo);
   } catch (error) {
     res.status(400).send({ error: 'Error fetching student mock information', details: error });

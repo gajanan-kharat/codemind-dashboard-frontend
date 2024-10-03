@@ -7,7 +7,6 @@ import { CounselorDashboardComponent } from './dashborads/counselor-dashboard/co
 import { EditStudentDialogComponent } from './Admin/dialogs/edit-student-dialog/edit-student-dialog.component';
 import { LoginComponent } from './Login_Page/login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { StudentDashboardComponent } from './dashborads/student-dashboard/student-dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
@@ -15,22 +14,28 @@ import { MaterialModule } from '../sharedModule/material.module';
 import { StudentMockContentComponent } from './Admin/student-mock-content/student-mock-content.component';
 import { EditStudentmockDialogComponent } from './Admin/dialogs/edit-studentmock-dialog/edit-studentmock-dialog.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
-import { LedsComponent } from './Admin/leds/leds.component';
-import { EditInquiryStudentComponent } from './Admin/dialogs/edit-inquiry-student/edit-inquiry-student.component';
-import { EditFollowupStudentComponent } from './Admin/dialogs/edit-followup-student/edit-followup-student.component';
-import { EditBootcampStudentComponent } from './Admin/dialogs/edit-bootcamp-student/edit-bootcamp-student.component';
+import { EditInquiryStudentComponent } from './Admin/leads-section/dialogs/edit-inquiry-student/edit-inquiry-student.component';
+import { EditFollowupStudentComponent } from './Admin/leads-section/dialogs/edit-followup-student/edit-followup-student.component';
+import { EditBootcampStudentComponent } from './Admin/leads-section/dialogs/edit-bootcamp-student/edit-bootcamp-student.component';
 import { StudentFilterPipe } from '../pipes/student-filter.pipe';
 import { UserManagementComponent } from './Root-Admin/user-management/user-management.component';
 import { EditUserDialogComponent } from './Root-Admin/dialogs/edit-user-dialog/edit-user-dialog.component';
 import { SidenavHeaderComponent } from './sidenav-header/sidenav-header.component';
-import { EditNotintrestedStudentComponent } from './Admin/dialogs/edit-notintrested-student/edit-notintrested-student.component';
+import { EditNotintrestedStudentComponent } from './Admin/leads-section/dialogs/edit-notintrested-student/edit-notintrested-student.component';
+import { InterestedStudentComponent } from './Admin/leads-section/components/interested-student/interested-student.component';
+import { EditInterestedStudentComponent } from './Admin/leads-section/dialogs/edit-interested-student/edit-interested-student.component';
+import { InquiryStudentComponent } from './Admin/leads-section/components/inquiry-student/inquiry-student.component';
+import { FollowupStudentComponent } from './Admin/leads-section/components/followup-student/followup-student.component';
+import { BootcampStudentComponent } from './Admin/leads-section/components/bootcamp-student/bootcamp-student.component';
+import { NotinterestedStudentComponent } from './Admin/leads-section/components/notinterested-student/notinterested-student.component';
+import { MainLeadsComponent } from './Admin/leads-section/main-leads/main-leads.component';
+import { SubadminDashboardComponent } from './dashborads/subadmin-dashboard/subadmin-dashboard.component';
 
 @NgModule({
   declarations: [
     SignupComponent,
     LoginComponent,
     AdminDashboardComponent,
-    StudentDashboardComponent,
     CounselorDashboardComponent,
     SidenavHeaderComponent,
     AdminContentComponent,
@@ -38,14 +43,21 @@ import { EditNotintrestedStudentComponent } from './Admin/dialogs/edit-notintres
     StudentMockContentComponent,
     EditStudentmockDialogComponent,
     EditProfileComponent,
-    LedsComponent,
     EditInquiryStudentComponent,
     EditFollowupStudentComponent,
     EditBootcampStudentComponent,
     StudentFilterPipe,
     UserManagementComponent,
     EditUserDialogComponent,
-    EditNotintrestedStudentComponent
+    EditNotintrestedStudentComponent,
+    InterestedStudentComponent,
+    EditInterestedStudentComponent,
+    InquiryStudentComponent,
+    FollowupStudentComponent,
+    BootcampStudentComponent,
+    NotinterestedStudentComponent,
+    MainLeadsComponent,
+    SubadminDashboardComponent
   ],
   imports: [
     CommonModule,

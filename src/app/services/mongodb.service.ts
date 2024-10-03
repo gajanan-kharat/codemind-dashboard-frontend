@@ -43,8 +43,8 @@ export class MongodbService {
     });
   }
   
-  getStudentMock(): Observable<StudentMockInfo[]> { 
-    return this.http.get<StudentMockInfo[]>(`${this.baseApiUrl}/studentMockInformation`);  
+  getStudentMock(searchTerm: string = ''): Observable<StudentMockInfo[]> { 
+    return this.http.get<StudentMockInfo[]>(`${this.baseApiUrl}/studentMockInformation?search=${searchTerm}`);  
   }
 
   updateStudentMock(studentmockinfo: any): Observable<StudentMockInfo> {
@@ -72,7 +72,19 @@ export class MongodbService {
   deleteStudent(studentId: string): Observable<any> {
     return this.http.delete<any>(`${this.baseApiUrl}/students/${studentId}`);
   }
+  //Interested
 
+  addInterested(interestedData: any): Observable<any> {
+    return this.http.post<any>(`${this.baseApiUrl}/interested`, interestedData);
+  }
+
+  getInterested(): Observable<any> {
+    return this.http.get<any>(`${this.baseApiUrl}/interested`);
+  }
+
+  updateInterestedStudent(id: string, data: any): Observable<any> {
+    return this.http.put(`${this.baseApiUrl}/interested/${id}`, data);
+  }
   //Not Interested
   addNotInterested(notInterestedData: any): Observable<any> {
     return this.http.post<any>(`${this.baseApiUrl}/notInterested`, notInterestedData);
@@ -96,6 +108,11 @@ export class MongodbService {
   }
   updateBootcampStudent(student: any): Observable<any> {
     return this.http.put<any>(`${this.baseApiUrl}/bootcamp/${student._id}`,student);
+  }
+
+  //Get Total Records for Leads section
+  getTotalRecords(): Observable<any> {
+    return this.http.get<any>(`${this.baseApiUrl}/total-records`);
   }
 
 

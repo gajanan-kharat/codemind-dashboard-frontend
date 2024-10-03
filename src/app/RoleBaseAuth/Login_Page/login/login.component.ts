@@ -68,7 +68,7 @@ export class LoginComponent {
     if (role === 'Admin') {
       this.router.navigate(['/admin-dashboard']);
     } else if (role === 'Sub-Admin') {
-      this.router.navigate(['/student-dashboard']);
+      this.router.navigate(['/subadmin-dashboard']);
     } else if (role === 'Counselor') {
       this.router.navigate(['/counselor-dashboard']);
     } else {

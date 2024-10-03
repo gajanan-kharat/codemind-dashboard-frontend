@@ -6,6 +6,7 @@ const path = require('path');
 const authRoutes = require('./routes/auth');
 const studentRoutes = require('./routes/students');
 const notInterestedRoutes = require('./routes/notInterested');
+const interestedRoutes = require('./routes/interested');
 const followUpRoutes = require('./routes/followUp');
 const bootCampRoutes = require('./routes/bootcamp');
 const studentInformationRoutes = require('./routes/studentInformation');
@@ -14,6 +15,7 @@ const studentMockInformationRoutes = require('./routes/studentMockInformation');
 const usersReportRoutes = require('./routes/usersReport');
 const studentsReportRoutes = require('./routes/ReportGenerate/studentsreports');
 const courseRoutes = require('./routes/course');
+const totalRecordsRouter = require('./routes/totalTableRecords');
 
 const app = express();
 
@@ -31,7 +33,9 @@ app.use('/studentsReports', express.static(path.join(__dirname, 'studentsReports
 
 app.use('/api/auth', authRoutes);
 app.use('/api/students', studentRoutes);
-app.use('/api/notInterested',notInterestedRoutes)
+app.use('/api/notInterested',notInterestedRoutes);
+app.use('/api/interested',interestedRoutes)
+
 app.use('/api/followup', followUpRoutes);
 app.use('/api/bootcamp', bootCampRoutes);
 app.use('/api/studentInformation', studentInformationRoutes);
@@ -40,6 +44,7 @@ app.use('/api/', usersReportRoutes);
 app.use('/api/',studentsReportRoutes);
 app.use('/api/studentMockInformation', studentMockInformationRoutes);
 app.use('/api/course', courseRoutes);
+app.use('/api/total-records', totalRecordsRouter);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

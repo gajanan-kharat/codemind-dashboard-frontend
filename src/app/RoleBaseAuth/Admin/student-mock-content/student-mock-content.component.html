@@ -17,6 +17,30 @@
       <div class="dropdown-container">
         <h2>Students Mock Information</h2>
         <div class="filters">
+
+          <mat-form-field>
+            <mat-label>Select Mock Number</mat-label>
+            <mat-select [(value)]="selectedMockNumber" (selectionChange)="onMockNumberChange($event.value)">
+              <mat-option value="0">All</mat-option>
+              <mat-option value="1">Mock 1</mat-option>
+              <mat-option value="2">Mock 2</mat-option>
+              <mat-option value="3">Mock 3</mat-option>
+              <mat-option value="4">Mock 4</mat-option>
+            </mat-select>
+          </mat-form-field>
+        
+          <mat-form-field>
+            <mat-label>Select Mock Status</mat-label>
+            <mat-select [(value)]="selectedMockStatus" (selectionChange)="onMockStatusChange($event.value)">
+              <mat-option value="">All</mat-option>
+              <mat-option value="Pending">Pending</mat-option>
+              <mat-option value="Excellent">Excellent</mat-option>
+              <mat-option value="Good">Good</mat-option>
+              <mat-option value="Average">Average</mat-option>
+              <mat-option value="Poor">Poor</mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <mat-form-field appearance="fill">
             <mat-label>Search</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Search Students">

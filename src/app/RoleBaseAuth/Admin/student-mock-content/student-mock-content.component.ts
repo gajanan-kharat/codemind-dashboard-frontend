@@ -27,6 +27,9 @@ export class StudentMockContentComponent {
   selectedBatch = 'All';
   selectedCourse = '';
 
+  selectedMockNumber: number = 0;  
+  selectedMockStatus: string = ''; 
+
   constructor(private authService: AuthService, private moongodb: MongodbService,  private dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -39,7 +42,7 @@ export class StudentMockContentComponent {
     this.filteredStudentsMock.sort = this.sort; 
   }
 
-  filterStudentsMock() {
+  /*filterStudentsMock() {
     if (this.selectedBatch === 'All') {
       this.filteredStudentsMock.data = this.selectedCourse 
         ? this.studentsMock.filter(student => student.course === this.selectedCourse)
@@ -49,12 +52,55 @@ export class StudentMockContentComponent {
         ? this.studentsMock.filter(student => student.batch === this.selectedBatch && student.course === this.selectedCourse)
         : this.studentsMock.filter(student => student.batch === this.selectedBatch);
     }
-  }
+  }*/
 
-  fetchStudentsMock(): void {
-    this.moongodb.getStudentMock().subscribe(
+
+    filterStudentsMock() {
+      this.filteredStudentsMock.data = this.studentsMock.filter(student => {
+        let matchesCourse = !this.selectedCourse || student.course === this.selectedCourse;
+        let matchesBatch = this.selectedBatch === 'All' || student.batch === this.selectedBatch;
+    
+       
+        let matchesMockStatus = true;
+    
+        if (this.selectedMockStatus === 'Pending') {
+         
+          const mockNumberStr = `Mock-${this.selectedMockNumber}`; 
+          matchesMockStatus = !student.mocks || !student.mocks.some((mock: any) => 
+            mock.mockNumber === mockNumberStr
+          );
+        } 
+        else if (this.selectedMockNumber > 0 && this.selectedMockStatus) {
+          const mockNumberStr = `Mock-${this.selectedMockNumber}`; 
+          matchesMockStatus = student.mocks.some((mock: any) => 
+            mock.mockNumber === mockNumberStr && mock.mockStatus === this.selectedMockStatus
+          );
+        }
+    
+        return matchesCourse && matchesBatch && matchesMockStatus;
+      });
+    }
+    
+    
+
+    onMockNumberChange(mockNumber: number) {
+      this.selectedMockNumber = mockNumber;
+      this.filterStudentsMock();
+    }
+  
+    onMockStatusChange(status: string) {
+      this.selectedMockStatus = status;
+      this.filterStudentsMock();
+    }
+  
+
+  fetchStudentsMock(searchTerm: string = ''): void {
+    console.log("search teram :=> ",searchTerm);
+    this.moongodb.getStudentMock(searchTerm).subscribe(
       (data) => {
         this.studentsMock = data;
+        console.log(this.studentsMock )
+        this.filteredStudentsMock.data = this.studentsMock;
         this.dataSource.data = this.studentsMock;
         this.filterStudentsMock(); 
         console.log('student Mock data: ', this.studentsMock);
@@ -64,14 +110,19 @@ export class StudentMockContentComponent {
       }
     );
   }
-  applyFilter(event: Event) {
+  /*applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.filteredStudentsMock.filter = filterValue.trim().toLowerCase();
   
     if (this.filteredStudentsMock.paginator) {
       this.filteredStudentsMock.paginator.firstPage();
     }
-  }
+  }*/
+
+    applyFilter(event: Event) {
+      const filterValue = (event.target as HTMLInputElement).value;
+      this.fetchStudentsMock(filterValue); // Call the API with the search term
+    }
   
 
   onCourseClick(course: string) {

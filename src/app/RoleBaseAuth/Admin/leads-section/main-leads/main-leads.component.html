@@ -1,0 +1,84 @@
+<div class="content">
+    <section class="top-cards">
+      <!-- <h2>Leads and Follow-up</h2> -->
+      <div class="card-container">
+        <!-- New Lead Card -->
+        <div class="card" [class.selected]="selectedCard === 'leads'" (click)="onCardClick('leads')">
+          <div class="card-icon-container">
+            <i class="fas fa-handshake card-icon"></i>
+          </div>
+          <div class="card-content">
+            <span class="length inquiry">{{inquiryCount}}</span>
+            <h3 class="card-title">New Leads</h3>
+          </div>
+        </div>
+          <!-- FollowUp Card -->
+        <div class="card" [class.selected]="selectedCard === 'followup'"  (click)="onCardClick('followup')">
+          <div class="card-icon-container">
+            <i class="fas fa-phone card-icon"></i>
+          </div>
+          <div class="card-content">
+            <span class="length followup">{{followUpCount}}</span>
+            <h3 class="card-title">Follow-Up</h3>
+          </div>
+        </div>
+          
+
+          <!--  Interested Card -->
+          <div class="card"  [class.selected]="selectedCard === 'interested'"  (click)="onCardClick('interested')">
+            <div class="card-icon-container">
+              <i class="fas fa-thumbs-up card-icon"></i>
+            </div>
+            <div class="card-content">
+              <span class="length inquiry">{{interestedCount}}</span>
+              <h3 class="card-title">Interested</h3>
+            </div>
+          </div>
+       
+         <!-- BootCamp Card -->
+         <div class="card" [class.selected]="selectedCard === 'bootcamp'"  (click)="onCardClick('bootcamp')">
+          <div class="card-icon-container">
+            <i class="fas fa-laptop-code card-icon"></i>
+          </div>
+          <div class="card-content">
+            <span class="length bootcamp">{{bootcampCount}}</span>
+            <h3 class="card-title">BootCamp</h3>
+          </div>
+        </div>
+         <!-- Not Interested Card -->
+      <div class="card"  [class.selected]="selectedCard === 'notinterested'"  (click)="onCardClick('notinterested')">
+        <div class="card-icon-container">
+          <i class="fas fa-thumbs-down card-icon"></i>
+        </div>
+        <div class="card-content">
+          <span class="length inquiry">{{notInterestedCount}}</span>
+          <h3 class="card-title">Not Interested</h3>
+        </div>
+      </div>
+      </div>   
+    </section>
+    <!-- New Leads Section -->
+    <section class="student-table" *ngIf="selectedCard === 'leads'">
+        <app-inquiry-student></app-inquiry-student>
+    </section>
+
+    <!-- Follow-Up Section -->
+    <section class="student-table" *ngIf="selectedCard === 'followup'">
+        <app-followup-student></app-followup-student>
+    </section>
+
+    <!-- Interested -->
+    <section class="student-table" *ngIf="selectedCard === 'interested'">
+        <app-interested-student></app-interested-student>
+    </section>
+    
+    <!-- Bootcamp Section -->
+    <section class="student-table" *ngIf="selectedCard === 'bootcamp'">
+        <app-bootcamp-student></app-bootcamp-student>
+    </section>
+
+    <!-- NotInterested Section -->
+    <section class="student-table" *ngIf="selectedCard === 'notinterested'">
+        <app-notinterested-student></app-notinterested-student>
+    </section> 
+</div>

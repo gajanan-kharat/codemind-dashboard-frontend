@@ -4,9 +4,8 @@ import { AuthGuard } from '../AuthGurad/auth.guard';
 import { AdminDashboardComponent } from './dashborads/admin-dashboard/admin-dashboard.component';
 import { CounselorDashboardComponent } from './dashborads/counselor-dashboard/counselor-dashboard.component';
 import { LoginComponent } from './Login_Page/login/login.component';
-import { SignupComponent } from './signup/signup.component';
-import { StudentDashboardComponent } from './dashborads/student-dashboard/student-dashboard.component';
-import { LedsComponent } from './Admin/leds/leds.component';
+import { SubadminDashboardComponent } from './dashborads/subadmin-dashboard/subadmin-dashboard.component';
+
 
 
 const routes: Routes = [
@@ -19,8 +18,8 @@ const routes: Routes = [
     data: { expectedRole: 'Admin' } 
   },
   { 
-    path: 'student-dashboard', 
-    component: StudentDashboardComponent, 
+    path: 'subadmin-dashboard', 
+    component: SubadminDashboardComponent, 
     canActivate: [AuthGuard],
     data: { expectedRole: 'Sub-Admin' } 
   },

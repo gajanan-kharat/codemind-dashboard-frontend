@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const StudentMockInformation = require('../models/studentMockInformation');
 
-// API Endpoint to Save Student Mock Information Data
 router.post('/', async (req, res) => {
   try {
     const studentMockInfo = new StudentMockInformation(req.body);
@@ -13,44 +12,46 @@ router.post('/', async (req, res) => {
   }
 });
 
-// API Endpoint to Get Student Mock Information Data
 router.get('/', async (req, res) => {
   try {
-    const searchQuery = req.query.search?.trim(); // Optional chaining and trimming the search query
-    let studentMockInfo;
+    const searchQuery = req.query.search?.trim();
+    const page = parseInt(req.query.page) || 1;  
+    const limit = parseInt(req.query.limit) || 10;  
+    const skip = (page - 1) * limit;  
+    let studentMockInfo, totalDocuments;
+    const baseFilter = searchQuery
+      ? {
+          $or: [
+            { name: new RegExp(searchQuery, 'i') },
+            { email: new RegExp(searchQuery, 'i') },
+            { course: new RegExp(searchQuery, 'i') },
+            { batch: new RegExp(searchQuery, 'i') },
+            { graduation: new RegExp(searchQuery, 'i') },
+            { contactNo: new RegExp(searchQuery, 'i') },
+            { 'mocks.mockNumber': new RegExp(searchQuery, 'i') },
+            { 'mocks.mockStatus': new RegExp(searchQuery, 'i') }
+          ]
+        }
+      : {};
 
-    if (searchQuery) {
-      // If there's a search query, build a regex and perform the search
-      const regex = new RegExp(searchQuery, 'i');
-      studentMockInfo = await StudentMockInformation.find({
-        $or: [
-          { name: regex },
-          { email: regex },
-          { course: regex },
-          { batch: regex },
-          { graduation: regex },
-          { contactNo: regex },
-          // { passingYear: regex },
-          { 'mocks.mockNumber': regex },
-          { 'mocks.mockStatus': regex }
-        ]
-      });
-    } else {
-      // If no search query, return all records
-      studentMockInfo = await StudentMockInformation.find();
-    }
+    totalDocuments = await StudentMockInformation.countDocuments(baseFilter);
 
-    // Log details for debugging
-    console.log('Search Query:', searchQuery);
-    console.log('Returned student mock info:', studentMockInfo);
+    studentMockInfo = await StudentMockInformation.find(baseFilter)
+      .skip(skip)
+      .limit(limit);
+    const totalPages = Math.ceil(totalDocuments / limit);
 
-    res.status(200).send(studentMockInfo);
+    res.status(200).send({
+      totalRecords: totalDocuments,  
+      totalPages,      
+      currentPage: page,  
+      data: studentMockInfo  
+    });
   } catch (error) {
     res.status(400).send({ error: 'Error fetching student mock information', details: error });
   }
 });
 
-// API Endpoint to Update Student Mock Information Data
 router.put('/:id', async (req, res) => {
   try {
     const studentMockInfo = await StudentMockInformation.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });

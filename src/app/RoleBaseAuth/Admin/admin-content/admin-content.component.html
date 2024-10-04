@@ -1,6 +1,6 @@
 <div class="content">
   <section class="top-cards">
-    <h2 class="student-title">Courses</h2>
+    <h2 class="student-title">Student Information</h2>
     <div class="card-container">
       <mat-card *ngFor="let item of topItems" class="card" [ngClass]="{'selected': item.course === selectedCourse}"
         (click)="onCourseClick(item.course)">
@@ -16,7 +16,7 @@
   <div>
     
   </div>
-  <h2 class="student-title">Students Information</h2>
+  <!-- <h2 class="student-title">Students Information</h2> -->
   
   <section class="student-table">
     <div class="dropdown-container">
@@ -84,6 +84,9 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-      <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+      <!-- <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator> -->
+      <mat-paginator [length]="totalRecords" [pageSize]="limit" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons
+        (page)="onPageChange($event)">
+      </mat-paginator>
     </div>
   </section>

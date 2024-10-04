@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditStudentmockDialogComponent } from '../dialogs/edit-studentmock-dialog/edit-studentmock-dialog.component';
 import { MatSort } from '@angular/material/sort';
+import { StudentMockResponse } from 'src/app/models/studentMockInformation';
 
 @Component({
   selector: 'app-student-mock-content',
@@ -15,14 +16,22 @@ import { MatSort } from '@angular/material/sort';
 })
 export class StudentMockContentComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  filteredStudentsMock = new MatTableDataSource<any>();
   @ViewChild(MatSort) sort!: MatSort;  
-  studentsMock: any[] = [];
-  dataSource = new MatTableDataSource<any>(this.studentsMock);
   
+  studentsMock: any[] = [];
+  filteredStudentsMock = new MatTableDataSource<any>();
+
   topItems = TOP_ITEMS;   
   batches:string[] =  BATCHES; 
   displayedColumns: string[] = DISPLAYED_COLUMNS;
+  mockStatusOptions: string[] = ['Pending', 'Excellent', 'Good', 'Average', 'Poor'];
+  mockNumbers: { value: number, label: string }[] = [
+    { value: 0, label: 'All' },
+    { value: 1, label: 'Mock 1' },
+    { value: 2, label: 'Mock 2' },
+    { value: 3, label: 'Mock 3' },
+    { value: 4, label: 'Mock 4' }
+  ];
 
   selectedBatch = 'All';
   selectedCourse = '';
@@ -30,7 +39,12 @@ export class StudentMockContentComponent {
   selectedMockNumber: number = 0;  
   selectedMockStatus: string = ''; 
 
-  constructor(private authService: AuthService, private moongodb: MongodbService,  private dialog: MatDialog) {}
+  totalPages: number = 0;
+  currentPage: number = 1;
+  limit: number = 10;
+  totalRecords:number = 0;
+  
+  constructor( private moongodb: MongodbService,  private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.filterStudentsMock();
@@ -38,7 +52,7 @@ export class StudentMockContentComponent {
   }
 
   ngAfterViewInit() {
-    this.filteredStudentsMock.paginator = this.paginator;
+    // this.filteredStudentsMock.paginator = this.paginator;
     this.filteredStudentsMock.sort = this.sort; 
   }
 
@@ -59,12 +73,9 @@ export class StudentMockContentComponent {
       this.filteredStudentsMock.data = this.studentsMock.filter(student => {
         let matchesCourse = !this.selectedCourse || student.course === this.selectedCourse;
         let matchesBatch = this.selectedBatch === 'All' || student.batch === this.selectedBatch;
-    
-       
         let matchesMockStatus = true;
     
-        if (this.selectedMockStatus === 'Pending') {
-         
+        if (this.selectedMockStatus === 'Pending') { 
           const mockNumberStr = `Mock-${this.selectedMockNumber}`; 
           matchesMockStatus = !student.mocks || !student.mocks.some((mock: any) => 
             mock.mockNumber === mockNumberStr
@@ -76,13 +87,10 @@ export class StudentMockContentComponent {
             mock.mockNumber === mockNumberStr && mock.mockStatus === this.selectedMockStatus
           );
         }
-    
         return matchesCourse && matchesBatch && matchesMockStatus;
       });
     }
     
-    
-
     onMockNumberChange(mockNumber: number) {
       this.selectedMockNumber = mockNumber;
       this.filterStudentsMock();
@@ -96,20 +104,28 @@ export class StudentMockContentComponent {
 
   fetchStudentsMock(searchTerm: string = ''): void {
     console.log("search teram :=> ",searchTerm);
-    this.moongodb.getStudentMock(searchTerm).subscribe(
-      (data) => {
+    this.moongodb.getStudentMock(this.currentPage, this.limit, searchTerm).subscribe(
+      (response: StudentMockResponse) => {
+        const {totalRecords, totalPages, currentPage, data } = response;
+        this.totalPages = totalPages;         
+        this.currentPage = currentPage;       
         this.studentsMock = data;
-        console.log(this.studentsMock )
+        this.totalRecords = totalRecords;
         this.filteredStudentsMock.data = this.studentsMock;
-        this.dataSource.data = this.studentsMock;
-        this.filterStudentsMock(); 
-        console.log('student Mock data: ', this.studentsMock);
+        this.filterStudentsMock();      
       },
       (error) => {
         console.error('Error fetching students Mock:', error);
       }
     );
   }
+
+  onPageChange(event: any): void {
+    this.currentPage = event.pageIndex+1; 
+    this.limit = event.pageSize; 
+    this.fetchStudentsMock();
+  }
+  
   /*applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.filteredStudentsMock.filter = filterValue.trim().toLowerCase();
@@ -121,7 +137,8 @@ export class StudentMockContentComponent {
 
     applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
-      this.fetchStudentsMock(filterValue); // Call the API with the search term
+      this.currentPage = 1;
+      this.fetchStudentsMock(filterValue); 
     }
   
 
@@ -132,6 +149,20 @@ export class StudentMockContentComponent {
 
   onBatchChange() {
     this.filterStudentsMock();
+  }
+
+  refreshData(){
+    this.studentsMock = [];
+    this.filteredStudentsMock.data = [];
+    this.selectedMockStatus = '';
+    this.selectedMockNumber = 0;
+    this.selectedBatch = 'All';
+    this.selectedCourse = '';
+    const searchInput = document.getElementById('search-input') as HTMLInputElement;
+    if (searchInput) {
+      searchInput.value = '';
+    }
+    this.fetchStudentsMock();
   }
  
   editStudent(student: any) {
@@ -150,5 +181,4 @@ export class StudentMockContentComponent {
       }
     });
   }
-
 }

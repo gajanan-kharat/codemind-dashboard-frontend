@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environment/environment';
-import { StudentInformation } from '../models/studentInformation';
-import { StudentMockInfo } from '../models/studentMockInformation';
+import { StudentInformation, StudentInformationResponse } from '../models/studentInformation';
+import { StudentMockInfo, StudentMockResponse } from '../models/studentMockInformation';
 import { Contact } from '../models/contact';
+import { InquiryStudentResponse } from '../models/inquiryStudents';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,12 @@ export class MongodbService {
     return this.http.post<Contact>(`${this.baseApiUrl}/students`,studentData);
   }
 
-  getStudent(): Observable<StudentInformation[]> { 
-    return this.http.get<StudentInformation[]>(`${this.baseApiUrl}/studentInformation`);  
+  getStudent(page: number, limit: number, searchTerm: string = ''): Observable<StudentInformationResponse> { 
+    const params: any = {
+      page,
+      limit,
+    };
+    return this.http.get<StudentInformationResponse>(`${this.baseApiUrl}/studentInformation?search=${searchTerm}`,{ params });  
   }
 
   updateStudent(studentinfo: any): Observable<StudentInformation> {
@@ -43,16 +48,24 @@ export class MongodbService {
     });
   }
   
-  getStudentMock(searchTerm: string = ''): Observable<StudentMockInfo[]> { 
-    return this.http.get<StudentMockInfo[]>(`${this.baseApiUrl}/studentMockInformation?search=${searchTerm}`);  
+  getStudentMock(page: number, limit: number, searchTerm: string = ''): Observable<StudentMockResponse> { 
+    const params: any = {
+      page,
+      limit,
+    };
+    return this.http.get<StudentMockResponse>(`${this.baseApiUrl}/studentMockInformation?search=${searchTerm}`,{ params });  
   }
 
   updateStudentMock(studentmockinfo: any): Observable<StudentMockInfo> {
     return this.http.put<StudentMockInfo>(`${this.baseApiUrl}/studentMockInformation/${studentmockinfo._id}`, studentmockinfo);
   }
 
-  getInquiryStudent(): Observable<any[]> { 
-    return this.http.get<any[]>(`${this.baseApiUrl}/students`);  
+  getInquiryStudent(page: number, limit: number, searchTerm: string = ''): Observable<InquiryStudentResponse> { 
+    const params: any = {
+      page,
+      limit,
+    };
+    return this.http.get<InquiryStudentResponse>(`${this.baseApiUrl}/students?search=${searchTerm}`,{ params });  
   }
 
   // updateInquiry(inquiry: any): Observable<any> {

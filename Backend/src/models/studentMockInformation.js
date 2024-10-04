@@ -13,9 +13,9 @@ const studentMockInformationSchema = new mongoose.Schema({
   email: { type: String, required: true },
   contactNo: { type: String, required: true },
   course: { type: String, required: true },
-  batch: { type: String, required: true },
-  graduation: { type: String, required: true },
-  passingYear: { type: Number, required: true },
+  batch: { type: String, },
+  graduation: { type: String,  },
+  passingYear: { type: Number,  },
   mocks: [mockInformationSchema]
 });
 

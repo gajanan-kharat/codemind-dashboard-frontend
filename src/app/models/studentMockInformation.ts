@@ -17,3 +17,10 @@ export interface Mock {
     mocks: Mock[];
   }
   
+
+export interface StudentMockResponse {
+  totalRecords: number
+  totalPages: number;
+  currentPage: number;
+  data: StudentMockInfo[];
+}

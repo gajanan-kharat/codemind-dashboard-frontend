@@ -20,3 +20,9 @@ export interface StudentInformation {
     paymentStatus: string;
     placementStatus: string;
   }
+  export interface StudentInformationResponse {
+    totalRecords: number
+    totalPages: number;
+    currentPage: number;
+    data: StudentInformation[];
+  }

@@ -18,7 +18,7 @@ export class AdminContentComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;  
   filteredStudents = new MatTableDataSource<any>();
   students: any[] = [];
-  dataSource = new MatTableDataSource<any>(this.students);
+  // dataSource = new MatTableDataSource<any>(this.students);
   
   displayedColumns: string[] = DISPLAYED_COLUMNS;
 
@@ -35,6 +35,11 @@ export class AdminContentComponent implements OnInit {
   selectedCourse = '';
   searchTerm: string = '';
 
+  totalPages: number = 0;
+  currentPage: number = 1;
+  limit: number = 10;
+  totalRecords:number = 0;
+
   constructor(private authService: AuthService, private moongodb: MongodbService,  private dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -42,7 +47,7 @@ export class AdminContentComponent implements OnInit {
     this.fetchStudents();
   }
   ngAfterViewInit() {
-    this.filteredStudents.paginator = this.paginator;
+    // this.filteredStudents.paginator = this.paginator;
     this.filteredStudents.sort = this.sort; 
   }
   calculateOverallFeedback(student: any): string {
@@ -76,9 +81,9 @@ export class AdminContentComponent implements OnInit {
         (this.selectedPlacementStatus === 'All' || student.placementStatus === this.selectedPlacementStatus)
       );
 
-    if (this.filteredStudents.paginator) {
-      this.filteredStudents.paginator.firstPage();
-    }
+    // if (this.filteredStudents.paginator) {
+    //   this.filteredStudents.paginator.firstPage();
+    // }
   }
 
 onFeedbackChange() {
@@ -94,11 +99,16 @@ onFeedbackChange() {
   }
 
 
-  fetchStudents(): void {
-    this.moongodb.getStudent().subscribe(
-      (data) => {
+  fetchStudents(searchTerm: string = ''): void {
+    this.moongodb.getStudent(this.currentPage, this.limit, searchTerm).subscribe(
+      (response) => {
+
+        const {totalRecords, totalPages, currentPage, data } = response;
+        this.totalPages = totalPages;         
+        this.currentPage = currentPage;       
         this.students = data;
-        this.dataSource.data = this.students;
+        this.totalRecords = totalRecords;
+        this.filteredStudents.data = this.students;
         this.filterStudents(); 
         console.log('student data: ', this.students);
       },
@@ -107,14 +117,19 @@ onFeedbackChange() {
       }
     );
   }
+
+  onPageChange(event: any): void {
+    this.currentPage = event.pageIndex+1; 
+    this.limit = event.pageSize; 
+    this.filterStudents(); 
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.filteredStudents.filter = filterValue.trim().toLowerCase();
-  
-    if (this.filteredStudents.paginator) {
-      this.filteredStudents.paginator.firstPage();
-    }
+    this.currentPage = 1;
+    this.fetchStudents(filterValue); 
   }
+
   refreshData(){
     this.fetchStudents(); 
     this.selectedBatch = 'All';
@@ -131,9 +146,9 @@ onFeedbackChange() {
         searchInput.value = ''; 
     }
 
-    if (this.filteredStudents.paginator) {
-        this.filteredStudents.paginator.firstPage();  
-    }
+    // if (this.filteredStudents.paginator) {
+    //     this.filteredStudents.paginator.firstPage();  
+    // }
   }
   downloadReport() {
     const reportData = this.filteredStudents.filteredData;

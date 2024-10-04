@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { COURSES, DISPLAYED_COLUMNS } from 'src/app/models/admin-content';
 import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditInquiryStudentComponent } from '../../dialogs/edit-inquiry-student/edit-inquiry-student.component';
+import { InquiryStudentResponse } from 'src/app/models/inquiryStudents';
 
 @Component({
   selector: 'app-inquiry-student',
@@ -22,10 +23,15 @@ export class InquiryStudentComponent {
   Inquirystudents: any[] = [];
 
   courses: string[] = COURSES; 
-  // batches: string[] = BATCHES;
   displayedColumns: string[] = DISPLAYED_COLUMNS;
 
   selectedCourseLeads = '';
+
+  totalPages: number = 0;
+  currentPage: number = 1;
+  limit: number = 10;
+  totalRecords:number = 0;
+
   constructor(private mongodbService: MongodbService, private dialog: MatDialog,){}
 
   ngOnInit(): void {
@@ -33,15 +39,19 @@ export class InquiryStudentComponent {
   }
   
   ngAfterViewInit() {
-    this.filteredLeads.paginator = this.paginator;
+    // this.filteredLeads.paginator = this.paginator;
     this.filteredLeads.sort = this.sort; 
   }
 
-  fetchStudents(): void {
-    this.mongodbService.getInquiryStudent().subscribe(
-      (data) => {
+  fetchStudents(searchTerm: string = ''): void {
+    this.mongodbService.getInquiryStudent(this.currentPage, this.limit, searchTerm).subscribe(
+      (response: InquiryStudentResponse) => {
+        const {totalRecords, totalPages, currentPage, data } = response;
+        this.totalPages = totalPages;         
+        this.currentPage = currentPage;       
         this.Inquirystudents = data;
-        // this.InquiryDataLength=this.Inquirystudents.length;
+        this.totalRecords = totalRecords;
+        this.filteredLeads.data =  this.Inquirystudents;
         this.filterLeads();
       },
       (error) => {
@@ -50,6 +60,13 @@ export class InquiryStudentComponent {
     );
   }
 
+  onPageChange(event: any): void {
+    this.currentPage = event.pageIndex+1; 
+    this.limit = event.pageSize; 
+    this.fetchStudents();
+  }
+  
+
   filterLeads() {
     this.filteredLeads.data = this.Inquirystudents.filter(student =>
       (!this.selectedCourseLeads || student.course === this.selectedCourseLeads)
@@ -57,11 +74,12 @@ export class InquiryStudentComponent {
     if (this.filteredLeads.paginator) {
       this.filteredLeads.paginator.firstPage();
     }
-    // this.filteredLeads.paginator = this.paginator;
   }
+
   onCourseChange() {
       this.filterLeads();
-    }
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.filteredLeads.filter = filterValue.trim().toLowerCase();

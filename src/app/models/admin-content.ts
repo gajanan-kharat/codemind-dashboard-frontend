@@ -2,7 +2,8 @@ export const TOP_ITEMS = [
     { course: 'Angular', batch: 'Batch-12', icon: 'fa-brands fa-angular' },
     { course: 'React', batch: 'Batch-12', icon: 'fa-brands fa-react' },
     { course: 'Java', batch: 'Batch-12', icon: 'fa-brands fa-java' },
-    { course: 'Testing', batch: 'Batch-12', icon: 'fa-solid fa-vial' },
+    { course: 'Testing', batch: 'Batch-12', icon: 'fa fa-cogs' },
+    { course: '.NET', batch: 'Batch-12', icon: 'fa-brands fa-microsoft' },
   ];
 
   export const TOP_ROLES = [

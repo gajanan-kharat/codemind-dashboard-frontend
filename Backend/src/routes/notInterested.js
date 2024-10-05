@@ -14,14 +14,53 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/', async (req, res) => {
+/*router.get('/', async (req, res) => {
   try {
     const notInterestedInquiries = await NotInterested.find();
     res.status(200).send(notInterestedInquiries);
   } catch (error) {
     res.status(400).send({ error: 'Error fetching not interested inquiries', details: error });
   }
+});*/
+
+router.get('/', async (req, res) => {
+  try {
+    const searchQuery = req.query.search?.trim();
+    const page = parseInt(req.query.page) || 1;  
+    const limit = parseInt(req.query.limit) || 10;  
+    const skip = (page - 1) * limit;  
+    let  NotInterestedInfo, totalDocuments;
+    const baseFilter = searchQuery
+      ? {
+          $or: [
+            { firstName: new RegExp(searchQuery, 'i') }, 
+            { lastName: new RegExp(searchQuery, 'i') },
+            { email: new RegExp(searchQuery, 'i') },
+            { mobileNumber: new RegExp(searchQuery, 'i') },
+            { course: new RegExp(searchQuery, 'i') },
+            { source: new RegExp(searchQuery, 'i') },
+          ]
+        }
+      : {};
+
+    totalDocuments = await NotInterested.countDocuments(baseFilter);
+    
+    NotInterestedInfo = await NotInterested.find(baseFilter)
+      .skip(skip)
+      .limit(limit);
+    const totalPages = Math.ceil(totalDocuments / limit);
+
+    res.status(200).send({
+      totalRecords: totalDocuments,  
+      totalPages,      
+      currentPage: page,  
+      data: NotInterestedInfo 
+    });
+  } catch (error) {
+    res.status(400).send({ error: 'Error fetching followup student information', details: error });
+  }
 });
+
 
 router.put('/:id', async (req, res) => {
   try {

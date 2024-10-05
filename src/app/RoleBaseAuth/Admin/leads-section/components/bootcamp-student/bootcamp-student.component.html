@@ -1,6 +1,7 @@
     <div class="filter-container">
       <h2>BootCamp Students</h2>
       <div class="filters">
+        <mat-icon class="refresh-icon" (click)="refreshData()" mat-ripple>refresh</mat-icon>
       <mat-form-field appearance="fill">
         <mat-label>Search</mat-label>
         <input matInput (keyup)="applyFilterBootcamp($event)" placeholder="Search Students">
@@ -42,4 +43,6 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumnsBootcamp"></tr>
       <tr mat-row *matRowDef="let row; columns:displayedColumnsBootcamp;"></tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator> -->
+    <mat-paginator [length]="totalRecords" [pageSize]="limit" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons
+    (page)="onPageChange($event)">

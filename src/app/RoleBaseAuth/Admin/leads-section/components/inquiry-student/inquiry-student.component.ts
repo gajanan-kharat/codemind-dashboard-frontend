@@ -82,12 +82,21 @@ export class InquiryStudentComponent {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.filteredLeads.filter = filterValue.trim().toLowerCase();
-  
-    if (this.filteredLeads.paginator) {
-      this.filteredLeads.paginator.firstPage();
-    }
+      this.currentPage = 1;
+      this.fetchStudents(filterValue); 
   }
+
+  refreshData(){
+    this.Inquirystudents = [];
+    this.filteredLeads.data = [];
+    this.selectedCourseLeads = '';
+    const searchInput = document.querySelector('input[matInput]') as HTMLInputElement;
+    if (searchInput) {
+      searchInput.value = '';
+    }
+    this.fetchStudents();
+  }
+ 
   editStudent(student: any) {
     console.log("Student data =>", student);
     const dialogRef = this.dialog.open(EditInquiryStudentComponent, {

@@ -14,14 +14,55 @@ router.post('/', async (req, res) => {
 });
 
 // API Endpoint to Get All Bootcamp Data
-router.get('/', async (req, res) => {
+/*router.get('/', async (req, res) => {
     try {
         const bootcampData = await Bootcamp.find();
         res.status(200).send(bootcampData);
     } catch (error) {
         res.status(400).send({ error: 'Error fetching bootcamp data', details: error });
     }
-});
+});*/
+
+router.get('/', async (req, res) => {
+    try {
+      const searchQuery = req.query.search?.trim();
+      const page = parseInt(req.query.page) || 1;  
+      const limit = parseInt(req.query.limit) || 10;  
+      const skip = (page - 1) * limit;  
+      let BootcampInfo, totalDocuments;
+      const baseFilter = searchQuery
+        ? {
+            $or: [
+              { firstName: new RegExp(searchQuery, 'i') }, 
+              { lastName: new RegExp(searchQuery, 'i') },
+              { email: new RegExp(searchQuery, 'i') },
+              { Mobile_number: new RegExp(searchQuery, 'i') },
+              { paymentId: new RegExp(searchQuery, 'i') },
+              { paymentStatus: new RegExp(searchQuery, 'i') },
+              { courses: new RegExp(searchQuery, 'i') },
+              { batch: new RegExp(searchQuery, 'i') },
+            ]
+          }
+        : {};
+  
+      totalDocuments = await Bootcamp.countDocuments(baseFilter);
+  
+      BootcampInfo = await Bootcamp.find(baseFilter)
+        .skip(skip)
+        .limit(limit);
+      const totalPages = Math.ceil(totalDocuments / limit);
+  
+      res.status(200).send({
+        totalRecords: totalDocuments,  
+        totalPages,      
+        currentPage: page,  
+        data: BootcampInfo 
+      });
+    } catch (error) {
+      res.status(400).send({ error: 'Error fetching Bootcamp student information', details: error });
+    }
+  });
+  
 
 // API Endpoint to Update Bootcamp Data
 router.put('/:id', async (req, res) => {

@@ -1,6 +1,7 @@
 <div class="filter-container">
   <h2>Inquiry Students</h2>
   <div class="filters">
+    <mat-icon class="refresh-icon" (click)="refreshData()" mat-ripple>refresh</mat-icon>
     <mat-form-field appearance="fill">
       <mat-label>Search</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Search Students">

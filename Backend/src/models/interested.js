@@ -14,7 +14,7 @@ const interestedSchema = new mongoose.Schema({
   sourcecomment: {type: String},
   comments: [{
     date: { type: Date, required: true, default: Date.now },
-    comment: { type: String, required: true }
+    comment: { type: String}
   }]
 });
 

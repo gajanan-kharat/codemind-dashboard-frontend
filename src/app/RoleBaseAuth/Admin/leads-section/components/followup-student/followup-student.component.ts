@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { COURSES, BATCHES, DISPLAYED_COLUMNSFOLLOW, INQUIRYSTATUSES } from 'src/app/models/admin-content';
 import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditFollowupStudentComponent } from '../../dialogs/edit-followup-student/edit-followup-student.component';
+import { FollowUpStudentResponse } from 'src/app/models/followup';
 
 @Component({
   selector: 'app-followup-student',
@@ -30,6 +31,11 @@ export class FollowupStudentComponent {
   selectedStartDate = '';
   selectedEndDate = '';
 
+  totalPages: number = 0;
+  currentPage: number = 1;
+  limit: number = 10;
+  totalRecords:number = 0;
+
   dateRangeForm: FormGroup;
   constructor(private mongodbService: MongodbService, private dialog: MatDialog, private fb: FormBuilder) {
     this.dateRangeForm = this.fb.group({
@@ -43,15 +49,19 @@ export class FollowupStudentComponent {
     this.dateRangeForm.valueChanges.subscribe(() => this.filterFollowUp());
   }
   ngAfterViewInit() {
-    this.filteredFollowUp.paginator = this.paginator;
+    // this.filteredFollowUp.paginator = this.paginator;
       this.filteredFollowUp.sort = this.sort; 
   }
 
-  fetchStudents(): void {
-    this.mongodbService.getFollowUp().subscribe(
-      (data) => {
+  fetchStudents(searchTerm: string = ''): void {
+    this.mongodbService.getFollowUp(this.currentPage, this.limit, searchTerm).subscribe(
+      (response: FollowUpStudentResponse) => {
+        const {totalRecords, totalPages, currentPage, data } = response;
+        this.totalPages = totalPages;         
+        this.currentPage = currentPage;       
         this.followUpStudents = data;
-        // this.followUpDataLength =  this.followUpStudents.length;
+        this.totalRecords = totalRecords;
+        this.filteredFollowUp.data = this.followUpStudents;
         this.filterFollowUp();
       },
       (error) => {
@@ -59,7 +69,26 @@ export class FollowupStudentComponent {
       }
     );
   }
+  onPageChange(event: any): void {
+    this.currentPage = event.pageIndex+1; 
+    this.limit = event.pageSize; 
+    this.fetchStudents();
+  }
 
+  refreshData(){
+    this.followUpStudents = [];
+    this.filteredFollowUp.data = [];
+    this.selectedCourseFollowUp = '';
+    this.selectedStatusFollowUp = '';
+    this.selectedStartDate = '';
+    this.selectedEndDate = '';
+    const searchInput = document.querySelector('input[matInput]') as HTMLInputElement;
+    if (searchInput) {
+      searchInput.value = '';
+    }
+    this.fetchStudents();
+  }
+  
   filterFollowUp() {
     const { start, end } = this.dateRangeForm.value;
     this.filteredFollowUp.data = this.followUpStudents.filter(student => {
@@ -105,11 +134,8 @@ export class FollowupStudentComponent {
 
 applyFilterFollowUp(event: Event) {
   const filterValue = (event.target as HTMLInputElement).value;
-  this.filteredFollowUp.filter = filterValue.trim().toLowerCase();
-
-  if (this.filteredFollowUp.paginator) {
-    this.filteredFollowUp.paginator.firstPage();
-  }
+  this.currentPage = 1;
+  this.fetchStudents(filterValue); 
 }
 
 }

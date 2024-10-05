@@ -5,7 +5,9 @@ import { environment } from 'src/environment/environment';
 import { StudentInformation, StudentInformationResponse } from '../models/studentInformation';
 import { StudentMockInfo, StudentMockResponse } from '../models/studentMockInformation';
 import { Contact } from '../models/contact';
+import { BootcampStudentResponse } from '../models/bootcampStudents';
 import { InquiryStudentResponse } from '../models/inquiryStudents';
+import { InterestedStudentResponse } from '../models/interestedStudents';
 
 @Injectable({
   providedIn: 'root'
@@ -76,8 +78,12 @@ export class MongodbService {
     return this.http.post<any>(`${this.baseApiUrl}/followup`, followUpData);
   }
 
-  getFollowUp(): Observable<any> {
-    return this.http.get<any>(`${this.baseApiUrl}/followup`);
+  getFollowUp(page: number, limit: number, searchTerm: string = ''): Observable<any> {
+    const params: any = {
+      page,
+      limit,
+    };
+    return this.http.get<any>(`${this.baseApiUrl}/followup?search=${searchTerm}`,{ params });
   }
   updateFollowUpStudent(student: any): Observable<any> {
     return this.http.put(`${this.baseApiUrl}/followup/${student._id}`, student);
@@ -91,8 +97,12 @@ export class MongodbService {
     return this.http.post<any>(`${this.baseApiUrl}/interested`, interestedData);
   }
 
-  getInterested(): Observable<any> {
-    return this.http.get<any>(`${this.baseApiUrl}/interested`);
+  getInterested(page: number, limit: number, searchTerm: string = ''): Observable<InterestedStudentResponse> {
+    const params: any = {
+      page,
+      limit,
+    };
+    return this.http.get<any>(`${this.baseApiUrl}/interested?search=${searchTerm}`,{ params });
   }
 
   updateInterestedStudent(id: string, data: any): Observable<any> {
@@ -103,8 +113,12 @@ export class MongodbService {
     return this.http.post<any>(`${this.baseApiUrl}/notInterested`, notInterestedData);
   }
 
-  getNotInterested(): Observable<any> {
-    return this.http.get<any>(`${this.baseApiUrl}/notInterested`);
+  getNotInterested(page: number, limit: number, searchTerm: string = ''): Observable<any> {
+    const params: any = {
+      page,
+      limit,
+    };
+    return this.http.get<any>(`${this.baseApiUrl}/notInterested?search=${searchTerm}`,{ params });
   }
 
   updateNotInterestedStudent(student: any): Observable<any> {
@@ -116,8 +130,12 @@ export class MongodbService {
   }
   
   //Bootcamp 
-  getBootCamp(): Observable<any> {
-    return this.http.get<any>(`${this.baseApiUrl}/bootcamp`);
+  getBootCamp(page: number, limit: number, searchTerm: string = ''): Observable<BootcampStudentResponse> {
+    const params: any = {
+      page,
+      limit,
+    };
+    return this.http.get<any>(`${this.baseApiUrl}/bootcamp?search=${searchTerm}`,{ params });
   }
   updateBootcampStudent(student: any): Observable<any> {
     return this.http.put<any>(`${this.baseApiUrl}/bootcamp/${student._id}`,student);

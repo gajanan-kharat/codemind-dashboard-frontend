@@ -9,7 +9,7 @@ const bootcampSchema = new mongoose.Schema({
     paymentStatus: { type: String, require: true },
     courses: { type: String },
     batch: { type: String },
-    inquiryStatus: { type: String },
+    // inquiryStatus: { type: String },
     date: { type: Date },
 });
 

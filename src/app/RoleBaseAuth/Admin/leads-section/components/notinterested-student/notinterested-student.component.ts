@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { BATCHES, COURSES, DISPLAYED_COLUMNS } from 'src/app/models/admin-content';
 import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditNotintrestedStudentComponent } from '../../dialogs/edit-notintrested-student/edit-notintrested-student.component';
+import { NotInterestedStudentResponse } from 'src/app/models/notInterestedStudents';
 
 @Component({
   selector: 'app-notinterested-student',
@@ -25,7 +26,12 @@ export class NotinterestedStudentComponent {
   batches: string[] = BATCHES;
 
   selectedCourseNotInterested = '';
-  selectedBatchNotInterested = '';
+  // selectedBatchNotInterested = '';
+
+  totalPages: number = 0;
+  currentPage: number = 1;
+  limit: number = 10;
+  totalRecords:number = 0;
 
   constructor(private mongodbService: MongodbService, private dialog: MatDialog, private fb: FormBuilder) {}
   
@@ -34,23 +40,42 @@ export class NotinterestedStudentComponent {
   }
 
   ngAfterViewInit() {
-    this.filteredNotInterested.paginator = this.paginator;
+    // this.filteredNotInterested.paginator = this.paginator;
     this.filteredNotInterested.sort = this.sort; 
   }
 
-  fetchStudents(): void {
-    this.mongodbService.getNotInterested().subscribe(
-      (data) => {
+  fetchStudents(searchTerm: string = ''): void {
+    this.mongodbService.getNotInterested(this.currentPage, this.limit, searchTerm).subscribe(
+      (response:NotInterestedStudentResponse) => {
+        const {totalRecords, totalPages, currentPage, data } = response;
+        this.totalPages = totalPages;         
+        this.currentPage = currentPage;       
         this.notInterestedStudents = data;
-        // this.notInterestedDataLength =  this.notInterestedStudents.length;
-        this.filterNotInterested() 
-        console.log("Not Interested Data :=>", this.notInterestedStudents);
-        // console.log("Not Interested Data Length :=>", this.notInterestedDataLength);
+        this.totalRecords = totalRecords;
+        this.filteredNotInterested.data = this.notInterestedStudents;
+        this.filterNotInterested()  
       },
       (error) => {
         console.error('Error fetching follow-up students:', error);
       }
     );
+  }
+  onPageChange(event: any): void {
+    this.currentPage = event.pageIndex+1; 
+    this.limit = event.pageSize; 
+    this.fetchStudents();
+  }
+  
+  refreshData(){
+    this.notInterestedStudents = [];
+    this.filteredNotInterested.data = [];
+    this.selectedCourseNotInterested = '';
+    // this.selectedBatchNotInterested = '';
+    const searchInput = document.querySelector('input[matInput]') as HTMLInputElement;
+    if (searchInput) {
+      searchInput.value = '';
+    }
+    this.fetchStudents();
   }
 
   filterNotInterested() {

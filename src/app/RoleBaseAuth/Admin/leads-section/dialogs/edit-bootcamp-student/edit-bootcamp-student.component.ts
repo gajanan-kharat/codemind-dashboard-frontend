@@ -40,7 +40,7 @@ export class EditBootcampStudentComponent {
       paymentStatus: [{ value: data.student.paymentStatus, disabled: true }],
       courses: [data.student.courses],
       batch: [data.student.batch],
-      inquiry_status: [data.student.inquiryStatus],
+      // inquiry_status: [data.student.inquiryStatus],
       date: [data.student.date],
      
       // comments: this.formBuilder.array(data.student.comments.map((comment: Comment) => this.createCommentGroup(comment)))
@@ -67,7 +67,7 @@ export class EditBootcampStudentComponent {
       let updatedData = { ...this.bootcampForm.value, _id: this.data.student._id };
       const formattedDate = this.datePipe.transform(updatedData.date, 'yyyy-MM-dd'); 
       updatedData = { ...updatedData, date: formattedDate };
-      console.log("bootcamp date :=>",updatedData.date);
+      // console.log("bootcamp date :=>",updatedData.date);
       this.mongodbService.updateBootcampStudent(updatedData).subscribe(
         (response) => {
           this.toastr.success('Bootcamp student updated successfully');

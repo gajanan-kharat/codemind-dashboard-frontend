@@ -7,6 +7,7 @@ import { COURSES, DISPLAYED_COLUMNSFOLLOW } from 'src/app/models/admin-content';
 import { MongodbService } from 'src/app/services/mongodb.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EditInterestedStudentComponent } from '../../dialogs/edit-interested-student/edit-interested-student.component';
+import { InterestedStudentResponse } from 'src/app/models/interestedStudents';
 
 @Component({
   selector: 'app-interested-student',
@@ -17,19 +18,19 @@ export class InterestedStudentComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort; 
- 
   
   filteredInterested = new MatTableDataSource<any>();
-
   interestedStudents: any[] =[];
-
 
   selectedCourseInterested = '';
   courses: string[] = COURSES; 
   displayedColumnsFollow:string[] = DISPLAYED_COLUMNSFOLLOW;
   dateRangeForm: FormGroup;
 
-
+  totalPages: number = 0;
+  currentPage: number = 1;
+  limit: number = 10;
+  totalRecords:number = 0;
 
   constructor(private mongodbService: MongodbService,private dialog: MatDialog, private fb: FormBuilder){
     this.dateRangeForm = this.fb.group({
@@ -42,20 +43,21 @@ export class InterestedStudentComponent {
   }
 
   ngAfterViewInit() {
-    this.filteredInterested.paginator = this.paginator;
+    // this.filteredInterested.paginator = this.paginator;
     this.filteredInterested.sort = this.sort; 
   }
 
-  fetchStudents(): void {
-    this.mongodbService.getInterested().subscribe(
-      (data) => {
+  fetchStudents(searchTerm: string = ''): void {
+    this.mongodbService.getInterested(this.currentPage, this.limit, searchTerm).subscribe(
+      (response:InterestedStudentResponse) => {
+        const {totalRecords, totalPages, currentPage, data } = response;
+        this.totalPages = totalPages;         
+        this.currentPage = currentPage;       
         this.interestedStudents = data;
-        // this.interestedDataLength =  this.interestedStudents.length;
-
+        this.totalRecords = totalRecords;
+        this.filteredInterested.data =  this.interestedStudents;
         this.filterInterested() 
-        console.log("Interested Student :=> ", this.interestedStudents);
-        // this.InquiryDataLength=this.Inquirystudents.length;
-        // this.filterLeads();
+        // console.log("Interested Student :=> ", this.interestedStudents);  
       },
       (error) => {
         console.error('Error fetching students:', error);
@@ -76,6 +78,23 @@ export class InterestedStudentComponent {
 
   onCourseChange() {
     this.filterInterested();
+  }
+
+  onPageChange(event: any): void {
+    this.currentPage = event.pageIndex+1; 
+    this.limit = event.pageSize; 
+    this.fetchStudents();
+  }
+  
+  refreshData(){
+    this.interestedStudents = [];
+    this.filteredInterested.data = [];
+    this.selectedCourseInterested = '';
+    const searchInput = document.querySelector('input[matInput]') as HTMLInputElement;
+    if (searchInput) {
+      searchInput.value = '';
+    }
+    this.fetchStudents();
   }
 
   editInterestedStudent(student:any){
@@ -101,10 +120,7 @@ export class InterestedStudentComponent {
   
     applyFilterInterested(event: Event){
       const filterValue = (event.target as HTMLInputElement).value;
-      this.filteredInterested.filter = filterValue.trim().toLowerCase();
-    
-      if (this.filteredInterested.paginator) {
-        this. filteredInterested.paginator.firstPage();
-      }
+      this.currentPage = 1;
+      this.fetchStudents(filterValue); 
     }
 }

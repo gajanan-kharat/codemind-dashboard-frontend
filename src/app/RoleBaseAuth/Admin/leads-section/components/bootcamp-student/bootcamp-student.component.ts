@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DISPLAYED_COLUMNSBOOTCAMP, PAYMENT_STATUS } from 'src/app/models/admin-content';
 import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditBootcampStudentComponent } from '../../dialogs/edit-bootcamp-student/edit-bootcamp-student.component';
+import { BootcampStudentResponse } from 'src/app/models/bootcampStudents';
 
 @Component({
   selector: 'app-bootcamp-student',
@@ -23,6 +24,11 @@ export class BootcampStudentComponent {
   displayedColumnsBootcamp:string[] = DISPLAYED_COLUMNSBOOTCAMP;
   payment_status: string[] = PAYMENT_STATUS; 
 
+  totalPages: number = 0;
+  currentPage: number = 1;
+  limit: number = 10;
+  totalRecords:number = 0;
+
   selectedPaymentBootCamp = '';
   constructor(private mongodbService: MongodbService, private dialog: MatDialog, private fb: FormBuilder) {}
 
@@ -31,24 +37,42 @@ export class BootcampStudentComponent {
   }
 
   ngAfterViewInit() {
-      this.filteredBootCamp.paginator = this.paginator;
+      // this.filteredBootCamp.paginator = this.paginator;
       this.filteredBootCamp.sort = this.sort; 
   }
 
-  fetchStudents(): void {
-     // Fetch BootCamp data
-     this.mongodbService.getBootCamp().subscribe(
-      (data) => {
+  fetchStudents(searchTerm: string = ''): void {
+     this.mongodbService.getBootCamp(this.currentPage, this.limit, searchTerm).subscribe(
+      (response:BootcampStudentResponse) => {
+        const {totalRecords, totalPages, currentPage, data } = response;
+        this.totalPages = totalPages;         
+        this.currentPage = currentPage;       
         this.bootCampStudents = data;
-        // this.bootCampDataLength =  this.bootCampStudents.length;
-        console.log("Bootcamp Data:=>",this.bootCampStudents);
-        // this.bootCampDataLength = this.bootCampStudents.length;
+        this.totalRecords = totalRecords;
+        this.filteredBootCamp.data =  this.bootCampStudents;
         this.filterBootCamp();
       },
       (error) => {
         console.error('Error fetching bootcamp students:', error);
       }
     );
+  }
+
+  onPageChange(event: any): void {
+    this.currentPage = event.pageIndex+1; 
+    this.limit = event.pageSize; 
+    this.fetchStudents();
+  }
+  
+  refreshData(){
+    this.bootCampStudents = [];
+    this.filteredBootCamp.data = [];
+    this.selectedPaymentBootCamp = '';
+    const searchInput = document.querySelector('input[matInput]') as HTMLInputElement;
+    if (searchInput) {
+      searchInput.value = '';
+    }
+    this.fetchStudents();
   }
 
   filterBootCamp() {
@@ -58,7 +82,6 @@ export class BootcampStudentComponent {
     if (this.filteredBootCamp.paginator) {
       this.filteredBootCamp.paginator.firstPage();
     }
-    // this.filteredBootCamp.paginator = this.paginator;
   } 
   onCourseChange() {
     this.filterBootCamp();
@@ -86,11 +109,8 @@ export class BootcampStudentComponent {
 
   applyFilterBootcamp(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.filteredBootCamp.filter = filterValue.trim().toLowerCase();
-  
-    if (this.filteredBootCamp.paginator) {
-      this.filteredBootCamp.paginator.firstPage();
-    }
+    this.currentPage = 1;
+    this.fetchStudents(filterValue); 
   }
 
   

@@ -1,6 +1,7 @@
     <div class="filter-container">
       <h2>FollowUp Students</h2>
       <div class="filters">
+      <mat-icon class="refresh-icon" (click)="refreshData()" mat-ripple>refresh</mat-icon>
       <mat-form-field appearance="fill">
         <mat-label>Search</mat-label>
         <input matInput (keyup)="applyFilterFollowUp($event)" placeholder="Search Students">
@@ -63,7 +64,10 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumnsFollow"></tr>
         <tr mat-row *matRowDef="let row; columns:  displayedColumnsFollow;"></tr>
       </table>
-      <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+      <!-- <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator> -->
+      <mat-paginator [length]="totalRecords" [pageSize]="limit" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons
+        (page)="onPageChange($event)">
+      </mat-paginator>
     </div>
   
 

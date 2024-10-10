@@ -153,7 +153,7 @@
     <!-- Payment Status Section -->
 <div class="section">
   <h3>Payment & Placement Status</h3>
-  <mat-form-field appearance="fill">
+  <!--<mat-form-field appearance="fill">
     <mat-label>Payment Status</mat-label>
     <mat-select formControlName="paymentStatus">
       <mat-option *ngFor="let status of paymentStatuses" [value]="status">{{ status }}</mat-option>
@@ -161,6 +161,11 @@
     <mat-error *ngIf="studentForm.get('paymentStatus')?.hasError('required') && studentForm.get('paymentStatus')?.touched">
       Payment Status is required.
     </mat-error>
+  </mat-form-field>-->
+
+  <mat-form-field appearance="fill">
+    <mat-label>Payment Status</mat-label>
+    <input matInput formControlName="paymentStatus" readonly>
   </mat-form-field>
 
   <!-- Placement Status Section -->

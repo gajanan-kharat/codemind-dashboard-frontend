@@ -8,7 +8,7 @@ import { MongodbService } from 'src/app/services/mongodb.service';
 
 interface Comment {
   comment: string;
-  commentDate: Date;
+  date: Date;
 }
 
 @Component({
@@ -52,12 +52,12 @@ export class EditFollowupStudentComponent {
     createCommentGroup(comment: Comment): FormGroup {
         return this.formBuilder.group({
             comment: [comment.comment, Validators.required],
-            commentDate: [comment.commentDate, Validators.required]
+            date: [comment.date, Validators.required]
         });
     }
 
     addComment() {
-        const newComment: Comment = { comment: '', commentDate: new Date() };
+        const newComment: Comment = { comment: '', date: new Date() };
         this.comments.push(this.createCommentGroup(newComment));
     }
 

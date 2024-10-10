@@ -14,6 +14,7 @@ export class AuthService {
   private roleKey = "user_role";
   private userKey = "user_name";
   private tokenKey = "auth_token";
+  private fullName = "user_fullName";
   private id = "id";
 
   constructor(private http: HttpClient,private router: Router) { }
@@ -49,7 +50,14 @@ export class AuthService {
   getUsername(): string | null {
     return localStorage.getItem(this.userKey);
   }
+  
+  setFullname(fullname: string) {
+    localStorage.setItem(this.fullName , fullname);
+  }
 
+  getFullname(): string | null {
+    return localStorage.getItem(this.fullName);
+  }
   setId(id: string) {
     localStorage.setItem(this.id , id);
   }

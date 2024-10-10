@@ -21,8 +21,9 @@ export class EditStudentDialogComponent {
     courses = Object.values(Course);
     mockStatuses = Object.values(MockStatuses);
     isLoading:Boolean = false;
-    paymentStatuses = PAYMENT_STATUSES;
+    // paymentStatuses = PAYMENT_STATUSES;
     placementStatuses = PLACEMENT_STATUSES;
+    paymentStatusValue = 'Not Paid'; 
   
     constructor(
       public dialogRef: MatDialogRef<EditStudentDialogComponent>,
@@ -36,6 +37,11 @@ export class EditStudentDialogComponent {
     }
   
     ngOnInit(): void {
+      if (this.data.student.payments && this.data.student.payments.length > 0) {
+        const lastPayment = this.data.student.payments[this.data.student.payments.length - 1];
+        this.paymentStatusValue = lastPayment.paymentStatus || 'Not Paid'; 
+      }
+
       this.studentForm = this.fb.group({
         firstName: [this.data.student.firstName, Validators.required],
         lastName: [this.data.student.lastName, Validators.required],
@@ -55,7 +61,7 @@ export class EditStudentDialogComponent {
         mock1Feedback:[this.data.student.mock1Feedback],
         mock2Feedback:[this.data.student.mock2Feedback],
         mock3Feedback:[this.data.student.mock3Feedback],
-        paymentStatus: [this.data.student.paymentStatus],
+        paymentStatus: [{ value: this.paymentStatusValue,disabled: true }],
         placementStatus: [this.data.student.placementStatus],
       });
     }

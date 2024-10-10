@@ -7,7 +7,7 @@ const followUpSchema = new mongoose.Schema({
   mobileNumber: { type: String, required: true },
   course: { type: String, required: true },
   inquiryStatus: { type: String },
-  date: { type: Date },
+  date: { type: Date, default: Date.now },
   batch: { type: String },
   source: {type: String},
   sourcecomment: {type: String},

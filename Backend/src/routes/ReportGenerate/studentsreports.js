@@ -24,6 +24,7 @@ const loadTemplate = (filePath) => {
 router.post('/generate-studentsReport', async (req, res) => {
   try {
     const { studentsData } = req.body;
+    console.log("student data :=> ",studentsData);
     const templatePath = path.join(__dirname, '../../templates/studentsReportTemplate.html');
 
     let content = await loadTemplate(templatePath);

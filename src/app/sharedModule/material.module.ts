@@ -17,6 +17,7 @@ import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
+import { MatRadioModule } from '@angular/material/radio';
 @NgModule({
   exports: [
     MatSidenavModule,
@@ -39,7 +40,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatSortModule,
-    MatRippleModule
+    MatRippleModule,
+    MatRadioModule,
   ]
 })
 export class MaterialModule { }

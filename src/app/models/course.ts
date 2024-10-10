@@ -1,7 +1,7 @@
 export enum Course {
     Angular = "Angular",
     React = 'React',
-    DotNet = '.Net',
+    DotNet = '.NET',
     Java = 'Java',
     Testing = 'Manual and Automation Testing'
   }

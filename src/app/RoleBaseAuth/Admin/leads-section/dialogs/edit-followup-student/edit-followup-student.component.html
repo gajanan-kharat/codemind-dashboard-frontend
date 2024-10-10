@@ -83,10 +83,10 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Comment Date</mat-label>
-          <input matInput [matDatepicker]="commentDatepicker" formControlName="commentDate" placeholder="Choose a date">
+          <input matInput [matDatepicker]="commentDatepicker" formControlName="date" placeholder="Choose a date">
           <mat-datepicker-toggle matSuffix [for]="commentDatepicker"></mat-datepicker-toggle>
           <mat-datepicker #commentDatepicker></mat-datepicker>
-          <mat-error *ngIf="comment.get('commentDate')?.hasError('required') && comment.get('commentDate')?.touched">
+          <mat-error *ngIf="comment.get('date')?.hasError('required') && comment.get('date')?.touched">
             Comment date is required.
           </mat-error>
         </mat-form-field>

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -26,7 +27,8 @@ export class EditInquiryStudentComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private mongodbService: MongodbService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -36,16 +38,25 @@ export class EditInquiryStudentComponent {
       email: [this.data.student.email, [Validators.required, Validators.email]],
       mobileNumber: [this.data.student.mobileNumber, Validators.required],
       course: [this.data.student.course, Validators.required],
-      inquiryStatus: [this.data.student.inquiryStatus, Validators.required],
+      inquiryStatus: ['', Validators.required],
       date: [this.data.student.date],
       source: [''], 
       sourcecomment: [''] 
     });
   }
-   
-      onSave(): void {
+
+  /*convertLocalToUTC(localDate: Date): Date {
+    const timezoneOffset = localDate.getTimezoneOffset(); // Get the local timezone offset
+    const utcDate = new Date(localDate.getTime() + timezoneOffset * 60000); // Adjust the date to UTC
+    return utcDate;
+  }*/
+
+    onSave(): void {
         if (this.inquiryForm.valid) {
-          const updatedInquiry = { ...this.data.student, ...this.inquiryForm.value };
+          /*const formData = this.inquiryForm.value;
+          formData.date = this.convertLocalToUTC(formData.date);
+          console.log("date format :=> ", formData.date);*/
+          const updatedInquiry = { ...this.data.student, ...this.inquiryForm.value};
           
           if (updatedInquiry.inquiryStatus === 'Not Interested') {
             // Logic for 'Not Interested' case

@@ -7,6 +7,7 @@ import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditStudentDialogComponent } from '../dialogs/edit-student-dialog/edit-student-dialog.component';
 import { TOP_ITEMS, BATCHES, DISPLAYED_COLUMNS, FEEDBACK_OPTIONS, PAYMENT_STATUSES, PLACEMENT_STATUSES } from 'src/app/models/admin-content';
 import { MatSort } from '@angular/material/sort';
+import { EditPaymentDialogComponent } from '../dialogs/edit-payment-dialog/edit-payment-dialog.component';
 
 @Component({
   selector: 'app-admin-content',
@@ -19,9 +20,10 @@ export class AdminContentComponent implements OnInit {
   filteredStudents = new MatTableDataSource<any>();
   students: any[] = [];
   // dataSource = new MatTableDataSource<any>(this.students);
-  
-  displayedColumns: string[] = DISPLAYED_COLUMNS;
 
+  displayedColumns: string[] = [...DISPLAYED_COLUMNS,'Payment'];
+ 
+  //  displayedColumns: string[] = DISPLAYED_COLUMNS;
   topItems = TOP_ITEMS;   
   batches:string[] =  BATCHES; 
   feedbackOptions: string[] = FEEDBACK_OPTIONS;
@@ -40,12 +42,14 @@ export class AdminContentComponent implements OnInit {
   limit: number = 10;
   totalRecords:number = 0;
 
-  constructor(private authService: AuthService, private moongodb: MongodbService,  private dialog: MatDialog) {}
+  constructor( private moongodb: MongodbService,  private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.filterStudents();
     this.fetchStudents();
+   
   }
+
   ngAfterViewInit() {
     // this.filteredStudents.paginator = this.paginator;
     this.filteredStudents.sort = this.sort; 
@@ -69,8 +73,6 @@ export class AdminContentComponent implements OnInit {
     return 'Excellent';
   }
   
-  
-
   filterStudents() {
     this.filteredStudents.data = this.students
       .filter(student => 
@@ -80,10 +82,6 @@ export class AdminContentComponent implements OnInit {
         (this.selectedPaymentStatus === 'All' || student.paymentStatus === this.selectedPaymentStatus) &&
         (this.selectedPlacementStatus === 'All' || student.placementStatus === this.selectedPlacementStatus)
       );
-
-    // if (this.filteredStudents.paginator) {
-    //   this.filteredStudents.paginator.firstPage();
-    // }
   }
 
 onFeedbackChange() {
@@ -98,8 +96,17 @@ onFeedbackChange() {
     this.filterStudents(); 
   }
 
+  onCourseClick(course: string) {
+    this.selectedCourse = course;
+    this.filterStudents();
+  }
+
+  onBatchChange() {
+    this.filterStudents();
+  }
 
   fetchStudents(searchTerm: string = ''): void {
+    
     this.moongodb.getStudent(this.currentPage, this.limit, searchTerm).subscribe(
       (response) => {
 
@@ -116,12 +123,21 @@ onFeedbackChange() {
         console.error('Error fetching students:', error);
       }
     );
+    
   }
 
+  getLastPaymentStatus(student: any): string | undefined { 
+    if (student.payments && student.payments.length > 0) {
+      const lastPayment = student.payments[student.payments.length - 1];
+      return lastPayment.paymentStatus; 
+    }
+    return undefined; 
+  }
+  
   onPageChange(event: any): void {
     this.currentPage = event.pageIndex+1; 
     this.limit = event.pageSize; 
-    this.filterStudents(); 
+    this.fetchStudents(); 
   }
 
   applyFilter(event: Event) {
@@ -145,10 +161,6 @@ onFeedbackChange() {
     if (searchInput) {
         searchInput.value = ''; 
     }
-
-    // if (this.filteredStudents.paginator) {
-    //     this.filteredStudents.paginator.firstPage();  
-    // }
   }
   downloadReport() {
     const reportData = this.filteredStudents.filteredData;
@@ -166,14 +178,7 @@ onFeedbackChange() {
     });
   }
   
-  onCourseClick(course: string) {
-    this.selectedCourse = course;
-    this.filterStudents();
-  }
-
-  onBatchChange() {
-    this.filterStudents();
-  }
+  
  
   editStudent(student: any) {
     const dialogRef = this.dialog.open(EditStudentDialogComponent, {
@@ -182,6 +187,28 @@ onFeedbackChange() {
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        const index = this.students.findIndex(s => s._id === student._id);
+        if (index !== -1) {
+          this.students[index] = result;
+          this.filterStudents();
+        }
+      }
+    });
+  }
+
+  openPaymentDialog(student: any) {
+    const dialogRef = this.dialog.open(EditPaymentDialogComponent, {
+      width: '50%',
+      maxWidth: '80vw', 
+      minWidth: '300px',
+      data: {
+        student: student,
+        // paymentStatus: student.paymentStatus
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const index = this.students.findIndex(s => s._id === student._id);
         if (index !== -1) {

@@ -15,6 +15,7 @@ const studentMockInformationRoutes = require('./routes/studentMockInformation');
 const usersReportRoutes = require('./routes/usersReport');
 const studentsReportRoutes = require('./routes/ReportGenerate/studentsreports');
 const courseRoutes = require('./routes/course');
+const feesRoutes = require('./routes/fees');
 const totalRecordsRouter = require('./routes/totalTableRecords');
 
 const app = express();
@@ -44,6 +45,7 @@ app.use('/api/', usersReportRoutes);
 app.use('/api/',studentsReportRoutes);
 app.use('/api/studentMockInformation', studentMockInformationRoutes);
 app.use('/api/course', courseRoutes);
+app.use('/api/fees', feesRoutes);
 app.use('/api/total-records', totalRecordsRouter);
 
 app.use((err, req, res, next) => {

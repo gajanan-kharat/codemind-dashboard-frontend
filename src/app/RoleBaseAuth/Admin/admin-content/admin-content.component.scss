@@ -81,6 +81,41 @@
   .red-icon {
     color: red; 
   }
+
+  .badge-button {
+    border: none;
+    border-radius: 20px; 
+    padding: 5px 10px; 
+    font-size: 12px; 
+    color: white; 
+    cursor: pointer; 
+    outline: none;
+    transition: background-color 0.3s; 
+  }
+  
+  .not-paid {
+    
+    background-color: #f55145;
+  
+  }
+
+  // .pending-payment {
+  //   background-color:; 
+  // }
+  
+  .partial-payment {
+    background-color: #ffeb3b;
+    color: black; 
+  }
+  
+  .complete-payment {
+    background-color: #14de57; 
+  }
+  
+  .badge-button:hover {
+    opacity: 0.8; 
+  }
+  
   .edit{
     background: none;
     border-style:none;

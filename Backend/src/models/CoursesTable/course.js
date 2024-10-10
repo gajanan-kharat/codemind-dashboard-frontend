@@ -6,7 +6,8 @@ const courseSchema = new mongoose.Schema({
   duration: { type: String, required: true },
   batch: { type: String, required:true },
   batchStartDate: { type: Date, required: true },
-  topicsCovered: { type: [String], required: true }
+  topicsCovered: { type: [String], required: true },
+  
 });
 
 const Course = mongoose.model('Course', courseSchema);

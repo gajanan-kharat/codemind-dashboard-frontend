@@ -20,12 +20,13 @@ export class InquiryStudentComponent {
 
   filteredLeads = new MatTableDataSource<any>();
 
+  student: any[] = [];
   Inquirystudents: any[] = [];
 
-  courses: string[] = COURSES; 
+  courses: string[] = ['All',...COURSES]; 
   displayedColumns: string[] = DISPLAYED_COLUMNS;
 
-  selectedCourseLeads = '';
+  selectedCourseLeads = 'All';
 
   totalPages: number = 0;
   currentPage: number = 1;
@@ -44,7 +45,10 @@ export class InquiryStudentComponent {
   }
 
   fetchStudents(searchTerm: string = ''): void {
-    this.mongodbService.getInquiryStudent(this.currentPage, this.limit, searchTerm).subscribe(
+    const filters = {
+      course: this.selectedCourseLeads || '',
+    };
+    this.mongodbService.getInquiryStudent(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response: InquiryStudentResponse) => {
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
@@ -52,7 +56,7 @@ export class InquiryStudentComponent {
         this.Inquirystudents = data;
         this.totalRecords = totalRecords;
         this.filteredLeads.data =  this.Inquirystudents;
-        this.filterLeads();
+        // this.filterLeads();
       },
       (error) => {
         console.error('Error fetching students:', error);
@@ -67,17 +71,20 @@ export class InquiryStudentComponent {
   }
   
 
-  filterLeads() {
+  /*filterLeads() {
     this.filteredLeads.data = this.Inquirystudents.filter(student =>
       (!this.selectedCourseLeads || student.course === this.selectedCourseLeads)
     );
     if (this.filteredLeads.paginator) {
       this.filteredLeads.paginator.firstPage();
     }
-  }
+  }*/
 
   onCourseChange() {
-      this.filterLeads();
+      // this.filterLeads();
+      this.fetchStudents();
+      this.currentPage = 1;
+      this.filteredLeads.paginator = this.paginator;
   }
 
   applyFilter(event: Event) {
@@ -89,13 +96,31 @@ export class InquiryStudentComponent {
   refreshData(){
     this.Inquirystudents = [];
     this.filteredLeads.data = [];
-    this.selectedCourseLeads = '';
+    this.selectedCourseLeads = 'All';
     const searchInput = document.querySelector('input[matInput]') as HTMLInputElement;
     if (searchInput) {
       searchInput.value = '';
     }
     this.fetchStudents();
   }
+
+  addNewStudent(): void {
+    const dialogRef = this.dialog.open(EditInquiryStudentComponent, {
+      width: '50%',
+      data: {}, 
+      maxWidth: '80vw',
+      minWidth: '280px',
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.Inquirystudents.push(result);
+        this.fetchStudents(); 
+        this.mongodbService.booleanSubject.next(true);
+      }
+    });
+  }
+  
  
   editStudent(student: any) {
     console.log("Student data =>", student);
@@ -103,7 +128,7 @@ export class InquiryStudentComponent {
       width: '50%',
       data: { student },
       maxWidth: '80vw', 
-    minWidth: '300px',
+    minWidth: '280px',
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -111,8 +136,9 @@ export class InquiryStudentComponent {
           const index = this.Inquirystudents.findIndex(s => s._id === student._id);
           if (index !== -1) {
             this.Inquirystudents[index] = result;
-            this.filterLeads();
+            // this.filterLeads();
             this.fetchStudents();
+            this.mongodbService.booleanSubject.next(true);
           }
       }
     });

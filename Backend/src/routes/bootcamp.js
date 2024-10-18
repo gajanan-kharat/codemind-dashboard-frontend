@@ -29,6 +29,7 @@ router.get('/', async (req, res) => {
       const page = parseInt(req.query.page) || 1;  
       const limit = parseInt(req.query.limit) || 10;  
       const skip = (page - 1) * limit;  
+      const { paymentStatus } = req.query;
       let BootcampInfo, totalDocuments;
       const baseFilter = searchQuery
         ? {
@@ -44,19 +45,36 @@ router.get('/', async (req, res) => {
             ]
           }
         : {};
+      
+      if (paymentStatus && paymentStatus !== 'All') {
+        baseFilter.paymentStatus = paymentStatus;
+      }
   
       totalDocuments = await Bootcamp.countDocuments(baseFilter);
-  
+
       BootcampInfo = await Bootcamp.find(baseFilter)
         .skip(skip)
         .limit(limit);
+      
+        //TitleCase
+        const toTitleCase = (str) => {
+          return str.split(' ')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                    .join(' ');
+        };
+        
+        const modifiedBootcampInfo = BootcampInfo.map(user => ({
+          ...user.toObject(),
+          name: toTitleCase(`${user.firstName} ${user.lastName}`)
+        }));
+      
       const totalPages = Math.ceil(totalDocuments / limit);
   
       res.status(200).send({
         totalRecords: totalDocuments,  
         totalPages,      
         currentPage: page,  
-        data: BootcampInfo 
+        data: modifiedBootcampInfo
       });
     } catch (error) {
       res.status(400).send({ error: 'Error fetching Bootcamp student information', details: error });

@@ -22,8 +22,8 @@ export class InterestedStudentComponent {
   filteredInterested = new MatTableDataSource<any>();
   interestedStudents: any[] =[];
 
-  selectedCourseInterested = '';
-  courses: string[] = COURSES; 
+  selectedCourseInterested = 'All';
+  courses: string[] = ["All",...COURSES]; 
   displayedColumnsFollow:string[] = DISPLAYED_COLUMNSFOLLOW;
   dateRangeForm: FormGroup;
 
@@ -48,7 +48,10 @@ export class InterestedStudentComponent {
   }
 
   fetchStudents(searchTerm: string = ''): void {
-    this.mongodbService.getInterested(this.currentPage, this.limit, searchTerm).subscribe(
+    const filters = {
+      course: this.selectedCourseInterested|| '',
+    };
+    this.mongodbService.getInterested(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response:InterestedStudentResponse) => {
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
@@ -56,7 +59,9 @@ export class InterestedStudentComponent {
         this.interestedStudents = data;
         this.totalRecords = totalRecords;
         this.filteredInterested.data =  this.interestedStudents;
-        this.filterInterested() 
+        console.log(this.filteredInterested.data);
+        // this.fetchStudents();
+        // this.filterInterested() 
         // console.log("Interested Student :=> ", this.interestedStudents);  
       },
       (error) => {
@@ -65,7 +70,7 @@ export class InterestedStudentComponent {
     );
   }
   
-  filterInterested() {
+  /*filterInterested() {
       this.filteredInterested.data = this.interestedStudents.filter(student => {
       return (!this.selectedCourseInterested || student.course === this.selectedCourseInterested);
       // && (!this.selectedBatchNotInterested || student.batch === this.selectedBatchNotInterested);
@@ -74,10 +79,13 @@ export class InterestedStudentComponent {
       this.filteredInterested.paginator.firstPage();
     }
 
-  }
+  }*/
 
   onCourseChange() {
-    this.filterInterested();
+    // this.filterInterested();
+    this.fetchStudents();
+    this.currentPage = 1;
+    this.filteredInterested.paginator = this.paginator;
   }
 
   onPageChange(event: any): void {
@@ -99,7 +107,7 @@ export class InterestedStudentComponent {
 
   editInterestedStudent(student:any){
     const dialogRef = this.dialog.open(EditInterestedStudentComponent , {
-      width: '50%',
+      width: '80%',
       data: { student },
       maxWidth: '80vw', 
     minWidth: '300px',
@@ -110,8 +118,9 @@ export class InterestedStudentComponent {
           const index = this.interestedStudents .findIndex(s => s._id === student._id);
           if (index !== -1) {
             this.interestedStudents[index] = result;
-            this.filterInterested();
+            // this.filterInterested();
             this.fetchStudents();
+            this.mongodbService.booleanSubject.next(true);
           }      
       }
     });

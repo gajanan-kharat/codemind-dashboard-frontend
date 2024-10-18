@@ -32,7 +32,8 @@ router.get('/', async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;  
     const skip = (page - 1) * limit;  
     let FollowUpInfo, totalDocuments;
-    const isDate = !isNaN(Date.parse(searchQuery));
+    // const isDate = !isNaN(Date.parse(searchQuery));
+    const { course, inquiryStatus, startDate, endDate} = req.query;
     const baseFilter = searchQuery
       ? {
           $or: [
@@ -50,18 +51,47 @@ router.get('/', async (req, res) => {
         }
       : {};
 
+      if (course && course !== 'All') {
+        baseFilter.course = course;
+      }
+
+      if (inquiryStatus && inquiryStatus !== 'All') {
+        baseFilter.inquiryStatus = inquiryStatus;
+      }
+
+      if (startDate) {
+        baseFilter.date = { ...baseFilter.date, $gte: new Date(startDate) };
+      }
+
+      if (endDate) {
+        baseFilter.date = { ...baseFilter.date, $lte: new Date(endDate) };
+      }
+  
     totalDocuments = await FollowUp.countDocuments(baseFilter);
 
     FollowUpInfo = await FollowUp.find(baseFilter)
       .skip(skip)
       .limit(limit);
+
+     //TitleCase
+     const toTitleCase = (str) => {
+      return str.split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                .join(' ');
+    };
+    
+     const modifiedFollowUpInfo =  FollowUpInfo.map(user => ({
+      ...user.toObject(),  
+      name: toTitleCase(`${user.firstName} ${user.lastName}`)  
+    }));
+
     const totalPages = Math.ceil(totalDocuments / limit);
 
     res.status(200).send({
       totalRecords: totalDocuments,  
       totalPages,      
       currentPage: page,  
-      data: FollowUpInfo  
+      data: modifiedFollowUpInfo
     });
   } catch (error) {
     res.status(400).send({ error: 'Error fetching followup student information', details: error });

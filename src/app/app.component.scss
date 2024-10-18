@@ -1,0 +1,92 @@
+/* General styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Container for dashboard */
+  .dashboard-container {
+    display: flex;
+  }
+  
+  /* Sidenav styles */
+  .sidenav {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    height: 100vh;
+    // padding-top: 20px;
+    transition: width 0.3s ease;
+    position: relative;
+  }
+  
+  .sidenav a {
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 15px;
+    text-decoration: none;
+    transition: padding 0.3s ease;
+  }
+  
+  .sidenav a:hover {
+    background-color: #575757;
+  }
+  
+  /* Icon styles */
+  .sidenav a .icon {
+    margin-right: 10px;
+    font-size: 20px; /* Adjust the icon size */
+  }
+  
+  /* Text (name) styles */
+  .sidenav a .text {
+    display: inline-block;
+    transition: opacity 0.3s ease;
+  }
+  
+  /* Menu icon */
+  .menu-icon {
+    font-size: 24px;
+    padding: 15px;
+    cursor: pointer;
+    color: white;
+  }
+  
+  /* Main content styles */
+  .main-content {
+    flex-grow: 1;
+    padding: 20px;
+  }
+  
+  header {
+    background-color: #444;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  /* Collapsed sidenav */
+  .sidenav.collapsed {
+    width: 70px; /* Collapse to show only the icon */
+  }
+  
+  .sidenav.collapsed a .icon {
+    margin-right: 0; /* Align the icon centrally */
+  }
+  
+  .sidenav.collapsed a .text {
+    opacity: 0; /* Hide the text */
+    pointer-events: none; /* Make sure the text is not clickable when hidden */
+  }
+  
+  /* Transition effect for hiding text */
+  .sidenav a .text {
+    transition: opacity 0.3s ease;
+  }
+  

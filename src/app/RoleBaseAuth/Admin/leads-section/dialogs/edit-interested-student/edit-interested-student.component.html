@@ -90,6 +90,32 @@
       </mat-error>
     </mat-form-field>
 
+     <!-- Admission Status -->
+     <mat-form-field appearance="fill">
+      <mat-label>Admission Status</mat-label>
+      <mat-select formControlName="admission" (selectionChange)="onAdmissionStatusChange($event.value)">
+        <mat-option *ngFor="let  admission of admission" [value]="admission">{{ admission }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="interestedForm.get('admission')?.hasError('required') && interestedForm.get(' admission')?.touched">
+      Admissio Status is required.
+      </mat-error>
+    </mat-form-field>
+
+
+    <!-- Show payment component only if admission status is 'Confirmed' -->
+    <!-- <app-edit-payment-dialog 
+    *ngIf="selectedAdmissionStatus === 'Confirm'"
+    [isIntereseted]="true" 
+    [formGroup]="interestedForm"
+    (formDataChange)="onFormDataChange($event)" required>
+   </app-edit-payment-dialog> -->
+   <app-edit-payment-dialog 
+    *ngIf="selectedAdmissionStatus === 'Confirm'" 
+     [isIntereseted]="true" 
+     [formGroup]="interestedForm">
+   </app-edit-payment-dialog>
+
+    <ng-container *ngIf="selectedAdmissionStatus != 'Confirm'">
     <mat-form-field appearance="fill">
       <mat-label>Source</mat-label>
       <input matInput formControlName="source" placeholder="Enter Source">
@@ -112,7 +138,8 @@
         <h2 class="comment">Comment</h2>
         <mat-form-field appearance="fill">
           <mat-label>Comment</mat-label>
-          <textarea matInput formControlName="comment"></textarea>
+          <!-- <textarea matInput formControlName="comment"></textarea> -->
+          <input matInput formControlName="comment" placeholder="Entercomment">
           <mat-error *ngIf="comment.get('comment')?.hasError('required') && comment.get('comment')?.touched">
             Comment is required.
           </mat-error>
@@ -129,11 +156,12 @@
       </div>
     </div>
 
-    <button mat-stroked-button class="custom-color-button" (click)="addComment()">Add Comment</button>
+    <button mat-stroked-button class="comment-button" (click)="addComment()">Add Comment</button>
+  </ng-container>
   </form>
 </div>
 
 <div mat-dialog-actions>
-  <button class="save-btn" mat-button (click)="onSave()">Save</button>
+  <button class="save-btn" mat-button (click)="onSave()" [disabled]="!interestedForm.valid">Save</button>
 </div>
 

@@ -13,7 +13,7 @@ import { Role } from 'src/app/models/role';
 })
 export class EditUserDialogComponent {
 
-    editStudentForm: FormGroup;
+    userForm: FormGroup;
     roles = Object.values(Role); 
     isEditing: boolean; 
     isLoading:Boolean = false;
@@ -29,7 +29,7 @@ export class EditUserDialogComponent {
       this. isEditing = !!data && !!data.user;
   
      
-      this.editStudentForm = this.fb.group({
+      this.userForm = this.fb.group({
         firstname: [this.isEditing ? data.user.firstname : '', Validators.required],
         lastname: [this.isEditing ? data.user.lastname : '', Validators.required],
         mobile_number: [
@@ -46,8 +46,8 @@ export class EditUserDialogComponent {
     }
   
     onSave(): void {
-      if (this.editStudentForm.valid) {
-        const user = { ...this.editStudentForm.value };
+      if (this.userForm.valid) {
+        const user = { ...this.userForm.value };
         if (this.isEditing && !user.password) {
           delete user.password;
         }
@@ -59,7 +59,7 @@ export class EditUserDialogComponent {
           this.createUser(user); 
         }
       } else {
-        this.editStudentForm.markAllAsTouched(); 
+        this.userForm.markAllAsTouched(); 
       }
     }
   

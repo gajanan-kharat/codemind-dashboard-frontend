@@ -3,14 +3,15 @@
   <mat-spinner></mat-spinner>
 </div>
 
-<h2 mat-dialog-title>Payment Information</h2>
+<ng-container *ngIf="!isIntereseted; else notInterested">
+<h1 mat-dialog-title>Payment Information</h1>
 <button class="cancel-btn" (click)="onCancel()">
   <mat-icon>close</mat-icon>
 </button>
 
-<mat-dialog-content>
+<mat-dialog-content> 
+  <!-- <h3>Payment Details</h3> -->
   <form [formGroup]="paymentForm">
-
     <mat-form-field appearance="fill">
       <mat-label>Total Fees</mat-label>
       <input matInput formControlName="totalFees" readonly>
@@ -24,6 +25,9 @@
     <mat-form-field appearance="fill">
       <mat-label>Paid Fees</mat-label>
       <input matInput formControlName="paidFees" type="number">
+      <mat-error *ngIf="paymentForm.get('paidFees')?.hasError('required') && paymentForm.get('paidFees')?.touched">
+         Paid Fees is required.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -34,6 +38,9 @@
     <mat-form-field appearance="fill">
       <mat-label>Discount Percentage</mat-label>
       <input matInput formControlName="discountPercentage" type="number" >
+      <mat-error *ngIf="paymentForm.get('discountPercentage')?.hasError('required') && paymentForm.get('discountPercentage')?.touched">
+        Discount % is required.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -44,22 +51,30 @@
     <mat-form-field appearance="fill">
       <mat-label>Reference Discount</mat-label>
       <input matInput formControlName="reference" type="number">
+      <mat-error *ngIf="paymentForm.get('reference')?.hasError('required') && paymentForm.get('reference')?.touched">
+        Reference Discount INR is required.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Reference Comment</mat-label>
       <input matInput formControlName="referenceComment">
     </mat-form-field>
-
-   
+ 
     <mat-form-field appearance="fill">
       <mat-label>Remaining Fees</mat-label>
       <input matInput formControlName="remainingFees" type="number" readonly>
+      <mat-error *ngIf="paymentForm.get('remainingFees')?.hasError('required') && paymentForm.get('remainingFees')?.touched">
+        Remaining Fees is required.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Payment Status</mat-label>
       <input matInput formControlName="paymentStatus" readonly>
+      <mat-error *ngIf="paymentForm.get('paymentStatus')?.hasError('required') && paymentForm.get('paymentStatus')?.touched">
+        paymentStatus is required.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -67,6 +82,9 @@
       <input matInput [matDatepicker]="picker" formControlName="paymentDate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="paymentForm.get('paymentDate')?.hasError('required') && paymentForm.get('paymentDate')?.touched">
+        Payment Date is required.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -76,19 +94,27 @@
         <mat-option value="online">Online</mat-option>
         <mat-option value="cash">Cash</mat-option>
       </mat-select>
+      <mat-error *ngIf="paymentForm.get('transactionWay')?.hasError('required') && paymentForm.get('transactionWay')?.touched">
+        Transactionway is required.
+      </mat-error>
     </mat-form-field>
-    
     
     <!-- Online-specific fields -->
     <div *ngIf="transactionWay === 'online'">
       <mat-form-field appearance="fill">
         <mat-label>Transaction ID</mat-label>
         <input matInput formControlName="transactionId" required>
+        <mat-error *ngIf="paymentForm.get('transactionId')?.hasError('required') && paymentForm.get('transactionId')?.touched">
+          Transaction_Id is required.
+        </mat-error>
       </mat-form-field>
     
       <mat-form-field appearance="fill">
         <mat-label>Bank Name</mat-label>
         <input matInput formControlName="bankName" required>
+        <mat-error *ngIf="paymentForm.get('bankName')?.hasError('required') && paymentForm.get('bankName')?.touched">
+          Bank Name is required.
+        </mat-error>
       </mat-form-field>
     </div>
     
@@ -102,14 +128,154 @@
 
     <div class="screenshot-container">
       <label class="screenshot-label" for="screenshot">Upload Screenshot</label>
-      <input id="screenshot" type="file" (change)="onFileSelected($event)" class="file-input" />
-      <a *ngIf="screenshotUrl" [href]="screenshotUrl" target="_blank" class="preview-link">Preview Screenshot</a> 
-      
+      <input formControlNamel="screenshot" id="screenshot" type="file" (change)="onFileSelected($event)" class="file-input" />
+      <div *ngIf="paymentForm.get('screenshot')?.hasError('required') && paymentForm.get('screenshot')?.touched" class="error-message">
+        Screenshot is required.
+      </div>
+      <div>
+        <a *ngIf="screenshotUrl" [href]="screenshotUrl" target="_blank" class="preview-link">Preview Screenshot</a> 
+        <mat-icon *ngIf="screenshotUrl" (click)="deleteScreenshot()" class="delete-icon" aria-label="Delete screenshot">cancel</mat-icon> 
+      </div>
+     
     </div>
       </form>
-</mat-dialog-content>
+</mat-dialog-content> 
 
-<mat-dialog-actions>
-  <button mat-button class="save-btn" (click)="onSave()" [disabled]="!paymentForm.valid">Save</button>
-
+<mat-dialog-actions >
+  <button mat-button class="save-btn" (click)="onSave()" [disabled]="!paymentForm.valid" >Save</button>
 </mat-dialog-actions>
+</ng-container>
+
+<!--Interested Section Payment detail-->
+
+<ng-template #notInterested>
+<h3 class="payment">Payment Details</h3>
+<form [formGroup]="paymentForm">
+  <mat-form-field appearance="fill">
+    <mat-label>Total Fees</mat-label>
+    <input matInput formControlName="totalFees" readonly>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Course</mat-label>
+    <input matInput formControlName="course"  readonly>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Paid Fees</mat-label>
+    <input matInput formControlName="paidFees" type="number">
+    <mat-error *ngIf="paymentForm.get('paidFees')?.hasError('required') && paymentForm.get('paidFees')?.touched">
+       Paid Fees is required.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Installment</mat-label>
+    <input matInput formControlName="installment">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Discount Percentage</mat-label>
+    <input matInput formControlName="discountPercentage" type="number" >
+    <mat-error *ngIf="paymentForm.get('discountPercentage')?.hasError('required') && paymentForm.get('discountPercentage')?.touched">
+      Discount % is required.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Discount Comment</mat-label>
+    <input matInput formControlName="discountComment">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Reference Discount</mat-label>
+    <input matInput formControlName="reference" type="number">
+    <mat-error *ngIf="paymentForm.get('reference')?.hasError('required') && paymentForm.get('reference')?.touched">
+      Reference Discount INR is required.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Reference Comment</mat-label>
+    <input matInput formControlName="referenceComment">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Remaining Fees</mat-label>
+    <input matInput formControlName="remainingFees" type="number" readonly>
+    <mat-error *ngIf="paymentForm.get('remainingFees')?.hasError('required') && paymentForm.get('remainingFees')?.touched">
+      Remaining Fees is required.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Payment Status</mat-label>
+    <input matInput formControlName="paymentStatus" readonly>
+    <mat-error *ngIf="paymentForm.get('paymentStatus')?.hasError('required') && paymentForm.get('paymentStatus')?.touched">
+      paymentStatus is required.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Payment Date</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="paymentDate">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="paymentForm.get('paymentDate')?.hasError('required') && paymentForm.get('paymentDate')?.touched">
+      Payment Date is required.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Transaction Way</mat-label>
+    <mat-select formControlName="transactionWay" (selectionChange)="onTransactionWayChange($event)">
+      <mat-option value="" Selected>Select Transaction</mat-option>
+      <mat-option value="online">Online</mat-option>
+      <mat-option value="cash">Cash</mat-option>
+    </mat-select>
+    <mat-error *ngIf="paymentForm.get('transactionWay')?.hasError('required') && paymentForm.get('transactionWay')?.touched">
+      Transactionway is required.
+    </mat-error>
+  </mat-form-field>
+  
+  <!-- Online-specific fields -->
+  <div *ngIf="transactionWay === 'online'">
+    <mat-form-field appearance="fill">
+      <mat-label>Transaction ID</mat-label>
+      <input matInput formControlName="transactionId" required>
+      <mat-error *ngIf="paymentForm.get('transactionId')?.hasError('required') && paymentForm.get('transactionId')?.touched">
+        Transaction_Id is required.
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Bank Name</mat-label>
+      <input matInput formControlName="bankName" required>
+      <mat-error *ngIf="paymentForm.get('bankName')?.hasError('required') && paymentForm.get('bankName')?.touched">
+        Bank Name is required.
+      </mat-error>
+    </mat-form-field>
+  </div>
+  
+  <!-- Cash-specific field -->
+  <div *ngIf="transactionWay === 'cash'">
+    <mat-form-field appearance="fill">
+      <mat-label>Cash Receiver </mat-label>
+      <input matInput formControlName="cashReceiverName" required>
+    </mat-form-field>
+  </div>
+
+  <div class="screenshot-container">
+    <label class="screenshot-label" for="screenshot">Upload Screenshot</label>
+    <input formControlNamel="screenshot" id="screenshot" type="file" (change)="onFileSelected($event)" class="file-input" />
+    <div *ngIf="paymentForm.get('screenshot')?.hasError('required') && paymentForm.get('screenshot')?.touched" class="error-message">
+      Screenshot is required.
+    </div>
+    <div>
+      <a *ngIf="screenshotUrl" [href]="screenshotUrl" target="_blank" class="preview-link">Preview Screenshot</a> 
+      <mat-icon *ngIf="screenshotUrl" (click)="deleteScreenshot()" class="delete-icon" aria-label="Delete screenshot">cancel</mat-icon> 
+    </div>
+   
+  </div>
+ </form>
+</ng-template>

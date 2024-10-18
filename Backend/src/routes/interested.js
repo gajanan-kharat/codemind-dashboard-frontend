@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Interested = require('../models/interested'); 
+const CourseFees = require('../models/CoursesTable/fees');
 // const { sendInterestedEmail } = require('./Email/interestedEmail'); 
 
 // POST route to create a new Interested inquiry
@@ -34,6 +35,7 @@ router.get('/', async (req, res) => {
     const skip = (page - 1) * limit;  
     let InterestedInfo, totalDocuments;
     // const isDate = !isNaN(Date.parse(searchQuery));
+    const { course } = req.query;
     const baseFilter = searchQuery
       ? {
           $or: [
@@ -50,6 +52,10 @@ router.get('/', async (req, res) => {
           ]
         }
       : {};
+    
+      if (course && course !== 'All') {
+        baseFilter.course = course;
+      }
 
     totalDocuments = await Interested.countDocuments(baseFilter);
 
@@ -58,11 +64,29 @@ router.get('/', async (req, res) => {
       .limit(limit);
     const totalPages = Math.ceil(totalDocuments / limit);
 
+     //TitleCase
+     const toTitleCase = (str) => {
+      return str.split(' ')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+          .join(' ');
+    };
+     // Fetch course fees and combine with student data
+     const InterestedInfoWithFees = await Promise.all(
+      InterestedInfo.map(async (student) => {
+        const courseFees = await CourseFees.findOne({ name: student.course });
+        return {
+          ...student._doc, // Spread the student document properties
+          name: toTitleCase(`${student.firstName} ${student.lastName}`),
+          totalFees: courseFees ? courseFees.totalFees : 'Course not found', 
+        };
+      })
+    );
+    
     res.status(200).send({
       totalRecords: totalDocuments,  
       totalPages,      
       currentPage: page,  
-      data: InterestedInfo 
+      data: InterestedInfoWithFees
     });
   } catch (error) {
     res.status(400).send({ error: 'Error fetching followup student information', details: error });
@@ -94,6 +118,19 @@ router.post('/:id/send-email', async (req, res) => {
     res.status(200).send({ message: 'Email sent successfully' });
   } catch (error) {
     res.status(400).send({ error: 'Error sending email', details: error });
+  }
+});
+
+// API Endpoint to Delete Student
+router.delete('/:id', async (req, res) => {
+  try {
+    const  deleteInterested = await Interested.findByIdAndDelete(req.params.id);
+    if (!deleteInterested) {
+      return res.status(404).send({ error: 'Student not found' });
+    }
+    res.status(200).send({ message: 'Student deleted successfully' });
+  } catch (error) {
+    res.status(400).send({ error: 'Error deleting student', details: error });
   }
 });
 

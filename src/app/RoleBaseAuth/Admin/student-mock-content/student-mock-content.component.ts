@@ -22,9 +22,9 @@ export class StudentMockContentComponent {
   filteredStudentsMock = new MatTableDataSource<any>();
 
   topItems = TOP_ITEMS;   
-  batches:string[] =  BATCHES; 
+  batches:string[] =  ['All',...BATCHES]; 
   displayedColumns: string[] = DISPLAYED_COLUMNS;
-  mockStatusOptions: string[] = ['Pending', 'Excellent', 'Good', 'Average', 'Poor'];
+  mockStatusOptions: string[] = ['All','Pending', 'Excellent', 'Good', 'Average', 'Poor'];
   mockNumbers: { value: number, label: string }[] = [
     { value: 0, label: 'All' },
     { value: 1, label: 'Mock 1' },
@@ -37,7 +37,7 @@ export class StudentMockContentComponent {
   selectedCourse = '';
 
   selectedMockNumber: number = 0;  
-  selectedMockStatus: string = ''; 
+  selectedMockStatus: string = 'All'; 
 
   totalPages: number = 0;
   currentPage: number = 1;
@@ -47,7 +47,7 @@ export class StudentMockContentComponent {
   constructor( private moongodb: MongodbService,  private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.filterStudentsMock();
+    //this.filterStudentsMock();
     this.fetchStudentsMock();
   }
 
@@ -69,7 +69,7 @@ export class StudentMockContentComponent {
   }*/
 
 
-    filterStudentsMock() {
+    /*filterStudentsMock() {
       this.filteredStudentsMock.data = this.studentsMock.filter(student => {
         let matchesCourse = !this.selectedCourse || student.course === this.selectedCourse;
         let matchesBatch = this.selectedBatch === 'All' || student.batch === this.selectedBatch;
@@ -89,22 +89,48 @@ export class StudentMockContentComponent {
         }
         return matchesCourse && matchesBatch && matchesMockStatus;
       });
-    }
+    }*/
     
     onMockNumberChange(mockNumber: number) {
       this.selectedMockNumber = mockNumber;
-      this.filterStudentsMock();
+      this.currentPage = 1;
+      this.fetchStudentsMock();
+      this.filteredStudentsMock.paginator = this.paginator;
+      //this.filterStudentsMock();
     }
   
     onMockStatusChange(status: string) {
       this.selectedMockStatus = status;
-      this.filterStudentsMock();
+      this.currentPage = 1;
+      this.fetchStudentsMock();
+      this.filteredStudentsMock.paginator = this.paginator;
+      //this.filterStudentsMock();
     }
   
+    onCourseClick(course: string) {
+      this.selectedCourse = course;
+      this.currentPage = 1;
+      this.fetchStudentsMock();
+      this.filteredStudentsMock.paginator = this.paginator;
+      //this.filterStudentsMock();
+    }
+  
+    onBatchChange() {
+      this.fetchStudentsMock();
+      this.currentPage = 1;
+      this.filteredStudentsMock.paginator = this.paginator;
+      //this.filterStudentsMock();
+    }
 
   fetchStudentsMock(searchTerm: string = ''): void {
-    console.log("search teram :=> ",searchTerm);
-    this.moongodb.getStudentMock(this.currentPage, this.limit, searchTerm).subscribe(
+     const filters = {
+      batch: this.selectedBatch || '',
+      course: this.selectedCourse || '',
+      mockNumber: this.selectedMockNumber || 0,
+      mockStatus: this.selectedMockStatus || ''
+    };
+    console.log("search teram :=> ",filters.course);
+    this.moongodb.getStudentMock(this.currentPage, this.limit, searchTerm,filters).subscribe(
       (response: StudentMockResponse) => {
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
@@ -112,7 +138,8 @@ export class StudentMockContentComponent {
         this.studentsMock = data;
         this.totalRecords = totalRecords;
         this.filteredStudentsMock.data = this.studentsMock;
-        this.filterStudentsMock();      
+        console.log("filteredStudentsMock:=>", this.filteredStudentsMock.data);
+        //this.filterStudentsMock();      
       },
       (error) => {
         console.error('Error fetching students Mock:', error);
@@ -140,16 +167,6 @@ export class StudentMockContentComponent {
       this.currentPage = 1;
       this.fetchStudentsMock(filterValue); 
     }
-  
-
-  onCourseClick(course: string) {
-    this.selectedCourse = course;
-    this.filterStudentsMock();
-  }
-
-  onBatchChange() {
-    this.filterStudentsMock();
-  }
 
   refreshData(){
     this.studentsMock = [];
@@ -176,7 +193,8 @@ export class StudentMockContentComponent {
         const index = this.studentsMock.findIndex(s => s._id === student._id);
         if (index !== -1) {
           this.studentsMock[index] = result;
-          this.filterStudentsMock();
+          //this.filterStudentsMock();
+          this.fetchStudentsMock();
         }
       }
     });

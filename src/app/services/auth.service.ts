@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
 import { environment } from 'src/environment/environment';
+import { UsersResponse } from '../models/adminUsers';
 
 @Injectable({
   providedIn: 'root'
@@ -74,8 +75,17 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  getUser(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/users`);
+  getUser(page: number, limit: number, searchTerm: string = '', filters: any = {}): Observable<UsersResponse> {
+    const params: any = {
+      page,
+      limit,
+      ...filters
+    };
+    return this.http.get<UsersResponse>(`${this.apiUrl}/users?search=${searchTerm}`,{ params });
+  }
+
+  deleteUsers(studentId: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/deleteusers/${studentId}`);
   }
 
   updateUserManagement(id: string, updatedData: any): Observable<any> {

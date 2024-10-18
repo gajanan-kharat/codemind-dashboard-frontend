@@ -3,7 +3,7 @@
   </div>
   
   <div class="inquiry-container">
-  <h1 mat-dialog-title>Edit Inquiry Student</h1>
+  <h1 mat-dialog-title>{{ isEditMode ? 'Edit Inquiry Student' : 'New Inquiry Student' }}</h1>
   <button class="cancel-btn" (click)="onCancel()">
     <mat-icon>close</mat-icon>
   </button>
@@ -40,14 +40,24 @@
             Mobile Number is required.
           </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" *ngIf="isEditMode">
             <mat-label>Course</mat-label>
             <input matInput formControlName="course">
             <mat-error *ngIf="inquiryForm.get('course')?.hasError('required') && inquiryForm.get('course')?.touched">
                 course is required.
             </mat-error>
-          </mat-form-field>
-        <mat-form-field appearance="fill">
+        </mat-form-field>
+          <!-- Course -->
+        <mat-form-field appearance="fill" *ngIf="!isEditMode">
+          <mat-label>Course</mat-label>
+          <mat-select formControlName="course">
+            <mat-option *ngFor="let course of courses" [value]="course">{{ course }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="inquiryForm.get('course')?.hasError('required') && inquiryForm.get('course')?.touched">
+            Course is required.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="isEditMode" >
           <mat-label>Inquiry Status</mat-label>
           <mat-select formControlName="inquiryStatus">
             <mat-option *ngFor="let status of inquiryStatuses" [value]="status">{{ status }}</mat-option>
@@ -56,7 +66,7 @@
             Inquiry Status is required.
           </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" *ngIf="isEditMode" >
           <mat-label>Date</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="date" >
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -66,7 +76,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" *ngIf="isEditMode" >
           <mat-label>Source</mat-label>
           <mat-select formControlName="source">
             <mat-option *ngFor="let source of sourceOptions" [value]="source">{{ source }}</mat-option>
@@ -75,7 +85,7 @@
             Source is required.
           </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" *ngIf="isEditMode" >
           <mat-label>Comment</mat-label>
           <textarea matInput formControlName="sourcecomment"></textarea>
         </mat-form-field>
@@ -85,6 +95,7 @@
   </div>
   
   <div class="bottom-section" mat-dialog-actions>
-    <button class="save-btn" mat-button (click)="onSave()">Save</button>
+    <button *ngIf="!isEditMode" class="save-btn" mat-button (click)="onSaveAdd()">Save</button>
+    <button *ngIf="isEditMode" class="save-btn" mat-button (click)="onSave()">Save</button>
   </div>
   </div>

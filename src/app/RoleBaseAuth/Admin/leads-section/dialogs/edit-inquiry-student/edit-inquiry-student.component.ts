@@ -3,6 +3,7 @@ import { Component, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { COURSES } from 'src/app/models/admin-content';
 import { MongodbService } from 'src/app/services/mongodb.service';
 
 @Component({
@@ -13,6 +14,7 @@ import { MongodbService } from 'src/app/services/mongodb.service';
 export class EditInquiryStudentComponent {
   inquiryForm!: FormGroup;
   isLoading = false;
+  isEditMode: boolean = false;
   inquiryStatuses: string[] = ['Interested', 'Need FollowUp', 'Not Interested', 'No Response'];
   sourceOptions: string[] = [
     'Codemind Website',
@@ -21,6 +23,7 @@ export class EditInquiryStudentComponent {
     'LinkedIn',
     'Reference'
   ];
+  courses = COURSES;
 
   constructor(
     public dialogRef: MatDialogRef<EditInquiryStudentComponent>,
@@ -31,19 +34,60 @@ export class EditInquiryStudentComponent {
     private datePipe: DatePipe
   ) {}
 
-  ngOnInit(): void {
+  /*ngOnInit(): void {
+    this.isEditMode = this.data && this.data.student;
     this.inquiryForm = this.fb.group({
-      firstName: [this.data.student.firstName, Validators.required],
-      lastName: [this.data.student.lastName, Validators.required],
-      email: [this.data.student.email, [Validators.required, Validators.email]],
-      mobileNumber: [this.data.student.mobileNumber, Validators.required],
-      course: [this.data.student.course, Validators.required],
-      inquiryStatus: ['', Validators.required],
-      date: [this.data.student.date],
-      source: [''], 
-      sourcecomment: [''] 
+      firstName: [this.isEditMode ? this.data.student.firstName : '', Validators.required],
+      lastName: [this.isEditMode ? this.data.student.lastName : '', Validators.required],
+      email: [this.isEditMode ? this.data.student.email : '', [Validators.required, Validators.email]],
+      mobileNumber: [this.isEditMode ? this.data.student.mobileNumber : '', Validators.required],
+      course: [this.isEditMode ? this.data.student.course : '', Validators.required],
+      inquiryStatus: [this.isEditMode ? this.data.student.inquiryStatus :'', Validators.required],
+      date: [this.isEditMode ? this.data.student.date:''],
+      source: [this.isEditMode ? this.data.student.source : ''], 
+      sourcecomment: [this.isEditMode ? this.data.student.sourcecomment : ''] 
     });
-  }
+  }*/
+
+    ngOnInit(): void {
+      this.isEditMode = this.data && this.data.student;
+    
+      // Initialize the form controls
+      this.inquiryForm = this.fb.group({
+        firstName: [this.isEditMode ? this.data.student.firstName : '', Validators.required],
+        lastName: [this.isEditMode ? this.data.student.lastName : '', Validators.required],
+        email: [this.isEditMode ? this.data.student.email : '', [Validators.required, Validators.email]],
+        mobileNumber: [this.isEditMode ? this.data.student.mobileNumber : '', Validators.required],
+        course: [this.isEditMode ? this.data.student.course : '', Validators.required],
+        inquiryStatus: [this.isEditMode ? this.data.student.inquiryStatus : '', Validators.required],
+        date: [this.isEditMode ? this.data.student.date : ''],
+        source: [this.isEditMode ? this.data.student.source : ''], 
+        sourcecomment: [this.isEditMode ? this.data.student.sourcecomment : ''] 
+      });
+    
+      // Set validators based on whether it's edit mode or add mode
+      this.setDynamicValidators();
+    }
+    
+    private setDynamicValidators(): void {
+      if (this.isEditMode) {
+        // Set all fields as required in edit mode
+        this.inquiryForm.get('inquiryStatus')?.setValidators(Validators.required);
+        // this.inquiryForm.get('date')?.setValidators(Validators.required);
+        // this.inquiryForm.get('source')?.setValidators(Validators.required);
+        // this.inquiryForm.get('sourcecomment')?.setValidators(Validators.required);
+      } else {
+        // Clear validators for fields not required in add mode
+        this.inquiryForm.get('inquiryStatus')?.clearValidators();
+        this.inquiryForm.get('date')?.clearValidators();
+        this.inquiryForm.get('source')?.clearValidators();
+        this.inquiryForm.get('sourcecomment')?.clearValidators();
+      }
+    
+      // Update the validity of the form after setting/removing validators
+      this.inquiryForm.updateValueAndValidity();
+    }
+    
 
   /*convertLocalToUTC(localDate: Date): Date {
     const timezoneOffset = localDate.getTimezoneOffset(); // Get the local timezone offset
@@ -169,6 +213,34 @@ export class EditInquiryStudentComponent {
         }
       }
       
+      onSaveAdd():void{
+        if (this.inquiryForm.valid) {
+          const { firstName, lastName, email, mobileNumber, course } = this.inquiryForm.value;
+          const formData = { firstName, lastName, email, mobileNumber, course };
+          console.log("Iquirty Data :=>",formData);
+          this.mongodbService.addInquiry(formData).subscribe(
+            (response) => {
+              this.toastr.success('Inquiry added successfully.', 'Success', {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+                progressBar: true,
+                closeButton: true
+              });
+              this.dialogRef.close(formData);
+            },
+            (error) => {
+              this.toastr.error('Error adding inquiry. Please try again.', 'Error', {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+                progressBar: true,
+                closeButton: true
+              });
+            }
+          );
+        } else {
+          this.inquiryForm.markAllAsTouched();
+        }
+      }
 
   onCancel(): void {
     this.dialogRef.close();

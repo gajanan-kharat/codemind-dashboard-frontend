@@ -25,7 +25,7 @@ export class AdminContentComponent implements OnInit {
  
   //  displayedColumns: string[] = DISPLAYED_COLUMNS;
   topItems = TOP_ITEMS;   
-  batches:string[] =  BATCHES; 
+  batches:string[] =  ['All',...BATCHES]; 
   feedbackOptions: string[] = FEEDBACK_OPTIONS;
   paymentStatuses: string[] = ['All', ...PAYMENT_STATUSES];
   placementStatuses: string[] = ['All', ...PLACEMENT_STATUSES];
@@ -45,7 +45,8 @@ export class AdminContentComponent implements OnInit {
   constructor( private moongodb: MongodbService,  private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.filterStudents();
+    // this.filterStudents();
+
     this.fetchStudents();
    
   }
@@ -73,7 +74,7 @@ export class AdminContentComponent implements OnInit {
     return 'Excellent';
   }
   
-  filterStudents() {
+  /*filterStudents() {
     this.filteredStudents.data = this.students
       .filter(student => 
         (this.selectedBatch === 'All' || student.batch === this.selectedBatch) &&
@@ -82,32 +83,55 @@ export class AdminContentComponent implements OnInit {
         (this.selectedPaymentStatus === 'All' || student.paymentStatus === this.selectedPaymentStatus) &&
         (this.selectedPlacementStatus === 'All' || student.placementStatus === this.selectedPlacementStatus)
       );
-  }
+  }*/
 
 onFeedbackChange() {
-    this.filterStudents(); 
+    // this.filterStudents(); 
+    this.currentPage = 1;
+    this.fetchStudents();
+    this.filteredStudents.paginator = this.paginator;
   }
 
   onPaymentStatusChange() {
-    this.filterStudents(); 
+    // this.filterStudents(); 
+    // this.currentPage = 1;
+    this.fetchStudents();
+    // this.filteredStudents.paginator = this.paginator;
   }
 
   onPlacementStatusChange() {
-    this.filterStudents(); 
+    // this.filterStudents(); 
+    this.currentPage = 1;
+    this.fetchStudents();
+    this.filteredStudents.paginator = this.paginator;
   }
 
   onCourseClick(course: string) {
     this.selectedCourse = course;
-    this.filterStudents();
+    // this.filterStudents();
+    this.currentPage = 1;
+    this.fetchStudents();
+    this.filteredStudents.paginator = this.paginator;
   }
 
   onBatchChange() {
-    this.filterStudents();
+    // this.filterStudents();
+    this.currentPage = 1;
+    this.fetchStudents();
+    this.filteredStudents.paginator = this.paginator;
   }
 
+
   fetchStudents(searchTerm: string = ''): void {
+    const filters = {
+      batch: this.selectedBatch || '',
+      course: this.selectedCourse || '',
+      feedback: this.selectedFeedback || '',
+      paymentStatus: this.selectedPaymentStatus || '',
+      placementStatus: this.selectedPlacementStatus || '',
+    };
     
-    this.moongodb.getStudent(this.currentPage, this.limit, searchTerm).subscribe(
+    this.moongodb.getStudent(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response) => {
 
         const {totalRecords, totalPages, currentPage, data } = response;
@@ -116,7 +140,7 @@ onFeedbackChange() {
         this.students = data;
         this.totalRecords = totalRecords;
         this.filteredStudents.data = this.students;
-        this.filterStudents(); 
+        // this.filterStudents(); 
         console.log('student data: ', this.students);
       },
       (error) => {
@@ -147,13 +171,14 @@ onFeedbackChange() {
   }
 
   refreshData(){
-    this.fetchStudents(); 
+    // this.fetchStudents(); 
     this.selectedBatch = 'All';
     this.selectedCourse = '';
     this.selectedFeedback = 'All';
     this.selectedPaymentStatus = 'All';
     this.selectedPlacementStatus = 'All';
-    this.filterStudents(); 
+    // this.filterStudents(); 
+    this.fetchStudents();
     this.searchTerm = '';  
     this.filteredStudents.filter = '';  
 
@@ -182,7 +207,7 @@ onFeedbackChange() {
  
   editStudent(student: any) {
     const dialogRef = this.dialog.open(EditStudentDialogComponent, {
-      width: '100%',
+      width: '80%',
       data: { student }
     });
 
@@ -191,7 +216,8 @@ onFeedbackChange() {
         const index = this.students.findIndex(s => s._id === student._id);
         if (index !== -1) {
           this.students[index] = result;
-          this.filterStudents();
+          // this.filterStudents();
+          this.fetchStudents();
         }
       }
     });
@@ -199,9 +225,9 @@ onFeedbackChange() {
 
   openPaymentDialog(student: any) {
     const dialogRef = this.dialog.open(EditPaymentDialogComponent, {
-      width: '50%',
-      maxWidth: '80vw', 
-      minWidth: '300px',
+      width: '100%',
+      // maxWidth: '80vw', 
+      // minWidth: '300px',
       data: {
         student: student,
         // paymentStatus: student.paymentStatus
@@ -213,8 +239,25 @@ onFeedbackChange() {
         const index = this.students.findIndex(s => s._id === student._id);
         if (index !== -1) {
           this.students[index] = result;
-          this.filterStudents();
+          // this.filterStudents();
+          this.fetchStudents();
         }
+      }
+    });
+  }
+
+  addNewStudent(): void {
+    const dialogRef = this.dialog.open(EditStudentDialogComponent, {
+      width: '80%',
+      data: {}, 
+      // maxWidth: '80vw',
+      // minWidth: '300px',
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.students.push(result);
+        this.fetchStudents(); 
       }
     });
   }

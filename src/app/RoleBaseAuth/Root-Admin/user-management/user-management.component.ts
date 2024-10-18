@@ -3,10 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { TOP_ITEMS, BATCHES, DISPLAYED_COLUMNSUSERS, TOP_ROLES } from 'src/app/models/admin-content';
+import { BATCHES, DISPLAYED_COLUMNSUSERS, TOP_ROLES } from 'src/app/models/admin-content';
 import { AuthService } from 'src/app/services/auth.service';
 import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditUserDialogComponent } from '../dialogs/edit-user-dialog/edit-user-dialog.component';
+import { UsersResponse } from 'src/app/models/adminUsers';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-management',
@@ -20,80 +22,89 @@ export class UserManagementComponent {
 
   filteredUsers = new MatTableDataSource<any>();  
   users: any[] = [];  
-  dataSource = new MatTableDataSource<any>(this.users);  
-  
+  dataSource = new MatTableDataSource<any>(this.users); 
+
   topItems = TOP_ROLES;      
   batches:string[] =  BATCHES; 
   displayedColumnsUsers:string[] =  DISPLAYED_COLUMNSUSERS;
 
+  totalPages: number = 0;
+  currentPage: number = 1;
+  limit: number = 10;
+  totalRecords:number = 0;
+
   selectedRole = ''; 
-  searchTerm: string = '';
+  // searchTerm: string = '';
 
-
-
-  constructor(private authService: AuthService, private moongodb: MongodbService, private dialog: MatDialog) {}
-
+  constructor(private authService: AuthService,
+     private moongodb: MongodbService,
+     private dialog: MatDialog,
+     private toastr: ToastrService) {}
   ngOnInit(): void {
-    this.filterUsers();  
-    this.fetchUsers(); 
+    // this.filterUsers();  
+    this.fetchUsers();
   }
 
   ngAfterViewInit() {
-    this.filteredUsers.paginator = this.paginator;
+    // this.filteredUsers.paginator = this.paginator;
     this.filteredUsers.sort = this.sort; 
   }
 
-  filterUsers() {  
+  /*filterUsers() {  
     if (this.selectedRole) {
       this.filteredUsers.data = this.users.filter(user => user.role === this.selectedRole);  
     } else {
       this.filteredUsers.data = this.users;  
     }
-  }
+  }*/
 
-  fetchUsers(): void {  
-    this.authService.getUser().subscribe(
-      (data) => {
-        this.users = data;  
-        this.dataSource.data = this.users;  
-        this.filterUsers();  
+  fetchUsers(searchTerm: string = ''): void {  
+    const filters = {
+     role: this.selectedRole || '',
+    };
+    this.authService.getUser(this.currentPage, this.limit, searchTerm, filters).subscribe(
+      (response:UsersResponse) => {
+        const {totalRecords, totalPages, currentPage, data } = response;
+        this.totalPages = totalPages;         
+        this.currentPage = currentPage;       
+        this.users = data;
+        this.totalRecords = totalRecords;
+        console.log("users data:=>",response);
+        this.filteredUsers.data = this.users;  
+        // this.filterUsers();  
       },
       (error) => {
         console.error('Error fetching users:', error);  
       }
     );
   }
+  onPageChange(event: any): void {
+    this.currentPage = event.pageIndex+1; 
+    this.limit = event.pageSize; 
+    this.fetchUsers();
+  }
 
   refreshData(): void {
-    this.fetchUsers(); 
+    this.users = [];
     this.selectedRole = ''; 
-    this.filterUsers(); 
-    this.searchTerm = '';  
-    this.filteredUsers.filter = '';  
-
+    this.filteredUsers.data= [];  
     const searchInput = document.querySelector('input[matInput]') as HTMLInputElement;
     if (searchInput) {
-        searchInput.value = ''; 
+      searchInput.value = '';
     }
-
-    if (this.filteredUsers.paginator) {
-        this.filteredUsers.paginator.firstPage();  
-    }
+    this.fetchUsers();
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.filteredUsers.filter = filterValue.trim().toLowerCase();  
-  
-    if (this.filteredUsers.paginator) {
-      this.filteredUsers.paginator.firstPage();  
-    }
- 
+    this.currentPage = 1;
+    this.fetchUsers(filterValue); 
   }
 
   onRoleClick(role: string) {
     this.selectedRole = role;  
-    this.filterUsers();       
+    this.fetchUsers();
+    // this.filterUsers();       
   }
 
   addNewUser() {
@@ -104,10 +115,36 @@ export class UserManagementComponent {
   
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        this.users.push(result);  
-        this.filterUsers();  
+        this.users.push(result); 
+        this.fetchUsers(); 
+        // this.filterUsers();  
       }
     });
+  }
+
+  deleteUser(user:any){
+    console.log("delete users:=>",user._id);
+     this.authService.deleteUsers(user._id).subscribe(
+        () => {
+            this.toastr.success('User deleted successfully.', 'Success', {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+            progressBar: true,
+            closeButton: true
+          });
+        },
+        (error) => {
+          console.error('Error creating user:', error);
+          this.toastr.error('Error deleting user. Please try again.', 'Error', {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+            progressBar: true,
+            closeButton: true
+          })
+      
+        }
+      );
+      
   }
  
   editUser(user: any) {  
@@ -120,8 +157,9 @@ export class UserManagementComponent {
       if (result) {
         const index = this.users.findIndex(u => u._id === user._id);  
         if (index !== -1) {
-          this.users[index] = result;  
-          this.filterUsers(); 
+          this.users[index] = result;
+          this.fetchUsers();  
+          // this.filterUsers(); 
         }
       }
     });

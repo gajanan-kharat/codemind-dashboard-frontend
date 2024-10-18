@@ -7,11 +7,11 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./subadmin-dashboard.component.scss']
 })
 export class SubadminDashboardComponent {
-  section: string = 'dashboard'; // default section
+  // section: string = 'dashboard'; 
 
-  onSectionSelected(selectedSection: string) {
-    this.section = selectedSection;
-  }
+  // onSectionSelected(selectedSection: string) {
+  //   this.section = selectedSection;
+  // }
   
   constructor(private authService: AuthService){}
 

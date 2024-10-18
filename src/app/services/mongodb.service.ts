@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environment/environment';
 import { StudentInformation, StudentInformationResponse } from '../models/studentInformation';
 import { StudentMockInfo, StudentMockResponse } from '../models/studentMockInformation';
@@ -15,6 +15,7 @@ import { InterestedStudentResponse } from '../models/interestedStudents';
 export class MongodbService {
 
   private baseApiUrl = environment.ApiUrl;
+   booleanSubject = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) { }
 
@@ -22,16 +23,30 @@ export class MongodbService {
     return this.http.post<Contact>(`${this.baseApiUrl}/students`,studentData);
   }
 
-  getStudent(page: number, limit: number, searchTerm: string = ''): Observable<StudentInformationResponse> { 
+  getStudent(page: number, limit: number, searchTerm: string = '', filters: any = {}): Observable<StudentInformationResponse> { 
     const params: any = {
       page,
       limit,
+      ...filters
     };
     return this.http.get<StudentInformationResponse>(`${this.baseApiUrl}/studentInformation?search=${searchTerm}`,{ params });  
   }
 
   updateStudent(studentinfo: any): Observable<StudentInformation> {
     return this.http.put<StudentInformation>(`${this.baseApiUrl}/studentInformation/${studentinfo._id}`, studentinfo);
+  }
+
+  updateStudentPayment(paymentinfo: any): Observable<StudentInformation> {
+    return this.http.put<StudentInformation>(`${this.baseApiUrl}/studentInformation/payments/${paymentinfo._id}`, paymentinfo);
+  }
+ 
+  saveNewStudent(studentData: any): Observable<any> {
+    return this.http.post<any>(`${this.baseApiUrl}/studentInformation`, studentData);
+  }
+
+  //Interested Student
+  saveConfirmedStudent(confirmedstudentData: any): Observable<any> {
+    return this.http.post<any>(`${this.baseApiUrl}/studentInformation`, confirmedstudentData);
   }
 
   generateReport(studentData: any): Observable<any> {
@@ -50,10 +65,11 @@ export class MongodbService {
     });
   }
   
-  getStudentMock(page: number, limit: number, searchTerm: string = ''): Observable<StudentMockResponse> { 
+  getStudentMock(page: number, limit: number, searchTerm: string = '',filters: any = {}): Observable<StudentMockResponse> { 
     const params: any = {
       page,
       limit,
+      ...filters
     };
     return this.http.get<StudentMockResponse>(`${this.baseApiUrl}/studentMockInformation?search=${searchTerm}`,{ params });  
   }
@@ -62,12 +78,17 @@ export class MongodbService {
     return this.http.put<StudentMockInfo>(`${this.baseApiUrl}/studentMockInformation/${studentmockinfo._id}`, studentmockinfo);
   }
 
-  getInquiryStudent(page: number, limit: number, searchTerm: string = ''): Observable<InquiryStudentResponse> { 
+  getInquiryStudent(page: number, limit: number, searchTerm: string = '',filters: any = {}): Observable<InquiryStudentResponse> { 
     const params: any = {
       page,
       limit,
+      ...filters
     };
     return this.http.get<InquiryStudentResponse>(`${this.baseApiUrl}/students?search=${searchTerm}`,{ params });  
+  }
+
+  addInquiry(studentData: any): Observable<any> {
+    return this.http.post<any>(`${this.baseApiUrl}/students`,studentData);
   }
 
   // updateInquiry(inquiry: any): Observable<any> {
@@ -78,10 +99,11 @@ export class MongodbService {
     return this.http.post<any>(`${this.baseApiUrl}/followup`, followUpData);
   }
 
-  getFollowUp(page: number, limit: number, searchTerm: string = ''): Observable<any> {
+  getFollowUp(page: number, limit: number, searchTerm: string = '',filters:any={}): Observable<any> {
     const params: any = {
       page,
       limit,
+      ...filters
     };
     return this.http.get<any>(`${this.baseApiUrl}/followup?search=${searchTerm}`,{ params });
   }
@@ -91,16 +113,17 @@ export class MongodbService {
   deleteStudent(studentId: string): Observable<any> {
     return this.http.delete<any>(`${this.baseApiUrl}/students/${studentId}`);
   }
+ 
   //Interested
-
   addInterested(interestedData: any): Observable<any> {
     return this.http.post<any>(`${this.baseApiUrl}/interested`, interestedData);
   }
 
-  getInterested(page: number, limit: number, searchTerm: string = ''): Observable<InterestedStudentResponse> {
+  getInterested(page: number, limit: number, searchTerm: string = '', filters: any = {}): Observable<InterestedStudentResponse> {
     const params: any = {
       page,
       limit,
+      ...filters
     };
     return this.http.get<any>(`${this.baseApiUrl}/interested?search=${searchTerm}`,{ params });
   }
@@ -108,15 +131,21 @@ export class MongodbService {
   updateInterestedStudent(id: string, data: any): Observable<any> {
     return this.http.put(`${this.baseApiUrl}/interested/${id}`, data);
   }
+
+  deleteInterestedStudent(studentId: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseApiUrl}/interested/${studentId}`);
+  }
+
   //Not Interested
   addNotInterested(notInterestedData: any): Observable<any> {
     return this.http.post<any>(`${this.baseApiUrl}/notInterested`, notInterestedData);
   }
 
-  getNotInterested(page: number, limit: number, searchTerm: string = ''): Observable<any> {
+  getNotInterested(page: number, limit: number, searchTerm: string = '',filters: any = {}): Observable<any> {
     const params: any = {
       page,
       limit,
+      ...filters
     };
     return this.http.get<any>(`${this.baseApiUrl}/notInterested?search=${searchTerm}`,{ params });
   }
@@ -130,10 +159,11 @@ export class MongodbService {
   }
   
   //Bootcamp 
-  getBootCamp(page: number, limit: number, searchTerm: string = ''): Observable<BootcampStudentResponse> {
+  getBootCamp(page: number, limit: number, searchTerm: string = '',filters: any = {}): Observable<BootcampStudentResponse> {
     const params: any = {
       page,
       limit,
+      ...filters
     };
     return this.http.get<any>(`${this.baseApiUrl}/bootcamp?search=${searchTerm}`,{ params });
   }

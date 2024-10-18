@@ -30,6 +30,7 @@ router.get('/', async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;  
     const skip = (page - 1) * limit;  
     let  NotInterestedInfo, totalDocuments;
+    const{ course }=req.query;
     const baseFilter = searchQuery
       ? {
           $or: [
@@ -42,19 +43,35 @@ router.get('/', async (req, res) => {
           ]
         }
       : {};
+      if (course && course !== 'All') {
+        baseFilter.course = course;
+      }
 
     totalDocuments = await NotInterested.countDocuments(baseFilter);
     
     NotInterestedInfo = await NotInterested.find(baseFilter)
       .skip(skip)
       .limit(limit);
+    
+     //TitleCase
+     const toTitleCase = (str) => {
+      return str.split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                .join(' ');
+    };
+    
+    const modifiedNotInterestedInfo  =  NotInterestedInfo.map(user => ({
+      ...user.toObject(),  
+      name: toTitleCase(`${user.firstName} ${user.lastName}`)  
+    }));
+
     const totalPages = Math.ceil(totalDocuments / limit);
 
     res.status(200).send({
       totalRecords: totalDocuments,  
       totalPages,      
       currentPage: page,  
-      data: NotInterestedInfo 
+      data: modifiedNotInterestedInfo 
     });
   } catch (error) {
     res.status(400).send({ error: 'Error fetching followup student information', details: error });

@@ -22,10 +22,10 @@ export class NotinterestedStudentComponent {
 
   displayedColumns: string[] = DISPLAYED_COLUMNS;
 
-  courses: string[] = COURSES; 
-  batches: string[] = BATCHES;
+  courses: string[] = ["All",...COURSES]; 
+  // batches: string[] = BATCHES;
 
-  selectedCourseNotInterested = '';
+  selectedCourseNotInterested = 'All';
   // selectedBatchNotInterested = '';
 
   totalPages: number = 0;
@@ -45,7 +45,10 @@ export class NotinterestedStudentComponent {
   }
 
   fetchStudents(searchTerm: string = ''): void {
-    this.mongodbService.getNotInterested(this.currentPage, this.limit, searchTerm).subscribe(
+    const filters = {
+      course: this.selectedCourseNotInterested|| '',
+    };
+    this.mongodbService.getNotInterested(this.currentPage, this.limit, searchTerm,filters).subscribe(
       (response:NotInterestedStudentResponse) => {
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
@@ -53,7 +56,7 @@ export class NotinterestedStudentComponent {
         this.notInterestedStudents = data;
         this.totalRecords = totalRecords;
         this.filteredNotInterested.data = this.notInterestedStudents;
-        this.filterNotInterested()  
+        // this.filterNotInterested()  
       },
       (error) => {
         console.error('Error fetching follow-up students:', error);
@@ -78,7 +81,7 @@ export class NotinterestedStudentComponent {
     this.fetchStudents();
   }
 
-  filterNotInterested() {
+  /*filterNotInterested() {
     this.filteredNotInterested.data = this.notInterestedStudents.filter(student => {
       return (!this.selectedCourseNotInterested || student.course === this.selectedCourseNotInterested);
       // && (!this.selectedBatchNotInterested || student.batch === this.selectedBatchNotInterested);
@@ -92,10 +95,13 @@ export class NotinterestedStudentComponent {
 
   onBatchChange() {
     this.filterNotInterested(); 
-  }
+  }*/
 
   onCourseChange() {
-    this.filterNotInterested();
+    // this.filterNotInterested();
+    this.fetchStudents();
+    this.currentPage = 1;
+    this.filteredNotInterested.paginator = this.paginator;
   }
 
   editNotInterestedStudent(student:any){
@@ -108,14 +114,13 @@ export class NotinterestedStudentComponent {
   
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-       
-          const index = this.notInterestedStudents .findIndex(s => s._id === student._id);
-          if (index !== -1) {
-            this.notInterestedStudents[index] = result;
-            this.filterNotInterested();
-            this.fetchStudents();
-          }
-        
+        const index = this.notInterestedStudents .findIndex(s => s._id === student._id);
+        if (index !== -1) {
+          this.notInterestedStudents[index] = result;
+            // this.filterNotInterested();
+          this.fetchStudents();
+          this.mongodbService.booleanSubject.next(true);
+        } 
       }
     });
   }

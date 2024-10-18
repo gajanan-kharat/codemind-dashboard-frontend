@@ -9,9 +9,10 @@ const interestedSchema = new mongoose.Schema({
   inquiryStatus: { type: String, default: 'Not Interested' },  
   date: { type: Date, required: true }, 
   batch: { type: String },
-  reference: {type: String},
-  source: {type: String},
-  sourcecomment: {type: String},
+  reference: { type: String},
+  admission:{ type: String},
+  source: { type: String},
+  sourcecomment: { type: String},
   comments: [{
     date: { type: Date, required: true, default: Date.now },
     comment: { type: String}

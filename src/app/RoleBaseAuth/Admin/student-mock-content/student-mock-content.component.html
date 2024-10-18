@@ -1,15 +1,17 @@
 <div class="content">
   <section class="top-cards">
-    <h2>Students Mock Information</h2>
+    <!-- <h2>Students Mock Information</h2> -->
     <div class="card-container">
       <mat-card *ngFor="let item of topItems" class="card" [ngClass]="{'selected': item.course === selectedCourse}"
-        (click)="onCourseClick(item.course)">
+      [ngStyle]="{'background-color': item.color}" (click)="onCourseClick(item.course)">
         <div class="courses">
-          <i class="{{item.icon}} course-icon"></i>
-        </div>
-        <mat-card-header>
-          <mat-card-title class="title">{{item.course}}</mat-card-title>
-        </mat-card-header>
+          <div>
+            <p class="title">{{item.course}}</p>
+          </div> 
+          <div>
+            <i class="{{item.icon}} course-icon"  [ngStyle]="{'color': item.iconColor}"></i>
+          </div> 
+        </div> 
       </mat-card>
     </div>
   </section>
@@ -32,7 +34,7 @@
         <mat-form-field>
           <mat-label>Select Mock Status</mat-label>
           <mat-select [(value)]="selectedMockStatus" (selectionChange)="onMockStatusChange($event.value)">
-            <mat-option value="">All</mat-option>
+            <!-- <mat-option value="">All</mat-option> -->
             <mat-option *ngFor="let status of mockStatusOptions" [value]="status">
               {{ status }}
             </mat-option>

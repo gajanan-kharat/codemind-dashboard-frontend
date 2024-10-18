@@ -22,14 +22,14 @@ export class BootcampStudentComponent {
   bootCampStudents: any[] = [];
 
   displayedColumnsBootcamp:string[] = DISPLAYED_COLUMNSBOOTCAMP;
-  payment_status: string[] = PAYMENT_STATUS; 
+  payment_status: string[] = ["All",...PAYMENT_STATUS]; 
 
   totalPages: number = 0;
   currentPage: number = 1;
   limit: number = 10;
   totalRecords:number = 0;
 
-  selectedPaymentBootCamp = '';
+  selectedPaymentBootCamp = 'All';
   constructor(private mongodbService: MongodbService, private dialog: MatDialog, private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -42,7 +42,10 @@ export class BootcampStudentComponent {
   }
 
   fetchStudents(searchTerm: string = ''): void {
-     this.mongodbService.getBootCamp(this.currentPage, this.limit, searchTerm).subscribe(
+    const filters = {
+      paymentStatus: this.selectedPaymentBootCamp|| '',
+    };
+     this.mongodbService.getBootCamp(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response:BootcampStudentResponse) => {
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
@@ -50,7 +53,7 @@ export class BootcampStudentComponent {
         this.bootCampStudents = data;
         this.totalRecords = totalRecords;
         this.filteredBootCamp.data =  this.bootCampStudents;
-        this.filterBootCamp();
+        // this.filterBootCamp();
       },
       (error) => {
         console.error('Error fetching bootcamp students:', error);
@@ -75,16 +78,20 @@ export class BootcampStudentComponent {
     this.fetchStudents();
   }
 
-  filterBootCamp() {
+  /*filterBootCamp() {
     this.filteredBootCamp.data = this.bootCampStudents.filter(student =>
       (!this.selectedPaymentBootCamp|| student.paymentStatus === this.selectedPaymentBootCamp)
     );
     if (this.filteredBootCamp.paginator) {
       this.filteredBootCamp.paginator.firstPage();
     }
-  } 
+  } */
+
   onCourseChange() {
-    this.filterBootCamp();
+    // this.filterBootCamp();
+    this.currentPage = 1;
+    this.fetchStudents();
+    this.filteredBootCamp.paginator = this.paginator;
   }
 
   editBootcampStudent(student: any) {
@@ -100,8 +107,9 @@ export class BootcampStudentComponent {
         const index = this.bootCampStudents.findIndex(s => s._id === student._id);
         if (index !== -1) {
           this.bootCampStudents[index] = result;
-          this.filterBootCamp();
+          // this.filterBootCamp();
           this.fetchStudents();
+          this.mongodbService.booleanSubject.next(true);
         }
       }
     });

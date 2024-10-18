@@ -4,7 +4,6 @@ const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
 
-// Set up Nodemailer transport
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -61,7 +60,7 @@ const generatePaymentPDF = async (paymentArray, filePath,  firstName, lastName, 
 
   const emailOptions = {
     from: process.env.EMAIL_USER,
-    to: studentEmail,
+    to: `${studentEmail}, ${process.env.EMAIL_CODEMIND}`,
     subject: 'Your Payment Update',
     text: `Dear ${firstName} ${lastName},\n\n` +
           `We are pleased to inform you that your payment for the ${batch} has been ${payments.paymentStatus}. ` +

@@ -15,19 +15,69 @@ router.post('/signup', async (req, res) => {
     await sendUserCreationEmail(user, user.plainPassword);
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
+    console.error('Error saving user:', error); 
     res.status(500).json({ message: 'Server error' });
   }
 });
 
 // GET API to retrieve all users
-router.get('/users', async (req, res) => {
+/*router.get('/users', async (req, res) => {
   try {
     const users = await User.find().select('-password'); 
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }
+});*/
+
+router.get('/users', async (req, res) => {
+  try {
+    const searchQuery = req.query.search?.trim();
+    const page = parseInt(req.query.page) || 1;  
+    const limit = parseInt(req.query.limit) || 10;  
+    const skip = (page - 1) * limit;  
+    const { role } = req.query;
+    let userInfo, totalDocuments;
+    const baseFilter = searchQuery
+      ? {
+          $or: [
+            { firstname: new RegExp(searchQuery, 'i') }, 
+            { lastname: new RegExp(searchQuery, 'i') },
+            { email: new RegExp(searchQuery, 'i') },
+            { mobile_number: new RegExp(searchQuery, 'i') },
+            { role: new RegExp(searchQuery, 'i') },
+          ]
+        }
+      : {};
+    
+    if (role && role !== '') {
+      baseFilter.role = role;
+    }
+
+    totalDocuments = await User.countDocuments(baseFilter);
+
+    userInfo = await User.find(baseFilter)
+      .skip(skip)
+      .limit(limit);
+
+    const modifiedUserInfo = userInfo.map(user => ({
+      ...user.toObject(),  
+      name: `${user.firstname} ${user.lastname}`  
+    }));
+
+    const totalPages = Math.ceil(totalDocuments / limit);
+
+    res.status(200).send({
+      totalRecords: totalDocuments,  
+      totalPages,      
+      currentPage: page,  
+      data: modifiedUserInfo
+    });
+  } catch (error) {
+    res.status(400).send({ error: 'Error fetching Bootcamp student information', details: error });
+  }
 });
+
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
@@ -125,6 +175,19 @@ router.put('/:id',upload.fields([{ name: 'photo' }, { name: 'resume' }]), async 
     res.json({ message: 'User updated successfully', user });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// API Endpoint to Delete Student
+router.delete('/delete/:id', async (req, res) => {
+  try {
+    const  deleteUser = await User.findByIdAndDelete(req.params.id);
+    if (!deleteUser) {
+      return res.status(404).send({ error: 'User not found' });
+    }
+    res.status(200).send({ message: 'User deleted successfully' });
+  } catch (error) {
+    res.status(400).send({ error: 'Error deleting user', details: error });
   }
 });
 

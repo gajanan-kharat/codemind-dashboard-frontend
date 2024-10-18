@@ -24,6 +24,8 @@ export class EditStudentDialogComponent {
     // paymentStatuses = PAYMENT_STATUSES;
     placementStatuses = PLACEMENT_STATUSES;
     paymentStatusValue = 'Not Paid'; 
+    isEditMode: boolean = false;
+    
   
     constructor(
       public dialogRef: MatDialogRef<EditStudentDialogComponent>,
@@ -37,32 +39,37 @@ export class EditStudentDialogComponent {
     }
   
     ngOnInit(): void {
-      if (this.data.student.payments && this.data.student.payments.length > 0) {
+      this.isEditMode = !!(this.data && this.data.student); 
+
+      if (this.isEditMode && this.data.student.payments && this.data.student.payments.length > 0) {
         const lastPayment = this.data.student.payments[this.data.student.payments.length - 1];
         this.paymentStatusValue = lastPayment.paymentStatus || 'Not Paid'; 
+      } else {
+        this.paymentStatusValue = 'Not Paid'; // Default value when no payments exist
       }
+      
 
       this.studentForm = this.fb.group({
-        firstName: [this.data.student.firstName, Validators.required],
-        lastName: [this.data.student.lastName, Validators.required],
-        email: [this.data.student.email, [Validators.required, Validators.email]],
-        mobileNumber: [this.data.student.mobileNumber, Validators.required],
-        course: [this.data.student.course,],
-        batch: [this.data.student.batch,],
-        graduation: [this.data.student.graduation,],
-        passingYear: [this.data.student.passingYear],
-        collegeName: [this.data.student.collegeName],
-        address: [this.data.student.address],
-        cityName: [this.data.student.cityName],
-        state: [this.data.student.state],
-        attendance: [this.data.student.attendance],
-        parentEmail: [this.data.student.parentEmail],
-        parentMobileNumber: [this.data.student.parentMobileNumber],
-        mock1Feedback:[this.data.student.mock1Feedback],
-        mock2Feedback:[this.data.student.mock2Feedback],
-        mock3Feedback:[this.data.student.mock3Feedback],
-        paymentStatus: [{ value: this.paymentStatusValue,disabled: true }],
-        placementStatus: [this.data.student.placementStatus],
+        firstName: [this.isEditMode ? this.data.student.firstName : '', Validators.required],
+        lastName: [this.isEditMode ? this.data.student.lastName: '', Validators.required],
+        email: [this.isEditMode ? this.data.student.email : '', [Validators.required, Validators.email]],
+        mobileNumber: [this.isEditMode ? this.data.student.mobileNumber :'', Validators.required],
+        course: [this.isEditMode ? this.data.student.course : '',],
+        batch: [this.isEditMode ? this.data.student.batch : '',],
+        graduation: [this.isEditMode ? this.data.student.graduation: '',],
+        passingYear: [this.isEditMode ? this.data.student.passingYear : ''],
+        collegeName: [this.isEditMode ? this.data.student.collegeName: ''],
+        address: [this.isEditMode ? this.data.student.address: ''],
+        cityName: [this.isEditMode ? this.data.student.cityName: ''],
+        state: [this.isEditMode ? this.data.student.state: ''],
+        attendance: [this.isEditMode ? this.data.student.attendance: ''],
+        parentEmail: [this.isEditMode ? this.data.student.parentEmail: ''],
+        parentMobileNumber: [this.isEditMode ? this.data.student.parentMobileNumber: ''],
+        mock1Feedback:[this.isEditMode ? this.data.student.mock1Feedback:''],
+        mock2Feedback:[this.isEditMode ? this.data.student.mock2Feedback:''],
+        mock3Feedback:[this.isEditMode ? this.data.student.mock3Feedback:''],
+        paymentStatus: [{ value:this.paymentStatusValue,disabled: true }],
+        placementStatus: [this.isEditMode ? this.data.student.placementStatus:''],
       });
     }
   
@@ -74,7 +81,7 @@ export class EditStudentDialogComponent {
     }
   
     initializeBatches() {
-      for (let i = 1; i <= 13; i++) {
+      for (let i = 13; i >= 1 ; i--) {
         this.batches.push(`Batch-${i}`);
       }
     }
@@ -139,5 +146,38 @@ export class EditStudentDialogComponent {
           });
         }
       );
+    }
+
+    onSaveAdd(){
+      if (this.studentForm.valid) {
+        const formData = {
+          ...this.studentForm.value,
+          paymentStatus: this.paymentStatusValue, 
+        };
+        // console.log("new student data ",formData);
+        // console.log("payment status:=>", this.studentForm.value.paymentStatus.value)
+        this.mongodbService.saveNewStudent(formData).subscribe(
+          (response) => {
+            this.toastr.success('New Student added successfully.', 'Success', {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+              progressBar: true,
+              closeButton: true
+            });
+            this.dialogRef.close(formData);
+          },
+          (error) => {
+            this.toastr.error('Error adding New Student. Please try again.', 'Error', {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+              progressBar: true,
+              closeButton: true
+            });
+          }
+        );
+      } else {
+        this.studentForm.markAllAsTouched();
+      }
+      
     }
   }

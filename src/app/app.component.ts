@@ -39,4 +39,12 @@ export class AppComponent {
     this.showNavbar = !hideLayoutRoutes.includes(url);
     this.showFooter = !hideLayoutRoutes.includes(url);
   }
+
+  isCollapsed = false; // Sidenav collapsed state
+  menuLinks = ['Home', 'Services', 'Products', 'Contact']; // Sample menu links
+
+  // Method to toggle the sidenav collapse state
+  toggleSidenav(): void {
+    this.isCollapsed = !this.isCollapsed;
+  }
 }

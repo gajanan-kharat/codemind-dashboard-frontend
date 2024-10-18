@@ -1,20 +1,25 @@
-<app-sidenav-header (sectionSelected)="onSectionSelected($event)">
+<!-- <app-sidenav-header (sectionSelected)="onSectionSelected($event)">
+    -->
     <!-- Admin Content Component -->
-    <ng-container *ngIf="section === 'dashboard'">
+    <!-- <ng-container *ngIf="section === 'dashboard'">
         <app-admin-content></app-admin-content>
-    </ng-container>
+    </ng-container> -->
 
     <!-- Student Mock Content Component -->
-    <ng-container *ngIf="section === 'mocks'">
+    <!-- <ng-container *ngIf="section === 'mocks'">
         <app-student-mock-content></app-student-mock-content>
-    </ng-container>
+    </ng-container> -->
 
      <!-- LED Component -->
-     <ng-container *ngIf="section === 'leads'">
+     <!-- <ng-container *ngIf="section === 'leads'">
         <app-main-leads></app-main-leads>
-    </ng-container>
-    <ng-container  *ngIf="section === 'users'">
+    </ng-container> -->
+    <!-- <ng-container  *ngIf="section === 'users'">
         <app-user-management></app-user-management>
-    </ng-container>
+    </ng-container> -->
+<!-- </app-sidenav-header> -->
+
+<app-sidenav-header>
+    <router-outlet></router-outlet>
 </app-sidenav-header>
 

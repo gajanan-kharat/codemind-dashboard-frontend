@@ -1,13 +1,12 @@
-.loader-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
-}
+// .loader-container {
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     z-index: 1000;
+// }
 h1{
     background-color: #e3e7e4;
-    font-weight: 2rem !important;
 }
 .section {
     margin-bottom: -0.5rem;
@@ -16,10 +15,10 @@ h1{
 .section h3 {
     margin-bottom: 0.5rem;
   }
-  .bottom-section{
+.bottom-section{
     // background-color: #d6ddf3;
     margin-top: 10px;
-  }
+}
 :host ::ng-deep .mat-mdc-form-field{
     width: 48%;
     margin-left: 10px;  
@@ -55,10 +54,9 @@ h1{
  ::ng-deep .mdc-dialog .mdc-dialog__content {
     padding: 0px 24px 0px 24px;
 }
-:host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-floating-label, .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-floating-label--float-above {
+/*:host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-floating-label, .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-floating-label--float-above {
     color:#3fb554;
   }
-   /*---- change bottom border color Mat-Input ----*/
 :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-line-ripple::before{
     border-bottom-color: #3fb554;
    } 
@@ -69,7 +67,7 @@ h1{
 
 :host ::ng-deep .mdc-text-field--filled .mdc-line-ripple::after {
     border-bottom: 2px solid #3fb554;
-}
+}*/
 @media (max-width: 360px) {
     :host ::ng-deep .mat-mdc-text-field-wrapper {
         width: 70% !important;

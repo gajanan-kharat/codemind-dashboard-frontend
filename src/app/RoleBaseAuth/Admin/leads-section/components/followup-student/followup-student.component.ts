@@ -46,7 +46,7 @@ export class FollowupStudentComponent {
   
   ngOnInit(): void {
     this.fetchStudents();
-    this.dateRangeForm.valueChanges.subscribe(() => this.filterFollowUp());
+    this.dateRangeForm.valueChanges.subscribe(() => this.fetchStudents());
   }
   ngAfterViewInit() {
     // this.filteredFollowUp.paginator = this.paginator;
@@ -54,7 +54,14 @@ export class FollowupStudentComponent {
   }
 
   fetchStudents(searchTerm: string = ''): void {
-    this.mongodbService.getFollowUp(this.currentPage, this.limit, searchTerm).subscribe(
+    const filters = {
+      course: this.selectedCourseFollowUp || '',
+      inquiryStatus:this. selectedStatusFollowUp || '',
+      startDate: this.dateRangeForm.value.start || '', 
+      endDate: this.dateRangeForm.value.end || '',     
+    };
+    // console.log("date :=>", filters.startDate, filters.endDate, filters);
+    this.mongodbService.getFollowUp(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response: FollowUpStudentResponse) => {
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
@@ -62,7 +69,7 @@ export class FollowupStudentComponent {
         this.followUpStudents = data;
         this.totalRecords = totalRecords;
         this.filteredFollowUp.data = this.followUpStudents;
-        this.filterFollowUp();
+        // this.filterFollowUp();
       },
       (error) => {
         console.error('Error fetching follow-up students:', error);
@@ -86,30 +93,33 @@ export class FollowupStudentComponent {
     if (searchInput) {
       searchInput.value = '';
     }
+    this.dateRangeForm.reset();
     this.fetchStudents();
   }
   
-  filterFollowUp() {
+  /*filterFollowUp() {
     const { start, end } = this.dateRangeForm.value;
     this.filteredFollowUp.data = this.followUpStudents.filter(student => {
       const studentDate = new Date(student.date);
       const isDateInRange = (!start || studentDate >= new Date(start)) && (!end || studentDate <= new Date(end));
       return isDateInRange &&
-             (!this.selectedCourseFollowUp || student.course === this.selectedCourseFollowUp) &&
+            (!this.selectedCourseFollowUp || student.course === this.selectedCourseFollowUp) &&
              (!this.selectedStatusFollowUp || student.inquiryStatus === this.selectedStatusFollowUp);
     });
     if (this.filteredFollowUp.paginator) {
       this.filteredFollowUp.paginator.firstPage();
     }
     // this.filteredFollowUp.paginator = this.paginator;
-  }
+  }*/
 
   onCourseChange() {
-    this.filterFollowUp();
+    this.fetchStudents();
+    // this.filterFollowUp();
   }
 
   onStatusChange() {
-     this.filterFollowUp();   
+    this.fetchStudents();
+    //  this.filterFollowUp();   
   }
 
   editFollowUpStudent(student: any) {
@@ -125,8 +135,9 @@ export class FollowupStudentComponent {
             const index = this.followUpStudents.findIndex(s => s._id === student._id);
             if (index !== -1) {
                 this.followUpStudents[index] = result;
-                this.filterFollowUp();
+                // this.filterFollowUp();
                 this.fetchStudents(); 
+                this.mongodbService.booleanSubject.next(true);
             }
         }
     });

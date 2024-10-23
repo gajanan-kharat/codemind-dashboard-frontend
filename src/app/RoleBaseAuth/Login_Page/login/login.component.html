@@ -22,10 +22,17 @@
         </div>
         <div class="input-wrapper">
           <label class="password_label">Password</label>
-          <input class="password" id="password" type="password" formControlName="password" placeholder="********"
+          <input class="password" id="password" type="password"  formControlName="password" placeholder="********"
             autocomplete="current-password"
-            [class.invalid]="password?.invalid && (password?.dirty || password?.touched)">
-          <i class="fas fa-lock icon icon-password"></i>
+            [class.invalid]="password?.invalid && (password?.dirty || password?.touched)"
+            [type]="showPassword ? 'text' : 'password'" >
+            <i
+            class="fas"
+            [ngClass]="showPassword ? 'fas fa-eye' : 'fas fa-eye-slash'"  
+            (click)="togglePasswordVisibility()" 
+            class="icon icon-password"
+            aria-hidden="true"
+            ></i>
         </div>
         <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="error">
           Please enter your password

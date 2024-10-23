@@ -32,8 +32,12 @@
   <!-- Sidenav -->
   <mat-drawer #sidenav mode="side" [(opened)]="isSidenavOpen" class="sidenav" [class.collapsed]="isSidenavCollapsed">
     <div class="profile-menu">
-      <div class="profile-pic" [matMenuTriggerFor]="menu">{{firstLetter}}</div>
-      <span *ngIf="!isSidenavCollapsed" class="username">{{firstName}}</span>
+      <div class="profile-pic" [matMenuTriggerFor]="menu">{{firstLetter}}</div> 
+      <div class="profile-name" *ngIf="!isSidenavCollapsed">
+        <span class="username">{{firstName}}</span>
+        <span class="role">{{role}}</span> 
+      </div>
+   
     </div>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="logout()">Logout</button>
@@ -45,6 +49,10 @@
     </div>
     <mat-nav-list class="list">
       <!-- Admin -->
+      <p *ngIf="currentUrl=='admin-dashboard'" class="item" routerLink="/admin-dashboard" (click)="onClick('admin')" [ngClass]="{'selected': selectedItem === 'admin'}">
+        <mat-icon>admin_panel_settings</mat-icon>
+        <span *ngIf="!isSidenavCollapsed">Admin</span>
+      </p>
       <p *ngIf="currentUrl=='admin-dashboard'" class="item" routerLink="/subadmin-dashboard" (click)="onClick('sub-admin')" [ngClass]="{'selected': selectedItem === 'sub-admin'}">
         <mat-icon>admin_panel_settings</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Sub Admin</span>
@@ -55,6 +63,10 @@
       </p>
 
       <!-- subAdmin-->
+      <!-- <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard" (click)="onClick('sub-admin')" [ngClass]="{'selected': selectedItem === 'sub-admin'}">
+        <mat-icon>admin_panel_settings</mat-icon>
+        <span *ngIf="!isSidenavCollapsed">Sub Admin</span>
+      </p> -->
       <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/dashboard" (click)="onDashboardClick()" [ngClass]="{'selected': selectedItem === 'dashboard'}">
         <mat-icon>dashboard</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Dashboard</span>
@@ -67,6 +79,15 @@
         <mat-icon>supervisor_account</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Leads</span>
       </p>
+      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/totalFees" (click)="onTotalFees()" [ngClass]="{'selected': selectedItem === 'totalFees'}">
+        <mat-icon>supervisor_account</mat-icon>
+        <span *ngIf="!isSidenavCollapsed">Total Fees</span>
+      </p>
+    
+      <!-- <p *ngIf="currentUrl=='subadmin-dashboard'"  class="item" routerLink="/counselor-dashboard" (click)="onClick('counselor')" [ngClass]="{'selected': selectedItem === 'counselor'}">
+        <mat-icon>group_add</mat-icon>
+        <span *ngIf="!isSidenavCollapsed">Counselor</span>
+      </p> -->
       <p class="logout">
         <mat-icon>logout</mat-icon>
         <span (click)="logout()" *ngIf="!isSidenavCollapsed">Logout</span>

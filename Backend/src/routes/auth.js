@@ -178,8 +178,8 @@ router.put('/:id',upload.fields([{ name: 'photo' }, { name: 'resume' }]), async 
   }
 });
 
-// API Endpoint to Delete Student
-router.delete('/delete/:id', async (req, res) => {
+// API Endpoint to Delete perticular Student
+router.delete('/deleteusers/:id', async (req, res) => {
   try {
     const  deleteUser = await User.findByIdAndDelete(req.params.id);
     if (!deleteUser) {

@@ -7,6 +7,7 @@ import { COURSES, DISPLAYED_COLUMNS } from 'src/app/models/admin-content';
 import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditInquiryStudentComponent } from '../../dialogs/edit-inquiry-student/edit-inquiry-student.component';
 import { InquiryStudentResponse } from 'src/app/models/inquiryStudents';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-inquiry-student',
@@ -32,8 +33,11 @@ export class InquiryStudentComponent {
   currentPage: number = 1;
   limit: number = 10;
   totalRecords:number = 0;
+  role: string | null = '';
 
-  constructor(private mongodbService: MongodbService, private dialog: MatDialog,){}
+  constructor(private mongodbService: MongodbService, private dialog: MatDialog,private toastr: ToastrService){
+    this.role = localStorage.getItem('user_role');
+  }
 
   ngOnInit(): void {
     this.fetchStudents();
@@ -143,5 +147,29 @@ export class InquiryStudentComponent {
       }
     });
   }
+
+  deleteInquiryStudent(student:any){
+    this.mongodbService.deleteStudent(student._id).subscribe(
+      () => {
+          this.toastr.success('Inquiry Student deleted successfully.', 'Success', {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+          progressBar: true,
+          closeButton: true
+        });
+        this.fetchStudents(); 
+      },
+      (error) => {
+        console.error('Error deleting Inquiry Student:', error);
+        this.toastr.error('Error deleting Inquiry Student. Please try again.', 'Error', {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+          progressBar: true,
+          closeButton: true
+        })
+      }
+    );
+  }
+
 
 }

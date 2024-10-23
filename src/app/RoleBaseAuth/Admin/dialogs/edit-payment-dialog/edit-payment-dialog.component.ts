@@ -35,7 +35,7 @@ export class EditPaymentDialogComponent {
       totalFees: [{ value:data.student.totalFees, disabled: true}, [Validators.required, Validators.min(0)]],
       course: [ { value:data.student.course, disabled: true}, Validators.required],
       paidFees: [, Validators.required],
-      installment: ['',],
+      installment: [{ value: '', disabled: true}],
       discountPercentage: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
       discountComment: [''],
       reference: ['', [Validators.min(0),Validators.required]],
@@ -52,12 +52,13 @@ export class EditPaymentDialogComponent {
 
     if (data.student && data.student.payments && data.student.payments.length > 0) {
       const lastPayment = data.student.payments[data.student.payments.length - 1];
+      const newInstallmentNumber = lastPayment.installment ? parseInt(lastPayment.installment) + 1 : 1;
 
       this.paymentForm.patchValue({
         totalFees: data.student.totalFees || 20000,
         course: data.student.course || '',
         paidFees: lastPayment.paidFees || 0,
-        installment: lastPayment.installment || '',
+        installment: newInstallmentNumber,
         discountPercentage: lastPayment.discountPercentage || 0,
         discountComment: lastPayment.discountComment || '',
         reference: lastPayment.reference || 0,
@@ -72,7 +73,11 @@ export class EditPaymentDialogComponent {
       });
 
       console.log('Last Payment Data:', lastPayment);
-    } else {
+    } 
+    else {
+      this.paymentForm.patchValue({
+        installment: 1, 
+      });
       console.error('No payment data available');
     }
     this.onChanges();
@@ -182,6 +187,20 @@ export class EditPaymentDialogComponent {
     const finalFees = totalFees - discountAmount - referenceDiscount;
 
     const remainingFees = finalFees - paidFees;
+
+    // Calculate total paid fees from previous installments (if any)
+    /*let previousPaidFees = 0;
+    if (this.data.student && this.data.student.payments && this.data.student.payments.length > 0) {
+      previousPaidFees = this.data.student.payments.reduce((acc: number, payment: any) => {
+        return acc + (payment.paidFees || 0);
+      }, 0);
+    }
+
+     // Add the current paid fees to the previous paid fees
+     const totalPaidFees = previousPaidFees + paidFees;
+
+    // Calculate remaining fees
+    const remainingFees = finalFees - totalPaidFees;*/
     this.paymentForm.get('remainingFees')?.setValue(remainingFees < 0 ? 0 : remainingFees);
   }
 
@@ -223,7 +242,7 @@ export class EditPaymentDialogComponent {
       fileReader.onload = () => {
         const blob = new Blob([file], { type: file.type });
         this.screenshotUrl = URL.createObjectURL(blob); 
-        console.log("Url :=>", blob);
+        console.log("Url :=>",this.screenshotUrl);
         this.paymentForm.get('screenshot')?.setValue(this.screenshotUrl);
       };
       fileReader.readAsArrayBuffer(file); 
@@ -242,12 +261,13 @@ export class EditPaymentDialogComponent {
   onSave() {
     this.isLoading = true;
     if (this.paymentForm.valid) {
+      const installmentValue = this.paymentForm.get('installment')?.value;
       const paymentData = {
         username: localStorage.getItem('user_fullName'),
         paidFees: this.paymentForm.get('paidFees')?.value,
         totalFees: this.paymentForm.get('totalFees')?.value,
         course: this.paymentForm.get('course')?.value,
-        installment: this.paymentForm.get('installment')?.value,
+        installment: installmentValue,
         discountPercentage: this.paymentForm.get('discountPercentage')?.value,
         discountComment: this.paymentForm.get('discountComment')?.value,
         reference: this.paymentForm.get('reference')?.value,

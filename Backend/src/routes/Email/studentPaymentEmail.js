@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 
 
 const generatePaymentPDF = async (paymentArray, filePath,  firstName, lastName, batch, codemindUrl) => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
   const payment = paymentArray[0];
 

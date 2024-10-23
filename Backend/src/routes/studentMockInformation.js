@@ -201,4 +201,17 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// API Endpoint to Delete perticular Student
+router.delete('/:id', async (req, res) => {
+  try {
+    const  deleteStudent = await StudentMockInformation.findByIdAndDelete(req.params.id);
+    if (!deleteStudent) {
+      return res.status(404).send({ error: 'Student not found' });
+    }
+    res.status(200).send({ message: 'Student Mock Information deleted successfully' });
+  } catch (error) {
+    res.status(400).send({ error: 'Error deleting Student Mock Information', details: error });
+  }
+});
+
 module.exports = router;

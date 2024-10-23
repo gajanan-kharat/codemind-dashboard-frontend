@@ -14,7 +14,7 @@ export class AppComponent {
 
   ngOnInit(): void {
     AOS.init({
-      duration: 1000, // Duration of the animation
+      duration: 1000, 
       easing: 'ease-out',
     });
     this.router.events.subscribe(event => {

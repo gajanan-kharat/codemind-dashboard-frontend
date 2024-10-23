@@ -8,6 +8,7 @@ import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditStudentmockDialogComponent } from '../dialogs/edit-studentmock-dialog/edit-studentmock-dialog.component';
 import { MatSort } from '@angular/material/sort';
 import { StudentMockResponse } from 'src/app/models/studentMockInformation';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-student-mock-content',
@@ -20,6 +21,7 @@ export class StudentMockContentComponent {
   
   studentsMock: any[] = [];
   filteredStudentsMock = new MatTableDataSource<any>();
+  role: string | null = '';
 
   topItems = TOP_ITEMS;   
   batches:string[] =  ['All',...BATCHES]; 
@@ -44,11 +46,17 @@ export class StudentMockContentComponent {
   limit: number = 10;
   totalRecords:number = 0;
   
-  constructor( private moongodb: MongodbService,  private dialog: MatDialog) {}
+  constructor( private moongodb: MongodbService,  
+               private dialog: MatDialog,
+               private toastr: ToastrService) {
+
+    this.role = localStorage.getItem('user_role');
+  }
 
   ngOnInit(): void {
     //this.filterStudentsMock();
     this.fetchStudentsMock();
+   
   }
 
   ngAfterViewInit() {
@@ -198,5 +206,28 @@ export class StudentMockContentComponent {
         }
       }
     });
+  }
+
+  deleteStudentMock(student:any){
+    this.moongodb.deleteStudentMock(student._id).subscribe(
+      () => {
+          this.toastr.success('Student Mock Information deleted successfully.', 'Success', {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+          progressBar: true,
+          closeButton: true
+        });
+        this.fetchStudentsMock();
+      },
+      (error) => {
+        console.error('Error deleting Student Mock Information:', error);
+        this.toastr.error('Error deleting Student Mock Information. Please try again.', 'Error', {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+          progressBar: true,
+          closeButton: true
+        })
+      }
+    );
   }
 }

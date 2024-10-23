@@ -6,6 +6,7 @@ import { Component, ViewChild } from '@angular/core';
   styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent {
+  name='admin';
   // section: string = 'dashboard'; // default section
 
   // onSectionSelected(selectedSection: string) {

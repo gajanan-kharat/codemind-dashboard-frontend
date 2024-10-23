@@ -8,6 +8,7 @@ import { EditStudentDialogComponent } from '../dialogs/edit-student-dialog/edit-
 import { TOP_ITEMS, BATCHES, DISPLAYED_COLUMNS, FEEDBACK_OPTIONS, PAYMENT_STATUSES, PLACEMENT_STATUSES } from 'src/app/models/admin-content';
 import { MatSort } from '@angular/material/sort';
 import { EditPaymentDialogComponent } from '../dialogs/edit-payment-dialog/edit-payment-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-content',
@@ -41,33 +42,29 @@ export class AdminContentComponent implements OnInit {
   currentPage: number = 1;
   limit: number = 10;
   totalRecords:number = 0;
+  role: string | null = '';
 
-  constructor( private moongodb: MongodbService,  private dialog: MatDialog) {}
+  constructor( private moongodb: MongodbService, private dialog: MatDialog, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     // this.filterStudents();
-
-    this.fetchStudents();
-   
+    this.role = localStorage.getItem('user_role');
+    this.fetchStudents(); 
   }
 
   ngAfterViewInit() {
     // this.filteredStudents.paginator = this.paginator;
     this.filteredStudents.sort = this.sort; 
   }
+  
   calculateOverallFeedback(student: any): string {
     const feedbackScores:any = { Poor: 1, Average: 2, Good: 3, Excellent: 4 };
-  
     const mock1Score = feedbackScores[student.mock1Feedback] || 0;
     const mock2Score = feedbackScores[student.mock2Feedback] || 0;
     const mock3Score = feedbackScores[student.mock3Feedback] || 0;
-  
     const totalScore = mock1Score + mock2Score + mock3Score;
-    
     const feedbackCount = [student.mock1Feedback, student.mock2Feedback, student.mock3Feedback].filter(fb => fb !== null && fb !== undefined).length || 1; // Avoid divide by zero
-  
     const averageScore = totalScore / feedbackCount;
-  
     if (averageScore <= 1.5) return 'Poor';
     if (averageScore <= 2.5) return 'Average';
     if (averageScore <= 3.5) return 'Good';
@@ -260,6 +257,29 @@ onFeedbackChange() {
         this.fetchStudents(); 
       }
     });
+  }
+
+  deleteStudent(student:any){
+    this.moongodb.deleteStudentInformation(student._id).subscribe(
+      () => {
+          this.toastr.success('Student Information deleted successfully.', 'Success', {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+          progressBar: true,
+          closeButton: true
+        });
+        this.fetchStudents(); 
+      },
+      (error) => {
+        console.error('Error deleting Student Information:', error);
+        this.toastr.error('Error deleting Student Information. Please try again.', 'Error', {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+          progressBar: true,
+          closeButton: true
+        })
+      }
+    );
   }
 
   

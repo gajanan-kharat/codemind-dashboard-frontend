@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const Student = require('../models/student');
+const InquiryStudent = require('../models/Inquiry');
 
 // API Endpoint to Save Student Data
 router.post('/', async (req, res) => {
   try {
-    const student = new Student(req.body);
+    const student = new InquiryStudent(req.body);
     await student.save();
     res.status(201).send(student);
   } catch (error) {
@@ -48,9 +48,9 @@ router.get('/', async (req, res) => {
         baseFilter.course = course;
       }
 
-    totalDocuments = await Student.countDocuments(baseFilter);
+    totalDocuments = await InquiryStudent.countDocuments(baseFilter);
 
-    student = await Student.find(baseFilter)
+    student = await InquiryStudent.find(baseFilter)
       .skip(skip)
       .limit(limit);
 
@@ -83,7 +83,7 @@ router.get('/', async (req, res) => {
 // API Endpoint to Update Student Data
 router.put('/:id', async (req, res) => {
   try {
-    const student = await Student.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    const student = await InquiryStudent.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
     if (!student) {
       return res.status(404).send({ error: 'Student not found' });
     }
@@ -96,7 +96,7 @@ router.put('/:id', async (req, res) => {
 // API Endpoint to Delete Student
 router.delete('/:id', async (req, res) => {
   try {
-    const student = await Student.findByIdAndDelete(req.params.id);
+    const student = await InquiryStudent.findByIdAndDelete(req.params.id);
     if (!student) {
       return res.status(404).send({ error: 'Student not found' });
     }

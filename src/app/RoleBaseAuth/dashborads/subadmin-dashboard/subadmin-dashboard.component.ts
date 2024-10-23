@@ -12,7 +12,7 @@ export class SubadminDashboardComponent {
   // onSectionSelected(selectedSection: string) {
   //   this.section = selectedSection;
   // }
-  
+  name='dashboard';
   constructor(private authService: AuthService){}
 
   navigateToLogOut(){

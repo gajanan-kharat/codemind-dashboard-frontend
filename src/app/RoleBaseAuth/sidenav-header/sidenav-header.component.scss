@@ -104,7 +104,6 @@
     gap: 10px;
   }
   .profile-menu .username {
-    margin-right: 8px;
     font-size: 15px;
   }
   .profile-pic {
@@ -120,6 +119,15 @@
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 0 0 3px #ffff;
+  }
+  .profile-name{
+    display:flex;
+    flex-direction: column;
+  }
+  .role{
+    font-size: smaller;
+    font-weight: bold;
+    color:#5aa6f3;
   }
   .spacer {
     flex: 1;
@@ -140,8 +148,8 @@
   .list p {
     display: flex;
     align-items: center;
-    padding: 10px 0px 10px 30px;
-    font-size: 20px;
+    padding: 5px 0px 5px 30px;
+    font-size: 15px;
     cursor: pointer;
     gap: 10px;
   }

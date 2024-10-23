@@ -108,4 +108,20 @@ router.post('/:id/send-email', async (req, res) => {
   }
 });
 
+// API Endpoint to Delete Bootcamp Data
+router.delete('/:id', async (req, res) => {
+  try {
+      const bootcampId = req.params.id;
+      const deletedNotInterested = await NotInterested.findByIdAndDelete(bootcampId);
+
+      if (! deletedNotInterested) {
+          return res.status(404).send({ error: 'Bootcamp entry not found' });
+      }
+
+      res.status(200).send({ message: 'Bootcamp entry deleted successfully' });
+  } catch (error) {
+      res.status(400).send({ error: 'Error deleting bootcamp data', details: error });
+  }
+});
+
 module.exports = router;

@@ -8,6 +8,7 @@ import { DISPLAYED_COLUMNSBOOTCAMP, PAYMENT_STATUS } from 'src/app/models/admin-
 import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditBootcampStudentComponent } from '../../dialogs/edit-bootcamp-student/edit-bootcamp-student.component';
 import { BootcampStudentResponse } from 'src/app/models/bootcampStudents';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-bootcamp-student',
@@ -28,9 +29,15 @@ export class BootcampStudentComponent {
   currentPage: number = 1;
   limit: number = 10;
   totalRecords:number = 0;
+  role: string | null = '';
 
   selectedPaymentBootCamp = 'All';
-  constructor(private mongodbService: MongodbService, private dialog: MatDialog, private fb: FormBuilder) {}
+  constructor(private mongodbService: MongodbService, 
+              private dialog: MatDialog, 
+              private fb: FormBuilder,
+              private toastr: ToastrService) {
+                this.role = localStorage.getItem('user_role');
+              }
 
   ngOnInit(): void {
     this.fetchStudents();
@@ -121,5 +128,27 @@ export class BootcampStudentComponent {
     this.fetchStudents(filterValue); 
   }
 
+  deleteStudent(student:any){
+    this.mongodbService.deleteBootcampStudent(student._id).subscribe(
+      () => {
+          this.toastr.success('Bootcamp Student deleted successfully.', 'Success', {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+          progressBar: true,
+          closeButton: true
+        });
+        this.fetchStudents(); 
+      },
+      (error) => {
+        console.error('Error deleting Bootcamp Student:', error);
+        this.toastr.error('Error deleting Bootcamp Student. Please try again.', 'Error', {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+          progressBar: true,
+          closeButton: true
+        })
+      }
+    );
+  }
   
 }

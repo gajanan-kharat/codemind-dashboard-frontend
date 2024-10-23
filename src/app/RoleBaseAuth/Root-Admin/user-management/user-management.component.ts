@@ -69,8 +69,8 @@ export class UserManagementComponent {
         this.currentPage = currentPage;       
         this.users = data;
         this.totalRecords = totalRecords;
-        console.log("users data:=>",response);
-        this.filteredUsers.data = this.users;  
+        this.filteredUsers.data = this.users;
+        // console.log("users data:=>",response);  
         // this.filterUsers();  
       },
       (error) => {
@@ -123,7 +123,6 @@ export class UserManagementComponent {
   }
 
   deleteUser(user:any){
-    console.log("delete users:=>",user._id);
      this.authService.deleteUsers(user._id).subscribe(
         () => {
             this.toastr.success('User deleted successfully.', 'Success', {
@@ -132,6 +131,7 @@ export class UserManagementComponent {
             progressBar: true,
             closeButton: true
           });
+          this.fetchUsers();
         },
         (error) => {
           console.error('Error creating user:', error);
@@ -141,10 +141,8 @@ export class UserManagementComponent {
             progressBar: true,
             closeButton: true
           })
-      
         }
       );
-      
   }
  
   editUser(user: any) {  

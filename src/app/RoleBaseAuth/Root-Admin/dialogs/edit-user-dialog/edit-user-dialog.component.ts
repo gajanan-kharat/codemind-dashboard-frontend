@@ -17,6 +17,7 @@ export class EditUserDialogComponent {
     roles = Object.values(Role); 
     isEditing: boolean; 
     isLoading:Boolean = false;
+    showPassword = false;
   
     constructor(
       public dialogRef: MatDialogRef<EditUserDialogComponent>, 
@@ -43,6 +44,10 @@ export class EditUserDialogComponent {
         password: ['',  !this.isEditing? Validators.required : Validators.nullValidator],
         role: [this.isEditing ? data.user.role:'', Validators.required]  
       });
+    }
+
+    togglePasswordVisibility() {
+      this.showPassword = !this.showPassword; 
     }
   
     onSave(): void {

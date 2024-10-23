@@ -43,7 +43,11 @@
     <!-- Password Field - Only visible when creating a new user -->
     <mat-form-field *ngIf="!isEditing" appearance="fill">
       <mat-label>Password</mat-label>
-      <input matInput formControlName="password" type="password">
+      <input matInput formControlName="password" [type]="showPassword ? 'text' : 'password'">
+      <button mat-icon-button (click)="togglePasswordVisibility()" type="button" matSuffix>
+        <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+      </button>
+      <button>show</button>
       <mat-error *ngIf="userForm.get('password')?.hasError('required') && userForm.get('password')?.touched">
         Password is required.
       </mat-error>

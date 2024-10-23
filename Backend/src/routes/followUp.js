@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const FollowUp = require('../models/followUp');
-const Student = require('../models/student');
+const Student = require('../models/Inquiry');
 
 // API Endpoint to Save Student Data
 router.post('/', async (req, res) => {
@@ -114,5 +114,18 @@ router.put('/:id', async (req, res) => {
       res.status(400).send({ error: 'Error updating follow-up data', details: error });
     }
   });
+
+  // API Endpoint to Delete perticular Student
+router.delete('/:id', async (req, res) => {
+  try {
+    const  deleteStudent = await FollowUp.findByIdAndDelete(req.params.id);
+    if (!deleteStudent) {
+      return res.status(404).send({ error: 'Student not found' });
+    }
+    res.status(200).send({ message: 'FollowUp Student deleted successfully' });
+  } catch (error) {
+    res.status(400).send({ error: 'Error deleting FollowUp Student', details: error });
+  }
+});
 
 module.exports = router;

@@ -9,6 +9,7 @@
   }
   .filters{
     display: flex;
+    gap: 10px;
   }
   
   ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled){

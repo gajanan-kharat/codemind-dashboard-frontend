@@ -70,7 +70,10 @@ export interface StudentInformation {
   batch: string;                    
   graduation: string;               
   passingYear: number;              
-  collegeName: string;              
+  collegeName: string;
+  birthdate:string; 
+  gender:string;
+  currentlyWorking: Date;     
   attendance: string;               
   parentEmail?: string;             
   parentMobileNumber?: string;      

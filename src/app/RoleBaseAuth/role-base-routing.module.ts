@@ -9,6 +9,7 @@ import { AdminContentComponent } from './Admin/admin-content/admin-content.compo
 import { StudentMockContentComponent } from './Admin/student-mock-content/student-mock-content.component';
 import { MainLeadsComponent } from './Admin/leads-section/main-leads/main-leads.component';
 import { UserManagementComponent } from './Root-Admin/user-management/user-management.component';
+import { TotalFeesComponent } from './Admin/totalFees/total-fees/total-fees.component';
 
 
 
@@ -34,6 +35,7 @@ const routes: Routes = [
       { path: 'dashboard', component: AdminContentComponent},
       { path: 'feedback', component: StudentMockContentComponent  }, 
       { path: 'lead', component: MainLeadsComponent}, 
+      { path: 'totalFees', component: TotalFeesComponent},
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' } 
     ]
   },

@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+require('dotenv').config();
+
 const authRoutes = require('./routes/auth');
-const studentRoutes = require('./routes/students');
+const inquiryRoutes = require('./routes/Inquiry');
 const notInterestedRoutes = require('./routes/notInterested');
 const interestedRoutes = require('./routes/interested');
 const followUpRoutes = require('./routes/followUp');
@@ -18,10 +20,12 @@ const courseRoutes = require('./routes/course');
 const feesRoutes = require('./routes/fees');
 const totalRecordsRouter = require('./routes/totalTableRecords');
 
+//Intialize Express
 const app = express();
 
 // mongoose.connect('mongodb://localhost:27017/roleBasedApp')
-mongoose.connect('mongodb://127.0.0.1:27017/roleBasedApp')
+// mongoose.connect('mongodb://127.0.0.1:27017/roleBasedApp')
+mongoose.connect(process.env.MONGODBURL)
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.log('MongoDB connection error:', err));
 
@@ -33,7 +37,7 @@ app.use('/usersReports', express.static(path.join(__dirname, 'usersReports')));
 app.use('/studentsReports', express.static(path.join(__dirname, 'studentsReports')));
 
 app.use('/api/auth', authRoutes);
-app.use('/api/students', studentRoutes);
+app.use('/api/students', inquiryRoutes);
 app.use('/api/notInterested',notInterestedRoutes);
 app.use('/api/interested',interestedRoutes)
 

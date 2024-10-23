@@ -86,6 +86,42 @@
           College Name is required.
         </mat-error>
       </mat-form-field>
+
+       <!-- Birthdate Field -->
+  <mat-form-field appearance="fill">
+    <mat-label>Birthdate</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="birthdate">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="studentForm.get('birthdate')?.hasError('required') && studentForm.get('birthdate')?.touched">
+      Birthdate is required.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Gender Field -->
+  <mat-form-field appearance="fill">
+    <mat-label>Gender</mat-label>
+    <mat-select formControlName="gender">
+      <mat-option value="Male">Male</mat-option>
+      <mat-option value="Female">Female</mat-option>
+      <mat-option value="Other">Other</mat-option>
+    </mat-select>
+    <mat-error *ngIf="studentForm.get('gender')?.hasError('required') && studentForm.get('gender')?.touched">
+      Gender is required.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Currently Working Field -->
+  <mat-form-field appearance="fill">
+    <mat-label>Are you currently working?</mat-label>
+    <mat-select formControlName="currentlyWorking">
+      <mat-option value="Yes">Yes</mat-option>
+      <mat-option value="No">No</mat-option>
+    </mat-select>
+    <mat-error *ngIf="studentForm.get('currentlyWorking')?.hasError('required') && studentForm.get('currentlyWorking')?.touched">
+      This field is required.
+    </mat-error>
+  </mat-form-field>
     </div>
 
     <!-- Additional Information Section -->

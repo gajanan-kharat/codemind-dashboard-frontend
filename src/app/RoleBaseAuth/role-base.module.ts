@@ -31,6 +31,7 @@ import { NotinterestedStudentComponent } from './Admin/leads-section/components/
 import { MainLeadsComponent } from './Admin/leads-section/main-leads/main-leads.component';
 import { SubadminDashboardComponent } from './dashborads/subadmin-dashboard/subadmin-dashboard.component';
 import { EditPaymentDialogComponent } from './Admin/dialogs/edit-payment-dialog/edit-payment-dialog.component';
+import { TotalFeesComponent } from './Admin/totalFees/total-fees/total-fees.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { EditPaymentDialogComponent } from './Admin/dialogs/edit-payment-dialog/
     NotinterestedStudentComponent,
     MainLeadsComponent,
     SubadminDashboardComponent,
-    EditPaymentDialogComponent
+    EditPaymentDialogComponent,
+    TotalFeesComponent
   ],
   imports: [
     CommonModule,

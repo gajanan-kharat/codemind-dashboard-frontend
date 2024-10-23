@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent {
   loginForm!: FormGroup;
   showLoginPopup: boolean = true;
+  showPassword = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private toastr: ToastrService) {
     this.loginForm = this.fb.group({
@@ -29,6 +30,10 @@ export class LoginComponent {
         }
       }
     });
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;  
   }
 
   get email() { return this.loginForm.get('email'); }

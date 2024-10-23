@@ -8,6 +8,7 @@ import { BATCHES, COURSES, DISPLAYED_COLUMNS } from 'src/app/models/admin-conten
 import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditNotintrestedStudentComponent } from '../../dialogs/edit-notintrested-student/edit-notintrested-student.component';
 import { NotInterestedStudentResponse } from 'src/app/models/notInterestedStudents';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-notinterested-student',
@@ -32,8 +33,14 @@ export class NotinterestedStudentComponent {
   currentPage: number = 1;
   limit: number = 10;
   totalRecords:number = 0;
+  role: string | null = '';
 
-  constructor(private mongodbService: MongodbService, private dialog: MatDialog, private fb: FormBuilder) {}
+  constructor(private mongodbService: MongodbService,
+              private dialog: MatDialog, 
+              private fb: FormBuilder,
+              private toastr: ToastrService) {
+                this.role = localStorage.getItem('user_role');
+              }
   
   ngOnInit(): void {
     this.fetchStudents();
@@ -133,5 +140,27 @@ export class NotinterestedStudentComponent {
       this. filteredNotInterested.paginator.firstPage();
     }
   }
-
+  
+  deleteStudent(student:any){
+    this.mongodbService.deleteNotinterestedStudent(student._id).subscribe(
+      () => {
+          this.toastr.success('Not Interested Student deleted successfully.', 'Success', {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+          progressBar: true,
+          closeButton: true
+        });
+        this.fetchStudents(); 
+      },
+      (error) => {
+        console.error('Error deleting Not Interested Student:', error);
+        this.toastr.error('Error deleting Not Interested Student. Please try again.', 'Error', {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+          progressBar: true,
+          closeButton: true
+        })
+      }
+    );
+  }
 }

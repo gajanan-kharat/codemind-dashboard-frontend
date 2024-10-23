@@ -59,6 +59,9 @@ export class EditStudentDialogComponent {
         graduation: [this.isEditMode ? this.data.student.graduation: '',],
         passingYear: [this.isEditMode ? this.data.student.passingYear : ''],
         collegeName: [this.isEditMode ? this.data.student.collegeName: ''],
+        birthdate: [this.isEditMode ? this.data.student.birthdate:''],
+        gender: [this.isEditMode ? this.data.student.gender:''], 
+        currentlyWorking: [this.isEditMode ? this.data.student.currentlyWorking:''], 
         address: [this.isEditMode ? this.data.student.address: ''],
         cityName: [this.isEditMode ? this.data.student.cityName: ''],
         state: [this.isEditMode ? this.data.student.state: ''],
@@ -81,7 +84,7 @@ export class EditStudentDialogComponent {
     }
   
     initializeBatches() {
-      for (let i = 13; i >= 1 ; i--) {
+      for (let i = 14; i >= 1 ; i--) {
         this.batches.push(`Batch-${i}`);
       }
     }

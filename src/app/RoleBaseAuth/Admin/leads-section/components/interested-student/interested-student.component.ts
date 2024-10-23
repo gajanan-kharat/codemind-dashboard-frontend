@@ -8,6 +8,7 @@ import { MongodbService } from 'src/app/services/mongodb.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EditInterestedStudentComponent } from '../../dialogs/edit-interested-student/edit-interested-student.component';
 import { InterestedStudentResponse } from 'src/app/models/interestedStudents';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-interested-student',
@@ -31,12 +32,17 @@ export class InterestedStudentComponent {
   currentPage: number = 1;
   limit: number = 10;
   totalRecords:number = 0;
+  role: string | null = '';
 
-  constructor(private mongodbService: MongodbService,private dialog: MatDialog, private fb: FormBuilder){
+  constructor(private mongodbService: MongodbService,
+              private dialog: MatDialog, 
+              private fb: FormBuilder,
+              private toastr: ToastrService){
     this.dateRangeForm = this.fb.group({
       start: [''],
       end: ['']
     });
+    this.role = localStorage.getItem('user_role');
 }
   ngOnInit(): void {
     this.fetchStudents();
@@ -131,5 +137,28 @@ export class InterestedStudentComponent {
       const filterValue = (event.target as HTMLInputElement).value;
       this.currentPage = 1;
       this.fetchStudents(filterValue); 
+    }
+
+    deleteStudent(student:any){
+      this.mongodbService.deleteInterestedStudent(student._id).subscribe(
+        () => {
+            this.toastr.success('Interested Student deleted successfully.', 'Success', {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+            progressBar: true,
+            closeButton: true
+          });
+          this.fetchStudents(); 
+        },
+        (error) => {
+          console.error('Error deleting Interested Student:', error);
+          this.toastr.error('Error deleting Interested Student. Please try again.', 'Error', {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+            progressBar: true,
+            closeButton: true
+          })
+        }
+      );
     }
 }

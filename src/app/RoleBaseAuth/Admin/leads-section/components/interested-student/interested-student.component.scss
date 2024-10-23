@@ -1,6 +1,4 @@
-.student-table {
-    margin-bottom: 16px;
-  }
+
 .filter-container{
     display: flex;
     justify-content: space-between;
@@ -12,6 +10,7 @@
 }
 .filters{
     display: flex;
+    gap: 10px;
 }
 ::ng-deep .mat-mdc-table thead {
     background-color: #d1d4d0 !important;

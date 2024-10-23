@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from 'src/app/services/auth.service';
@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SidenavHeaderComponent {
   // @Output() sectionSelected = new EventEmitter<string>();
+  @Input() dashborad! :string;
   @ViewChild('sidenav') sidenav: MatSidenav | undefined;
   @ViewChild(MatMenuTrigger) menuTrigger: MatMenuTrigger | undefined;
   // isSidenavOpen = false; 
@@ -19,19 +20,21 @@ export class SidenavHeaderComponent {
   firstLetter: string | null = '';
   firstName: string | null = '';
   role: string | null ='';
-  selectedItem: string='';
+  selectedItem: string | null = '';
   currentUrl: string = '';
+
 
   constructor(private authService: AuthService,
               private breakpointObserver: BreakpointObserver,
               private route: ActivatedRoute, 
               private router: Router ) {}
   ngOnInit(): void {
+    this.selectedItem = this.dashborad;
     this.username = localStorage.getItem('user_name');
     if (this.username) {
       // this.firstName = this.getFirstName(this.username);
       this.firstName = this.capitalizeFirstLetter(this.username);
-      console.log(this.firstName);
+      // console.log(this.firstName);
       this.firstLetter = this.firstName.charAt(0).toUpperCase();
     }
     this.role = this.authService.getRole();
@@ -39,9 +42,11 @@ export class SidenavHeaderComponent {
     // Get the current URL
     this.route.url.subscribe((urlSegments) => {
       this.currentUrl =  urlSegments[urlSegments.length - 1].path;
-      console.log('Current URL:', this.currentUrl);
+      // console.log('Current URL:', this.currentUrl);
     });
 
+    console.log(this.dashborad);
+    console.log(this.selectedItem)
      // Check if the screen size is mobile or not
      /*this.breakpointObserver.observe(['(max-width: 360px)']).subscribe(result => {
       this.isMobile = result.matches;
@@ -65,6 +70,10 @@ export class SidenavHeaderComponent {
   onLeads() {
     // this.sectionSelected.emit('leads');
     this.selectedItem = 'leads';
+  }
+
+  onTotalFees(){
+    this.selectedItem = 'totalFees';
   }
 
   // onUsers(){

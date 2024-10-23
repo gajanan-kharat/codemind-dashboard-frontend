@@ -44,6 +44,10 @@ export class MongodbService {
     return this.http.post<any>(`${this.baseApiUrl}/studentInformation`, studentData);
   }
 
+  deleteStudentInformation(studentId: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseApiUrl}/studentInformation/${studentId}`);
+  }
+
   //Interested Student
   saveConfirmedStudent(confirmedstudentData: any): Observable<any> {
     return this.http.post<any>(`${this.baseApiUrl}/studentInformation`, confirmedstudentData);
@@ -78,6 +82,10 @@ export class MongodbService {
     return this.http.put<StudentMockInfo>(`${this.baseApiUrl}/studentMockInformation/${studentmockinfo._id}`, studentmockinfo);
   }
 
+  deleteStudentMock(studentId: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseApiUrl}/studentMockInformation/${studentId}`);
+  }
+
   getInquiryStudent(page: number, limit: number, searchTerm: string = '',filters: any = {}): Observable<InquiryStudentResponse> { 
     const params: any = {
       page,
@@ -107,9 +115,15 @@ export class MongodbService {
     };
     return this.http.get<any>(`${this.baseApiUrl}/followup?search=${searchTerm}`,{ params });
   }
+  
   updateFollowUpStudent(student: any): Observable<any> {
     return this.http.put(`${this.baseApiUrl}/followup/${student._id}`, student);
   }
+
+  deleteFollowUpStudent(student: any): Observable<any> {
+    return this.http.delete(`${this.baseApiUrl}/followup/${student._id}`, student);
+  }
+
   deleteStudent(studentId: string): Observable<any> {
     return this.http.delete<any>(`${this.baseApiUrl}/students/${studentId}`);
   }
@@ -157,6 +171,10 @@ export class MongodbService {
   sendNotInterestedEmail(id: string): Observable<any> {
     return this.http.post(`${this.baseApiUrl}/notInterested/${id}/send-email`, {});
   }
+
+  deleteNotinterestedStudent(studentId: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseApiUrl}/notInterested/${studentId}`);
+  }
   
   //Bootcamp 
   getBootCamp(page: number, limit: number, searchTerm: string = '',filters: any = {}): Observable<BootcampStudentResponse> {
@@ -167,13 +185,27 @@ export class MongodbService {
     };
     return this.http.get<any>(`${this.baseApiUrl}/bootcamp?search=${searchTerm}`,{ params });
   }
+
   updateBootcampStudent(student: any): Observable<any> {
     return this.http.put<any>(`${this.baseApiUrl}/bootcamp/${student._id}`,student);
+  }
+
+  deleteBootcampStudent(studentId: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseApiUrl}/bootcamp/${studentId}`);
   }
 
   //Get Total Records for Leads section
   getTotalRecords(): Observable<any> {
     return this.http.get<any>(`${this.baseApiUrl}/total-records`);
+  }
+
+
+  //get fees data
+  getStudentFees(filters: any = {}): Observable<any> { 
+    const params: any = {
+      ...filters
+    };
+    return this.http.get<any>(`${this.baseApiUrl}/studentInformation/fees-summary`,{ params });  
   }
 
 

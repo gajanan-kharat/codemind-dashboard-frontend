@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class CounselorDashboardComponent {
   
+  name='counselor';
+
   constructor(private authService: AuthService){}
 
   navigateToLogOut(){

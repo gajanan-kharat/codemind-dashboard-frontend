@@ -14,7 +14,7 @@
   }
   .filters{
     display: flex;
-    // gap: 20px;
+    gap: 10px;
   }    
   @media (max-width: 600px) {
     :host ::ng-deep .mdc-data-table__cell,

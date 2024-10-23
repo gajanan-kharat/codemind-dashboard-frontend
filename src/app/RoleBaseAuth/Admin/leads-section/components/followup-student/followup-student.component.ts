@@ -8,6 +8,7 @@ import { COURSES, BATCHES, DISPLAYED_COLUMNSFOLLOW, INQUIRYSTATUSES } from 'src/
 import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditFollowupStudentComponent } from '../../dialogs/edit-followup-student/edit-followup-student.component';
 import { FollowUpStudentResponse } from 'src/app/models/followup';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-followup-student',
@@ -35,13 +36,16 @@ export class FollowupStudentComponent {
   currentPage: number = 1;
   limit: number = 10;
   totalRecords:number = 0;
+  role: string | null = '';
 
   dateRangeForm: FormGroup;
-  constructor(private mongodbService: MongodbService, private dialog: MatDialog, private fb: FormBuilder) {
+  constructor(private mongodbService: MongodbService, private dialog: MatDialog, 
+              private fb: FormBuilder, private toastr: ToastrService) {
     this.dateRangeForm = this.fb.group({
       start: [''],
       end: ['']
     });
+    this.role = localStorage.getItem('user_role');
   }
   
   ngOnInit(): void {
@@ -148,5 +152,29 @@ applyFilterFollowUp(event: Event) {
   this.currentPage = 1;
   this.fetchStudents(filterValue); 
 }
+
+deleteStudent(student:any){
+  this.mongodbService.deleteFollowUpStudent(student._id).subscribe(
+    () => {
+        this.toastr.success('Inquiry Student deleted successfully.', 'Success', {
+        timeOut: 3000,
+        positionClass: 'toast-top-right',
+        progressBar: true,
+        closeButton: true
+      });
+      this.fetchStudents(); 
+    },
+    (error) => {
+      console.error('Error deleting Inquiry Student:', error);
+      this.toastr.error('Error deleting Inquiry Student. Please try again.', 'Error', {
+        timeOut: 3000,
+        positionClass: 'toast-top-right',
+        progressBar: true,
+        closeButton: true
+      })
+    }
+  );
+}
+
 
 }

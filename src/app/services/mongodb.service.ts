@@ -40,6 +40,7 @@ export class MongodbService {
     return this.http.put<StudentInformation>(`${this.baseApiUrl}/studentInformation/payments/${paymentinfo._id}`, paymentinfo);
   }
  
+  
   saveNewStudent(studentData: any): Observable<any> {
     return this.http.post<any>(`${this.baseApiUrl}/studentInformation`, studentData);
   }

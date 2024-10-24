@@ -81,7 +81,7 @@ export class SidenavHeaderComponent {
   // }
   onClick(name:any){
     this.selectedItem = name;
-    console.log("current name:=>",name);
+    // console.log("current name:=>",name);
    }
 
   // getFirstName(fullName: string): string {

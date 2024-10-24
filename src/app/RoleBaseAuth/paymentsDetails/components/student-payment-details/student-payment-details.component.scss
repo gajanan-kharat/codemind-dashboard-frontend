@@ -1,0 +1,138 @@
+.content {
+    padding: 16px;
+  }
+  .top-cards {
+    margin-bottom: 16px;
+  }
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+  }
+  
+  // mat-form-field{
+  //   width:50%;
+  // }
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    width: 90% !important;
+  }
+  .card {
+    width: 100%;
+    max-width: 180px;
+    padding: 5px 30px 5px 30px;
+  }
+  // .student-table {
+  //   margin-bottom: 16px;
+  // }
+  .student-title {
+    font-weight: bold;
+  }
+ 
+  .filters{
+    display: flex;
+    // gap: 10px;
+  }
+  .courses{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .course-icon {
+    font-size: 40px;
+    // margin-right: 10px;
+    color: #3fb554;
+    display: flex;
+    justify-content: center;
+    // margin-top: 10px;
+    text-align: center;
+   color:#daeefc;
+  }
+  .courses p{
+    text-align: center;
+    font-size: 1rem;
+    margin: 0px;
+    font-weight: bold;
+  }
+  ::ng-deep .refresh-icon:hover{
+     border-radius: none;
+  }
+  .mat-icon-button {
+    margin: 0; 
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+  }
+  .card {
+    cursor: pointer;
+    transition: transform 0.4s ease-in-out;
+  }
+  
+  .card.selected {
+    // background-color: #e7f7e5; 
+    color: rgb(252, 252, 252);
+    .course-icon {
+      color:white;
+    }
+  }
+  .card:hover {
+    transform: scale(1.1);
+  }
+  .badge-button {
+    border: none;
+    border-radius: 20px; 
+    padding: 5px 0px; 
+    width: 90px;
+    font-size: 12px; 
+    color: rgb(65, 65, 65); 
+    cursor: pointer; 
+    outline: none;
+    // transition: background-color 0.3s; 
+    transition: transform 0.4s ease-in-out;
+ 
+  }
+  
+  .not-paid {
+    background-color: #e888f9;
+  }
+  .partial-payment {
+    background-color: #67c3fc;
+  }
+  .complete-payment {
+    background-color: #70ff68; 
+  }
+  
+  .badge-button:hover {
+    transform: scale(1.08); 
+    border: 2px solid rgb(205, 205, 205);
+  }
+  
+ 
+  @media (max-width: 600px) {
+    .card {
+       width: 48% !important;
+    }
+    :host ::ng-deep .mdc-data-table__cell, .mdc-data-table__header-cell {
+      padding: 0px 0px 0 2px !important;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .card-container {
+      gap: 12px;
+    }
+    .card {
+      width: 100%;
+      max-width: 185px;
+    }
+    .content {
+      margin-top: 10px;
+    }
+    :host ::ng-deep .mdc-data-table__cell, .mdc-data-table__header-cell {
+        padding: 0px 0px 0 10px;
+    }
+  }
+  

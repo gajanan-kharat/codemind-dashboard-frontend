@@ -151,6 +151,7 @@
 
 <mat-dialog-actions >
   <button mat-button class="save-btn" (click)="onSave()" [disabled]="!paymentForm.valid" >Save</button>
+  
 </mat-dialog-actions>
 </ng-container>
 
@@ -291,7 +292,6 @@
       <a *ngIf="screenshotUrl" [href]="screenshotUrl" target="_blank" class="preview-link">Preview Screenshot</a> 
       <mat-icon *ngIf="screenshotUrl" (click)="deleteScreenshot()" class="delete-icon" aria-label="Delete screenshot">cancel</mat-icon> 
     </div>
-   
   </div>
  </form>
 </ng-template>

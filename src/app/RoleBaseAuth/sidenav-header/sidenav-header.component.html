@@ -80,14 +80,14 @@
         <span *ngIf="!isSidenavCollapsed">Leads</span>
       </p>
       <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/totalFees" (click)="onTotalFees()" [ngClass]="{'selected': selectedItem === 'totalFees'}">
-        <mat-icon>supervisor_account</mat-icon>
+        <mat-icon>monetization_on</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Total Fees</span>
       </p>
     
-      <!-- <p *ngIf="currentUrl=='subadmin-dashboard'"  class="item" routerLink="/counselor-dashboard" (click)="onClick('counselor')" [ngClass]="{'selected': selectedItem === 'counselor'}">
-        <mat-icon>group_add</mat-icon>
-        <span *ngIf="!isSidenavCollapsed">Counselor</span>
-      </p> -->
+      <p *ngIf="currentUrl=='subadmin-dashboard'"  class="item" routerLink="/subadmin-dashboard/paymentDetails" (click)="onClick('paymentDetails')" [ngClass]="{'selected': selectedItem === 'paymentDetails'}">
+        <mat-icon>money</mat-icon>
+        <span *ngIf="!isSidenavCollapsed">Student Payments</span>
+      </p>
       <p class="logout">
         <mat-icon>logout</mat-icon>
         <span (click)="logout()" *ngIf="!isSidenavCollapsed">Logout</span>

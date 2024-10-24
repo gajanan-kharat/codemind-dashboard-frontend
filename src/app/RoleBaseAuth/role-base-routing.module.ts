@@ -10,6 +10,7 @@ import { StudentMockContentComponent } from './Admin/student-mock-content/studen
 import { MainLeadsComponent } from './Admin/leads-section/main-leads/main-leads.component';
 import { UserManagementComponent } from './Root-Admin/user-management/user-management.component';
 import { TotalFeesComponent } from './Admin/totalFees/total-fees/total-fees.component';
+import { StudentPaymentDetailsComponent } from './paymentsDetails/components/student-payment-details/student-payment-details.component';
 
 
 
@@ -36,6 +37,7 @@ const routes: Routes = [
       { path: 'feedback', component: StudentMockContentComponent  }, 
       { path: 'lead', component: MainLeadsComponent}, 
       { path: 'totalFees', component: TotalFeesComponent},
+      { path: 'paymentDetails', component: StudentPaymentDetailsComponent},
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' } 
     ]
   },

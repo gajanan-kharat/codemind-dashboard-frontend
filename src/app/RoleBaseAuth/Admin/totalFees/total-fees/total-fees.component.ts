@@ -19,7 +19,7 @@ export class TotalFeesComponent {
   batches = BATCHES;
   topItems = TOP_ITEMS; 
   displayRow = false;  
-  displayedFeesColumns: string[] = ['course', 'batch', 'totalFees', 'totalPaidFees', 'totalRemainingFees','totalDiscounts', 'totalStudents'];
+  displayedFeesColumns: string[] = ['course', 'batch', 'totalFees', 'totalPaidFees', 'totalRemainingFees','totalDiscounts', 'totalReferenceDiscountFees','totalStudents'];
 
   constructor(private mongodb:MongodbService){
 

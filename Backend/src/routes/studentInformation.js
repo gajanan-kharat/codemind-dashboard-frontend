@@ -1021,7 +1021,9 @@ router.get('/fees-summary', async (req, res) => {
           totalPaidFees: 0,
           totalRemainingFees: 0,
           totalDiscount: 0,
+          referenceAmount:0,
           totalStudents: 0,
+
         };
       }
 
@@ -1033,6 +1035,7 @@ router.get('/fees-summary', async (req, res) => {
           totalPaidFees: 0,
           totalRemainingFees: 0,
           totalDiscount: 0,
+          referenceAmount: 0,
           totalStudents: 0
         };
       }
@@ -1048,7 +1051,7 @@ router.get('/fees-summary', async (req, res) => {
         // Find the last payment in the array (most recent one)
         const lastPayment = filteredPayments[filteredPayments.length - 1];
 
-        const { totalFees = 0, totalPaidFees = 0, remainingFees = 0, discountPercentage, discountAmount } = lastPayment;
+        const { totalFees = 0, totalPaidFees = 0, remainingFees = 0, discountPercentage, discountAmount, reference } = lastPayment;
 
         // Update total course data
         courseSummary[studentCourse].totalFees += totalFees;
@@ -1063,6 +1066,9 @@ router.get('/fees-summary', async (req, res) => {
         if (discountAmount) {
           courseSummary[studentCourse].totalDiscount += discountAmount;
         }
+        if( reference){
+          courseSummary[studentCourse].referenceAmount += reference;
+        }
 
         // Update batch-specific data
         courseSummary[`${studentCourse}_${studentBatch}`].totalFees += totalFees;
@@ -1076,6 +1082,10 @@ router.get('/fees-summary', async (req, res) => {
         }
         if (discountAmount) {
           courseSummary[`${studentCourse}_${studentBatch}`].totalDiscount += discountAmount;
+        }
+
+        if( reference){
+          courseSummary[`${studentCourse}_${studentBatch}`].referenceAmount += reference;
         }
 
         // Increment total students

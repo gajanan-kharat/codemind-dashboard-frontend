@@ -77,16 +77,16 @@
       </p>
       <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/lead" (click)="onLeads()" [ngClass]="{'selected': selectedItem === 'leads'}">
         <mat-icon>supervisor_account</mat-icon>
-        <span *ngIf="!isSidenavCollapsed">Leads</span>
+        <span *ngIf="!isSidenavCollapsed">Students Leads</span>
       </p>
       <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/totalFees" (click)="onTotalFees()" [ngClass]="{'selected': selectedItem === 'totalFees'}">
         <mat-icon>monetization_on</mat-icon>
-        <span *ngIf="!isSidenavCollapsed">Total Fees</span>
+        <span *ngIf="!isSidenavCollapsed">Payment Status</span>
       </p>
-    
-      <p *ngIf="currentUrl=='subadmin-dashboard'"  class="item" routerLink="/subadmin-dashboard/paymentDetails" (click)="onClick('paymentDetails')" [ngClass]="{'selected': selectedItem === 'paymentDetails'}">
-        <mat-icon>money</mat-icon>
-        <span *ngIf="!isSidenavCollapsed">Student Payments</span>
+
+      <p *ngIf="currentUrl=='subadmin-dashboard'"  class="item" routerLink="/subadmin-dashboard/companyLeads" (click)="onClick('companyLeads')" [ngClass]="{'selected': selectedItem === 'companyLeads'}">
+        <mat-icon>business_center</mat-icon>
+        <span *ngIf="!isSidenavCollapsed">Company Leads</span>
       </p>
       <p class="logout">
         <mat-icon>logout</mat-icon>

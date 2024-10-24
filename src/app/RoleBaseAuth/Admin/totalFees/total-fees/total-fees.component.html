@@ -71,20 +71,26 @@
 
                 <!-- Total Paid Fees Column -->
                 <ng-container matColumnDef="totalPaidFees">
-                    <th mat-header-cell *matHeaderCellDef> Total Paid Fees </th>
+                    <th mat-header-cell *matHeaderCellDef>  Paid Fees </th>
                     <td mat-cell *matCellDef="let element">  {{ element.totalPaidFees }} </td>
                 </ng-container>
 
                 <!-- Total Remaining Fees Column -->
                 <ng-container matColumnDef="totalRemainingFees">
-                    <th mat-header-cell *matHeaderCellDef> Total Remaining Fees </th>
+                    <th mat-header-cell *matHeaderCellDef> Remaining Fees </th>
                     <td mat-cell *matCellDef="let element"> {{ element.totalRemainingFees }} </td>
                 </ng-container>
 
                  <!-- Total Remaining Fees Column -->
                  <ng-container matColumnDef="totalDiscounts">
-                    <th mat-header-cell *matHeaderCellDef> Total Discounts Fees </th>
+                    <th mat-header-cell *matHeaderCellDef>  Discounts Fees </th>
                     <td mat-cell *matCellDef="let element"> {{ element.totalDiscount }} </td>
+                </ng-container>
+
+                <!-- Total Remaining Fees Column -->
+                <ng-container matColumnDef="totalReferenceDiscountFees">
+                    <th mat-header-cell *matHeaderCellDef>  Reference Discounts </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.referenceAmount }} </td>
                 </ng-container>
 
                 <!-- Total Students Column -->

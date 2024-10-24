@@ -43,7 +43,8 @@ export interface StudentInformationResponse {
 export interface Payment {
   username: string;
   paidFees: number;               
-  totalFees: number;              
+  totalFees: number; 
+  totalPaidFees: number;          
   discountPercentage: number;     
   discountComment?: string;      
   reference: number;              

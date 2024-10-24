@@ -35,6 +35,7 @@ export class EditPaymentDialogComponent {
       totalFees: [{ value:data.student.totalFees, disabled: true}, [Validators.required, Validators.min(0)]],
       course: [ { value:data.student.course, disabled: true}, Validators.required],
       paidFees: [, Validators.required],
+      totalPaidFees: [{ value: 0, disabled: true }, Validators.required],
       installment: [{ value: '', disabled: true}],
       discountPercentage: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
       discountComment: [''],
@@ -58,6 +59,7 @@ export class EditPaymentDialogComponent {
         totalFees: data.student.totalFees || 20000,
         course: data.student.course || '',
         paidFees: lastPayment.paidFees || 0,
+        totalPaidFees: lastPayment.totalPaidFees || 0,
         installment: newInstallmentNumber,
         discountPercentage: lastPayment.discountPercentage || 0,
         discountComment: lastPayment.discountComment || '',
@@ -186,10 +188,10 @@ export class EditPaymentDialogComponent {
     const discountAmount = (totalFees * discountPercentage) / 100;
     const finalFees = totalFees - discountAmount - referenceDiscount;
 
-    const remainingFees = finalFees - paidFees;
+    // const remainingFees = finalFees - paidFees;
 
     // Calculate total paid fees from previous installments (if any)
-    /*let previousPaidFees = 0;
+    let previousPaidFees = 0;
     if (this.data.student && this.data.student.payments && this.data.student.payments.length > 0) {
       previousPaidFees = this.data.student.payments.reduce((acc: number, payment: any) => {
         return acc + (payment.paidFees || 0);
@@ -199,9 +201,14 @@ export class EditPaymentDialogComponent {
      // Add the current paid fees to the previous paid fees
      const totalPaidFees = previousPaidFees + paidFees;
 
+       // Set total paid fees in the form (for UI)
+     this.paymentForm.get('totalPaidFees')?.setValue(totalPaidFees);
+
     // Calculate remaining fees
-    const remainingFees = finalFees - totalPaidFees;*/
+    const remainingFees = finalFees - totalPaidFees;
     this.paymentForm.get('remainingFees')?.setValue(remainingFees < 0 ? 0 : remainingFees);
+    
+ 
   }
 
   updatePaymentStatus(): void {
@@ -209,13 +216,25 @@ export class EditPaymentDialogComponent {
     const paidFees = this.paymentForm.get('paidFees')?.value;
     const remainingFees = this.paymentForm.get('remainingFees')?.value;
 
-    if (paidFees >= totalFees || remainingFees === 0) {
-      this.paymentForm.get('paymentStatus')?.setValue('Completed');
-    } else if (paidFees > 0 && remainingFees !== 0) {
-      this.paymentForm.get('paymentStatus')?.setValue('Partially Paid');
-    } else {
-      this.paymentForm.get('paymentStatus')?.setValue('Not Paid');
-    }
+     // Calculate total paid fees from previous installments (if any)
+     let previousPaidFees = 0;
+     if (this.data.student && this.data.student.payments && this.data.student.payments.length > 0) {
+         previousPaidFees = this.data.student.payments.reduce((acc: number, payment: any) => {
+             return acc + (payment.paidFees || 0);
+         }, 0);
+     }
+ 
+     // Total paid fees include both previous and current payments
+     const totalPaidFees = previousPaidFees + paidFees;
+ 
+     // Update payment status based on remaining fees
+     if (remainingFees <= 0) {
+         this.paymentForm.get('paymentStatus')?.setValue('Completed'); // All fees are paid
+     } else if (totalPaidFees > 0 && remainingFees > 0) {
+         this.paymentForm.get('paymentStatus')?.setValue('Partially Paid'); // Some fees paid but still remaining
+     } else {
+         this.paymentForm.get('paymentStatus')?.setValue('Not Paid'); // No fees paid yet
+     }
   }
 
   /*onFileSelected(event: Event): void {
@@ -266,6 +285,7 @@ export class EditPaymentDialogComponent {
         username: localStorage.getItem('user_fullName'),
         paidFees: this.paymentForm.get('paidFees')?.value,
         totalFees: this.paymentForm.get('totalFees')?.value,
+        totalPaidFees: this.paymentForm.get('totalPaidFees')?.value,
         course: this.paymentForm.get('course')?.value,
         installment: installmentValue,
         discountPercentage: this.paymentForm.get('discountPercentage')?.value,

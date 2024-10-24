@@ -5,6 +5,7 @@ const paymentSchema = new mongoose.Schema({
   paidFees: { type: Number, required: true },
   course: { type:String, required: true },
   totalFees: { type: Number, required: true },
+  totalPaidFees:{type: Number, required: true},
   installment: { type: String },
   discountPercentage: { type: Number, default: 0 },
   discountComment: { type: String },

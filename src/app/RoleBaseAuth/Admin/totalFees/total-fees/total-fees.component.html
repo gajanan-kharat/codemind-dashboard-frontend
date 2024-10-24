@@ -72,13 +72,19 @@
                 <!-- Total Paid Fees Column -->
                 <ng-container matColumnDef="totalPaidFees">
                     <th mat-header-cell *matHeaderCellDef> Total Paid Fees </th>
-                    <td mat-cell *matCellDef="let element">  {{ element.totalPaidFees }}  </td>
+                    <td mat-cell *matCellDef="let element">  {{ element.totalPaidFees }} </td>
                 </ng-container>
 
                 <!-- Total Remaining Fees Column -->
                 <ng-container matColumnDef="totalRemainingFees">
                     <th mat-header-cell *matHeaderCellDef> Total Remaining Fees </th>
                     <td mat-cell *matCellDef="let element"> {{ element.totalRemainingFees }} </td>
+                </ng-container>
+
+                 <!-- Total Remaining Fees Column -->
+                 <ng-container matColumnDef="totalDiscounts">
+                    <th mat-header-cell *matHeaderCellDef> Total Discounts Fees </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.totalDiscount }} </td>
                 </ng-container>
 
                 <!-- Total Students Column -->

@@ -67,10 +67,12 @@
           <th mat-header-cell *matHeaderCellDef>Actions</th>
           <td mat-cell *matCellDef="let studentsMock">
             <button class="edit" (click)="editStudent(studentsMock)">
-              <mat-icon class="blue-icon">drive_file_rename_outline</mat-icon>
+              <!-- <mat-icon class="blue-icon">drive_file_rename_outline</mat-icon> -->
+              <i class="fa fa-pencil blue-icon"></i>
             </button>
             <button *ngIf="role=='Admin'" class="edit" (click)=" deleteStudentMock(studentsMock)">
-              <mat-icon class="red-icon">delete_forever</mat-icon>
+              <!-- <mat-icon class="red-icon">delete_forever</mat-icon> -->
+              <i class="fa fa-trash red-icon"></i>
             </button>
           </td>
         </ng-container>

@@ -446,7 +446,7 @@ const upload = multer({ storage: storage });
 router.put('/payments/:id', upload.single('screenshot'), async (req, res) => {
   try {
     const { payments, ...updateData } = req.body; 
-    // console.log("payments and updated data:=>",req.body);
+
 
     if (req.file) {
 
@@ -864,7 +864,7 @@ if (batch && batch !== 'All') {
 });*/
 
 
-router.get('/fees-summary', async (req, res) => {
+/*router.get('/fees-summary', async (req, res) => {
   try {
     const { startDate, endDate, course, batch } = req.query;
 
@@ -976,6 +976,134 @@ router.get('/fees-summary', async (req, res) => {
     res.status(400).send({ error: 'Error fetching fees summary', details: error.message });
   }
 });
+*/
+
+router.get('/fees-summary', async (req, res) => {
+  try {
+    const { startDate, endDate, course, batch } = req.query;
+
+    // Check if startDate and endDate are provided
+    if (!startDate || !endDate) {
+      return res.status(400).send({ error: 'Both startDate and endDate are required' });
+    }
+
+    const from = new Date(startDate);
+    from.setHours(0, 0, 0, 0); // Start of the day
+    const to = new Date(endDate);
+    to.setHours(23, 59, 59, 999); // End of the day
+
+    // Build the query object
+    const query = {
+      'payments.paymentDate': {
+        $gte: from,
+        $lte: to
+      }
+    };
+
+    if (course && course !== 'All') {
+      query.course = course;
+    }
+    if (batch && batch !== 'All') {
+      query.batch = batch;
+    }
+
+    const students = await StudentInformation.find(query);
+    const courseSummary = {};
+
+    students.forEach((student) => {
+      const studentCourse = student.course;
+      const studentBatch = student.batch;
+
+      // Initialize course summary if not already done
+      if (!courseSummary[studentCourse]) {
+        courseSummary[studentCourse] = {
+          totalFees: 0,
+          totalPaidFees: 0,
+          totalRemainingFees: 0,
+          totalDiscount: 0,
+          totalStudents: 0,
+        };
+      }
+
+      if (!courseSummary[`${studentCourse}_${studentBatch}`]) {
+        courseSummary[`${studentCourse}_${studentBatch}`] = {
+          course: studentCourse,
+          batch: studentBatch,
+          totalFees: 0,
+          totalPaidFees: 0,
+          totalRemainingFees: 0,
+          totalDiscount: 0,
+          totalStudents: 0
+        };
+      }
+
+      // Filter the payments within the date range
+      const filteredPayments = student.payments.filter((payment) => {
+        const paymentDate = new Date(payment.paymentDate);
+        return paymentDate >= from && paymentDate <= to;
+      });
+
+      // Check if there are any payments within the range
+      if (filteredPayments.length > 0) {
+        // Find the last payment in the array (most recent one)
+        const lastPayment = filteredPayments[filteredPayments.length - 1];
+
+        const { totalFees = 0, totalPaidFees = 0, remainingFees = 0, discountPercentage, discountAmount } = lastPayment;
+
+        // Update total course data
+        courseSummary[studentCourse].totalFees += totalFees;
+        courseSummary[studentCourse].totalPaidFees += totalPaidFees;
+        courseSummary[studentCourse].totalRemainingFees += remainingFees;
+
+        // Calculate discount
+        if (discountPercentage) {
+          const discount = (discountPercentage / 100) * totalFees;
+          courseSummary[studentCourse].totalDiscount += discount;
+        }
+        if (discountAmount) {
+          courseSummary[studentCourse].totalDiscount += discountAmount;
+        }
+
+        // Update batch-specific data
+        courseSummary[`${studentCourse}_${studentBatch}`].totalFees += totalFees;
+        courseSummary[`${studentCourse}_${studentBatch}`].totalPaidFees += totalPaidFees;
+        courseSummary[`${studentCourse}_${studentBatch}`].totalRemainingFees += remainingFees;
+
+        // Calculate batch-specific discount
+        if (discountPercentage) {
+          const discount = (discountPercentage / 100) * totalFees;
+          courseSummary[`${studentCourse}_${studentBatch}`].totalDiscount += discount;
+        }
+        if (discountAmount) {
+          courseSummary[`${studentCourse}_${studentBatch}`].totalDiscount += discountAmount;
+        }
+
+        // Increment total students
+        courseSummary[studentCourse].totalStudents += 1;
+        courseSummary[`${studentCourse}_${studentBatch}`].totalStudents += 1;
+      }
+    });
+
+    // Generate the final summary in a flat format
+    let finalSummary = [];
+
+    // Loop over all course + batch keys and add them as flat records
+    Object.keys(courseSummary).forEach((key) => {
+      // Skip courses without batches (used to keep total course level data if needed)
+      if (key.includes('_')) {
+        finalSummary.push(courseSummary[key]);
+      }
+    });
+
+    res.status(200).json({
+      data: finalSummary,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(400).send({ error: 'Error fetching fees summary', details: error.message });
+  }
+});
+
 
 
 module.exports = router;

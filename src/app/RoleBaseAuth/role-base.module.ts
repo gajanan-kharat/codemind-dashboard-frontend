@@ -32,7 +32,8 @@ import { MainLeadsComponent } from './Admin/leads-section/main-leads/main-leads.
 import { SubadminDashboardComponent } from './dashborads/subadmin-dashboard/subadmin-dashboard.component';
 import { EditPaymentDialogComponent } from './Admin/dialogs/edit-payment-dialog/edit-payment-dialog.component';
 import { TotalFeesComponent } from './Admin/totalFees/total-fees/total-fees.component';
-import { CompanyLeadsComponent } from './Admin/companyLeads/component/company-leads/company-leads.component';
+import { NewCompanyLeadsComponent } from './Admin/companyLeads/component/new-company-leads/new-company-leads.component';
+import { MainCompanyLeadsComponent } from './Admin/companyLeads/main-company-leads/main-company-leads.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { CompanyLeadsComponent } from './Admin/companyLeads/component/company-le
     SubadminDashboardComponent,
     EditPaymentDialogComponent,
     TotalFeesComponent,
-    CompanyLeadsComponent
+    NewCompanyLeadsComponent,
+    MainCompanyLeadsComponent
   
   ],
   imports: [

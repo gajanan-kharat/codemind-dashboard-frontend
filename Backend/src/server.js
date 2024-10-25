@@ -20,6 +20,9 @@ const courseRoutes = require('./routes/course');
 const feesRoutes = require('./routes/fees');
 const totalRecordsRouter = require('./routes/totalTableRecords');
 
+//HirUs Data 
+const HireUsRoutes = require('./routes/HireUs/newLeads');
+
 //Intialize Express
 const app = express();
 
@@ -40,7 +43,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/students', inquiryRoutes);
 app.use('/api/notInterested',notInterestedRoutes);
 app.use('/api/interested',interestedRoutes)
-
 app.use('/api/followup', followUpRoutes);
 app.use('/api/bootcamp', bootCampRoutes);
 app.use('/api/studentInformation', studentInformationRoutes);
@@ -51,6 +53,9 @@ app.use('/api/studentMockInformation', studentMockInformationRoutes);
 app.use('/api/course', courseRoutes);
 app.use('/api/fees', feesRoutes);
 app.use('/api/total-records', totalRecordsRouter);
+
+//HireUs Routes
+app.use('/api/hireus', HireUsRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

@@ -4,6 +4,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environment/environment';
 import { InquiryStudentResponse } from '../models/inquiryStudents';
 import { HireUsResponse } from '../models/hireus';
+import { HireUsInterestedResponse } from '../models/HireUs/interested';
+import { HireUsFollowUpResponse } from '../models/HireUs/followUp';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +24,85 @@ export class HireusService {
       ...filters
     };
     return this.http.get<HireUsResponse>(`${this.baseApiUrl}/hireus?search=${searchTerm}`,{ params });  
+  }
+ 
+  //add New HireUs
+  addHireUs(studentData: any): Observable<any> {
+    return this.http.post<any>(`${this.baseApiUrl}/hireus`,studentData);
+  }
+
+  //delete HireUs
+  deleteHireUs(studentId: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseApiUrl}/hireus/${studentId}`);
+  }
+
+  /******** HireUs Interested ********/
+  //add HireUs Interested
+  addHireUsInterested(interestedData: any): Observable<any> {
+    return this.http.post<any>(`${this.baseApiUrl}/hireus/interested`, interestedData);
+  }
+
+  //get HireUs Interested
+  getHireUsInterested(page: number, limit: number, searchTerm: string = '', filters: any = {}): Observable<HireUsInterestedResponse> {
+    const params: any = {
+      page,
+      limit,
+      ...filters
+    };
+    return this.http.get<any>(`${this.baseApiUrl}/hireus/interested?search=${searchTerm}`,{ params });
+  }
+
+  //delete HireUs Interested
+  deleteHireUsInterested(studentId: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseApiUrl}/hireus/interested/${studentId}`);
+  }
+
+  /******** HireUs Not Interested ********/
+
+  //add HireUs Not Interested
+  addHireUsNotInterested(notinterestedData: any): Observable<any> {
+    return this.http.post<any>(`${this.baseApiUrl}/hireus/notInterested`, notinterestedData);
+  }
+
+  //get HireUs Interested
+  getHireUsNotInterested(page: number, limit: number, searchTerm: string = '', filters: any = {}): Observable<HireUsInterestedResponse> {
+    const params: any = {
+      page,
+      limit,
+      ...filters
+    };
+    return this.http.get<any>(`${this.baseApiUrl}/hireus/notInterested?search=${searchTerm}`,{ params });
+  }
+
+  //delete HireUs Interested
+  deleteHireUsNotInterested(studentId: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseApiUrl}/hireus/notInterested/${studentId}`);
+  }
+
+  /********* HireUs FollowUp *******/
+  //add HireUs FollowUp
+  addHireUsFollowUp(notinterestedData: any): Observable<any> {
+    return this.http.post<any>(`${this.baseApiUrl}/hireus/followUp`, notinterestedData);
+  }
+
+  //get HireUs FollowUp
+  getHireUsFollowUp(page: number, limit: number, searchTerm: string = '', filters: any = {}): Observable<HireUsFollowUpResponse> {
+    const params: any = {
+      page,
+      limit,
+      ...filters
+    };
+    return this.http.get<any>(`${this.baseApiUrl}/hireus/followUp?search=${searchTerm}`,{ params });
+  }
+
+  //delete HireUs FollowUp
+  deleteHireUsFollowUp(studentId: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseApiUrl}/hireus/followUp/${studentId}`);
+  }
+
+  //Get total records of HireUs Section
+  getHireUsTotalRecords(): Observable<any> {
+    return this.http.get<any>(`${this.baseApiUrl}/hireus/totalRecords`);
   }
 
 }

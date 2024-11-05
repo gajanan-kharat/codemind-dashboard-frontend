@@ -22,6 +22,10 @@ const totalRecordsRouter = require('./routes/totalTableRecords');
 
 //HirUs Data 
 const HireUsRoutes = require('./routes/HireUs/newLeads');
+const HireUsInterestedRoutes = require('./routes/HireUs/interested');
+const HireUsNotInterestedRoutes = require('./routes/HireUs/notInterested');
+const HireUsFollowUpRoutes = require('./routes/HireUs/followUps');
+const HireUsTotalRecordsRouter = require('./routes/HireUs/totalRecords');
 
 //Intialize Express
 const app = express();
@@ -56,6 +60,10 @@ app.use('/api/total-records', totalRecordsRouter);
 
 //HireUs Routes
 app.use('/api/hireus', HireUsRoutes);
+app.use('/api/hireus/interested', HireUsInterestedRoutes);
+app.use('/api/hireus/notInterested', HireUsNotInterestedRoutes);
+app.use('/api/hireus/followUp',HireUsFollowUpRoutes);
+app.use('/api/hireus/totalRecords', HireUsTotalRecordsRouter);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

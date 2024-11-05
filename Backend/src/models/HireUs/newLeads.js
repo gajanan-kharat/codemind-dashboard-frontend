@@ -5,7 +5,8 @@ const HireUsSchema = new mongoose.Schema({
   name: { type: String, required: true },
   company: {type: String, required: true},
   email: { type: String, required: true },
-  mobileNumber: { type: String, required: true, unique: true },
+  mobileNumber: { type: String, required: true },
+  date: { type: Date , default: Date.now}
   //  course: { type: String, required: true },
   // inquiryStatus: { type: String },
 //   date: { type: Date , default: Date.now}

@@ -34,6 +34,10 @@ import { EditPaymentDialogComponent } from './Admin/dialogs/edit-payment-dialog/
 import { TotalFeesComponent } from './Admin/totalFees/total-fees/total-fees.component';
 import { NewCompanyLeadsComponent } from './Admin/companyLeads/component/new-company-leads/new-company-leads.component';
 import { MainCompanyLeadsComponent } from './Admin/companyLeads/main-company-leads/main-company-leads.component';
+import { EditCompanyLeadsComponent } from './Admin/companyLeads/dialogs/edit-company-leads/edit-company-leads.component';
+import { InterestedComponent } from './Admin/companyLeads/component/interested/interested.component';
+import { NotInterestedComponent } from './Admin/companyLeads/component/not-interested/not-interested.component';
+import { FollowUpComponent } from './Admin/companyLeads/component/follow-up/follow-up.component';
 
 
 @NgModule({
@@ -66,7 +70,11 @@ import { MainCompanyLeadsComponent } from './Admin/companyLeads/main-company-lea
     EditPaymentDialogComponent,
     TotalFeesComponent,
     NewCompanyLeadsComponent,
-    MainCompanyLeadsComponent
+    MainCompanyLeadsComponent,
+    EditCompanyLeadsComponent,
+    InterestedComponent,
+    NotInterestedComponent,
+    FollowUpComponent
   
   ],
   imports: [

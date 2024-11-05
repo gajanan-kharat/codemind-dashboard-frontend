@@ -10,6 +10,7 @@ import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditInquiryStudentComponent } from '../../../leads-section/dialogs/edit-inquiry-student/edit-inquiry-student.component';
 import { HireusService } from 'src/app/services/hireus.service';
 import { HireUsResponse } from 'src/app/models/hireus';
+import { EditCompanyLeadsComponent } from '../../dialogs/edit-company-leads/edit-company-leads.component';
 
 @Component({
   selector: 'app-new-company-leads',
@@ -112,8 +113,8 @@ export class NewCompanyLeadsComponent {
     this.fetchStudents();
   }
 
-  /*addNewStudent(): void {
-    const dialogRef = this.dialog.open(EditInquiryStudentComponent, {
+  addNewStudent(): void {
+    const dialogRef = this.dialog.open(EditCompanyLeadsComponent, {
       width: '50%',
       data: {}, 
       maxWidth: '80vw',
@@ -127,12 +128,12 @@ export class NewCompanyLeadsComponent {
         this.hireusService.booleanSubject.next(true);
       }
     });
-  }*/
+  }
   
  
   editStudent(student: any) {
     console.log("Student data =>", student);
-    const dialogRef = this.dialog.open(EditInquiryStudentComponent, {
+    const dialogRef = this.dialog.open(EditCompanyLeadsComponent, {
       width: '50%',
       data: { student },
       maxWidth: '80vw', 
@@ -152,10 +153,10 @@ export class NewCompanyLeadsComponent {
     });
   }
 
-  deleteInquiryStudent(student:any){
-   /* this.hireusService.deleteStudent(student._id).subscribe(
+  deleteHireUs(student:any){
+   this.hireusService.deleteHireUs(student._id).subscribe(
       () => {
-          this.toastr.success('Inquiry Student deleted successfully.', 'Success', {
+          this.toastr.success('HireUs deleted successfully.', 'Success', {
           timeOut: 3000,
           positionClass: 'toast-top-right',
           progressBar: true,
@@ -164,15 +165,15 @@ export class NewCompanyLeadsComponent {
         this.fetchStudents(); 
       },
       (error) => {
-        console.error('Error deleting Inquiry Student:', error);
-        this.toastr.error('Error deleting Inquiry Student. Please try again.', 'Error', {
+        console.error('Error deleting HireUs:', error);
+        this.toastr.error('Error deleting HireUs. Please try again.', 'Error', {
           timeOut: 3000,
           positionClass: 'toast-top-right',
           progressBar: true,
           closeButton: true
         })
       }
-    );*/
+    );
   }
 
 

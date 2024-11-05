@@ -93,16 +93,16 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// API Endpoint to Delete Student
+// API Endpoint to Delete HireUs
 router.delete('/:id', async (req, res) => {
   try {
     const student = await  HireUsData.findByIdAndDelete(req.params.id);
     if (!student) {
-      return res.status(404).send({ error: 'Student not found' });
+      return res.status(404).send({ error: 'HireUs not found' });
     }
-    res.status(200).send({ message: 'Student deleted successfully' });
+    res.status(200).send({ message: 'HireUs deleted successfully' });
   } catch (error) {
-    res.status(400).send({ error: 'Error deleting student', details: error });
+    res.status(400).send({ error: 'Error deleting HireUs', details: error });
   }
 });
 

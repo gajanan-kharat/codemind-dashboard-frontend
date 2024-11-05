@@ -12,7 +12,7 @@
         </mat-select>
       </mat-form-field> -->
       <mat-icon class="refresh-icon" (click) = "refreshData()" mat-ripple>refresh</mat-icon>
-      <!-- <mat-icon class="refresh-icon"  (click) = addNewStudent()>add</mat-icon> -->
+      <mat-icon class="refresh-icon"  (click) = addNewStudent()>add</mat-icon>
     </div>
   </div>
   <div class="mat-elevation-z8">
@@ -40,7 +40,7 @@
             <!-- <mat-icon class="blue-icon">drive_file_rename_outline</mat-icon> -->
             <i class="fa fa-pencil blue-icon"></i>
           </button>
-          <button *ngIf="role=='Admin'" class="edit" (click)="deleteInquiryStudent(student)">
+          <button *ngIf="role=='Admin'" class="edit" (click)="deleteHireUs(student)">
             <!-- <mat-icon class="red-icon">delete_forever</mat-icon> -->
             <i class="fa fa-trash red-icon"></i>
           </button>

@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { BATCHES, DISPLAYED_COLUMNSUSERS, TOP_ROLES } from 'src/app/models/admin-content';
 import { AuthService } from 'src/app/services/auth.service';
 import { MongodbService } from 'src/app/services/mongodb.service';
-import { EditUserDialogComponent } from '../dialogs/edit-user-dialog/edit-user-dialog.component';
+import { EditUserDialogComponent } from '../../dialogs/edit-user-dialog/edit-user-dialog.component';
 import { UsersResponse } from 'src/app/models/adminUsers';
 import { ToastrService } from 'ngx-toastr';
 

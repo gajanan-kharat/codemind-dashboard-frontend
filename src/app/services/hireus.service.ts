@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environment/environment';
 import { InquiryStudentResponse } from '../models/inquiryStudents';
-import { HireUsResponse } from '../models/hireus';
-import { HireUsInterestedResponse } from '../models/HireUs/interested';
-import { HireUsFollowUpResponse } from '../models/HireUs/followUp';
+import { HireUsResponse } from '../models/hireFromUs/hireus';
+import { HireUsInterestedResponse } from '../models/hireFromUs/interested';
+import { HireUsFollowUpResponse } from '../models/hireFromUs/followUp';
 
 @Injectable({
   providedIn: 'root'

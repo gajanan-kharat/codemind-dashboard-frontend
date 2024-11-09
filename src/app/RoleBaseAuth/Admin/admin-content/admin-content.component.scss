@@ -116,7 +116,8 @@
     color: #fff;
     padding: 5px 10px; 
     border-radius: 20px; 
-    // transition: transform 0.4s ease-in-out;
+    transition: transform 0.4s ease-in-out;
+    cursor: pointer;
   }
   .email-btn:hover {
     transform: scale(1.05); 

@@ -5,7 +5,7 @@ import { AdminContentComponent } from './Admin/admin-content/admin-content.compo
 import { AdminDashboardComponent } from './dashborads/admin-dashboard/admin-dashboard.component';
 import { CounselorDashboardComponent } from './dashborads/counselor-dashboard/counselor-dashboard.component';
 import { EditStudentDialogComponent } from './Admin/dialogs/edit-student-dialog/edit-student-dialog.component';
-import { LoginComponent } from './Login_Page/login/login.component';
+import { LoginComponent } from './loginPage/login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -18,8 +18,8 @@ import { EditInquiryStudentComponent } from './Admin/leads-section/dialogs/edit-
 import { EditFollowupStudentComponent } from './Admin/leads-section/dialogs/edit-followup-student/edit-followup-student.component';
 import { EditBootcampStudentComponent } from './Admin/leads-section/dialogs/edit-bootcamp-student/edit-bootcamp-student.component';
 import { StudentFilterPipe } from '../pipes/student-filter.pipe';
-import { UserManagementComponent } from './Root-Admin/user-management/user-management.component';
-import { EditUserDialogComponent } from './Root-Admin/dialogs/edit-user-dialog/edit-user-dialog.component';
+import { UserManagementComponent } from './rootAdmin/component/user-management/user-management.component';
+import { EditUserDialogComponent } from './rootAdmin/dialogs/edit-user-dialog/edit-user-dialog.component';
 import { SidenavHeaderComponent } from './sidenav-header/sidenav-header.component';
 import { EditNotintrestedStudentComponent } from './Admin/leads-section/dialogs/edit-notintrested-student/edit-notintrested-student.component';
 import { InterestedStudentComponent } from './Admin/leads-section/components/interested-student/interested-student.component';

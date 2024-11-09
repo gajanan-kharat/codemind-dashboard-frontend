@@ -40,6 +40,7 @@ export class EditCollegeInfoComponent {
       totalBranches: [ this.isEditMode ? data.college.totalBranches : '', Validators.required],
       visitedStatus: [  this.isEditMode ? data.college.visitedStatus : 'Not Visited'],
       visitedPlanDate: [  this.isEditMode ?  data.college.visitedPlanDate : new Date()],
+      websiteLink: [  this.isEditMode ?  data.college.websiteLink : ''],
       companiesVisited: [  this.isEditMode ?  data.college.companiesVisited : []]
     });
   }

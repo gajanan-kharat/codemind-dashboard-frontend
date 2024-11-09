@@ -12,6 +12,7 @@ const collegeInfoSchema = new mongoose.Schema({
   totalStudents: { type: Number, required: true },
   totalBranches: { type: Number, required: true },
   visitedStatus: { type: String, required: true },
+  websiteLink: { type: String, required:true },
   companiesVisited: { type: [String], required: false },
   visitedPlanDate: { type: Date, required: false ,default: Date.now },
 

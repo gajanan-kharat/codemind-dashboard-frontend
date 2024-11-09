@@ -9,7 +9,7 @@ import { InquiryStudentResponse } from 'src/app/models/inquiryStudents';
 import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditInquiryStudentComponent } from '../../../leads-section/dialogs/edit-inquiry-student/edit-inquiry-student.component';
 import { HireusService } from 'src/app/services/hireus.service';
-import { HireUsResponse } from 'src/app/models/hireus';
+import { HireUsResponse } from 'src/app/models/hireFromUs/hireus';
 import { EditCompanyLeadsComponent } from '../../dialogs/edit-company-leads/edit-company-leads.component';
 
 @Component({

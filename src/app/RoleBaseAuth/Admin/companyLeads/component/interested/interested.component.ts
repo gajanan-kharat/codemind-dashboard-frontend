@@ -10,7 +10,7 @@ import { InterestedStudentResponse } from 'src/app/models/interestedStudents';
 import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditInterestedStudentComponent } from '../../../leads-section/dialogs/edit-interested-student/edit-interested-student.component';
 import { HireusService } from 'src/app/services/hireus.service';
-import { HireUsInterestedResponse } from 'src/app/models/HireUs/interested';
+import { HireUsInterestedResponse } from 'src/app/models/hireFromUs/interested';
 import { EditInterestedComponent } from '../../dialogs/edit-interested/edit-interested.component';
 
 @Component({

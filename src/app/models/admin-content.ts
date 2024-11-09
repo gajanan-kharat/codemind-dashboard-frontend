@@ -7,10 +7,10 @@ export const TOP_ITEMS = [
   ];
 
 export const COLLEGE_ITEMS = [
-    { name: 'In Progress', icon: 'fa-solid fa-spinner', color: '#424200', iconColor: '#FFFFFF' },
+    { name: 'In Progress', icon: 'fa-solid fa-spinner', color: '#414110', iconColor: '#FFFFFF' },
     { name: 'In Plan', icon: 'fa-solid fa-calendar-alt', color: '#044758', iconColor: '#FFFFFF' },
-    { name: 'TODO', icon: 'fa-solid fa-tasks', color: '#0000E0', iconColor: '#FFFFFF' },
-    { name: 'Visited', icon: 'fa-solid fa-check-circle', color: '#8A0000', iconColor: '#FFFFFF' },
+    { name: 'TODO', icon: 'fa-solid fa-tasks', color: '#303091', iconColor: '#FFFFFF' },
+    { name: 'Visited', icon: 'fa-solid fa-check-circle', color: '#782121', iconColor: '#FFFFFF' },
   ];
   
 export const TOP_ROLES = [

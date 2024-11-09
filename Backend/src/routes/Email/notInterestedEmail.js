@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 const NotInterested = require('../../models/notInterested'); 
-const Course = require('../../models/CoursesTable/course'); 
+const Course = require('../../models/coursesData/course'); 
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',

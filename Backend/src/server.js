@@ -21,11 +21,11 @@ const feesRoutes = require('./routes/fees');
 const totalRecordsRouter = require('./routes/totalTableRecords');
 
 //HirUs Data 
-const HireUsRoutes = require('./routes/HireUs/newLeads');
-const HireUsInterestedRoutes = require('./routes/HireUs/interested');
-const HireUsNotInterestedRoutes = require('./routes/HireUs/notInterested');
-const HireUsFollowUpRoutes = require('./routes/HireUs/followUps');
-const HireUsTotalRecordsRouter = require('./routes/HireUs/totalRecords');
+const HireUsRoutes = require('./routes/hireFromUsData/newLeads');
+const HireUsInterestedRoutes = require('./routes/hireFromUsData/interested');
+const HireUsNotInterestedRoutes = require('./routes/hireFromUsData/notInterested');
+const HireUsFollowUpRoutes = require('./routes/hireFromUsData/followUps');
+const HireUsTotalRecordsRouter = require('./routes/hireFromUsData/totalRecords');
 
 
 //College Data

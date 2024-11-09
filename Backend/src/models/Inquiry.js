@@ -6,6 +6,7 @@ const InquirystudentSchema = new mongoose.Schema({
   email: { type: String, required: true },
   mobileNumber: { type: String, required: true, unique: true },
   course: { type: String, required: true },
+  source: { type: String},
   // inquiryStatus: { type: String },
   date: { type: Date , default: Date.now}
 });

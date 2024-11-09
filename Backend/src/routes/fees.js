@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Course = require('../models/CoursesTable/fees');
+const Course = require('../models/coursesData/fees');
 
 // POST API to add new course and its total fees
 router.post('/', async (req, res) => {

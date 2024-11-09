@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const HireUsNewLeads = require('../../models/HireUs/newLeads'); 
-const Interested = require('../../models/HireUs/interested');
-const NotInterested  = require('../../models/HireUs/notInterested');
-const FollowUp = require('../../models/HireUs/followUp');
+const HireUsNewLeads = require('../../models/hireFromUsData/newLeads'); 
+const Interested = require('../../models/hireFromUsData/interested');
+const NotInterested  = require('../../models/hireFromUsData/notInterested');
+const FollowUp = require('../../models/hireFromUsData/followUp');
 
 router.get('/', async (req, res) => {
   try {

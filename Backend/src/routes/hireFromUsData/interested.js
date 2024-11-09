@@ -1,17 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const HireUsFollowUp = require('../../models/HireUs/followUp');
+const HireUsInterested = require('../../models/hireFromUsData/interested');
 // const { sendInterestedEmail } = require('./Email/interestedEmail'); 
 
 // POST route to create a new Interested HireUs
 router.post('/', async (req, res) => {
   try {
-    const followUp = new HireUsFollowUp(req.body);
-    await followUp.save();
+    const interested = new HireUsInterested(req.body);
+    await interested.save();
 
-    res.status(201).send(followUp);
+    res.status(201).send(interested);
   } catch (error) {
-    res.status(400).send({ error: 'Error saving HireUs FollowUp ', details: error });
+    res.status(400).send({ error: 'Error saving HireUs interested ', details: error });
   }
 });
 
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
       const page = parseInt(req.query.page) || 1;  
       const limit = parseInt(req.query.limit) || 10;  
       const skip = (page - 1) * limit;  
-      let HireUsFollowUpInfo , totalDocuments;
+      let   HireUsInterestedInfo, totalDocuments;
       const{ course }=req.query;
       const baseFilter = searchQuery
         ? {
@@ -41,9 +41,9 @@ router.get('/', async (req, res) => {
         //   baseFilter.course = course;
         // }
   
-      totalDocuments = await HireUsFollowUp.countDocuments(baseFilter);
+      totalDocuments = await HireUsInterested.countDocuments(baseFilter);
       
-      HireUsFollowUpInfo = await HireUsFollowUp.find(baseFilter)
+      HireUsInterestedInfo = await HireUsInterested.find(baseFilter)
         .skip(skip)
         .limit(limit);
       
@@ -54,7 +54,7 @@ router.get('/', async (req, res) => {
                   .join(' ');
       };
       
-      const modifiedHireUsFollowUpInfo  =   HireUsFollowUpInfo.map(user => ({
+      const modifiedHireUsInterestedInfo  =  HireUsInterestedInfo.map(user => ({
         ...user.toObject(),  
         name: toTitleCase(`${user.name}`)  
       }));
@@ -65,23 +65,23 @@ router.get('/', async (req, res) => {
         totalRecords: totalDocuments,  
         totalPages,      
         currentPage: page,  
-        data: modifiedHireUsFollowUpInfo
+        data: modifiedHireUsInterestedInfo
       });
     } catch (error) {
-      res.status(400).send({ error: 'Error fetching HireUs FollowUp information', details: error });
+      res.status(400).send({ error: 'Error fetching HireUs Interested information', details: error });
     }
   });
   
   // API Endpoint to Delete HireUs
 router.delete('/:id', async (req, res) => {
     try {
-      const  deleteHireUsFollowUp = await HireUsFollowUp.findByIdAndDelete(req.params.id);
-      if (!deleteHireUsFollowUp) {
-        return res.status(404).send({ error: 'HireUs FollowUp not found' });
+      const  deleteHireUsInterested = await HireUsInterested.findByIdAndDelete(req.params.id);
+      if (!deleteHireUsInterested) {
+        return res.status(404).send({ error: 'Student not found' });
       }
-      res.status(200).send({ message: 'HireUs FollowUp deleted successfully' });
+      res.status(200).send({ message: 'Student deleted successfully' });
     } catch (error) {
-      res.status(400).send({ error: 'Error deleting HireUs FollowUp', details: error });
+      res.status(400).send({ error: 'Error deleting student', details: error });
     }
   });
   

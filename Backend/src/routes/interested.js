@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Interested = require('../models/interested'); 
-const CourseFees = require('../models/CoursesTable/fees');
+const CourseFees = require('../models/coursesData/fees');
 // const { sendInterestedEmail } = require('./Email/interestedEmail'); 
 
 // POST route to create a new Interested inquiry

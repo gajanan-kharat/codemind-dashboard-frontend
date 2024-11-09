@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const HireUsNotInterested = require('../../models/HireUs/notInterested');
+const HireUsNotInterested = require('../../models/hireFromUsData/notInterested');
 // const { sendInterestedEmail } = require('./Email/interestedEmail'); 
 
 // POST route to create a new Interested HireUs

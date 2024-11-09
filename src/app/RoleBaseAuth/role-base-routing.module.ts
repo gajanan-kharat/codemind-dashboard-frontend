@@ -17,7 +17,9 @@ import { CollegeInfoComponent } from './Admin/collegeData-section/component/coll
 
 const routes: Routes = [
   // { path: 'signup', component: SignupComponent },
-  { path: '', component: LoginComponent },
+  // { path: 'codemindDashboard', component: LoginComponent },
+  { path: 'codemindDashboard', component: LoginComponent },
+  { path: '', redirectTo: '/codemindDashboard', pathMatch: 'full' },
   { 
     path: 'admin-dashboard', 
     component: AdminDashboardComponent, 

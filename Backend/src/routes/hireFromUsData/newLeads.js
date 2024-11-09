@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const HireUsData = require('../../models/HireUs/newLeads');
+const HireUsData = require('../../models/hireFromUsData/newLeads');
 
 // API Endpoint to Save Student Data
 router.post('/', async (req, res) => {

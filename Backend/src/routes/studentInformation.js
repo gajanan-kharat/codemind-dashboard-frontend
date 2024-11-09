@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const StudentInformation = require('../models/studentInformation');
-const CourseFees = require('../models/CoursesTable/fees');
+const CourseFees = require('../models/coursesData/fees');
 const { sendPaymentEmail } = require('../routes/Email/studentPaymentEmail'); 
 
 // API Endpoint to Save Student Information Data

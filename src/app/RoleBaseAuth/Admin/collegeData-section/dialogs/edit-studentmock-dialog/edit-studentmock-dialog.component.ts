@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Course } from 'src/app/models/course';
 import { MongodbService } from 'src/app/services/mongodb.service';
-import { EditStudentDialogComponent } from '../edit-student-dialog/edit-student-dialog.component';
+import { EditStudentDialogComponent } from '../../../dialogs/edit-student-dialog/edit-student-dialog.component';
 import { StudentMockInfo } from 'src/app/models/studentMockInformation';
 import { ToastrService } from 'ngx-toastr';
 import { MockNumber, MockStatuses } from 'src/app/models/mock';

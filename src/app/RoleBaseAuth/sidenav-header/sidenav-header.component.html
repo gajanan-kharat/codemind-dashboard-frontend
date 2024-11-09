@@ -67,19 +67,19 @@
         <mat-icon>admin_panel_settings</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Sub Admin</span>
       </p> -->
-      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/dashboard" (click)="onDashboardClick()" [ngClass]="{'selected': selectedItem === 'dashboard'}">
+      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/dashboard" (click)="onClick('dashboard')" [ngClass]="{'selected': selectedItem === 'dashboard'}">
         <mat-icon>dashboard</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Dashboard</span>
       </p>
-      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/feedback" (click)="onMocksClick()"  [ngClass]="{'selected': selectedItem === 'feedback'}">
+      <!-- <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/feedback" (click)="onMocksClick()"  [ngClass]="{'selected': selectedItem === 'feedback'}">
         <mat-icon>feedback</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Feedback</span>
-      </p>
-      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/lead" (click)="onLeads()" [ngClass]="{'selected': selectedItem === 'leads'}">
+      </p> -->
+      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/lead" (click)="onClick('leads')" [ngClass]="{'selected': selectedItem === 'leads'}">
         <mat-icon>supervisor_account</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Students Leads</span>
       </p>
-      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/totalFees" (click)="onTotalFees()" [ngClass]="{'selected': selectedItem === 'totalFees'}">
+      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/totalFees" (click)="onClick('totalFees')" [ngClass]="{'selected': selectedItem === 'totalFees'}">
         <mat-icon>monetization_on</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Payment Status</span>
       </p>
@@ -87,6 +87,10 @@
       <p *ngIf="currentUrl=='subadmin-dashboard'"  class="item" routerLink="/subadmin-dashboard/companyLeads" (click)="onClick('companyLeads')" [ngClass]="{'selected': selectedItem === 'companyLeads'}">
         <mat-icon>business_center</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Company Leads</span>
+      </p>
+      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/collegeData" (click)="onClick('collegeInfo')"  [ngClass]="{'selected': selectedItem === 'collegeInfo'}">
+        <mat-icon>school</mat-icon>
+        <span *ngIf="!isSidenavCollapsed">College Data</span>
       </p>
       <p class="logout">
         <mat-icon>logout</mat-icon>

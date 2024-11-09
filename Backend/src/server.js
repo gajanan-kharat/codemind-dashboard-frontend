@@ -27,6 +27,10 @@ const HireUsNotInterestedRoutes = require('./routes/HireUs/notInterested');
 const HireUsFollowUpRoutes = require('./routes/HireUs/followUps');
 const HireUsTotalRecordsRouter = require('./routes/HireUs/totalRecords');
 
+
+//College Data
+const collegeInfoRoutes = require('./routes/collegeData/collegeInfo');
+
 //Intialize Express
 const app = express();
 
@@ -64,6 +68,9 @@ app.use('/api/hireus/interested', HireUsInterestedRoutes);
 app.use('/api/hireus/notInterested', HireUsNotInterestedRoutes);
 app.use('/api/hireus/followUp',HireUsFollowUpRoutes);
 app.use('/api/hireus/totalRecords', HireUsTotalRecordsRouter);
+
+//College Data
+app.use('/api/collegeData', collegeInfoRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

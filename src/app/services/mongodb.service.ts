@@ -32,6 +32,7 @@ export class MongodbService {
     return this.http.get<StudentInformationResponse>(`${this.baseApiUrl}/studentInformation?search=${searchTerm}`,{ params });  
   }
 
+
   updateStudent(studentinfo: any): Observable<StudentInformation> {
     return this.http.put<StudentInformation>(`${this.baseApiUrl}/studentInformation/${studentinfo._id}`, studentinfo);
   }
@@ -40,7 +41,11 @@ export class MongodbService {
     return this.http.put<StudentInformation>(`${this.baseApiUrl}/studentInformation/payments/${paymentinfo._id}`, paymentinfo);
   }
  
-  
+  //send email with payment api
+  sendPaymentEmail(studentId: string): Observable<any> { 
+    return this.http.get<any>(`${this.baseApiUrl}/studentInformation/send-payment-email/${studentId}`);  
+  }
+
   saveNewStudent(studentData: any): Observable<any> {
     return this.http.post<any>(`${this.baseApiUrl}/studentInformation`, studentData);
   }

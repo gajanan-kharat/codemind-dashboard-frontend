@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TOP_ITEMS, BATCHES, DISPLAYED_COLUMNS } from 'src/app/models/admin-content';
 import { AuthService } from 'src/app/services/auth.service';
 import { MongodbService } from 'src/app/services/mongodb.service';
-import { EditStudentmockDialogComponent } from '../dialogs/edit-studentmock-dialog/edit-studentmock-dialog.component';
+import { EditStudentmockDialogComponent } from '../../dialogs/edit-studentmock-dialog/edit-studentmock-dialog.component';
 import { MatSort } from '@angular/material/sort';
 import { StudentMockResponse } from 'src/app/models/studentMockInformation';
 import { ToastrService } from 'ngx-toastr';

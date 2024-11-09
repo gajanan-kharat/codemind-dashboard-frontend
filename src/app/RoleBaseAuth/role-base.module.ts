@@ -11,8 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { MaterialModule } from '../sharedModule/material.module';
-import { StudentMockContentComponent } from './Admin/student-mock-content/student-mock-content.component';
-import { EditStudentmockDialogComponent } from './Admin/dialogs/edit-studentmock-dialog/edit-studentmock-dialog.component';
+import { StudentMockContentComponent } from './Admin/collegeData-section/component/student-mock-content/student-mock-content.component';
+import { EditStudentmockDialogComponent } from './Admin/collegeData-section/dialogs/edit-studentmock-dialog/edit-studentmock-dialog.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { EditInquiryStudentComponent } from './Admin/leads-section/dialogs/edit-inquiry-student/edit-inquiry-student.component';
 import { EditFollowupStudentComponent } from './Admin/leads-section/dialogs/edit-followup-student/edit-followup-student.component';
@@ -38,6 +38,11 @@ import { EditCompanyLeadsComponent } from './Admin/companyLeads/dialogs/edit-com
 import { InterestedComponent } from './Admin/companyLeads/component/interested/interested.component';
 import { NotInterestedComponent } from './Admin/companyLeads/component/not-interested/not-interested.component';
 import { FollowUpComponent } from './Admin/companyLeads/component/follow-up/follow-up.component';
+import { EditFollowupComponent } from './Admin/companyLeads/dialogs/edit-followup/edit-followup.component';
+import { EditInterestedComponent } from './Admin/companyLeads/dialogs/edit-interested/edit-interested.component';
+import { EditNotinterestedComponent } from './Admin/companyLeads/dialogs/edit-notinterested/edit-notinterested.component';
+import { CollegeInfoComponent } from './Admin/collegeData-section/component/college-info/college-info.component';
+import { EditCollegeInfoComponent } from './Admin/collegeData-section/dialogs/edit-college-info/edit-college-info.component';
 
 
 @NgModule({
@@ -74,7 +79,12 @@ import { FollowUpComponent } from './Admin/companyLeads/component/follow-up/foll
     EditCompanyLeadsComponent,
     InterestedComponent,
     NotInterestedComponent,
-    FollowUpComponent
+    FollowUpComponent,
+    EditFollowupComponent,
+    EditInterestedComponent,
+    EditNotinterestedComponent,
+    CollegeInfoComponent,
+    EditCollegeInfoComponent
   
   ],
   imports: [

@@ -21,7 +21,8 @@ export class EditInquiryStudentComponent {
     'Instagram',
     'Facebook',
     'LinkedIn',
-    'Reference'
+    'Reference',
+    'Office'
   ];
   courses = COURSES;
 

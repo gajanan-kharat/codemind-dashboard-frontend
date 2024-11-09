@@ -107,9 +107,20 @@
   
   .badge-button:hover {
     transform: scale(1.08); 
-    border: 1px solid rgb(57, 57, 57);
+    // border: 1px solid rgb(57, 57, 57);
   }
-  
+  .email-btn{
+    margin-left: 10px;
+    background-color: #676afc;
+    border-style: none;
+    color: #fff;
+    padding: 5px 10px; 
+    border-radius: 20px; 
+    // transition: transform 0.4s ease-in-out;
+  }
+  .email-btn:hover {
+    transform: scale(1.05); 
+  }
  
   @media (max-width: 600px) {
     .card {

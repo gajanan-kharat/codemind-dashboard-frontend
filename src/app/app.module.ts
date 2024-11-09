@@ -9,9 +9,11 @@ import { ToastrModule } from 'ngx-toastr';
 import { MaterialModule } from './sharedModule/material.module';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
+
 @NgModule({
   declarations: [
     AppComponent,
+ 
   ],
   imports: [
     FormsModule,

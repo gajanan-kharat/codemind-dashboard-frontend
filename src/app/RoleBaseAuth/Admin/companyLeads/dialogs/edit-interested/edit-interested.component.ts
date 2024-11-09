@@ -1,19 +1,17 @@
-import { DatePipe } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { COURSES } from 'src/app/models/admin-content';
-import { MongodbService } from 'src/app/services/mongodb.service';
-import { EditInquiryStudentComponent } from '../../../leads-section/dialogs/edit-inquiry-student/edit-inquiry-student.component';
 import { HireusService } from 'src/app/services/hireus.service';
+import { EditFollowupComponent } from '../edit-followup/edit-followup.component';
 
 @Component({
-  selector: 'app-edit-company-leads',
-  templateUrl: './edit-company-leads.component.html',
-  styleUrls: ['./edit-company-leads.component.scss']
+  selector: 'app-edit-interested',
+  templateUrl: './edit-interested.component.html',
+  styleUrls: ['./edit-interested.component.scss']
 })
-export class EditCompanyLeadsComponent {
+export class EditInterestedComponent {
   inquiryForm!: FormGroup;
   isLoading = false;
   isEditMode: boolean = false;
@@ -23,19 +21,16 @@ export class EditCompanyLeadsComponent {
     'Instagram',
     'Facebook',
     'LinkedIn',
-    'Reference',
-    'Office'
+    'Reference'
   ];
   courses = COURSES;
 
   constructor(
-    public dialogRef: MatDialogRef<EditCompanyLeadsComponent>,
+    public dialogRef: MatDialogRef<EditFollowupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
-    private mongodbService: MongodbService,
     private hireusService: HireusService,
     private toastr: ToastrService,
-    private datePipe: DatePipe
   ) {}
 
   /*ngOnInit(): void {
@@ -63,7 +58,7 @@ export class EditCompanyLeadsComponent {
         email: [this.isEditMode ? this.data.student.email : '', [Validators.required, Validators.email]],
         mobileNumber: [this.isEditMode ? this.data.student.mobileNumber : '', Validators.required],
         // course: [this.isEditMode ? this.data.student.course : '', Validators.required],
-        inquiryStatus: [this.isEditMode ? this.data.student.inquiryStatus : 'Interested', Validators.required],
+        inquiryStatus: [this.isEditMode ? this.data.student.inquiryStatus : '', Validators.required],
         date: [this.isEditMode ? this.data.student.date : ''],
         source: [this.isEditMode ? this.data.student.source : ''], 
         sourcecomment: [this.isEditMode ? this.data.student.sourcecomment : ''] 
@@ -106,7 +101,7 @@ export class EditCompanyLeadsComponent {
           console.log("date format :=> ", formData.date);*/
           const updatedInquiry = { ...this.data.student, ...this.inquiryForm.value};
           
-          if (updatedInquiry.inquiryStatus === 'Not Interested') {
+          /*if (updatedInquiry.inquiryStatus === 'Not Interested') {
             // Logic for 'Not Interested' case
             this.hireusService.addHireUsNotInterested(updatedInquiry).subscribe(
               (response) => {
@@ -211,14 +206,14 @@ export class EditCompanyLeadsComponent {
                 });
               }
             );
-          }
+          }*/
         } else {
           this.inquiryForm.markAllAsTouched();
         }
       }
       
       onSaveAdd():void{
-        if (this.inquiryForm.valid) {
+        /*if (this.inquiryForm.valid) {
           const { name, company, email, mobileNumber } = this.inquiryForm.value;
           const formData = { name, company, email, mobileNumber };
           console.log("Iquirty Data :=>",formData);
@@ -243,11 +238,12 @@ export class EditCompanyLeadsComponent {
           );
         } else {
           this.inquiryForm.markAllAsTouched();
-        }
+        }*/
       }
 
   onCancel(): void {
     this.dialogRef.close();
   }
+
 
 }

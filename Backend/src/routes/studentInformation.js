@@ -487,6 +487,46 @@ router.put('/payments/:id', upload.single('screenshot'), async (req, res) => {
   }
 });
 
+router.get('/send-payment-email/:id', async (req, res) => {
+  try {
+    const studentInfo = await StudentInformation.findById(req.params.id);
+    if (!studentInfo) {
+      return res.status(404).send({ success: false, error: 'Student not found' });
+    }
+
+    // Check if payments array exists and has at least one entry
+    const latestPayment = studentInfo.payments && studentInfo.payments.length > 0 
+      ? studentInfo.payments[studentInfo.payments.length - 1] 
+      : null;
+
+    if (latestPayment) {
+      try {
+        // Attempt to send the email
+       await sendPaymentEmail(
+          studentInfo.email,
+          studentInfo.firstName,
+          studentInfo.lastName,
+          studentInfo.batch,
+          latestPayment
+        );
+        // Send a success response if email is sent successfully
+        return res.status(200).send({ success: true, message: 'Email sent successfully' });
+      } catch (emailError) {
+        console.error('Error sending email:', emailError.message);
+        return res.status(500).send({ success: false, error: 'Failed to send email', details: emailError.message });
+      }
+    } else {
+      return res.status(400).send({ success: false, error: 'No payment information found for this student' });
+    }
+  } catch (error) {
+    // Log the full error and send a response with error details
+    console.error('Error retrieving student information:', error);
+    res.status(500).send({ success: false, error: 'Error retrieving student information', details: error.message });
+  }
+});
+
+
+
 // API Endpoint to Delete perticular Student
 router.delete('/:id', async (req, res) => {
   try {

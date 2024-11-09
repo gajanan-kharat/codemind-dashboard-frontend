@@ -282,6 +282,30 @@ onFeedbackChange() {
     );
   }
 
+  sendEmail(student:any){
+    this.moongodb.sendPaymentEmail(student._id).subscribe(
+      () => {
+          this.toastr.success('Send Email successfully.', 'Success', {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+          progressBar: true,
+          closeButton: true
+        });
+        // this.fetchStudents(); 
+      },
+      (error) => {
+        console.error('Error Send Email:', error);
+        this.toastr.error('Error Send Email. Please try again.', 'Error', {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+          progressBar: true,
+          closeButton: true
+        })
+      }
+    );
+
+  }
+
   
 }
 

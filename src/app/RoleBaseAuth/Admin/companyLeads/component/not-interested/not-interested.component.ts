@@ -10,6 +10,7 @@ import { HireUsInterestedResponse } from 'src/app/models/HireUs/interested';
 import { HireUsNotInterestedResponse } from 'src/app/models/HireUs/notInterested';
 import { HireusService } from 'src/app/services/hireus.service';
 import { MongodbService } from 'src/app/services/mongodb.service';
+import { EditNotinterestedComponent } from '../../dialogs/edit-notinterested/edit-notinterested.component';
 
 @Component({
   selector: 'app-not-interested',
@@ -114,7 +115,7 @@ export class NotInterestedComponent {
   }
 
   editInterestedStudent(student:any){
-    /*const dialogRef = this.dialog.open(EditInterestedStudentComponent , {
+    const dialogRef = this.dialog.open(EditNotinterestedComponent , {
       width: '80%',
       data: { student },
       maxWidth: '80vw', 
@@ -131,7 +132,7 @@ export class NotInterestedComponent {
             this.mongodbService.booleanSubject.next(true);
           }      
       }
-    });*/
+    });
   
   }
   

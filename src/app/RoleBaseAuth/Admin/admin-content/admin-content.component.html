@@ -100,6 +100,7 @@
                 }" (click)="openPaymentDialog(student)">
               {{ getLastPaymentStatus(student) || 'Not Paid' }}
             </button>
+            <button class="email-btn" (click)="sendEmail(student)">Email</button>
           </td>
         </ng-container>
   

@@ -11,6 +11,7 @@ import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditInterestedStudentComponent } from '../../../leads-section/dialogs/edit-interested-student/edit-interested-student.component';
 import { HireusService } from 'src/app/services/hireus.service';
 import { HireUsInterestedResponse } from 'src/app/models/HireUs/interested';
+import { EditInterestedComponent } from '../../dialogs/edit-interested/edit-interested.component';
 
 @Component({
   selector: 'app-interested',
@@ -114,16 +115,16 @@ export class InterestedComponent {
   }
 
   editInterestedStudent(student:any){
-    /*const dialogRef = this.dialog.open(EditInterestedStudentComponent , {
-      width: '80%',
+    const dialogRef = this.dialog.open(EditInterestedComponent , {
+      width: '100%',
       data: { student },
-      maxWidth: '80vw', 
+      maxWidth: '50vw', 
     minWidth: '300px',
     });
   
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-          const index = this.interestedStudents .findIndex(s => s._id === student._id);
+          const index = this.interestedStudents.findIndex(s => s._id === student._id);
           if (index !== -1) {
             this.interestedStudents[index] = result;
             // this.filterInterested();
@@ -131,7 +132,7 @@ export class InterestedComponent {
             this.mongodbService.booleanSubject.next(true);
           }      
       }
-    });*/
+    });
   
   }
   

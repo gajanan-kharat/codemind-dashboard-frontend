@@ -10,6 +10,7 @@ import { HireUsFollowUpResponse } from 'src/app/models/HireUs/followUp';
 import { HireUsInterestedResponse } from 'src/app/models/HireUs/interested';
 import { HireusService } from 'src/app/services/hireus.service';
 import { MongodbService } from 'src/app/services/mongodb.service';
+import { EditFollowupComponent } from '../../dialogs/edit-followup/edit-followup.component';
 
 @Component({
   selector: 'app-follow-up',
@@ -114,11 +115,11 @@ export class FollowUpComponent {
   }
 
   editInterestedStudent(student:any){
-    /*const dialogRef = this.dialog.open(EditInterestedStudentComponent , {
-      width: '80%',
+    const dialogRef = this.dialog.open(EditFollowupComponent , {
+      width: '100%',
       data: { student },
-      maxWidth: '80vw', 
-    minWidth: '300px',
+      maxWidth: '50vw', 
+      minWidth: '300px',
     });
   
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -131,7 +132,7 @@ export class FollowUpComponent {
             this.mongodbService.booleanSubject.next(true);
           }      
       }
-    });*/
+    });
   
   }
   

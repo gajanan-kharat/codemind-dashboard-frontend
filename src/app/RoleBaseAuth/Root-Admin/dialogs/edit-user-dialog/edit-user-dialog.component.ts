@@ -27,7 +27,7 @@ export class EditUserDialogComponent {
       private authService: AuthService
     ) {
    
-      this. isEditing = !!data && !!data.user;
+      this.isEditing = !!data && !!data.user;
   
      
       this.userForm = this.fb.group({

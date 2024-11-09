@@ -42,8 +42,6 @@ export class MainCompanyLeadsComponent {
    this.hireusService.getHireUsTotalRecords().subscribe(
       (data) => {
         this.totalRecords = data;  
-        console.log("Total records:=>");
-        console.log(" before data:=>",data);
         this.HireUsNewLeads= this.totalRecords.HireUsNewLeads;
         this.followUpCount = this.totalRecords.followUp;
         this.interestedCount = this.totalRecords.interested;
@@ -62,6 +60,4 @@ export class MainCompanyLeadsComponent {
     //   switchMap(() => this.mongodbService.getTotalRecords())
     // );
   }
-
-
 }

@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport({
 const generatePaymentPDF = async (paymentArray, filePath,  firstName, lastName, batch, codemindUrl) => {
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
-  const payment = paymentArray[0];
+  const payment = paymentArray;
 
   const templatePath = path.join(__dirname, '../../templates/studentPaymentTemplate.html');
   let template = fs.readFileSync(templatePath, 'utf-8');
@@ -29,10 +29,11 @@ const generatePaymentPDF = async (paymentArray, filePath,  firstName, lastName, 
     .replace('{{codemindUrl}}', codemindUrl)
     .replace('{{fullName}}', fullName)
     .replace('{{batch}}', batch)
+    .replace('{{totalFees}}', payment.totalFees || 'N/A')
+    .replace('{{totalPaidFees}}', payment.totalPaidFees || 'N/A')
     .replace('{{paidFees}}', payment.paidFees || 'N/A')
     .replace('{{remainingFees}}', payment.remainingFees || 'N/A')
     .replace('{{course}}', payment.course || 'N/A')
-    .replace('{{totalFees}}', payment.totalFees || 'N/A')
     .replace('{{installment}}', payment.installment || 'N/A')
     .replace('{{paymentStatus}}', payment.paymentStatus || 'N/A')
     .replace('{{transactionWay}}', payment.transactionWay || 'N/A')
@@ -51,12 +52,12 @@ const generatePaymentPDF = async (paymentArray, filePath,  firstName, lastName, 
   await browser.close();
 };
 
-  const sendPaymentEmail = async (studentEmail, firstName,lastName, batch, payment) => {
+  const sendPaymentEmail = async (studentEmail, firstName,lastName, batch, payments) => {
   const pdfFilePath = path.join(__dirname, '../../studentsReports/paymentDetails.pdf');
   const codemindUrl = "https://www.codemindtechnology.com/assets/img/logo-shape.png";
 
-  await generatePaymentPDF(payment, pdfFilePath, firstName, lastName, batch,codemindUrl);
-  const payments = payment[0]; 
+  await generatePaymentPDF(payments, pdfFilePath, firstName, lastName, batch,codemindUrl);
+  // const payments = payment[0]; 
 
   const emailOptions = {
     from: process.env.EMAIL_USER,
@@ -66,7 +67,8 @@ const generatePaymentPDF = async (paymentArray, filePath,  firstName, lastName, 
           `We are pleased to inform you that your payment for the ${batch} has been ${payments.paymentStatus}. ` +
           `\nHere are the details of your payment:\n\n` +
           `• **Total Fees:** ${payments.totalFees || 'N/A'}\n` +
-          `• **Paid Fees:** ${payments.paidFees || 'N/A'}\n` +
+          `• **Total Paid Fees:** ${payments.totalPaidFees || 'N/A'}\n` +
+          `• **Current Paid Fees:** ${payments.paidFees || 'N/A'}\n` +
           `• **Remaining Fees:** ${payments.remainingFees || 'N/A'}\n\n` +
           `Thank you for your prompt payment!\n We appreciate your commitment to your education. If you have any questions or require further assistance, please do not hesitate to contact us.\n\n` +
           `Best regards,\n` +

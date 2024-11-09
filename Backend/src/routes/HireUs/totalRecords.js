@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-
 const HireUsNewLeads = require('../../models/HireUs/newLeads'); 
-const NotInterested = require('../../models/HireUs/interested');
-const Interested = require('../../models/HireUs/notInterested');
+const Interested = require('../../models/HireUs/interested');
+const NotInterested  = require('../../models/HireUs/notInterested');
 const FollowUp = require('../../models/HireUs/followUp');
-
 
 router.get('/', async (req, res) => {
   try {
@@ -23,9 +21,6 @@ router.get('/', async (req, res) => {
       interested: interestedCount,
       followUp: followUpCount,
     };
-
-    console.log("total records:=>",totalCounts);
-
     res.status(200).json(totalCounts);
   } catch (error) {
     console.error('Error fetching total records:', error);

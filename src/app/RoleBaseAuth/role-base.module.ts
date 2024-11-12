@@ -43,6 +43,8 @@ import { EditInterestedComponent } from './Admin/companyLeads/dialogs/edit-inter
 import { EditNotinterestedComponent } from './Admin/companyLeads/dialogs/edit-notinterested/edit-notinterested.component';
 import { CollegeInfoComponent } from './Admin/collegeData-section/component/college-info/college-info.component';
 import { EditCollegeInfoComponent } from './Admin/collegeData-section/dialogs/edit-college-info/edit-college-info.component';
+import { ScholarshipComponent } from './Admin/scholarship/component/scholarship/scholarship.component';
+import { EditScholarshipComponent } from './Admin/scholarship/dialogs/edit-scholarship/edit-scholarship.component';
 
 
 @NgModule({
@@ -84,7 +86,9 @@ import { EditCollegeInfoComponent } from './Admin/collegeData-section/dialogs/ed
     EditInterestedComponent,
     EditNotinterestedComponent,
     CollegeInfoComponent,
-    EditCollegeInfoComponent
+    EditCollegeInfoComponent,
+    ScholarshipComponent,
+    EditScholarshipComponent
   
   ],
   imports: [

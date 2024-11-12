@@ -12,6 +12,13 @@ export const COLLEGE_ITEMS = [
     { name: 'TODO', icon: 'fa-solid fa-tasks', color: '#303091', iconColor: '#FFFFFF' },
     { name: 'Visited', icon: 'fa-solid fa-check-circle', color: '#782121', iconColor: '#FFFFFF' },
   ];
+
+export const SCHOLARSHIP_ITEMS = [
+    { name: 'Scholarship', icon: 'fas fa-hand-holding-usd', color: '#414110', iconColor: '#FFFFFF' },
+    { name: 'In Progress', icon: 'fa-solid fa-spinner', color: '#044758', iconColor: '#FFFFFF' },
+    { name: 'Selected', icon: 'fa-solid fa-check-circle', color: '#303091', iconColor: '#FFFFFF' },
+    { name: 'Rejested', icon: 'fas fa-times-circle', color: '#782121', iconColor: '#FFFFFF' },
+];
   
 export const TOP_ROLES = [
     { role: 'Admin', icon: 'fas fa-user-shield' ,color: '#dafcde' ,iconColor: '#00cc14'},

@@ -12,6 +12,7 @@ import { UserManagementComponent } from './rootAdmin/component/user-management/u
 import { TotalFeesComponent } from './Admin/totalFees/total-fees/total-fees.component';
 import { MainCompanyLeadsComponent } from './Admin/companyLeads/main-company-leads/main-company-leads.component';
 import { CollegeInfoComponent } from './Admin/collegeData-section/component/college-info/college-info.component';
+import { ScholarshipComponent } from './Admin/scholarship/component/scholarship/scholarship.component';
 
 
 
@@ -42,6 +43,7 @@ const routes: Routes = [
       { path: 'totalFees', component: TotalFeesComponent},
       { path: 'companyLeads', component: MainCompanyLeadsComponent},
       { path: 'collegeData', component: CollegeInfoComponent  }, 
+      { path: 'scholarshipData', component: ScholarshipComponent  }, 
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' } 
     ]
   },

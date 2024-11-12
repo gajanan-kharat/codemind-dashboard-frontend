@@ -92,6 +92,10 @@
         <mat-icon>school</mat-icon>
         <span *ngIf="!isSidenavCollapsed">College Data</span>
       </p>
+      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/scholarshipData" (click)="onClick('scholarship')"  [ngClass]="{'selected': selectedItem === 'scholarship'}">
+        <mat-icon>stars</mat-icon>
+        <span *ngIf="!isSidenavCollapsed">Scholarship</span>
+      </p>
       <p class="logout">
         <mat-icon>logout</mat-icon>
         <span (click)="logout()" *ngIf="!isSidenavCollapsed">Logout</span>

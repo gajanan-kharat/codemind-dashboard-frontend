@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Scholarship = require('../../models/scholarshipData/scholarship');
+const CourseFees = require('../../models/coursesData/fees');
 
 // API Endpoint to Save HireUs Data
 router.post('/', async (req, res) => {
@@ -19,7 +20,7 @@ router.get('/', async (req, res) => {
       const page = parseInt(req.query.page) || 1;  
       const limit = parseInt(req.query.limit) || 10;  
       const skip = (page - 1) * limit;  
-      let student, totalDocuments;
+      let  ScholarshipInfo , totalDocuments;
       const { scholarshipStatus } = req.query;
       const baseFilter = searchQuery
         ? {
@@ -42,7 +43,7 @@ router.get('/', async (req, res) => {
 
       totalDocuments = await  Scholarship.countDocuments(baseFilter);
   
-      student = await  Scholarship.find(baseFilter)
+      ScholarshipInfo = await  Scholarship.find(baseFilter)
         .skip(skip)
         .limit(limit);
   
@@ -53,10 +54,16 @@ router.get('/', async (req, res) => {
                   .join(' ');
       };
       
-      const modifiedScholarshipInfo =  student.map(user => ({
-        ...user.toObject(),  
-        name: toTitleCase(`${user.name}`)  
-      }));
+      const modifiedScholarshipInfo =  await Promise.all(
+        ScholarshipInfo.map(async (student) => {
+          const courseFees = await CourseFees.findOne({ name: student.course });
+          return {
+            ...student._doc, // Spread the student document properties
+            name: toTitleCase(`${student.name}`),
+            totalFees: courseFees ? courseFees.totalFees : 'Course not found', 
+          };
+        })
+      );
   
       const totalPages = Math.ceil(totalDocuments / limit);
   

@@ -137,15 +137,17 @@ export class ScholarshipComponent {
     this. fetchCollegeData();
   }
  
-  editStudent(scholarship: any) {
+  editStudent(student: any) {
     const dialogRef = this.dialog.open(EditScholarshipComponent, {
-      width: '50%',
-      data: { scholarship }
+      width: '80%',
+      data: { student },
+      maxWidth: '80vw', 
+      minWidth: '300px',
     });
-
+  //  console.log("scholarship:=>",student);
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        const index = this.scholarshipInfo.findIndex(s => s._id === scholarship._id);
+        const index = this.scholarshipInfo.findIndex(s => s._id === student._id);
         if (index !== -1) {
           this.scholarshipInfo[index] = result;
           this.fetchCollegeData();

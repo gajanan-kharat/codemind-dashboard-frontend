@@ -9,13 +9,15 @@ const ScholarshipSchema = new mongoose.Schema({
   graduationMarks: { type: Number, require: true },
   hscMarks: { type: Number, require: true },
   sscMarks: { type: Number, require: true },
-  address: { type: String, require: true },
+  address: { type: String , require: true },
+  course:  { type: String},
+  batch:  { type: String},
   scholarshipStatus: { type: String },
   scholarshipScore: { type: Number, default: 0,},
   interviewFeedback: { type: String,},
   date: { type: Date , default: Date.now},
   source:{ type: String },
-  comment:{ type: String },
+  sourcecomment:{ type: String },
 });
 
 const Scholarship= mongoose.model('Scholarship',ScholarshipSchema);

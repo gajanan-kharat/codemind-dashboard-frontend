@@ -83,7 +83,7 @@ export class EditPaymentDialogComponent {
       console.error('No payment data available');
     }
     this.onChanges();
-    
+    console.log(' this.formGroup:', this.formGroup);
   }
   ngOnInit(): void {
     // this.paymentForm.valueChanges.pipe(

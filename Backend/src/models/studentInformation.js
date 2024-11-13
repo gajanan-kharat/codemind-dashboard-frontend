@@ -46,6 +46,8 @@ const studentInformationSchema = new mongoose.Schema({
   mock3Feedback: { type: String },
   paymentStatus: { type: String },
   placementStatus: { type: String },
+  source: { type: String},
+  sourcecomment: { type: String},
   //payment data
   payments: [paymentSchema], 
 });

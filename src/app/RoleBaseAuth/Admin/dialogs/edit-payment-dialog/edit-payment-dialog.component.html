@@ -180,8 +180,8 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Total Paid Fees</mat-label>
-    <input matInput formControlName="TotalPaidFees" type="number">
-    <mat-error *ngIf="paymentForm.get('TotalPaidFees')?.hasError('required') && paymentForm.get('TotalPaidFees')?.touched">
+    <input matInput formControlName="totalPaidFees" type="number">
+    <mat-error *ngIf="paymentForm.get('totalPaidFees')?.hasError('required') && paymentForm.get('totalPaidFees')?.touched">
        Total Paid Fees is required.
     </mat-error>
   </mat-form-field>

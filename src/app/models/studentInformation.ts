@@ -82,7 +82,9 @@ export interface StudentInformation {
   mock2Feedback?: string;           
   mock3Feedback?: string;           
   paymentStatus?: string;          
-  placementStatus?: string;         
+  placementStatus?: string;    
+  source: string;
+  sourcecomment: String;     
   payments?: Payment[];             
 }
 export interface StudentInformationResponse {

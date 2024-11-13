@@ -7,12 +7,14 @@ export interface ScholarshipData {
     hscMarks:number;
     sscMarks: number; 
     address: string;  
+    course: string;
+    batch:  string;
     scholarshipStatus: string;
     scholarshipScore: number;
     interviewFeedback: string;
     date: Date;
     source: String;
-    comments: String;  
+    sourcecomment: String;  
 }
 
   export interface ScholarshipDataResponse {

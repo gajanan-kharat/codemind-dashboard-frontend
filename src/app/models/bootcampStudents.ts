@@ -2,10 +2,12 @@ export interface BootcampStudent {
     firstName: string;
     lastName: string;
     email:string;
-    Mobile_number: string; 
-    paymentId?: string;
+    mobileNumber: string; 
+    paymentId: string;
     paymentStatus: string;
-    courses?: string;
+    course: string;
+    batch: string;
+    source: string;
     // inquiryStatus?: string;
     date?: Date;
   }

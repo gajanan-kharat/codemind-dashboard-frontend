@@ -16,7 +16,7 @@ import { EditStudentmockDialogComponent } from './Admin/collegeData-section/dial
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { EditInquiryStudentComponent } from './Admin/leads-section/dialogs/edit-inquiry-student/edit-inquiry-student.component';
 import { EditFollowupStudentComponent } from './Admin/leads-section/dialogs/edit-followup-student/edit-followup-student.component';
-import { EditBootcampStudentComponent } from './Admin/leads-section/dialogs/edit-bootcamp-student/edit-bootcamp-student.component';
+import { EditBootcampStudentComponent } from './Admin/bootcamp/dialogs/edit-bootcamp-student/edit-bootcamp-student.component';
 import { StudentFilterPipe } from '../pipes/student-filter.pipe';
 import { UserManagementComponent } from './rootAdmin/component/user-management/user-management.component';
 import { EditUserDialogComponent } from './rootAdmin/dialogs/edit-user-dialog/edit-user-dialog.component';
@@ -26,7 +26,7 @@ import { InterestedStudentComponent } from './Admin/leads-section/components/int
 import { EditInterestedStudentComponent } from './Admin/leads-section/dialogs/edit-interested-student/edit-interested-student.component';
 import { InquiryStudentComponent } from './Admin/leads-section/components/inquiry-student/inquiry-student.component';
 import { FollowupStudentComponent } from './Admin/leads-section/components/followup-student/followup-student.component';
-import { BootcampStudentComponent } from './Admin/leads-section/components/bootcamp-student/bootcamp-student.component';
+import { BootcampStudentComponent } from './Admin/bootcamp/component/bootcamp-student/bootcamp-student.component';
 import { NotinterestedStudentComponent } from './Admin/leads-section/components/notinterested-student/notinterested-student.component';
 import { MainLeadsComponent } from './Admin/leads-section/main-leads/main-leads.component';
 import { SubadminDashboardComponent } from './dashborads/subadmin-dashboard/subadmin-dashboard.component';
@@ -45,6 +45,7 @@ import { CollegeInfoComponent } from './Admin/collegeData-section/component/coll
 import { EditCollegeInfoComponent } from './Admin/collegeData-section/dialogs/edit-college-info/edit-college-info.component';
 import { ScholarshipComponent } from './Admin/scholarship/component/scholarship/scholarship.component';
 import { EditScholarshipComponent } from './Admin/scholarship/dialogs/edit-scholarship/edit-scholarship.component';
+import { MainBootcampComponent } from './Admin/bootcamp/main-bootcamp/main-bootcamp.component';
 
 
 @NgModule({
@@ -88,7 +89,8 @@ import { EditScholarshipComponent } from './Admin/scholarship/dialogs/edit-schol
     CollegeInfoComponent,
     EditCollegeInfoComponent,
     ScholarshipComponent,
-    EditScholarshipComponent
+    EditScholarshipComponent,
+    MainBootcampComponent
   
   ],
   imports: [

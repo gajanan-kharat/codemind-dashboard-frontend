@@ -10,7 +10,7 @@ const inquiryRoutes = require('./routes/Inquiry');
 const notInterestedRoutes = require('./routes/notInterested');
 const interestedRoutes = require('./routes/interested');
 const followUpRoutes = require('./routes/followUp');
-const bootCampRoutes = require('./routes/bootcamp');
+
 const studentInformationRoutes = require('./routes/studentInformation');
 const reportRoutes = require('./routes/report');
 const studentMockInformationRoutes = require('./routes/studentMockInformation');
@@ -20,6 +20,12 @@ const courseRoutes = require('./routes/course');
 const feesRoutes = require('./routes/fees');
 const totalRecordsRouter = require('./routes/totalTableRecords');
 
+//Bootcamp Data
+const bootcampRoutes = require('./routes/bootcampData/bootcamp');
+const bootcampInterestedRoutes = require('./routes/bootcampData/interested');
+const bootcampNotInterestedRoutes = require('./routes/bootcampData/notInterested');
+const bootcampFollowUpRoutes = require('./routes/bootcampData/followUp');
+const bootcampTotalRecordsRouter = require('./routes/bootcampData/totalTableRecords');
 //HirUs Data 
 const HireUsRoutes = require('./routes/hireFromUsData/newLeads');
 const HireUsInterestedRoutes = require('./routes/hireFromUsData/interested');
@@ -54,7 +60,7 @@ app.use('/api/students', inquiryRoutes);
 app.use('/api/notInterested',notInterestedRoutes);
 app.use('/api/interested',interestedRoutes)
 app.use('/api/followup', followUpRoutes);
-app.use('/api/bootcamp', bootCampRoutes);
+
 app.use('/api/studentInformation', studentInformationRoutes);
 app.use('/api', reportRoutes);
 app.use('/api/', usersReportRoutes);
@@ -63,6 +69,14 @@ app.use('/api/studentMockInformation', studentMockInformationRoutes);
 app.use('/api/course', courseRoutes);
 app.use('/api/fees', feesRoutes);
 app.use('/api/total-records', totalRecordsRouter);
+
+//Bootcamp Routes
+app.use('/api/bootcamp', bootcampRoutes);
+app.use('/api/bootcamp/interested',bootcampInterestedRoutes);
+app.use('/api/bootcamp/notInterested',bootcampNotInterestedRoutes);
+app.use('/api/bootcamp/followUp', bootcampFollowUpRoutes);
+app.use('/api/bootcamp/totalRecords', bootcampTotalRecordsRouter);
+
 
 //HireUs Routes
 app.use('/api/hireus', HireUsRoutes);

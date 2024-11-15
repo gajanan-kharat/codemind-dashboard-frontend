@@ -8,7 +8,7 @@
             <i class="fas fa-handshake card-icon"></i>
           </div>
           <div class="card-content">
-            <span class="length inquiry">{{inquiryCount}}</span>
+            <span class="length bootcamp">{{bootcampCount}}</span>
             <h3 class="card-title">New Leads</h3>
           </div>
         </div>
@@ -60,7 +60,7 @@
     
     <!-- New Leads Section -->
     <section class="student-table" *ngIf="selectedCard === 'leads'">
-        <app-inquiry-student></app-inquiry-student>
+        <app-bootcamp-student></app-bootcamp-student>
     </section>
 
     <!-- Follow-Up Section -->
@@ -83,3 +83,4 @@
         <app-notinterested-student></app-notinterested-student>
     </section> 
 </div>
+

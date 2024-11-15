@@ -183,7 +183,7 @@ export class MongodbService {
   }
   
   //Bootcamp 
-  getBootCamp(page: number, limit: number, searchTerm: string = '',filters: any = {}): Observable<BootcampStudentResponse> {
+  getBootCamp(page: number, limit: number, searchTerm: string = '',filters: any = {}): Observable<any> {
     const params: any = {
       page,
       limit,

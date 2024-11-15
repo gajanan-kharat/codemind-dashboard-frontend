@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Bootcamp = require('../models/bootcamp');
+const Bootcamp = require('../../models/bootcampData/bootcamp');
 
 // API Endpoint to Save Bootcamp Data
 router.post('/', async (req, res) => {
@@ -14,40 +14,37 @@ router.post('/', async (req, res) => {
 });
 
 // API Endpoint to Get All Bootcamp Data
-/*router.get('/', async (req, res) => {
-    try {
-        const bootcampData = await Bootcamp.find();
-        res.status(200).send(bootcampData);
-    } catch (error) {
-        res.status(400).send({ error: 'Error fetching bootcamp data', details: error });
-    }
-});*/
-
 router.get('/', async (req, res) => {
     try {
       const searchQuery = req.query.search?.trim();
       const page = parseInt(req.query.page) || 1;  
       const limit = parseInt(req.query.limit) || 10;  
       const skip = (page - 1) * limit;  
-      const { paymentStatus } = req.query;
+      const { paymentStatus , source} = req.query;
       let BootcampInfo, totalDocuments;
       const baseFilter = searchQuery
         ? {
             $or: [
               { firstName: new RegExp(searchQuery, 'i') }, 
+              { middleName: new RegExp(searchQuery, 'i') }, 
               { lastName: new RegExp(searchQuery, 'i') },
               { email: new RegExp(searchQuery, 'i') },
               { Mobile_number: new RegExp(searchQuery, 'i') },
               { paymentId: new RegExp(searchQuery, 'i') },
               { paymentStatus: new RegExp(searchQuery, 'i') },
-              { courses: new RegExp(searchQuery, 'i') },
+              { course: new RegExp(searchQuery, 'i') },
               { batch: new RegExp(searchQuery, 'i') },
+              { source: new RegExp(searchQuery, 'i') },
             ]
           }
         : {};
       
       if (paymentStatus && paymentStatus !== 'All') {
         baseFilter.paymentStatus = paymentStatus;
+      }
+
+      if (source && source !== '') {
+        baseFilter.source = source;
       }
   
       totalDocuments = await Bootcamp.countDocuments(baseFilter);
@@ -65,7 +62,7 @@ router.get('/', async (req, res) => {
         
         const modifiedBootcampInfo = BootcampInfo.map(user => ({
           ...user.toObject(),
-          name: toTitleCase(`${user.firstName} ${user.lastName}`)
+          name: toTitleCase(`${user.firstName} ${user.middleName || ''} ${user.lastName}`.trim())
         }));
       
       const totalPages = Math.ceil(totalDocuments / limit);

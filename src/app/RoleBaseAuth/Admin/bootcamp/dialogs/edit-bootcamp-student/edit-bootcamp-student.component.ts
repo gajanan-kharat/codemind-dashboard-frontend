@@ -40,34 +40,18 @@ export class EditBootcampStudentComponent {
       paymentStatus: [{ value: data.student.paymentStatus, disabled: true }],
       course: [data.student.course],
       batch: [data.student.batch],
-      source: [data.student.source],
-      // inquiry_status: [data.student.inquiryStatus],
+      inquiry_status: [data.student.inquiryStatus],
       date: [data.student.date],
-     
-      // comments: this.formBuilder.array(data.student.comments.map((comment: Comment) => this.createCommentGroup(comment)))
+      source: [data.student.source],
+      sourcecomment:[data.student.sourcecomment]
     });
   }
-  // get comments() {
-  //   return this.bootcampForm.get('comments') as FormArray;
-  // }
-
-  // createCommentGroup(comment: Comment): FormGroup {
-  //   return this.formBuilder.group({
-  //     comment: [comment.comment, Validators.required],
-  //     commentDate: [comment.commentDate, Validators.required]
-  //   });
-  // }
-
-  // addComment() {
-  //   const newComment: Comment = { comment: '', commentDate: new Date() };
-  //   this.comments.push(this.createCommentGroup(newComment));
-  // }
   
   onSavebootcamp() {
     if (this.bootcampForm.valid) {
       let updatedData = { ...this.bootcampForm.value, _id: this.data.student._id };
-      const formattedDate = this.datePipe.transform(updatedData.date, 'yyyy-MM-dd'); 
-      updatedData = { ...updatedData, date: formattedDate };
+      // const formattedDate = this.datePipe.transform(updatedData.date, 'yyyy-MM-dd'); 
+      // updatedData = { ...updatedData, date: formattedDate };
       // console.log("bootcamp date :=>",updatedData.date);
       this.mongodbService.updateBootcampStudent(updatedData).subscribe(
         (response) => {

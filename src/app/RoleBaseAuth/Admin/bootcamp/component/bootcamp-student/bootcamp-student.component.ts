@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { DISPLAYED_COLUMNSBOOTCAMP, PAYMENT_STATUS } from 'src/app/models/admin-content';
+import { DISPLAYED_COLUMNSBOOTCAMP, PAYMENT_STATUS, SOURCE_STATUS } from 'src/app/models/admin-content';
 import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditBootcampStudentComponent } from '../../dialogs/edit-bootcamp-student/edit-bootcamp-student.component';
 import { BootcampStudentResponse } from 'src/app/models/bootcampStudents';
@@ -24,6 +24,7 @@ export class BootcampStudentComponent {
 
   displayedColumnsBootcamp:string[] = DISPLAYED_COLUMNSBOOTCAMP;
   payment_status: string[] = ["All",...PAYMENT_STATUS]; 
+  source_status: string[] = SOURCE_STATUS;
 
   totalPages: number = 0;
   currentPage: number = 1;
@@ -32,6 +33,7 @@ export class BootcampStudentComponent {
   role: string | null = '';
 
   selectedPaymentBootCamp = 'All';
+  selectedSourceBootCamp = '';
   constructor(private mongodbService: MongodbService, 
               private dialog: MatDialog, 
               private fb: FormBuilder,
@@ -51,15 +53,17 @@ export class BootcampStudentComponent {
   fetchStudents(searchTerm: string = ''): void {
     const filters = {
       paymentStatus: this.selectedPaymentBootCamp|| '',
+      source: this.selectedSourceBootCamp|| '' 
     };
      this.mongodbService.getBootCamp(this.currentPage, this.limit, searchTerm, filters).subscribe(
-      (response:BootcampStudentResponse) => {
+      (response:any) => {
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
         this.currentPage = currentPage;       
         this.bootCampStudents = data;
         this.totalRecords = totalRecords;
         this.filteredBootCamp.data =  this.bootCampStudents;
+        // console.log("bootcamp data:=>",this.bootCampStudents );
         // this.filterBootCamp();
       },
       (error) => {
@@ -78,6 +82,7 @@ export class BootcampStudentComponent {
     this.bootCampStudents = [];
     this.filteredBootCamp.data = [];
     this.selectedPaymentBootCamp = '';
+    this.selectedSourceBootCamp = '';
     const searchInput = document.querySelector('input[matInput]') as HTMLInputElement;
     if (searchInput) {
       searchInput.value = '';
@@ -85,17 +90,13 @@ export class BootcampStudentComponent {
     this.fetchStudents();
   }
 
-  /*filterBootCamp() {
-    this.filteredBootCamp.data = this.bootCampStudents.filter(student =>
-      (!this.selectedPaymentBootCamp|| student.paymentStatus === this.selectedPaymentBootCamp)
-    );
-    if (this.filteredBootCamp.paginator) {
-      this.filteredBootCamp.paginator.firstPage();
-    }
-  } */
-
   onCourseChange() {
-    // this.filterBootCamp();
+    this.currentPage = 1;
+    this.fetchStudents();
+    this.filteredBootCamp.paginator = this.paginator;
+  }
+
+  onSourceChange(){
     this.currentPage = 1;
     this.fetchStudents();
     this.filteredBootCamp.paginator = this.paginator;

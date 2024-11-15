@@ -1,5 +1,6 @@
 export interface BootcampStudent {
     firstName: string;
+    middleName: string;  
     lastName: string;
     email:string;
     mobileNumber: string; 

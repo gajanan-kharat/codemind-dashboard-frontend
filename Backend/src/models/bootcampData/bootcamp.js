@@ -2,9 +2,11 @@ const mongoose = require('mongoose');
 
 const bootcampSchema = new mongoose.Schema({
     firstName: { type: String, required: true },
+    middleName: { type: String },
     lastName: { type: String, required: true },
+    // name: { type: String},
     email: { type: String, required: true },
-    mobileNumber: { type: String, required: true , unique: true},
+    mobileNumber: { type: String, required: true },
     paymentId: { type: String },
     paymentStatus: { type: String, require: true },
     course: { type: String, default: "Angular" },

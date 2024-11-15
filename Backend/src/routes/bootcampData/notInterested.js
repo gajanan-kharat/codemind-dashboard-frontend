@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const NotInterested = require('../models/notInterested'); 
-const { sendNotInterestedEmail } = require('./Email/notInterestedEmail');
+const NotInterested = require('../../models/bootcampData/notInterested'); 
+// const { sendNotInterestedEmail } = require('./Email/notInterestedEmail');
 
 
 router.post('/', async (req, res) => {

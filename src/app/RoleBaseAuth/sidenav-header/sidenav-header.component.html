@@ -96,6 +96,10 @@
         <mat-icon>stars</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Scholarship</span>
       </p>
+      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/bootcamp" (click)="onClick('bootcamp')"  [ngClass]="{'selected': selectedItem === 'bootcamp'}">
+        <mat-icon>laptop</mat-icon>
+        <span *ngIf="!isSidenavCollapsed">Bootcamp</span>
+      </p>
       <p class="logout">
         <mat-icon>logout</mat-icon>
         <span (click)="logout()" *ngIf="!isSidenavCollapsed">Logout</span>

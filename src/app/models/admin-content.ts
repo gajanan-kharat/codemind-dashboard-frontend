@@ -40,11 +40,13 @@ export const TOP_ROLES = [
   export const DISPLAYED_COLUMNSUSERS = ['name', 'email', 'mobile_number', 'role','actions'];
   export const COURSES = ['Angular', 'React', 'Java', '.NET', 'Automation and Manual Testing'];
 
-  export const INQUIRYSTATUSES = ['Interested', 'Next Batch', 'Not Interested', 'No Response'];
-  export const PAYMENT_STATUS = ['Success','Fail']; 
+  export const INQUIRYSTATUSES = ['Interested', 'Need FollowUp', 'Not Interested', 'No Response'];
+  export const PAYMENT_STATUS = ['success','fail']; 
   export const FEEDBACK_OPTIONS = ['All', 'Poor', 'Average', 'Good', 'Excellent'];
   export const PAYMENT_STATUSES = ['Not Paid', 'Partially Paid', 'Completed'];
+  export const SOURCE_STATUS = ['3-days CSS Bootcamp', '1-days CSS Bootcamp', '2-days CSS Bootcamp'];
   export const PLACEMENT_STATUSES = ['Placement Complete', 'Placement Pending'];
+
   export const UNIVERSITY = ['All','Bharati Vidyapeeth, Pune','Central Institute of Fisheries Education, Mumbai','D. Y. Patil Education Society, Kolhapur',
     'Dnyaneshwar Vidyapeeth Educational trust, Pune','Datta Meghe Institute of Medical Sciences, Wardha',
     'Deccan College Post-Graduate and Research Institute, Pune','Defence Institute of Advanced Technology, Pune',

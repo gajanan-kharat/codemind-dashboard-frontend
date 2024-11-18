@@ -1,0 +1,168 @@
+<h1 mat-dialog-title>Edit Interested Student</h1>
+<button class="cancel-btn" (click)="onCancel()">
+  <mat-icon>close</mat-icon>
+</button>
+<div mat-dialog-content>
+  <form [formGroup]="interestedForm">
+    <!-- First Name -->
+    <mat-form-field appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName">
+      <mat-error *ngIf="interestedForm.get('firstName')?.hasError('required') && interestedForm.get('firstName')?.touched">
+        First name is required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Last Name -->
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName">
+      <mat-error *ngIf="interestedForm.get('lastName')?.hasError('required') && interestedForm.get('lastName')?.touched">
+        Last name is required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Email -->
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+      <mat-error *ngIf="interestedForm.get('email')?.hasError('required') && interestedForm.get('email')?.touched">
+        Email is required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Mobile Number -->
+    <mat-form-field appearance="fill">
+      <mat-label>Mobile Number</mat-label>
+      <input matInput formControlName="mobileNumber">
+      <mat-error *ngIf="interestedForm.get('mobileNumber')?.hasError('required') && interestedForm.get('mobileNumber')?.touched">
+        Mobile number is required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Course -->
+    <mat-form-field appearance="fill">
+      <mat-label>Course</mat-label>
+      <mat-select formControlName="course">
+        <mat-option *ngFor="let course of courses" [value]="course">{{ course }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="interestedForm.get('course')?.hasError('required') && interestedForm.get('course')?.touched">
+        Course is required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Batch -->
+    <mat-form-field appearance="fill">
+      <mat-label>Batch</mat-label>
+      <mat-select formControlName="batch">
+        <mat-option *ngFor="let batch of batches" [value]="batch">{{ batch }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="interestedForm.get('batch')?.hasError('required') && interestedForm.get('batch')?.touched">
+        Batch is required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Inquiry Status -->
+    <mat-form-field appearance="fill">
+      <mat-label>Inquiry Status</mat-label> 
+      <input matInput formControlName="inquiry_status">
+      <mat-error *ngIf="interestedForm.get('inquiry_status')?.hasError('required') && interestedForm.get('inquiry_status')?.touched">
+        Inquiry status is required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Date -->
+    <mat-form-field appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="followupDatepicker" formControlName="date" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="followupDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #followupDatepicker></mat-datepicker>
+      <mat-error *ngIf="interestedForm.get('date')?.hasError('required') && interestedForm.get('date')?.touched">
+        Date is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Reference</mat-label>
+      <input matInput formControlName="reference" placeholder="Enter reference">
+      <mat-error *ngIf="interestedForm.get('referencedInput')?.hasError('required') && interestedForm.get('referencedInput')?.touched">
+        Referenced input is required.
+      </mat-error>
+    </mat-form-field>
+
+     <!-- Admission Status -->
+     <mat-form-field appearance="fill">
+      <mat-label>Admission Status</mat-label>
+      <mat-select formControlName="admission" (selectionChange)="onAdmissionStatusChange($event.value)">
+        <mat-option *ngFor="let  admission of admission" [value]="admission">{{ admission }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="interestedForm.get('admission')?.hasError('required') && interestedForm.get(' admission')?.touched">
+      Admissio Status is required.
+      </mat-error>
+    </mat-form-field>
+
+
+    <!-- Show payment component only if admission status is 'Confirmed' -->
+    <!-- <app-edit-payment-dialog 
+    *ngIf="selectedAdmissionStatus === 'Confirm'"
+    [isIntereseted]="true" 
+    [formGroup]="interestedForm"
+    (formDataChange)="onFormDataChange($event)" required>
+   </app-edit-payment-dialog> -->
+   <app-edit-payment-dialog 
+    *ngIf="selectedAdmissionStatus === 'Confirm'" 
+     [isIntereseted]="true" 
+     [formGroup]="interestedForm">
+   </app-edit-payment-dialog>
+
+    <ng-container *ngIf="selectedAdmissionStatus != 'Confirm'">
+    <mat-form-field appearance="fill">
+      <mat-label>Source</mat-label>
+      <input matInput formControlName="source" placeholder="Enter Source">
+      <mat-error *ngIf="interestedForm.get('source')?.hasError('required') && interestedForm.get('source')?.touched">
+        Source is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Source Comments</mat-label>
+      <input matInput formControlName="sourcecomment" placeholder="Enter sourcecomment">
+      <mat-error *ngIf="interestedForm.get('sourcecomment')?.hasError('required') && interestedForm.get('sourcecomment')?.touched">
+        Source Comments is required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Comments Section -->
+    <div formArrayName="comments">
+      <div *ngFor="let comment of comments.controls; let i = index" [formGroupName]="i">
+        <h2 class="comment">Comment</h2>
+        <mat-form-field appearance="fill">
+          <mat-label>Comment</mat-label>
+          <!-- <textarea matInput formControlName="comment"></textarea> -->
+          <input matInput formControlName="comment" placeholder="Entercomment">
+          <mat-error *ngIf="comment.get('comment')?.hasError('required') && comment.get('comment')?.touched">
+            Comment is required.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Comment Date</mat-label>
+          <input matInput [matDatepicker]="commentDatepicker" formControlName="commentDate" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="commentDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #commentDatepicker></mat-datepicker>
+          <mat-error *ngIf="comment.get('commentDate')?.hasError('required') && comment.get('commentDate')?.touched">
+            Comment date is required.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <button mat-stroked-button class="comment-button" (click)="addComment()">Add Comment</button>
+  </ng-container>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button class="save-btn" mat-button (click)="onSave()" [disabled]="!interestedForm.valid">Save</button>
+</div>
+
+

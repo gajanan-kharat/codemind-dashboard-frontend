@@ -100,6 +100,10 @@
         <mat-icon>laptop</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Bootcamp</span>
       </p>
+      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/studentIssue" (click)="onClick('studentIssue')"  [ngClass]="{'selected': selectedItem === 'studentIssue'}">
+        <mat-icon>help_outline</mat-icon>
+        <span *ngIf="!isSidenavCollapsed">Student Issues</span>
+      </p>
       <p class="logout">
         <mat-icon>logout</mat-icon>
         <span (click)="logout()" *ngIf="!isSidenavCollapsed">Logout</span>

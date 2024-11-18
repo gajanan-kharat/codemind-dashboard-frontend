@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { BootcampService } from 'src/app/services/bootcamp.service';
 import { MongodbService } from 'src/app/services/mongodb.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class MainBootcampComponent {
   inquiryCount: number = 0;
   totalRecords$!: Observable<any>;
   selectedCard = 'leads';
-  constructor(private mongodbService: MongodbService){
+  constructor(private mongodbService: MongodbService,private bootcampService: BootcampService){
    
   }
   ngAfterViewInit(): void {
@@ -39,11 +40,11 @@ export class MainBootcampComponent {
   }
 
   fetchTotalRecords(): void {
-   this.mongodbService.getTotalRecords().subscribe(
+   this.bootcampService.getBootcampTotalRecords().subscribe(
       (data) => {
         this.totalRecords = data; 
         console.log(" before data:=>",data);
-        this.inquiryCount = this.totalRecords.students;
+        // this.inquiryCount = this.totalRecords.students;
         this.followUpCount = this.totalRecords.followUp;
         this.interestedCount = this.totalRecords.interested;
         this.notInterestedCount = this.totalRecords.notInterested;

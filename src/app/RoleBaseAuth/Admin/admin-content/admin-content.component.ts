@@ -120,9 +120,15 @@ onFeedbackChange() {
 
 
   fetchStudents(searchTerm: string = ''): void {
+    let course = this.selectedCourse || '';
+
+  // Replace 'Testing' with 'Automation and Manual Testing'
+  if (course === 'Testing') {
+    course = 'Manual and Automation Testing';
+  }
     const filters = {
       batch: this.selectedBatch || '',
-      course: this.selectedCourse || '',
+      course:course,
       feedback: this.selectedFeedback || '',
       paymentStatus: this.selectedPaymentStatus || '',
       placementStatus: this.selectedPlacementStatus || '',

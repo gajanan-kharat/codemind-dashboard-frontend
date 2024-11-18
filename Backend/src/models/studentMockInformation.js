@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+/*const mongoose = require('mongoose');
 
 const mockInformationSchema = new mongoose.Schema({
   mockNumber: { type: String,},
@@ -20,4 +20,4 @@ const studentMockInformationSchema = new mongoose.Schema({
 });
 
 const StudentMockInformation = mongoose.model('StudentMockInformation', studentMockInformationSchema);
-module.exports = StudentMockInformation;
+module.exports = StudentMockInformation;*/

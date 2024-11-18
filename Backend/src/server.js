@@ -13,7 +13,7 @@ const followUpRoutes = require('./routes/followUp');
 
 const studentInformationRoutes = require('./routes/studentInformation');
 const reportRoutes = require('./routes/report');
-const studentMockInformationRoutes = require('./routes/studentMockInformation');
+// const studentMockInformationRoutes = require('./routes/studentMockInformation');
 const usersReportRoutes = require('./routes/usersReport');
 const studentsReportRoutes = require('./routes/ReportGenerate/studentsreports');
 const courseRoutes = require('./routes/course');
@@ -38,6 +38,9 @@ const collegeInfoRoutes = require('./routes/collegeData/collegeInfo');
 
 //Scholarship Data 
 const scholarshipRoutes = require('./routes/scholarshipData/scholarship');
+
+//Student Issue
+const studentIssueRoutes = require('./routes/studentIssueData/studentIssue');
 
 //Intialize Express
 const app = express();
@@ -65,7 +68,7 @@ app.use('/api/studentInformation', studentInformationRoutes);
 app.use('/api', reportRoutes);
 app.use('/api/', usersReportRoutes);
 app.use('/api/',studentsReportRoutes);
-app.use('/api/studentMockInformation', studentMockInformationRoutes);
+// app.use('/api/studentMockInformation', studentMockInformationRoutes);
 app.use('/api/course', courseRoutes);
 app.use('/api/fees', feesRoutes);
 app.use('/api/total-records', totalRecordsRouter);
@@ -76,7 +79,6 @@ app.use('/api/bootcamp/interested',bootcampInterestedRoutes);
 app.use('/api/bootcamp/notInterested',bootcampNotInterestedRoutes);
 app.use('/api/bootcamp/followUp', bootcampFollowUpRoutes);
 app.use('/api/bootcamp/totalRecords', bootcampTotalRecordsRouter);
-
 
 //HireUs Routes
 app.use('/api/hireus', HireUsRoutes);
@@ -89,7 +91,10 @@ app.use('/api/hireus/totalRecords', HireUsTotalRecordsRouter);
 app.use('/api/collegeData', collegeInfoRoutes);
 
 //Scholarship
-app.use('/api/scholarship', scholarshipRoutes)
+app.use('/api/scholarship', scholarshipRoutes);
+
+//Student Issue
+app.use('/api/studentIssues', studentIssueRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

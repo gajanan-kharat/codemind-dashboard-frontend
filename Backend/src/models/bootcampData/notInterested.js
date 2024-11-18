@@ -10,7 +10,7 @@ const bootcampNotInterestedSchema = new mongoose.Schema({
   source: {type: String},
   sourcecomment: {type: String},
   date: { type: Date, required: true }, 
-  batch: { type: String },  
+  // batch: { type: String },  
 });
 
 const bootcampNotInterested = mongoose.model('bootcampNotInterested', bootcampNotInterestedSchema);

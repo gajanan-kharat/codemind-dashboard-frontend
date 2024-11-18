@@ -183,7 +183,7 @@ export class MongodbService {
   }
   
   //Bootcamp 
-  getBootCamp(page: number, limit: number, searchTerm: string = '',filters: any = {}): Observable<any> {
+  /*getBootCamp(page: number, limit: number, searchTerm: string = '',filters: any = {}): Observable<any> {
     const params: any = {
       page,
       limit,
@@ -198,7 +198,7 @@ export class MongodbService {
 
   deleteBootcampStudent(studentId: string): Observable<any> {
     return this.http.delete<any>(`${this.baseApiUrl}/bootcamp/${studentId}`);
-  }
+  }*/
 
   //Get Total Records for Leads section
   getTotalRecords(): Observable<any> {

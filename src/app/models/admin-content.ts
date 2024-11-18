@@ -19,6 +19,13 @@ export const SCHOLARSHIP_ITEMS = [
     { name: 'Selected', icon: 'fa-solid fa-check-circle', color: '#303091', iconColor: '#FFFFFF' },
     { name: 'Rejested', icon: 'fas fa-times-circle', color: '#782121', iconColor: '#FFFFFF' },
 ];
+
+export const ISSUESTATUS = [
+  { name: 'New Issue', icon: 'fas fa-exclamation-circle', color: '#414110', iconColor: '#FFFFFF' },
+  { name: 'In Progress', icon: 'fa-solid fa-spinner', color: '#044758', iconColor: '#FFFFFF' },
+  { name: 'Resolve', icon: 'fa-solid fa-check-circle', color: '#303091', iconColor: '#FFFFFF' },
+  { name: 'Block', icon: 'fas fa-times-circle', color: '#782121', iconColor: '#FFFFFF' },
+];
   
 export const TOP_ROLES = [
     { role: 'Admin', icon: 'fas fa-user-shield' ,color: '#dafcde' ,iconColor: '#00cc14'},
@@ -46,6 +53,7 @@ export const TOP_ROLES = [
   export const PAYMENT_STATUSES = ['Not Paid', 'Partially Paid', 'Completed'];
   export const SOURCE_STATUS = ['3-days CSS Bootcamp', '1-days CSS Bootcamp', '2-days CSS Bootcamp'];
   export const PLACEMENT_STATUSES = ['Placement Complete', 'Placement Pending'];
+  // export const ISSUESTATUS = ['In Progress', 'Block', 'Complete', 'Resolve'];
 
   export const UNIVERSITY = ['All','Bharati Vidyapeeth, Pune','Central Institute of Fisheries Education, Mumbai','D. Y. Patil Education Society, Kolhapur',
     'Dnyaneshwar Vidyapeeth Educational trust, Pune','Datta Meghe Institute of Medical Sciences, Wardha',

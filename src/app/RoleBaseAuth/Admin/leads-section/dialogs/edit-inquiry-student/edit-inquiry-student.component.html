@@ -76,7 +76,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" *ngIf="isEditMode" >
+        <mat-form-field appearance="fill">
           <mat-label>Source</mat-label>
           <mat-select formControlName="source">
             <mat-option *ngFor="let source of sourceOptions" [value]="source">{{ source }}</mat-option>

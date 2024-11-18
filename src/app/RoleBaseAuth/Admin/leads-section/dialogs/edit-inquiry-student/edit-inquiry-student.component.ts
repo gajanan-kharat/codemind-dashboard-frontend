@@ -22,7 +22,7 @@ export class EditInquiryStudentComponent {
     'Facebook',
     'LinkedIn',
     'Reference',
-    'Office'
+    'Offline Office'
   ];
   courses = COURSES;
 

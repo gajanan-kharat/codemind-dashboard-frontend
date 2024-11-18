@@ -11,6 +11,10 @@ const bootcampFollowUpSchema = new mongoose.Schema({
   batch: { type: String },
   source: {type: String},
   sourcecomment: {type: String},
+  comments: [{
+    date: { type: Date, required: true, default: Date.now },
+    comment: { type: String, required: true }
+  }]
 });
 
 const bootcampFollowUp = mongoose.model('bootcampFollowUp', bootcampFollowUpSchema);

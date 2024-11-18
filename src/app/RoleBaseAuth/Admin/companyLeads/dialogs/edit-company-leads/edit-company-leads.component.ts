@@ -24,7 +24,7 @@ export class EditCompanyLeadsComponent {
     'Facebook',
     'LinkedIn',
     'Reference',
-    'Office'
+    'Offline Office'
   ];
   courses = COURSES;
 

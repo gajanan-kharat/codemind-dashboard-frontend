@@ -9,6 +9,7 @@ import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditBootcampStudentComponent } from '../../dialogs/edit-bootcamp-student/edit-bootcamp-student.component';
 import { BootcampStudentResponse } from 'src/app/models/bootcampStudents';
 import { ToastrService } from 'ngx-toastr';
+import { BootcampService } from 'src/app/services/bootcamp.service';
 
 @Component({
   selector: 'app-bootcamp-student',
@@ -37,7 +38,8 @@ export class BootcampStudentComponent {
   constructor(private mongodbService: MongodbService, 
               private dialog: MatDialog, 
               private fb: FormBuilder,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private bootcampService: BootcampService) {
                 this.role = localStorage.getItem('user_role');
               }
 
@@ -55,7 +57,7 @@ export class BootcampStudentComponent {
       paymentStatus: this.selectedPaymentBootCamp|| '',
       source: this.selectedSourceBootCamp|| '' 
     };
-     this.mongodbService.getBootCamp(this.currentPage, this.limit, searchTerm, filters).subscribe(
+     this.bootcampService.getBootCamp(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response:any) => {
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
@@ -130,7 +132,7 @@ export class BootcampStudentComponent {
   }
 
   deleteStudent(student:any){
-    this.mongodbService.deleteBootcampStudent(student._id).subscribe(
+    this.bootcampService.deleteBootcampStudent(student._id).subscribe(
       () => {
           this.toastr.success('Bootcamp Student deleted successfully.', 'Success', {
           timeOut: 3000,

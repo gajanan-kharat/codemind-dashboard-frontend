@@ -46,7 +46,14 @@ import { EditCollegeInfoComponent } from './Admin/collegeData-section/dialogs/ed
 import { ScholarshipComponent } from './Admin/scholarship/component/scholarship/scholarship.component';
 import { EditScholarshipComponent } from './Admin/scholarship/dialogs/edit-scholarship/edit-scholarship.component';
 import { MainBootcampComponent } from './Admin/bootcamp/main-bootcamp/main-bootcamp.component';
-
+import { BootcampInterestedStudentComponent } from './Admin/bootcamp/component/bootcamp-interested-student/bootcamp-interested-student.component';
+import { BootcampNotinterestedStudentComponent } from './Admin/bootcamp/component/bootcamp-notinterested-student/bootcamp-notinterested-student.component';
+import { BootcampFollowupStudentComponent } from './Admin/bootcamp/component/bootcamp-followup-student/bootcamp-followup-student.component';
+import { EditBootcampInterestedStudentComponent } from './Admin/bootcamp/dialogs/edit-bootcamp-interested-student/edit-bootcamp-interested-student.component';
+import { EditBootcampNotinterestedStudentComponent } from './Admin/bootcamp/dialogs/edit-bootcamp-notinterested-student/edit-bootcamp-notinterested-student.component';
+import { EditBootcampFollowupStudentComponent } from './Admin/bootcamp/dialogs/edit-bootcamp-followup-student/edit-bootcamp-followup-student.component';
+import { NewIssuesComponent } from './Admin/studentIssue/component/new-issues/new-issues.component';
+import { EditNewIssuesComponent } from './Admin/studentIssue/dialogs/edit-new-issues/edit-new-issues.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +97,15 @@ import { MainBootcampComponent } from './Admin/bootcamp/main-bootcamp/main-bootc
     EditCollegeInfoComponent,
     ScholarshipComponent,
     EditScholarshipComponent,
-    MainBootcampComponent
+    MainBootcampComponent,
+    BootcampInterestedStudentComponent,
+    BootcampNotinterestedStudentComponent,
+    BootcampFollowupStudentComponent,
+    EditBootcampInterestedStudentComponent,
+    EditBootcampNotinterestedStudentComponent,
+    EditBootcampFollowupStudentComponent,
+    NewIssuesComponent,
+    EditNewIssuesComponent,
   
   ],
   imports: [

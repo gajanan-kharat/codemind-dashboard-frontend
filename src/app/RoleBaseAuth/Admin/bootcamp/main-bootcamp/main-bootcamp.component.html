@@ -65,22 +65,17 @@
 
     <!-- Follow-Up Section -->
     <section class="student-table" *ngIf="selectedCard === 'followup'">
-        <app-followup-student></app-followup-student>
+        <app-bootcamp-followup-student></app-bootcamp-followup-student>
     </section>
 
     <!-- Interested -->
     <section class="student-table" *ngIf="selectedCard === 'interested'">
-        <app-interested-student></app-interested-student>
+        <app-bootcamp-interested-student></app-bootcamp-interested-student>
     </section>
     
-    <!-- Bootcamp Section -->
-    <!-- <section class="student-table" *ngIf="selectedCard === 'bootcamp'">
-        <app-bootcamp-student></app-bootcamp-student>
-    </section> -->
-
     <!-- NotInterested Section -->
     <section class="student-table" *ngIf="selectedCard === 'notinterested'">
-        <app-notinterested-student></app-notinterested-student>
+        <app-bootcamp-notinterested-student></app-bootcamp-notinterested-student>
     </section> 
 </div>
 

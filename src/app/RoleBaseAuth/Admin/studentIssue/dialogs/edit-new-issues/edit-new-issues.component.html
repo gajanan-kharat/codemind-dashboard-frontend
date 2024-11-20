@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{ isEditMode ? 'Edit College Information' : 'Create New College' }}</h2>
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit Student Issues' : 'Create New Student Issues' }}</h2>
 <button class="cancel-btn" (click)="onCancel()">
     <mat-icon>close</mat-icon>
   </button>  
@@ -71,27 +71,22 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Issue Description</mat-label>
-        <input matInput formControlName="decription" required>
-        <mat-error *ngIf="studentIssueForm.get('decription')?.hasError('required')">Description is required.</mat-error>
+        <input matInput formControlName="description" required>
+        <mat-error *ngIf="studentIssueForm.get('description')?.hasError('required')">Description is required.</mat-error>
       </mat-form-field>
 
-      <div formGroupName="assignedMentor">
+      <div formGroupName="technicalExpert">
           <mat-form-field appearance="fill">
-            <mat-label>Mentor Name</mat-label>
-            <input matInput formControlName="mentorName"  required>
+            <mat-label>Technical Expert Name</mat-label>
+            <input matInput formControlName="technicalExpertName"  required>
           </mat-form-field>
        
           <mat-form-field appearance="fill">
-            <mat-label>Mentor Assigned Date</mat-label>
-            <input matInput [matDatepicker]="mentorPicker" formControlName="mentor_assigned_date" required>
+            <mat-label> Issue Assigned Date</mat-label>
+            <input matInput [matDatepicker]="mentorPicker" formControlName="issue_assigned_date" required>
             <mat-datepicker-toggle matSuffix [for]="mentorPicker"></mat-datepicker-toggle>
             <mat-datepicker #mentorPicker></mat-datepicker>
           </mat-form-field>
-        
-          <mat-form-field appearance="fill">
-            <mat-label>Zoom Link</mat-label>
-            <input matInput formControlName="zoomLink" required>
-          </mat-form-field>  
       </div>   
 </form>
 </div>

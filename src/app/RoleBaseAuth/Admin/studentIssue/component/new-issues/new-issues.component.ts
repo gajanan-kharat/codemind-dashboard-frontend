@@ -166,8 +166,8 @@ export class NewIssuesComponent {
     });
   }
 
-  deleteScholarship(scholarship:any){
-    this.studentIssueService.deleteStudentIssuesData(scholarship._id).subscribe(
+  deleteScholarship(student:any){
+    this.studentIssueService.deleteStudentIssuesData(student._id).subscribe(
       () => {
           this.toastr.success('student Issue Data deleted successfully.', 'Success', {
           timeOut: 3000,

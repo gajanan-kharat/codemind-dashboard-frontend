@@ -167,4 +167,16 @@ export class BootcampNotinterestedStudentComponent {
     );
   }
 
+  onSendEmail(student:any) {
+    const notInterestedId = student._id; 
+    this.bootcampService.sendNotInterestedEmail(notInterestedId).subscribe(
+      (response) => {
+        this.toastr.success('Email sent successfully');
+      },
+      (error) => {
+        this.toastr.error('Error sending email');
+      }
+    );
+  }
+
 }

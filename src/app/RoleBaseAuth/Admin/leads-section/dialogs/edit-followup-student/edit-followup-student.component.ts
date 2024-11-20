@@ -37,7 +37,7 @@ export class EditFollowupStudentComponent {
             mobileNumber: [data.student.mobileNumber, [Validators.required, Validators.pattern('[0-9]{10}')]],
             course: [data.student.course],
             batch: [data.student.batch],
-            inquiry_status: [data.student.inquiryStatus],
+            inquiryStatus: [data.student.inquiryStatus],
             date: [data.student.date],
             // source: {data.student.source},
             // sourcecomments: {type: String},
@@ -61,7 +61,7 @@ export class EditFollowupStudentComponent {
         this.comments.push(this.createCommentGroup(newComment));
     }
 
-    onSave() {
+    /*onSave() {
         if (this.followupForm.valid) {
             const updatedData = { ...this.followupForm.value, _id: this.data.student._id };
             this.mongodbService.updateFollowUpStudent(updatedData).subscribe(
@@ -74,8 +74,108 @@ export class EditFollowupStudentComponent {
                 }
             );
         }
-    }
+    }*/
 
+    onSave(): void {
+        if (this.followupForm.valid) {
+          const updatedInquiry = { ...this.followupForm.value, _id: this.data.student._id };
+      
+          // Determine the appropriate API call based on inquiryStatus
+          switch (updatedInquiry.inquiryStatus) {
+            case 'Interested':
+              // Call Interested API
+              this.mongodbService.addInterested(updatedInquiry).subscribe(
+                (response) => {
+                  this.handleDeleteAndClose(updatedInquiry, 'FollowUp updated and moved to Interested table successfully.');
+                },
+                (error) => {
+                  this.handleError('Error adding to Interested. Please try again.', error);
+                }
+              );
+              break;
+      
+            case 'Need FollowUp':
+            case 'No Response':
+                // Handle the empty case (resetting values)
+                this.mongodbService.updateFollowUpStudent(updatedInquiry).subscribe(
+                  (response) => {
+                    this.toastr.success('FollowUp updated and Follow Up details reset successfully.', 'Success', {
+                      timeOut: 3000,
+                      positionClass: 'toast-top-right',
+                      progressBar: true,
+                      closeButton: true,
+                    });
+                    this.dialogRef.close(updatedInquiry);
+                  },
+                  (error) => {
+                    this.handleError('Error updating Follow Up details. Please try again.', error);
+                  }
+                );
+             
+              break;
+            case 'Not Interested':
+              // Call Not Interested API
+              this.mongodbService.addNotInterested(updatedInquiry).subscribe(
+                (response) => {
+                  this.handleDeleteAndClose(updatedInquiry, 'FollowUp moved to Not Interested table successfully.');
+                },
+                (error) => {
+                  this.handleError('Error adding to Not Interested. Please try again.', error);
+                }
+              );
+              break;
+      
+            default:
+              // Handle default case with update API
+              this.mongodbService.updateFollowUpStudent(updatedInquiry).subscribe(
+                (response) => {
+                  this.toastr.success('FollowUp updated successfully.', 'Success', {
+                    timeOut: 3000,
+                    positionClass: 'toast-top-right',
+                    progressBar: true,
+                    closeButton: true,
+                  });
+                  this.dialogRef.close(updatedInquiry);
+                },
+                (error) => {
+                  this.handleError('Error updating FollowUp. Please try again.', error);
+                }
+              );
+          }
+        } else {
+          this.followupForm.markAllAsTouched();
+        }
+      }
+      
+      // Helper function to handle delete operation and close dialog
+      private handleDeleteAndClose(updatedInquiry: any, successMessage: string): void {
+        this.mongodbService.deleteFollowUpStudent(this.data.student._id).subscribe(
+          (response) => {
+            this.toastr.success(successMessage, 'Success', {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+              progressBar: true,
+              closeButton: true,
+            });
+            this.dialogRef.close(updatedInquiry);
+          },
+          (error) => {
+            this.handleError('Error deleting original FollowUp. Please try again.', error);
+          }
+        );
+      }
+      
+      // Helper function to handle error scenarios
+      private handleError(errorMessage: string, error: any): void {
+        console.error(errorMessage, error);
+        this.toastr.error(errorMessage, 'Error', {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+          progressBar: true,
+          closeButton: true,
+        });
+      }
+      
     onCancel() {
         this.dialogRef.close();
     }

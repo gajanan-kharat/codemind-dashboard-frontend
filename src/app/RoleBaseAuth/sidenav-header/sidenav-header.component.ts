@@ -63,11 +63,8 @@ export class SidenavHeaderComponent {
     }
   }
 
-
   logout() {
     this.authService.logout();
     console.log('Logged out');
-  }
-
-  
+  }  
 }

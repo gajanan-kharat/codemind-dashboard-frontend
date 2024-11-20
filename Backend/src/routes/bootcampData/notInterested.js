@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const NotInterested = require('../../models/bootcampData/notInterested'); 
-// const { sendNotInterestedEmail } = require('./Email/notInterestedEmail');
+const { sendNotInterestedEmail } = require('../Email/bootcampNotInterested');
 
 
 router.post('/', async (req, res) => {
@@ -87,6 +87,17 @@ router.put('/:id', async (req, res) => {
     res.status(200).send(updatedNotInterested);
   } catch (error) {
     res.status(400).send({ error: 'Error updating bootcamp not interested inquiry', details: error });
+  }
+});
+
+// New route for sending the email
+router.post('/:id/send-email', async (req, res) => {
+  try {
+    const notInterestedId = req.params.id;
+    await sendNotInterestedEmail(notInterestedId);
+    res.status(200).send({ message: 'Email sent successfully' });
+  } catch (error) {
+    res.status(400).send({ error: 'Error sending email', details: error });
   }
 });
 

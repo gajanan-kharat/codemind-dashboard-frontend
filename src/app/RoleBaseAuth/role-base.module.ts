@@ -54,6 +54,7 @@ import { EditBootcampNotinterestedStudentComponent } from './Admin/bootcamp/dial
 import { EditBootcampFollowupStudentComponent } from './Admin/bootcamp/dialogs/edit-bootcamp-followup-student/edit-bootcamp-followup-student.component';
 import { NewIssuesComponent } from './Admin/studentIssue/component/new-issues/new-issues.component';
 import { EditNewIssuesComponent } from './Admin/studentIssue/dialogs/edit-new-issues/edit-new-issues.component';
+import { StudentIssusesDashboardComponent } from './dashborads/student-issuses-dashboard/student-issuses-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -106,6 +107,7 @@ import { EditNewIssuesComponent } from './Admin/studentIssue/dialogs/edit-new-is
     EditBootcampFollowupStudentComponent,
     NewIssuesComponent,
     EditNewIssuesComponent,
+    StudentIssusesDashboardComponent,
   
   ],
   imports: [

@@ -78,7 +78,7 @@ export class EditBootcampFollowupStudentComponent {
       }
   }*/
 
-      onSave(): void {
+  onSave(): void {
     if (this.followupForm.valid) {
       const updatedInquiry = { ...this.followupForm.value, _id: this.data.student._id };
   

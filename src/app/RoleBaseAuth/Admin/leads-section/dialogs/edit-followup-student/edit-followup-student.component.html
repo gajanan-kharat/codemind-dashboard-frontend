@@ -53,10 +53,10 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Inquiry Status</mat-label>
-      <mat-select formControlName="inquiry_status">
+      <mat-select formControlName="inquiryStatus">
         <mat-option *ngFor="let status of inquiryStatuses" [value]="status">{{ status }}</mat-option>
       </mat-select>
-      <mat-error *ngIf="followupForm.get('inquiry_status')?.hasError('required') && followupForm.get('inquiry_status')?.touched">
+      <mat-error *ngIf="followupForm.get('inquiryStatus')?.hasError('required') && followupForm.get('inquiryStatus')?.touched">
         Inquiry status is required.
       </mat-error>
     </mat-form-field>

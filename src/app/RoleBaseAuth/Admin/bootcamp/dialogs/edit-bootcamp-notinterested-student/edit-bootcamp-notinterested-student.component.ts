@@ -53,20 +53,8 @@ export class EditBootcampNotinterestedStudentComponent {
       );
     }
   }
-  onSendEmail() {
-    const notInterestedId = this.data.student._id; 
-   /* this.mongodbService.sendNotInterestedEmail(notInterestedId).subscribe(
-      (response) => {
-        this.toastr.success('Email sent successfully');
-      },
-      (error) => {
-        this.toastr.error('Error sending email');
-      }
-    );*/
-  }
-  
-
-  onCancel() {
+ 
+   onCancel() {
     this.dialogRef.close();
   }
 

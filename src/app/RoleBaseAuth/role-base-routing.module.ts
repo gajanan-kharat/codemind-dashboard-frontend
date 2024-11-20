@@ -15,6 +15,7 @@ import { CollegeInfoComponent } from './Admin/collegeData-section/component/coll
 import { ScholarshipComponent } from './Admin/scholarship/component/scholarship/scholarship.component';
 import { MainBootcampComponent } from './Admin/bootcamp/main-bootcamp/main-bootcamp.component';
 import { NewIssuesComponent } from './Admin/studentIssue/component/new-issues/new-issues.component';
+import { StudentIssusesDashboardComponent } from './dashborads/student-issuses-dashboard/student-issuses-dashboard.component';
 
 const routes: Routes = [
   // { path: 'signup', component: SignupComponent },
@@ -54,6 +55,16 @@ const routes: Routes = [
     component: CounselorDashboardComponent,
     canActivate: [AuthGuard],
     data: { expectedRole: 'Counselor' }
+  },
+  {
+    path: 'student-issues-dashboard',
+    component: StudentIssusesDashboardComponent,
+    canActivate: [AuthGuard],
+    data: { expectedRole: 'Technical-Expert' },
+    children: [
+      { path: 'studentIssue', component: NewIssuesComponent },
+      { path: '', redirectTo: 'studentIssue', pathMatch: 'full' }
+    ]
   },
 ]
 @NgModule({

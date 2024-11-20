@@ -177,5 +177,18 @@ body {
     transform: translate(-50%, -50%);
     z-index: 1000;
   }
-  
+  //Email Button 
+  .email-btn{
+    margin-left: 10px;
+    background-color: #676afc;
+    border-style: none;
+    color: #fff;
+    padding: 5px 10px; 
+    border-radius: 20px; 
+    transition: transform 0.4s ease-in-out;
+    cursor: pointer;
+  }
+  .email-btn:hover {
+    transform: scale(1.05); 
+  }
 

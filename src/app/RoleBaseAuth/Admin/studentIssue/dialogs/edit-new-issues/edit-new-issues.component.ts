@@ -40,14 +40,13 @@ export class EditNewIssuesComponent {
       email: [this.isEditMode ? data.student.email : '', Validators.required],
       course: [ this.isEditMode ?  data.student.course : '', Validators.required],
       batch: [this.isEditMode ?  data.student.batch : '', Validators.required],
-      decription: [this.isEditMode ?  data.student.decription : '', Validators.required],
+      description: [this.isEditMode ?  data.student.description : '', Validators.required],
       source: [ this.isEditMode ? data.student.source :'', Validators.required],
       issue_created_date: [ this.isEditMode ? data.student.issue_created_date : new Date(), Validators.required],
       issueStatus: [ this.isEditMode ? data.student.issueStatus :'', Validators.required],
-      assignedMentor: this.fb.group({
-        mentorName: [this.isEditMode ? this.data.student.assignedMentor.mentorName : '', Validators.required],
-        mentor_assigned_date: [this.isEditMode ? this.data.student.assignedMentor.mentor_assigned_date : new Date(), Validators.required],
-        zoomLink: [this.isEditMode ? this.data.student.assignedMentor.zoomLink : '', Validators.required]
+      technicalExpert: this.fb.group({
+        technicalExpertName: [this.isEditMode ? this.data.student.technicalExpert.technicalExpertName: '', Validators.required],
+        issue_assigned_date: [this.isEditMode ? this.data.student.technicalExpert.issue_assigned_date : new Date(), Validators.required],
       })
     });
   }
@@ -55,7 +54,6 @@ export class EditNewIssuesComponent {
   ngOnInit(): void {
     
   }
-
  
  // Submit the form (for create or edit)
  onSubmit(): void {

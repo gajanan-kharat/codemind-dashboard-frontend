@@ -7,15 +7,15 @@ const studentIssueSchema = new mongoose.Schema({
   mobileNumber: { type: String, required: true, unique: true },
   course: { type: String, required: true },
   batch: { type: String, required: true},
-  decription: { type: String, required:true },
+  description: { type: String, required:true },
   screenshot: { type: String } ,
   source: { type: String},
   issue_created_date: { type: Date , default: Date.now},
   issueStatus: { type: String, default: 'In Progress' },
-  assignedMentor: {
-    mentorName: { type: String },
-    mentor_assigned_date: { type: Date, default: Date.now },
-    zoomLink: { type: String },
+  technicalExpert: {
+    technicalExpertName: { type: String },
+    issue_assigned_date: { type: Date, default: Date.now },
+    // zoomLink: { type: String },
   },
 });
 

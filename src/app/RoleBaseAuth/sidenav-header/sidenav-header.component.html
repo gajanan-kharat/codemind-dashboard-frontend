@@ -54,12 +54,16 @@
         <span *ngIf="!isSidenavCollapsed">Admin</span>
       </p>
       <p *ngIf="currentUrl=='admin-dashboard'" class="item" routerLink="/subadmin-dashboard" (click)="onClick('sub-admin')" [ngClass]="{'selected': selectedItem === 'sub-admin'}">
-        <mat-icon>admin_panel_settings</mat-icon>
+        <mat-icon>verified_user</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Sub Admin</span>
       </p>
       <p *ngIf="currentUrl=='admin-dashboard'"  class="item" routerLink="/counselor-dashboard" (click)="onClick('counselor')" [ngClass]="{'selected': selectedItem === 'counselor'}">
         <mat-icon>group_add</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Counselor</span>
+      </p>
+      <p *ngIf="currentUrl=='admin-dashboard'"  class="item" routerLink="/student-issues-dashboard" (click)="onClick('Technical-Expert')" [ngClass]="{'selected': selectedItem === 'Technical-Expert'}">
+        <mat-icon>support_agent</mat-icon>
+        <span *ngIf="!isSidenavCollapsed">Technical-Expert</span>
       </p>
 
       <!-- subAdmin-->
@@ -100,10 +104,17 @@
         <mat-icon>laptop</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Bootcamp</span>
       </p>
-      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/studentIssue" (click)="onClick('studentIssue')"  [ngClass]="{'selected': selectedItem === 'studentIssue'}">
+      <p 
+      *ngIf="currentUrl === 'subadmin-dashboard' || currentUrl === 'student-issues-dashboard'" 
+      class="item" 
+      [routerLink]="currentUrl === 'subadmin-dashboard' ? '/subadmin-dashboard/studentIssue' : 
+                    '/student-issues-dashboard/studentIssue'" 
+      (click)="onClick('studentIssue')"  
+      [ngClass]="{'selected': selectedItem === 'studentIssue'}">
         <mat-icon>help_outline</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Student Issues</span>
-      </p>
+    </p>
+    
       <p class="logout">
         <mat-icon>logout</mat-icon>
         <span (click)="logout()" *ngIf="!isSidenavCollapsed">Logout</span>

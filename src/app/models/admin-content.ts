@@ -30,7 +30,8 @@ export const ISSUESTATUS = [
 export const TOP_ROLES = [
     { role: 'Admin', icon: 'fas fa-user-shield' ,color: '#dafcde' ,iconColor: '#00cc14'},
     { role: 'Sub-Admin', icon: 'fas fa-users-cog' ,color: '#d2f2f5', iconColor: '#0ac1ef'},
-    { role: 'Counselor', icon: 'fas fa-headset' ,color: '#d8d8ff', iconColor: '#0a0aff'}
+    { role: 'Counselor', icon: 'fas fa-headset' ,color: '#d8d8ff', iconColor: '#0a0aff'},
+    { role: 'Technical-Expert', icon: 'fas fa-user-tie' ,color: '#f2d3fd', iconColor: '#9107c3'},  
   ];
   
 

@@ -58,6 +58,7 @@ export class BootcampService {
     return this.http.delete(`${this.baseApiUrl}/bootcamp/followup/${studentId}`);
   }
 
+
   // deleteBootcampStudent(studentId: string): Observable<any> {
   //   return this.http.delete<any>(`${this.baseApiUrl}/bootcamp/${studentId}`);
   // }
@@ -102,9 +103,9 @@ export class BootcampService {
     return this.http.put(`${this.baseApiUrl}/bootcamp/notInterested/${student._id}`, student);
   }
   
-  // sendNotInterestedEmail(id: string): Observable<any> {
-  //   return this.http.post(`${this.baseApiUrl}/bootcamp/notInterested/${id}/send-email`, {});
-  // }
+  sendNotInterestedEmail(id: string): Observable<any> {
+    return this.http.post(`${this.baseApiUrl}/bootcamp/notInterested/${id}/send-email`, {});
+  }
 
   deleteBootcampNotinterestedStudent(studentId: string): Observable<any> {
     return this.http.delete<any>(`${this.baseApiUrl}/bootcamp/notInterested/${studentId}`);

@@ -77,6 +77,8 @@ export class LoginComponent {
       this.router.navigate(['/subadmin-dashboard']);
     } else if (role === 'Counselor') {
       this.router.navigate(['/counselor-dashboard']);
+    } else if (role === 'Technical-Expert') {
+      this.router.navigate(['/student-issues-dashboard']);
     } else {
       this.router.navigate(['/']);
     }

@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
               { issueStatus: new RegExp(searchQuery, 'i') },
               { batch: new RegExp(searchQuery, 'i') },
               { source: new RegExp(searchQuery, 'i') },
-              { 'assignedMentor.mentorName': new RegExp(searchQuery, 'i') },
+              { 'technicalExpert.technicalExpertName': new RegExp(searchQuery, 'i') },
             ]
           }
         : {};

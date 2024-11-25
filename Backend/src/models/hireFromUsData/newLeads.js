@@ -7,6 +7,7 @@ const HireUsSchema = new mongoose.Schema({
   email: { type: String, required: true },
   mobileNumber: { type: String, required: true },
   source: { type: String},
+  lookingFor: { type:String },
   date: { type: Date , default: Date.now}
   //  course: { type: String, required: true },
   // inquiryStatus: { type: String },

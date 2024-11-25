@@ -39,7 +39,8 @@ router.get('/', async (req, res) => {
             { company: new RegExp(searchQuery, 'i') },
             { email: new RegExp(searchQuery, 'i') },
             { mobileNumber: new RegExp(searchQuery, 'i') },
-            // { course: new RegExp(searchQuery, 'i') },
+            { course: new RegExp(searchQuery, 'i') },
+            { lookingFor: new RegExp(searchQuery, 'i')}
           ]
         }
       : {};

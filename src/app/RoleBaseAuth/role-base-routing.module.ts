@@ -16,6 +16,7 @@ import { ScholarshipComponent } from './Admin/scholarship/component/scholarship/
 import { MainBootcampComponent } from './Admin/bootcamp/main-bootcamp/main-bootcamp.component';
 import { NewIssuesComponent } from './Admin/studentIssue/component/new-issues/new-issues.component';
 import { StudentIssusesDashboardComponent } from './dashborads/student-issuses-dashboard/student-issuses-dashboard.component';
+import { InvertoryComponent } from './Admin/inventory/component/invertory/invertory.component';
 
 const routes: Routes = [
   // { path: 'signup', component: SignupComponent },
@@ -47,6 +48,7 @@ const routes: Routes = [
       { path: 'scholarshipData', component: ScholarshipComponent },
       { path: 'bootcamp', component: MainBootcampComponent },
       { path: 'studentIssue', component: NewIssuesComponent },
+      { path: 'inventory', component: InvertoryComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },

@@ -4,13 +4,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
-import { ISSUESTATUS, SCHOLARSHIP_ITEMS } from 'src/app/models/admin-content';
-import { ScholarshipDataResponse } from 'src/app/models/scholrshipData/scholarship';
-import { ScholarshipService } from 'src/app/services/scholarship.service';
-import { EditScholarshipComponent } from '../../../scholarship/dialogs/edit-scholarship/edit-scholarship.component';
+import { ISSUESTATUS } from 'src/app/models/admin-content';
 import { StudentIssueService } from 'src/app/services/student-issue.service';
 import { EditNewIssuesComponent } from '../../dialogs/edit-new-issues/edit-new-issues.component';
-import { EditInterestedStudentComponent } from '../../../leads-section/dialogs/edit-interested-student/edit-interested-student.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -29,11 +25,8 @@ export class NewIssuesComponent {
 
   topItems =  ISSUESTATUS ;   
   displayedColumns: string[] = ['name','email','mobileNumber','status','Actions'];
-  
-  //selectedUniversity = 'All';
   selectedName = '';
-  //selectedDistrictStatus : string = 'All'; 
-
+ 
   totalPages: number = 0;
   currentPage: number = 1;
   limit: number = 10;
@@ -62,14 +55,6 @@ export class NewIssuesComponent {
     this.filteredStudentIssuesData.sort = this.sort; 
   }
     
-  
-    /*onDistrictChange() {
-      this.currentPage = 1;
-      this.fetchCollegeData();
-      this.filteredCollegeData.paginator = this.paginator;
- 
-    }*/
-  
     onClick(name: string) {
       this.selectedName = name;
       this.currentPage = 1;
@@ -78,13 +63,7 @@ export class NewIssuesComponent {
     
     }
   
-    /*onUniversityChange() {
-      this.fetchCollegeData();
-      this.currentPage = 1;
-      this.filteredCollegeData.paginator = this.paginator;
-    }
-
-    onDateChange(): void {
+   /* onDateChange(): void {
       this.currentPage = 1;
       this.fetchCollegeData();
       this.filteredCollegeData.paginator = this.paginator;
@@ -95,10 +74,7 @@ export class NewIssuesComponent {
       issueStatus: this.selectedName || '',
       startDate: this.dateRangeForm.value.start || '', 
       endDate: this.dateRangeForm.value.end || '',   
-       /*universityName:  this.selectedUniversity || '',
-       visitedStatus: this.selectedName || '',
-       district: this.selectedDistrictStatus  || '',
-       startDate: this.startDate ? this.startDate.toISOString() : '',
+       /*startDate: this.startDate ? this.startDate.toISOString() : '',
        endDate: this.endDate ? this.endDate.toISOString() : ''*/
     };
     this.studentIssueService.getStudentIssuesData(this.currentPage, this.limit, searchTerm, filters).subscribe(
@@ -134,10 +110,7 @@ export class NewIssuesComponent {
     this.studentIssuesInfo= [];
     this.filteredStudentIssuesData.data = [];
     this.selectedName = '';
-    
-    /*this.selectedDistrictStatus = 'All'; 
-    this.selectedUniversity  = 'All';
-    this.startDate = null;
+    /*this.startDate = null;
     this.endDate = null;*/
     const searchInput = document.getElementById('search-input') as HTMLInputElement;
     if (searchInput) {
@@ -149,7 +122,7 @@ export class NewIssuesComponent {
  
   editStudent(student: any) {
     const dialogRef = this.dialog.open(EditNewIssuesComponent, {
-      width: '80%',
+      width: '50%',
       data: { student },
       maxWidth: '80vw', 
       minWidth: '300px',

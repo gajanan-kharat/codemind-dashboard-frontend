@@ -26,37 +26,37 @@ export const ISSUESTATUS = [
   { name: 'Resolve', icon: 'fa-solid fa-check-circle', color: '#303091', iconColor: '#FFFFFF' },
   { name: 'Block', icon: 'fas fa-times-circle', color: '#782121', iconColor: '#FFFFFF' },
 ];
-  
+
+export const INVENTORYISSUES = [
+  { name: 'Working', icon: 'fas fa-cogs', color: '#414110', iconColor: '#FFFFFF', count: 0},
+  { name: 'Facing Issue', icon: 'fas fa-times-circle', color: '#782121', iconColor: '#FFFFFF', count: 0 },
+  { name: 'In Progress', icon: 'fa-solid fa-spinner', color: '#044758', iconColor: '#FFFFFF', count: 0 },
+  { name: 'Solved', icon: 'fa-solid fa-check-circle', color: '#303091', iconColor: '#FFFFFF', count: 0 }, 
+];
+    
 export const TOP_ROLES = [
     { role: 'Admin', icon: 'fas fa-user-shield' ,color: '#dafcde' ,iconColor: '#00cc14'},
     { role: 'Sub-Admin', icon: 'fas fa-users-cog' ,color: '#d2f2f5', iconColor: '#0ac1ef'},
     { role: 'Counselor', icon: 'fas fa-headset' ,color: '#d8d8ff', iconColor: '#0a0aff'},
     { role: 'Technical-Expert', icon: 'fas fa-user-tie' ,color: '#f2d3fd', iconColor: '#9107c3'},  
   ];
+    
+export const BATCHES = ['Batch-14','Batch-13','Batch-12','Batch-11','Batch-10','Batch-9','Batch-8','Batch-7','Batch-6','Batch-5','Batch-4', 'Batch-3', 'Batch-2', 'Batch-1'];
   
-
-  interface Comment {
-    comment: string;
-    commentDate: Date;
-  }
-  
-  export const BATCHES = ['Batch-14','Batch-13','Batch-12','Batch-11','Batch-10','Batch-9','Batch-8','Batch-7','Batch-6','Batch-5','Batch-4', 'Batch-3', 'Batch-2', 'Batch-1'];
-  
-  export const DISPLAYED_COLUMNS = ['name', 'email', 'course', 'actions'];
-  export const DISPLAYED_COLUMNSFOLLOW = ['name', 'email', 'course', 'inquiryStatus','date','actions'];
-  export const DISPLAYED_COLUMNSBOOTCAMP= ['name', 'email', 'paymentStatus','actions'];
-  export const DISPLAYED_COLUMNSUSERS = ['name', 'email', 'mobile_number', 'role','actions'];
-  export const COURSES = ['Angular', 'React', 'Java', '.NET', 'Automation and Manual Testing'];
-
-  export const INQUIRYSTATUSES = ['Interested', 'Need FollowUp', 'Not Interested', 'No Response'];
-  export const PAYMENT_STATUS = ['success','fail']; 
-  export const FEEDBACK_OPTIONS = ['All', 'Poor', 'Average', 'Good', 'Excellent'];
-  export const PAYMENT_STATUSES = ['Not Paid', 'Partially Paid', 'Completed'];
-  export const SOURCE_STATUS = ['3-days CSS Bootcamp', '1-days CSS Bootcamp', '2-days CSS Bootcamp'];
-  export const PLACEMENT_STATUSES = ['Placement Complete', 'Placement Pending'];
+export const DISPLAYED_COLUMNS = ['name', 'email', 'course', 'actions'];
+export const DISPLAYED_COLUMNSFOLLOW = ['name', 'email', 'course', 'inquiryStatus','date','actions'];
+export const DISPLAYED_COLUMNSBOOTCAMP= ['name', 'email', 'paymentStatus','actions'];
+export const DISPLAYED_COLUMNSUSERS = ['name', 'email', 'mobile_number', 'role','actions'];
+export const COURSES = ['Angular', 'React', 'Java', '.NET', 'Automation and Manual Testing'];
+export const INQUIRYSTATUSES = ['Interested', 'Need FollowUp', 'Not Interested', 'No Response'];
+export const PAYMENT_STATUS = ['success','fail']; 
+export const FEEDBACK_OPTIONS = ['All', 'Poor', 'Average', 'Good', 'Excellent'];
+export const PAYMENT_STATUSES = ['Not Paid', 'Partially Paid', 'Completed'];
+export const SOURCE_STATUS = ['3-days CSS Bootcamp', '1-days CSS Bootcamp', '2-days CSS Bootcamp'];
+export const PLACEMENT_STATUSES = ['Placement Complete', 'Placement Pending'];
   // export const ISSUESTATUS = ['In Progress', 'Block', 'Complete', 'Resolve'];
 
-  export const UNIVERSITY = ['All','Bharati Vidyapeeth, Pune','Central Institute of Fisheries Education, Mumbai','D. Y. Patil Education Society, Kolhapur',
+export const UNIVERSITY = ['All','Bharati Vidyapeeth, Pune','Central Institute of Fisheries Education, Mumbai','D. Y. Patil Education Society, Kolhapur',
     'Dnyaneshwar Vidyapeeth Educational trust, Pune','Datta Meghe Institute of Medical Sciences, Wardha',
     'Deccan College Post-Graduate and Research Institute, Pune','Defence Institute of Advanced Technology, Pune',
     'Dr. Babasaheb Ambedkar Marathwada University, Aurangabad','Dr. Babasaheb Ambedkar Technological University, Lonere',
@@ -78,7 +78,7 @@ export const TOP_ROLES = [
     'Yashwantrao Chavan Maharashtra Open University, Nashik'
   ]
 
-  export const DISTRICT=["All","Ahmednagar",
+export const DISTRICT=["All","Ahmednagar",
     "Akola",
     "Amravati",
     "Aurangabad",

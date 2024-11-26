@@ -1,0 +1,126 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit Inventory' : 'Create Inventory' }}</h2>
+  <button class="cancel-btn" (click)="onCancel()">
+        <mat-icon>close</mat-icon>
+  </button>  
+<div mat-dialog-content>
+<form [formGroup]="inventoryForm" (ngSubmit)="save()">
+  <mat-form-field>
+    <mat-label>First Name</mat-label>
+    <input matInput formControlName="firstName" />
+    <mat-error *ngIf="inventoryForm.get('firstName')?.hasError('required')">First name is required.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Last Name</mat-label>
+    <input matInput formControlName="lastName" />
+    <mat-error *ngIf="inventoryForm.get('lastName')?.hasError('required')">LastName name is required.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Mobile Number</mat-label>
+    <input matInput formControlName="mobileNumber" />
+    <mat-error *ngIf="inventoryForm.get('mobileNumber')?.hasError('required')">Mobile Number is required.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" />
+    <mat-error *ngIf="inventoryForm.get('email')?.hasError('required')">Email is required.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Job Title</mat-label>
+    <input matInput formControlName="jobTitle" />
+    <mat-error *ngIf="inventoryForm.get('jobTitle')?.hasError('required')">Job Title is required.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Address</mat-label>
+    <input matInput formControlName="address" />
+    <mat-error *ngIf="inventoryForm.get('address')?.hasError('required')"> Address is required.</mat-error>
+  </mat-form-field>
+
+  <div formArrayName="inventoryDetails">
+    <div *ngFor="let detail of inventoryDetails.controls; let i = index" [formGroupName]="i">
+      <h3>Inventory Detail {{ i + 1 }}</h3>
+
+      <mat-form-field>
+        <mat-label>Inventory Name</mat-label>
+        <input matInput formControlName="inventoryName" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Model Name</mat-label>
+        <input matInput formControlName="modelName" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Assigned Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="inventoryAssignedDate" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Issue Description</mat-label>
+        <textarea matInput formControlName="issueDescription"></textarea>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Issue Date</mat-label>
+        <input matInput [matDatepicker]="issuePicker" formControlName="issueDate" />
+        <mat-datepicker-toggle matSuffix [for]="issuePicker"></mat-datepicker-toggle>
+        <mat-datepicker #issuePicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Assigned To</mat-label>
+        <input matInput formControlName="assignedTo" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+            <mat-option *ngFor="let option of issueStatus" [value]="option">
+                {{ option }}
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Resolution Comment</mat-label>
+        <input matInput formControlName="resolutionComment">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Inventory Return</mat-label>
+        <mat-select formControlName="returned">
+            <mat-option *ngFor="let option of  returned" [value]="option">
+                {{ option }}
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Return Date</mat-label>
+        <input matInput [matDatepicker]="returnPicker" formControlName="returnDate" />
+        <mat-datepicker-toggle matSuffix [for]="returnPicker"></mat-datepicker-toggle>
+        <mat-datepicker #returnPicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Return Comment</mat-label>
+        <input matInput formControlName="returncomment"/>
+      </mat-form-field>
+      <!-- <button mat-raised-button color="warn" (click)="inventoryDetails.removeAt(i)">Remove</button> -->
+      <mat-icon color="warn" (click)="inventoryDetails.removeAt(i)">delete</mat-icon>
+    </div>
+  </div>
+
+  
+</form>
+</div>
+<div  mat-dialog-actions>
+    <button class="add-btn" mat-button color="primary" type="button" (click)="addInventoryDetail()">Add Inventory</button>
+    <button class="save-btn" mat-button color="primary" type="submit" (click)="save()" >{{ isEditMode ? 'Update' : 'Save' }}</button>
+</div>

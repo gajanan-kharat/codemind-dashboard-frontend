@@ -18,7 +18,8 @@ export class EditNewIssuesComponent {
   isLoading:Boolean = false;
   courses = COURSES;
   batches = BATCHES; 
-  issueStatus = ['New Issue','In Progress','Block','Complete'];
+  issueStatus = ['New Issue','In Progress','Block','Resolve'];
+
 
   constructor(
     private fb: FormBuilder,

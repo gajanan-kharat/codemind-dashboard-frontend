@@ -1,77 +1,3 @@
-  /*.sidenav-container {
-    height: 100%;
-  }
-  .sidenav {
-    width: 250px;
-  }
-  .mat-toolbar {
-    display: flex;
-    align-items: center;
-    background: #78bb6b;
-  }
-  .profile-menu {
-    display: flex;
-    align-items: center;
-  }
-  .profile-menu .username {
-    margin-right: 8px;
-    font-size: 15px;
-  }
-  .profile-pic {
-    width: 40px;
-    height: 38px;
-    border-radius: 50%;
-    background-color: #9e02f9;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 0 0 3px #ffff;
-  }
-  .spacer {
-    flex: 1;
-  }
-  .content {
-    flex: 1; 
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-  }
-  .list p{
-    padding:10px 0px 10px 30px;
-    font-size: 20px;
-    cursor: pointer;
-  }
-  .list p:hover{
-    background-color: #78bb6b;
-    color:white;
-    padding-left: 30px;
-    overflow-y: hidden;
-  }
- 
-
-  @media (max-width: 360px) {
-    .profile-menu .username{
-      margin-right: 4px;
-    }
-    .username {
-      display:none;
-    }
-  }
-
-  @media (max-width: 600px) {
-    .sidenav {
-      width: 80%;
-      position: fixed;
-      z-index: 1000;
-    }
-    .username {
-      display:none;
-    }
-  }*/
   .sidenav-container {
     height: 100%;
   }
@@ -181,6 +107,7 @@
 
   .list .item {
     transition: color 0.3s;
+    margin:5px;
   }
 
   .list .item.selected {

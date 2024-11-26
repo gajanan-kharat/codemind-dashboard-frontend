@@ -39,8 +39,11 @@ const collegeInfoRoutes = require('./routes/collegeData/collegeInfo');
 //Scholarship Data 
 const scholarshipRoutes = require('./routes/scholarshipData/scholarship');
 
-//Student Issue
+//Student Issue Data
 const studentIssueRoutes = require('./routes/studentIssueData/studentIssue');
+
+//Inventory Data
+const inventoryRoutes = require('./routes/inventoryData/inventory');
 
 //Intialize Express
 const app = express();
@@ -95,6 +98,9 @@ app.use('/api/scholarship', scholarshipRoutes);
 
 //Student Issue
 app.use('/api/studentIssues', studentIssueRoutes);
+
+//Inventory
+app.use('/api/inventory', inventoryRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

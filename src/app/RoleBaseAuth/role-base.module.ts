@@ -55,6 +55,9 @@ import { EditBootcampFollowupStudentComponent } from './Admin/bootcamp/dialogs/e
 import { NewIssuesComponent } from './Admin/studentIssue/component/new-issues/new-issues.component';
 import { EditNewIssuesComponent } from './Admin/studentIssue/dialogs/edit-new-issues/edit-new-issues.component';
 import { StudentIssusesDashboardComponent } from './dashborads/student-issuses-dashboard/student-issuses-dashboard.component';
+import { InvertoryComponent } from './Admin/inventory/component/invertory/invertory.component';
+import { EditInventoryComponent } from './Admin/inventory/dialogs/edit-inventory/edit-inventory.component';
+
 
 @NgModule({
   declarations: [
@@ -108,7 +111,8 @@ import { StudentIssusesDashboardComponent } from './dashborads/student-issuses-d
     NewIssuesComponent,
     EditNewIssuesComponent,
     StudentIssusesDashboardComponent,
-  
+    InvertoryComponent,
+    EditInventoryComponent,  
   ],
   imports: [
     CommonModule,

@@ -84,9 +84,9 @@ export class LoginComponent {
     }
   }
 
-  // navigateToSignUp() {
-  //   this.router.navigate(['/signup']);
-  // }
+  navigateToSignUp() {
+    this.router.navigate(['/signup']);
+  }
 
   // closeLoginPopup() {
   //   this.showLoginPopup = false;

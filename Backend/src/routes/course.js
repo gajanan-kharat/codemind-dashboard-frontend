@@ -15,7 +15,6 @@ router.post('/', async (req, res) => {
       topicsCovered
     });
 
-   
     await newCourse.save();
 
     res.status(201).send({ message: 'Course created successfully', course: newCourse });

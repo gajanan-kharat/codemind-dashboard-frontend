@@ -43,15 +43,8 @@
               Mobile Number is required.
             </mat-error>
           </mat-form-field>
-          <mat-form-field appearance="fill" *ngIf="isEditMode">
-            <mat-label>Course</mat-label>
-            <input matInput formControlName="course">
-            <mat-error *ngIf="inquiryForm.get('course')?.hasError('required') && inquiryForm.get('course')?.touched">
-              course is required.
-            </mat-error>
-          </mat-form-field>
-          <!-- Course -->
-          <mat-form-field appearance="fill" *ngIf="!isEditMode">
+  
+          <mat-form-field appearance="fill">
             <mat-label>Course</mat-label>
             <mat-select formControlName="course">
               <mat-option *ngFor="let course of courses" [value]="course">{{ course }}</mat-option>

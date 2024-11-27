@@ -26,10 +26,8 @@ export class BootcampNotinterestedStudentComponent {
   displayedColumns: string[] = DISPLAYED_COLUMNS;
 
   courses: string[] = ["All",...COURSES]; 
-  // batches: string[] = BATCHES;
 
   selectedCourseNotInterested = 'All';
-  // selectedBatchNotInterested = '';
 
   totalPages: number = 0;
   currentPage: number = 1;
@@ -50,7 +48,6 @@ export class BootcampNotinterestedStudentComponent {
   }
 
   ngAfterViewInit() {
-    // this.filteredNotInterested.paginator = this.paginator;
     this.filteredNotInterested.sort = this.sort; 
   }
 
@@ -91,24 +88,7 @@ export class BootcampNotinterestedStudentComponent {
     this.fetchStudents();
   }
 
-  /*filterNotInterested() {
-    this.filteredNotInterested.data = this.notInterestedStudents.filter(student => {
-      return (!this.selectedCourseNotInterested || student.course === this.selectedCourseNotInterested);
-      // && (!this.selectedBatchNotInterested || student.batch === this.selectedBatchNotInterested);
-    });
-    if (this.filteredNotInterested.paginator) {
-      this.filteredNotInterested.paginator.firstPage();
-    }
-    // Update paginator if needed
-    // this.filteredNotInterested.paginator = this.paginator;
-  }
-
-  onBatchChange() {
-    this.filterNotInterested(); 
-  }*/
-
   onCourseChange() {
-    // this.filterNotInterested();
     this.fetchStudents();
     this.currentPage = 1;
     this.filteredNotInterested.paginator = this.paginator;
@@ -127,7 +107,6 @@ export class BootcampNotinterestedStudentComponent {
         const index = this.notInterestedStudents .findIndex(s => s._id === student._id);
         if (index !== -1) {
           this.notInterestedStudents[index] = result;
-            // this.filterNotInterested();
           this.fetchStudents();
           this.mongodbService.booleanSubject.next(true);
         } 

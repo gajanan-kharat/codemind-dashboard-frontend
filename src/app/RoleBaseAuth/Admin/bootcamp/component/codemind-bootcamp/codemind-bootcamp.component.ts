@@ -4,26 +4,25 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { DISPLAYED_COLUMNSBOOTCAMP, PAYMENT_STATUS, SOURCE_STATUS } from 'src/app/models/admin-content';
-import { MongodbService } from 'src/app/services/mongodb.service';
-import { EditBootcampStudentComponent } from '../../dialogs/edit-bootcamp-student/edit-bootcamp-student.component';
 import { ToastrService } from 'ngx-toastr';
+import { DISPLAYED_COLUMNS_CODEMINDBOOTCAMP,SOURCE_STATUS } from 'src/app/models/admin-content';
 import { BootcampService } from 'src/app/services/bootcamp.service';
+import { MongodbService } from 'src/app/services/mongodb.service';
+import { EditCodemindBootcampComponent } from '../../dialogs/edit-codemind-bootcamp/edit-codemind-bootcamp.component';
 
 @Component({
-  selector: 'app-bootcamp-student',
-  templateUrl: './bootcamp-student.component.html',
-  styleUrls: ['./bootcamp-student.component.scss']
+  selector: 'app-codemind-bootcamp',
+  templateUrl: './codemind-bootcamp.component.html',
+  styleUrls: ['./codemind-bootcamp.component.scss']
 })
-export class BootcampStudentComponent {
+export class CodemindBootcampComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort; 
 
   filteredBootCamp = new MatTableDataSource<any>();
   bootCampStudents: any[] = [];
 
-  displayedColumnsBootcamp:string[] = DISPLAYED_COLUMNSBOOTCAMP;
-  payment_status: string[] = ["All",...PAYMENT_STATUS]; 
+  displayedColumnsBootcamp:string[] = DISPLAYED_COLUMNS_CODEMINDBOOTCAMP;
   source_status: string[] = SOURCE_STATUS;
 
   totalPages: number = 0;
@@ -32,11 +31,8 @@ export class BootcampStudentComponent {
   totalRecords:number = 0;
   role: string | null = '';
 
-  selectedPaymentBootCamp = 'All';
   selectedSourceBootCamp = '';
-  constructor(private mongodbService: MongodbService, 
-              private dialog: MatDialog, 
-              private fb: FormBuilder,
+  constructor(private dialog: MatDialog, 
               private toastr: ToastrService,
               private bootcampService: BootcampService) {
                 this.role = localStorage.getItem('user_role');
@@ -52,10 +48,11 @@ export class BootcampStudentComponent {
 
   fetchStudents(searchTerm: string = ''): void {
     const filters = {
-      paymentStatus: this.selectedPaymentBootCamp|| '',
-      source: this.selectedSourceBootCamp|| '' 
+      selectedBootcamp: this.selectedSourceBootCamp|| '' 
+  
     };
-     this.bootcampService.getBootCamp(this.currentPage, this.limit, searchTerm, filters).subscribe(
+  
+     this.bootcampService.getCodemindBootCamp(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response:any) => {
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
@@ -79,19 +76,12 @@ export class BootcampStudentComponent {
   refreshData(){
     this.bootCampStudents = [];
     this.filteredBootCamp.data = [];
-    this.selectedPaymentBootCamp = '';
     this.selectedSourceBootCamp = '';
     const searchInput = document.querySelector('input[matInput]') as HTMLInputElement;
     if (searchInput) {
       searchInput.value = '';
     }
     this.fetchStudents();
-  }
-
-  onCourseChange() {
-    this.currentPage = 1;
-    this.fetchStudents();
-    this.filteredBootCamp.paginator = this.paginator;
   }
 
   onSourceChange(){
@@ -101,7 +91,7 @@ export class BootcampStudentComponent {
   }
 
   editBootcampStudent(student: any) {
-    const dialogRef = this.dialog.open(EditBootcampStudentComponent, {
+    const dialogRef = this.dialog.open(EditCodemindBootcampComponent, {
       width: '50%',
       data: { student },
       maxWidth: '80vw',
@@ -113,9 +103,8 @@ export class BootcampStudentComponent {
         const index = this.bootCampStudents.findIndex(s => s._id === student._id);
         if (index !== -1) {
           this.bootCampStudents[index] = result;
-          // this.filterBootCamp();
           this.fetchStudents();
-          this.mongodbService.booleanSubject.next(true);
+          this.bootcampService.booleanSubject.next(true);
         }
       }
     });
@@ -128,7 +117,7 @@ export class BootcampStudentComponent {
   }
 
   deleteStudent(student:any){
-    this.bootcampService.deleteBootcampStudent(student._id).subscribe(
+    this.bootcampService.deleteCodemindBootcampStudent(student._id).subscribe(
       () => {
           this.toastr.success('Bootcamp Student deleted successfully.', 'Success', {
           timeOut: 3000,
@@ -149,5 +138,18 @@ export class BootcampStudentComponent {
       }
     );
   }
-  
+
+  //send email
+  onSendEmail(student:any) {
+    const codemindBootcampId = student._id; 
+    this.bootcampService.sendcodemindBootcampEmail(codemindBootcampId).subscribe(
+      (response) => {
+        this.toastr.success('Email sent successfully');
+      },
+      (error) => {
+        this.toastr.error('Error sending email');
+      }
+    );
+  }
+
 }

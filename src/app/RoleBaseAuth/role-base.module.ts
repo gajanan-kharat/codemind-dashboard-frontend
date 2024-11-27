@@ -57,6 +57,8 @@ import { EditNewIssuesComponent } from './Admin/studentIssue/dialogs/edit-new-is
 import { StudentIssusesDashboardComponent } from './dashborads/student-issuses-dashboard/student-issuses-dashboard.component';
 import { InvertoryComponent } from './Admin/inventory/component/invertory/invertory.component';
 import { EditInventoryComponent } from './Admin/inventory/dialogs/edit-inventory/edit-inventory.component';
+import { CodemindBootcampComponent } from './Admin/bootcamp/component/codemind-bootcamp/codemind-bootcamp.component';
+import { EditCodemindBootcampComponent } from './Admin/bootcamp/dialogs/edit-codemind-bootcamp/edit-codemind-bootcamp.component';
 
 
 @NgModule({
@@ -112,7 +114,9 @@ import { EditInventoryComponent } from './Admin/inventory/dialogs/edit-inventory
     EditNewIssuesComponent,
     StudentIssusesDashboardComponent,
     InvertoryComponent,
-    EditInventoryComponent,  
+    EditInventoryComponent,
+    CodemindBootcampComponent,
+    EditCodemindBootcampComponent,  
   ],
   imports: [
     CommonModule,

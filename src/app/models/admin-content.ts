@@ -1,9 +1,10 @@
 export const TOP_ITEMS = [
-    { course: 'Angular', icon: 'fa-brands fa-angular', color: '#f8e9e9', iconColor: '#c70000' },
-    { course: 'React', icon: 'fa-brands fa-react' ,color: '#d2f2f5', iconColor: '#0ac1ef'},
-    { course: 'Java', icon: 'fa-brands fa-java',color: '#d8d8ff', iconColor: '#0a0aff' },
-    { course: 'Testing', icon: 'fa fa-cogs',color: '#fdfde3' ,iconColor: '#999900'},
-    { course: '.NET', icon: 'fa-brands fa-microsoft',color: '#daeefc' , iconColor: '#007acc'},
+    { course: 'Angular MEAN Stack', icon: 'fa-brands fa-angular', color: '#f8e9e9', iconColor: '#c70000' },
+    { course: 'React MEAN Stack', icon: 'fa-brands fa-react' ,color: '#d2f2f5', iconColor: '#0ac1ef'},
+    { course: 'Java Full Stack', icon: 'fa-brands fa-java',color: '#d8d8ff', iconColor: '#0a0aff' },
+    { course: 'Manual and Automation Testing', icon: 'fa fa-cogs',color: '#fdfde3' ,iconColor: '#999900'},
+    { course: '.Net Full Stack', icon: 'fa-brands fa-microsoft',color: '#daeefc' , iconColor: '#007acc'},
+    // { course: 'Python with Data Science', icon: 'fa-brands fa-microsoft',color: '#daeefc' , iconColor: '#007acc'},
   ];
 
 export const COLLEGE_ITEMS = [
@@ -46,13 +47,14 @@ export const BATCHES = ['Batch-14','Batch-13','Batch-12','Batch-11','Batch-10','
 export const DISPLAYED_COLUMNS = ['name', 'email', 'course', 'actions'];
 export const DISPLAYED_COLUMNSFOLLOW = ['name', 'email', 'course', 'inquiryStatus','date','actions'];
 export const DISPLAYED_COLUMNSBOOTCAMP= ['name', 'email', 'paymentStatus','actions'];
+export const DISPLAYED_COLUMNS_CODEMINDBOOTCAMP= ['name', 'email', 'selectedBootcamp','actions'];
 export const DISPLAYED_COLUMNSUSERS = ['name', 'email', 'mobile_number', 'role','actions'];
-export const COURSES = ['Angular', 'React', 'Java', '.NET', 'Automation and Manual Testing'];
+export const COURSES = ['Angular MEAN Stack', 'React MEAN Stack', 'Java Full Stack', '.Net Full Stack', 'Manual and Automation Testing', 'Python with Data Science'];
 export const INQUIRYSTATUSES = ['Interested', 'Need FollowUp', 'Not Interested', 'No Response'];
 export const PAYMENT_STATUS = ['success','fail']; 
 export const FEEDBACK_OPTIONS = ['All', 'Poor', 'Average', 'Good', 'Excellent'];
 export const PAYMENT_STATUSES = ['Not Paid', 'Partially Paid', 'Completed'];
-export const SOURCE_STATUS = ['3-days CSS Bootcamp', '1-days CSS Bootcamp', '2-days CSS Bootcamp'];
+export const SOURCE_STATUS = ['3-Day HTML CSS Bootcamp', '1-Day HTML CSS Bootcamp', '2-Day HTML CSS Bootcamp'];
 export const PLACEMENT_STATUSES = ['Placement Complete', 'Placement Pending'];
   // export const ISSUESTATUS = ['In Progress', 'Block', 'Complete', 'Resolve'];
 

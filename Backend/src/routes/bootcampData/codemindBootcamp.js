@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Bootcamp = require('../../models/bootcampData/bootcamp');
+const Bootcamp = require('../../models/bootcampData/codemindBootcamp');
 
 // API Endpoint to Save Bootcamp Data
 router.post('/', async (req, res) => {
@@ -20,31 +20,23 @@ router.get('/', async (req, res) => {
       const page = parseInt(req.query.page) || 1;  
       const limit = parseInt(req.query.limit) || 10;  
       const skip = (page - 1) * limit;  
-      const { paymentStatus , source} = req.query;
+      const { selectedBootcamp } = req.query;
       let BootcampInfo, totalDocuments;
       const baseFilter = searchQuery
         ? {
             $or: [
               { firstName: new RegExp(searchQuery, 'i') }, 
-              { middleName: new RegExp(searchQuery, 'i') }, 
               { lastName: new RegExp(searchQuery, 'i') },
               { email: new RegExp(searchQuery, 'i') },
               { mobileNumber: new RegExp(searchQuery, 'i') },
-              { paymentId: new RegExp(searchQuery, 'i') },
-              { paymentStatus: new RegExp(searchQuery, 'i') },
-              { course: new RegExp(searchQuery, 'i') },
-              { batch: new RegExp(searchQuery, 'i') },
+              { selectedBootcamp: new RegExp(searchQuery, 'i') },
               { source: new RegExp(searchQuery, 'i') },
             ]
           }
         : {};
       
-      if (paymentStatus && paymentStatus !== 'All') {
-        baseFilter.paymentStatus = paymentStatus;
-      }
-
-      if (source && source !== '') {
-        baseFilter.source = source;
+      if (selectedBootcamp && selectedBootcamp !== '') {
+        baseFilter.selectedBootcamp = selectedBootcamp;
       }
   
       totalDocuments = await Bootcamp.countDocuments(baseFilter);
@@ -62,7 +54,7 @@ router.get('/', async (req, res) => {
         
         const modifiedBootcampInfo = BootcampInfo.map(user => ({
           ...user.toObject(),
-          name: toTitleCase(`${user.firstName} ${user.middleName || ''} ${user.lastName}`.trim())
+          name: toTitleCase(`${user.firstName} ${user.lastName}`.trim())
         }));
       
       const totalPages = Math.ceil(totalDocuments / limit);
@@ -78,7 +70,6 @@ router.get('/', async (req, res) => {
     }
   });
   
-
 // API Endpoint to Update Bootcamp Data
 router.put('/:id', async (req, res) => {
     try {

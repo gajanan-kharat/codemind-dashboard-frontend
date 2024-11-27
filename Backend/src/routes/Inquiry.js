@@ -13,17 +13,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// API Endpoint to Get Student Information Data
-/*router.get('/', async (req, res) => {
-  try {
-    const student = await Student.find();
-    res.status(200).send(student);
-  } catch (error) {
-    res.status(400).send({ error: 'Error fetching student information', details: error });
-  }
-});*/
-
-
 router.get('/', async (req, res) => {
   try {
     const searchQuery = req.query.search?.trim();

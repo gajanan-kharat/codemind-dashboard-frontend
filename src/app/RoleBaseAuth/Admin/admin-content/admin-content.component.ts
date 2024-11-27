@@ -96,15 +96,10 @@ onFeedbackChange() {
   }
 
   fetchStudents(searchTerm: string = ''): void {
-    let course = this.selectedCourse || '';
-
-  // Replace 'Testing' with 'Automation and Manual Testing'
-  if (course === 'Testing') {
-    course = 'Manual and Automation Testing';
-  }
+    
     const filters = {
       batch: this.selectedBatch || '',
-      course:course,
+      course: this.selectedCourse || '',
       feedback: this.selectedFeedback || '',
       paymentStatus: this.selectedPaymentStatus || '',
       placementStatus: this.selectedPlacementStatus || '',
@@ -191,7 +186,6 @@ onFeedbackChange() {
         const index = this.students.findIndex(s => s._id === student._id);
         if (index !== -1) {
           this.students[index] = result;
-          // this.filterStudents();
           this.fetchStudents();
         }
       }

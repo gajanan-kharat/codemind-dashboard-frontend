@@ -27,12 +27,17 @@
     margin-left: 10px;
   }
   
+  .button-container {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+  }
+  
   .save-btn {
     background-color: #3fb554;
     color: white !important;
-    position: absolute;
-    right: 20px;
   }
+  
   
   .cancel-btn {
     background-color: transparent;
@@ -47,6 +52,7 @@
   :host ::ng-deep .mdc-dialog .mdc-dialog__content {
     padding: 0px 24px 0px 24px;
   }
+  
   
   @media (max-width: 360px) {
     :host ::ng-deep .mat-mdc-text-field-wrapper {
@@ -63,4 +69,3 @@
       width: 100%;
     }
   }
-  

@@ -3,14 +3,12 @@
 </div> -->
 <div class="content">
   <section class="top-cards">
-    <!-- <h2 class="student-title">Student Information</h2> -->
     <div class="card-container">
       <mat-card *ngFor="let item of topItems" class="card" [ngClass]="{'selected': item.course === selectedCourse}"
       [ngStyle]="{'background-color': item.color}"  (click)="onCourseClick(item.course)">
         <div class="courses">
           <div>
             <p class="title">{{item.course}}</p>
-            <!-- <p class="title" *ngIf="item.course=='Manual & Automation Testing'">Testing</p> -->
           </div>
           <div>
             <i class="{{item.icon}} course-icon"  [ngStyle]="{'color': item.iconColor}"></i>

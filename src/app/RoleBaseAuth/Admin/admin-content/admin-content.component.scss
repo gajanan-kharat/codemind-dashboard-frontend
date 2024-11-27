@@ -11,27 +11,21 @@
     justify-content: space-between;
   }
   
-  // mat-form-field{
-  //   width:50%;
-  // }
   ::ng-deep .mat-mdc-text-field-wrapper {
     width: 90% !important;
   }
   .card {
     width: 100%;
-    max-width: 180px;
-    padding: 5px 30px 5px 30px;
+    max-width: 190px;
+    padding: 5px 15px 5px 15px;
   }
-  // .student-table {
-  //   margin-bottom: 16px;
-  // }
+  
   .student-title {
     font-weight: bold;
   }
  
   .filters{
     display: flex;
-    // gap: 10px;
   }
   .courses{
     display: flex;

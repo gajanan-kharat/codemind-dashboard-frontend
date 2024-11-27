@@ -10,7 +10,6 @@ const inquiryRoutes = require('./routes/Inquiry');
 const notInterestedRoutes = require('./routes/notInterested');
 const interestedRoutes = require('./routes/interested');
 const followUpRoutes = require('./routes/followUp');
-
 const studentInformationRoutes = require('./routes/studentInformation');
 const reportRoutes = require('./routes/report');
 // const studentMockInformationRoutes = require('./routes/studentMockInformation');
@@ -26,6 +25,8 @@ const bootcampInterestedRoutes = require('./routes/bootcampData/interested');
 const bootcampNotInterestedRoutes = require('./routes/bootcampData/notInterested');
 const bootcampFollowUpRoutes = require('./routes/bootcampData/followUp');
 const bootcampTotalRecordsRouter = require('./routes/bootcampData/totalTableRecords');
+const codemindBootcampRoutes =require('./routes/bootcampData/codemindBootcamp');
+
 //HirUs Data 
 const HireUsRoutes = require('./routes/hireFromUsData/newLeads');
 const HireUsInterestedRoutes = require('./routes/hireFromUsData/interested');
@@ -82,6 +83,7 @@ app.use('/api/bootcamp/interested',bootcampInterestedRoutes);
 app.use('/api/bootcamp/notInterested',bootcampNotInterestedRoutes);
 app.use('/api/bootcamp/followUp', bootcampFollowUpRoutes);
 app.use('/api/bootcamp/totalRecords', bootcampTotalRecordsRouter);
+app.use('/api/bootcamp/codemindBootcamp', codemindBootcampRoutes);
 
 //HireUs Routes
 app.use('/api/hireus', HireUsRoutes);

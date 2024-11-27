@@ -58,11 +58,6 @@ export class BootcampService {
     return this.http.delete(`${this.baseApiUrl}/bootcamp/followup/${studentId}`);
   }
 
-
-  // deleteBootcampStudent(studentId: string): Observable<any> {
-  //   return this.http.delete<any>(`${this.baseApiUrl}/bootcamp/${studentId}`);
-  // }
- 
   //Interested
   addBootcampInterested(interestedData: any): Observable<any> {
     return this.http.post<any>(`${this.baseApiUrl}/bootcamp/interested`, interestedData);
@@ -110,5 +105,29 @@ export class BootcampService {
   deleteBootcampNotinterestedStudent(studentId: string): Observable<any> {
     return this.http.delete<any>(`${this.baseApiUrl}/bootcamp/notInterested/${studentId}`);
   }
+
+  //Codemind Bootcamp
+  getCodemindBootCamp(page: number, limit: number, searchTerm: string = '',filters: any = {}): Observable<any> {
+    const params: any = {
+      page,
+      limit,
+      ...filters
+    };
+    return this.http.get<any>(`${this.baseApiUrl}/bootcamp/codemindBootcamp?search=${searchTerm}`,{ params });
+  }
+
+  updateCodemindBootcampStudent(student: any): Observable<any> {
+    return this.http.put<any>(`${this.baseApiUrl}/bootcamp/codemindBootcamp/${student._id}`,student);
+  }
+
+  deleteCodemindBootcampStudent(studentId: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseApiUrl}/bootcamp/codemindBootcamp/${studentId}`);
+  }
+ 
+  sendcodemindBootcampEmail(id: string): Observable<any> {
+    return this.http.post(`${this.baseApiUrl}/bootcamp/codemindBootcamp/${id}/send-email`, {});
+  }
+
+
   
 }

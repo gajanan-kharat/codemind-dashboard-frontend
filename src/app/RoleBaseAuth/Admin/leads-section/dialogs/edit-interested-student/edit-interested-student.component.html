@@ -101,14 +101,7 @@
       </mat-error>
     </mat-form-field>
 
-
     <!-- Show payment component only if admission status is 'Confirmed' -->
-    <!-- <app-edit-payment-dialog 
-    *ngIf="selectedAdmissionStatus === 'Confirm'"
-    [isIntereseted]="true" 
-    [formGroup]="interestedForm"
-    (formDataChange)="onFormDataChange($event)" required>
-   </app-edit-payment-dialog> -->
    <app-edit-payment-dialog 
     *ngIf="selectedAdmissionStatus === 'Confirm'" 
      [isIntereseted]="true" 
@@ -138,7 +131,6 @@
         <h2 class="comment">Comment</h2>
         <mat-form-field appearance="fill">
           <mat-label>Comment</mat-label>
-          <!-- <textarea matInput formControlName="comment"></textarea> -->
           <input matInput formControlName="comment" placeholder="Entercomment">
           <mat-error *ngIf="comment.get('comment')?.hasError('required') && comment.get('comment')?.touched">
             Comment is required.

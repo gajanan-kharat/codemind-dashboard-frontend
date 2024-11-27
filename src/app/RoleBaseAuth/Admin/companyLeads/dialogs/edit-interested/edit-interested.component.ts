@@ -33,21 +33,6 @@ export class EditInterestedComponent {
     private toastr: ToastrService,
   ) {}
 
-  /*ngOnInit(): void {
-    this.isEditMode = this.data && this.data.student;
-    this.inquiryForm = this.fb.group({
-      firstName: [this.isEditMode ? this.data.student.firstName : '', Validators.required],
-      lastName: [this.isEditMode ? this.data.student.lastName : '', Validators.required],
-      email: [this.isEditMode ? this.data.student.email : '', [Validators.required, Validators.email]],
-      mobileNumber: [this.isEditMode ? this.data.student.mobileNumber : '', Validators.required],
-      course: [this.isEditMode ? this.data.student.course : '', Validators.required],
-      inquiryStatus: [this.isEditMode ? this.data.student.inquiryStatus :'', Validators.required],
-      date: [this.isEditMode ? this.data.student.date:''],
-      source: [this.isEditMode ? this.data.student.source : ''], 
-      sourcecomment: [this.isEditMode ? this.data.student.sourcecomment : ''] 
-    });
-  }*/
-
     ngOnInit(): void {
       this.isEditMode = this.data && this.data.student;
     
@@ -57,7 +42,6 @@ export class EditInterestedComponent {
         company: [this.isEditMode ? this.data.student.company : '', Validators.required],
         email: [this.isEditMode ? this.data.student.email : '', [Validators.required, Validators.email]],
         mobileNumber: [this.isEditMode ? this.data.student.mobileNumber : '', Validators.required],
-        // course: [this.isEditMode ? this.data.student.course : '', Validators.required],
         inquiryStatus: [this.isEditMode ? this.data.student.inquiryStatus : '', Validators.required],
         date: [this.isEditMode ? this.data.student.date : ''],
         source: [this.isEditMode ? this.data.student.source : ''], 
@@ -72,9 +56,6 @@ export class EditInterestedComponent {
       if (this.isEditMode) {
         // Set all fields as required in edit mode
         this.inquiryForm.get('inquiryStatus')?.setValidators(Validators.required);
-        // this.inquiryForm.get('date')?.setValidators(Validators.required);
-        // this.inquiryForm.get('source')?.setValidators(Validators.required);
-        // this.inquiryForm.get('sourcecomment')?.setValidators(Validators.required);
       } else {
         // Clear validators for fields not required in add mode
         this.inquiryForm.get('inquiryStatus')?.clearValidators();
@@ -87,18 +68,9 @@ export class EditInterestedComponent {
       this.inquiryForm.updateValueAndValidity();
     }
     
-
-  /*convertLocalToUTC(localDate: Date): Date {
-    const timezoneOffset = localDate.getTimezoneOffset(); // Get the local timezone offset
-    const utcDate = new Date(localDate.getTime() + timezoneOffset * 60000); // Adjust the date to UTC
-    return utcDate;
-  }*/
-
     onSave(): void {
         if (this.inquiryForm.valid) {
-          /*const formData = this.inquiryForm.value;
-          formData.date = this.convertLocalToUTC(formData.date);
-          console.log("date format :=> ", formData.date);*/
+    
           const updatedInquiry = { ...this.data.student, ...this.inquiryForm.value};
           
           /*if (updatedInquiry.inquiryStatus === 'Not Interested') {

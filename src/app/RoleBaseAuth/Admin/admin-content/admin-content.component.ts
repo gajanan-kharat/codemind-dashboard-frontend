@@ -2,7 +2,6 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { AuthService } from 'src/app/services/auth.service';
 import { MongodbService } from 'src/app/services/mongodb.service';
 import { EditStudentDialogComponent } from '../dialogs/edit-student-dialog/edit-student-dialog.component';
 import { TOP_ITEMS, BATCHES, DISPLAYED_COLUMNS, FEEDBACK_OPTIONS, PAYMENT_STATUSES, PLACEMENT_STATUSES } from 'src/app/models/admin-content';
@@ -20,11 +19,9 @@ export class AdminContentComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;  
   filteredStudents = new MatTableDataSource<any>();
   students: any[] = [];
-  // dataSource = new MatTableDataSource<any>(this.students);
-
+ 
   displayedColumns: string[] = [...DISPLAYED_COLUMNS,'Payment'];
  
-  //  displayedColumns: string[] = DISPLAYED_COLUMNS;
   topItems = TOP_ITEMS;   
   batches:string[] =  ['All',...BATCHES]; 
   feedbackOptions: string[] = FEEDBACK_OPTIONS;
@@ -47,13 +44,11 @@ export class AdminContentComponent implements OnInit {
   constructor( private moongodb: MongodbService, private dialog: MatDialog, private toastr: ToastrService) {}
 
   ngOnInit(): void {
-    // this.filterStudents();
     this.role = localStorage.getItem('user_role');
     this.fetchStudents(); 
   }
 
   ngAfterViewInit() {
-    // this.filteredStudents.paginator = this.paginator;
     this.filteredStudents.sort = this.sort; 
   }
   
@@ -71,33 +66,17 @@ export class AdminContentComponent implements OnInit {
     return 'Excellent';
   }
   
-  /*filterStudents() {
-    this.filteredStudents.data = this.students
-      .filter(student => 
-        (this.selectedBatch === 'All' || student.batch === this.selectedBatch) &&
-        (this.selectedCourse === '' || student.course === this.selectedCourse) &&
-        (this.selectedFeedback === 'All' || this.calculateOverallFeedback(student) === this.selectedFeedback) &&
-        (this.selectedPaymentStatus === 'All' || student.paymentStatus === this.selectedPaymentStatus) &&
-        (this.selectedPlacementStatus === 'All' || student.placementStatus === this.selectedPlacementStatus)
-      );
-  }*/
-
 onFeedbackChange() {
-    // this.filterStudents(); 
     this.currentPage = 1;
     this.fetchStudents();
     this.filteredStudents.paginator = this.paginator;
   }
 
   onPaymentStatusChange() {
-    // this.filterStudents(); 
-    // this.currentPage = 1;
     this.fetchStudents();
-    // this.filteredStudents.paginator = this.paginator;
   }
 
   onPlacementStatusChange() {
-    // this.filterStudents(); 
     this.currentPage = 1;
     this.fetchStudents();
     this.filteredStudents.paginator = this.paginator;
@@ -105,19 +84,16 @@ onFeedbackChange() {
 
   onCourseClick(course: string) {
     this.selectedCourse = course;
-    // this.filterStudents();
     this.currentPage = 1;
     this.fetchStudents();
     this.filteredStudents.paginator = this.paginator;
   }
 
   onBatchChange() {
-    // this.filterStudents();
     this.currentPage = 1;
     this.fetchStudents();
     this.filteredStudents.paginator = this.paginator;
   }
-
 
   fetchStudents(searchTerm: string = ''): void {
     let course = this.selectedCourse || '';
@@ -136,14 +112,12 @@ onFeedbackChange() {
     
     this.moongodb.getStudent(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response) => {
-
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
         this.currentPage = currentPage;       
         this.students = data;
         this.totalRecords = totalRecords;
         this.filteredStudents.data = this.students;
-        // this.filterStudents(); 
         console.log('student data: ', this.students);
       },
       (error) => {
@@ -174,13 +148,11 @@ onFeedbackChange() {
   }
 
   refreshData(){
-    // this.fetchStudents(); 
     this.selectedBatch = 'All';
     this.selectedCourse = '';
     this.selectedFeedback = 'All';
     this.selectedPaymentStatus = 'All';
     this.selectedPlacementStatus = 'All';
-    // this.filterStudents(); 
     this.fetchStudents();
     this.searchTerm = '';  
     this.filteredStudents.filter = '';  
@@ -210,7 +182,7 @@ onFeedbackChange() {
  
   editStudent(student: any) {
     const dialogRef = this.dialog.open(EditStudentDialogComponent, {
-      width: '80%',
+      width: '50%',
       data: { student }
     });
 
@@ -233,7 +205,6 @@ onFeedbackChange() {
       // minWidth: '300px',
       data: {
         student: student,
-        // paymentStatus: student.paymentStatus
       }
     });
 
@@ -242,7 +213,6 @@ onFeedbackChange() {
         const index = this.students.findIndex(s => s._id === student._id);
         if (index !== -1) {
           this.students[index] = result;
-          // this.filterStudents();
           this.fetchStudents();
         }
       }
@@ -251,7 +221,7 @@ onFeedbackChange() {
 
   addNewStudent(): void {
     const dialogRef = this.dialog.open(EditStudentDialogComponent, {
-      width: '80%',
+      width: '50%',
       data: {}, 
       // maxWidth: '80vw',
       // minWidth: '300px',
@@ -297,7 +267,6 @@ onFeedbackChange() {
           progressBar: true,
           closeButton: true
         });
-        // this.fetchStudents(); 
       },
       (error) => {
         console.error('Error Send Email:', error);
@@ -309,9 +278,6 @@ onFeedbackChange() {
         })
       }
     );
-
-  }
-
-  
+  } 
 }
 

@@ -5,7 +5,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { BATCHES, COURSES } from 'src/app/models/admin-content';
 import { MongodbService } from 'src/app/services/mongodb.service';
-import { EditNotintrestedStudentComponent } from '../../../leads-section/dialogs/edit-notintrested-student/edit-notintrested-student.component';
 import { BootcampService } from 'src/app/services/bootcamp.service';
 
 @Component({
@@ -33,7 +32,6 @@ export class EditBootcampNotinterestedStudentComponent {
       mobileNumber: [data.student.mobileNumber, Validators.required],
       email:[data.student.email, Validators.required],
       course: [data.student.course, Validators.required],
-      // batch: [data.student.batch, Validators.required],
       source:[data.student.source || ''],
       sourcecomment:[data.student.sourcecomment || ''],
     });

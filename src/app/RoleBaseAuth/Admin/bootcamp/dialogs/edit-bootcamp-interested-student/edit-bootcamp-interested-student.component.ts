@@ -19,7 +19,7 @@ export class EditBootcampInterestedStudentComponent {
   formData: any;
   courses = COURSES;
   batches = BATCHES;
-  admission:any[] = ['Pending', 'Confirm'];
+  admission: any[] = ['Pending', 'Confirm'];
   selectedAdmissionStatus: string = 'Pending';
 
 
@@ -42,8 +42,8 @@ export class EditBootcampInterestedStudentComponent {
       date: [data.student.date || ''],
       reference: [data.student.reference || ''],
       admission: [data.student.admission || 'Pending'],
-      source:[data.student.source || ''],
-      sourcecomment:[data.student.sourcecomment || ''],
+      source: [data.student.source || ''],
+      sourcecomment: [data.student.sourcecomment || ''],
       comments: this.fb.array(
         data.student.comments ? data.student.comments.map((comment: any) => this.createComment(comment)) : [this.createComment()]
       )
@@ -66,86 +66,56 @@ export class EditBootcampInterestedStudentComponent {
   }
 
   onAdmissionStatusChange(value: string): void {
-    this.selectedAdmissionStatus = value; // Update the selected status
+    this.selectedAdmissionStatus = value;
   }
 
-  /*onSave() {
+  onSave() {
     if (this.interestedForm.valid) {
- 
-      console.log("payment data :=>",   this.formData);
-      // console.log("payment Data:=>",formData);
-      // this.onPaymentDataChange() 
-      this.mongodbService.updateInterestedStudent(this.data.student._id, this.interestedForm.value)
-        .subscribe(
-          (updatedStudent) => {
-            this.toastr.success('Updated Interested Student Data successfully.', 'Success', {
-              timeOut: 3000,
-              positionClass: 'toast-top-right',
-              progressBar: true,
-              closeButton: true
-            });
-            this.dialogRef.close(updatedStudent); 
-          },
-          (error) => {
-            this.toastr.error('Error updating Interstered Student Data. Please try again.', 'Error', {
-              timeOut: 3000,
-              positionClass: 'toast-top-right',
-              progressBar: true,
-              closeButton: true
-            });
-            console.error('Error updating student:', error);
-          }
-        );
-    }
-  }*/
+      const admissionStatus = this.interestedForm.get('admission')?.value;
 
-    onSave() {
-      if (this.interestedForm.valid) {
-        const admissionStatus = this.interestedForm.get('admission')?.value;
-       
-        // When the admission status is "Pending"
-       if (admissionStatus === 'Pending') {
-        console.log("this.interestedForm.value",this.interestedForm.value);
-          this.bootcampService.updateBootcampInterestedStudent(this.data.student._id, this.interestedForm.value)
-            .subscribe(
-              (updatedStudent) => {
-                this.toastr.success('Updated Interested Student Data successfully.', 'Success', {
-                  timeOut: 3000,
-                  positionClass: 'toast-top-right',
-                  progressBar: true,
-                  closeButton: true
-                });
-                this.dialogRef.close(updatedStudent); 
-              },
-              (error) => {
-                this.toastr.error('Error updating Interested Student Data. Please try again.', 'Error', {
-                  timeOut: 3000,
-                  positionClass: 'toast-top-right',
-                  progressBar: true,
-                  closeButton: true
-                });
-                console.error('Error updating student:', error);
-              }
-            );
-        }
-        // When the admission status is "Confirm"
-        if (admissionStatus === 'Confirm') {
-          this.childFormComponent.markFormTouched();
-          if (this.childFormComponent.isValid) {
-             const formValues = this.childFormComponent.form;
-             const username = localStorage.getItem('user_fullName'); 
-             const payment = {
-              ...formValues,  
-              username: username 
-            };
-             const payments = [ payment]; 
-            //  console.log("payments:=>",payments);
-             const confirmedStudentData = {
-              ...this.interestedForm.value, 
-              payments, 
+      // When the admission status is "Pending"
+      if (admissionStatus === 'Pending') {
+        console.log("this.interestedForm.value", this.interestedForm.value);
+        this.bootcampService.updateBootcampInterestedStudent(this.data.student._id, this.interestedForm.value)
+          .subscribe(
+            (updatedStudent) => {
+              this.toastr.success('Updated Interested Student Data successfully.', 'Success', {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+                progressBar: true,
+                closeButton: true
+              });
+              this.dialogRef.close(updatedStudent);
+            },
+            (error) => {
+              this.toastr.error('Error updating Interested Student Data. Please try again.', 'Error', {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+                progressBar: true,
+                closeButton: true
+              });
+              console.error('Error updating student:', error);
+            }
+          );
+      }
+      // When the admission status is "Confirm"
+      if (admissionStatus === 'Confirm') {
+        this.childFormComponent.markFormTouched();
+        if (this.childFormComponent.isValid) {
+          const formValues = this.childFormComponent.form;
+          const username = localStorage.getItem('user_fullName');
+          const payment = {
+            ...formValues,
+            username: username
+          };
+          const payments = [payment];
+          //  console.log("payments:=>",payments);
+          const confirmedStudentData = {
+            ...this.interestedForm.value,
+            payments,
           };
 
-          console.log("confirmedStudentData :=>",confirmedStudentData);
+          console.log("confirmedStudentData :=>", confirmedStudentData);
           // Save student data in another table (e.g., a "Confirmed Students" table)
           this.mongodbService.saveConfirmedStudent(confirmedStudentData)
             .subscribe(
@@ -160,7 +130,7 @@ export class EditBootcampInterestedStudentComponent {
                         progressBar: true,
                         closeButton: true
                       });
-                      this.dialogRef.close(savedStudent); 
+                      this.dialogRef.close(savedStudent);
                     },
                     (error) => {
                       this.toastr.error('Error removing student from Interested table. Please try again.', 'Error', {
@@ -183,11 +153,10 @@ export class EditBootcampInterestedStudentComponent {
                 console.error('Error saving confirmed student:', error);
               }
             );
-          }
         }
       }
     }
-    
+  }
 
   onCancel(): void {
     this.dialogRef.close();

@@ -7,15 +7,8 @@ const hireusinterestedSchema = new mongoose.Schema({
   mobileNumber: { type: String, required: true , unique: true},
   inquiryStatus: { type: String, },  
   date: { type: Date, required: true, default: Date.now}, 
-//   batch: { type: String },
-//   reference: { type: String},
-//   admission:{ type: String},
   source: { type: String},
   sourcecomment: { type: String},
-//   comments: [{
-//     date: { type: Date, required: true, default: Date.now },
-//     comment: { type: String}
-//   }]
 });
 
 const HireUsInterested = mongoose.model('HireUsInterested', hireusinterestedSchema);

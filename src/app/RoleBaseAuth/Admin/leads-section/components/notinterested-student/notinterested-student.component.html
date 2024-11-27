@@ -1,5 +1,4 @@
     <div class="filter-container">
-      <!-- <h2>Not Interested Students</h2> -->
       <div class="filters">
         <mat-form-field appearance="fill">
           <mat-label>Search</mat-label>
@@ -8,18 +7,10 @@
         <mat-form-field appearance="fill">
           <mat-label>Select Course</mat-label>
           <mat-select [(value)]="selectedCourseNotInterested" (selectionChange)="onCourseChange()">
-            <!-- <mat-option value="">All</mat-option> -->
             <mat-option *ngFor="let course of courses" [value]="course">{{course}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-icon class="refresh-icon" (click)="refreshData()" mat-ripple>refresh</mat-icon>
-        <!-- <mat-form-field appearance="fill">
-          <mat-label>Select Batch</mat-label>
-          <mat-select [(value)]="selectedBatchNotInterested" (selectionChange)="onBatchChange()">
-            <mat-option value="">All</mat-option>
-            <mat-option *ngFor="let batch of batches" [value]="batch">{{ batch }}</mat-option>
-          </mat-select>
-        </mat-form-field> -->
       </div>
     </div>
     <div class="mat-elevation-z8">

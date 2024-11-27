@@ -65,10 +65,6 @@ export class InterestedStudentComponent {
         this.interestedStudents = data;
         this.totalRecords = totalRecords;
         this.filteredInterested.data =  this.interestedStudents;
-        console.log(this.filteredInterested.data);
-        // this.fetchStudents();
-        // this.filterInterested() 
-        // console.log("Interested Student :=> ", this.interestedStudents);  
       },
       (error) => {
         console.error('Error fetching students:', error);
@@ -76,19 +72,7 @@ export class InterestedStudentComponent {
     );
   }
   
-  /*filterInterested() {
-      this.filteredInterested.data = this.interestedStudents.filter(student => {
-      return (!this.selectedCourseInterested || student.course === this.selectedCourseInterested);
-      // && (!this.selectedBatchNotInterested || student.batch === this.selectedBatchNotInterested);
-    });
-    if (this.filteredInterested.paginator) {
-      this.filteredInterested.paginator.firstPage();
-    }
-
-  }*/
-
   onCourseChange() {
-    // this.filterInterested();
     this.fetchStudents();
     this.currentPage = 1;
     this.filteredInterested.paginator = this.paginator;

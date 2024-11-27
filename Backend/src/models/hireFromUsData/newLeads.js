@@ -9,9 +9,6 @@ const HireUsSchema = new mongoose.Schema({
   source: { type: String},
   lookingFor: { type:String },
   date: { type: Date , default: Date.now}
-  //  course: { type: String, required: true },
-  // inquiryStatus: { type: String },
-//   date: { type: Date , default: Date.now}
 });
 
 const HireUs = mongoose.model('HireFromUs',HireUsSchema);

@@ -5,7 +5,6 @@ import { environment } from 'src/environment/environment';
 import { StudentInformation, StudentInformationResponse } from '../models/studentInformation';
 import { StudentMockInfo, StudentMockResponse } from '../models/studentMockInformation';
 import { Contact } from '../models/contact';
-import { BootcampStudentResponse } from '../models/bootcampStudents';
 import { InquiryStudentResponse } from '../models/inquiryStudents';
 import { InterestedStudentResponse } from '../models/interestedStudents';
 

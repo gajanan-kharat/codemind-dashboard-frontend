@@ -24,10 +24,9 @@ export class NotinterestedStudentComponent {
   displayedColumns: string[] = DISPLAYED_COLUMNS;
 
   courses: string[] = ["All",...COURSES]; 
-  // batches: string[] = BATCHES;
-
+ 
   selectedCourseNotInterested = 'All';
-  // selectedBatchNotInterested = '';
+
 
   totalPages: number = 0;
   currentPage: number = 1;
@@ -47,7 +46,6 @@ export class NotinterestedStudentComponent {
   }
 
   ngAfterViewInit() {
-    // this.filteredNotInterested.paginator = this.paginator;
     this.filteredNotInterested.sort = this.sort; 
   }
 
@@ -63,7 +61,6 @@ export class NotinterestedStudentComponent {
         this.notInterestedStudents = data;
         this.totalRecords = totalRecords;
         this.filteredNotInterested.data = this.notInterestedStudents;
-        // this.filterNotInterested()  
       },
       (error) => {
         console.error('Error fetching follow-up students:', error);
@@ -88,24 +85,7 @@ export class NotinterestedStudentComponent {
     this.fetchStudents();
   }
 
-  /*filterNotInterested() {
-    this.filteredNotInterested.data = this.notInterestedStudents.filter(student => {
-      return (!this.selectedCourseNotInterested || student.course === this.selectedCourseNotInterested);
-      // && (!this.selectedBatchNotInterested || student.batch === this.selectedBatchNotInterested);
-    });
-    if (this.filteredNotInterested.paginator) {
-      this.filteredNotInterested.paginator.firstPage();
-    }
-    // Update paginator if needed
-    // this.filteredNotInterested.paginator = this.paginator;
-  }
-
-  onBatchChange() {
-    this.filterNotInterested(); 
-  }*/
-
   onCourseChange() {
-    // this.filterNotInterested();
     this.fetchStudents();
     this.currentPage = 1;
     this.filteredNotInterested.paginator = this.paginator;
@@ -124,7 +104,6 @@ export class NotinterestedStudentComponent {
         const index = this.notInterestedStudents .findIndex(s => s._id === student._id);
         if (index !== -1) {
           this.notInterestedStudents[index] = result;
-            // this.filterNotInterested();
           this.fetchStudents();
           this.mongodbService.booleanSubject.next(true);
         } 

@@ -44,7 +44,6 @@ export class InquiryStudentComponent {
   }
   
   ngAfterViewInit() {
-    // this.filteredLeads.paginator = this.paginator;
     this.filteredLeads.sort = this.sort; 
   }
 
@@ -74,21 +73,8 @@ export class InquiryStudentComponent {
     this.fetchStudents();
   }
   
-
-  /*filterLeads() {
-    this.filteredLeads.data = this.Inquirystudents.filter(student =>
-      (!this.selectedCourseLeads || student.course === this.selectedCourseLeads)
-    );
-    if (this.filteredLeads.paginator) {
-      this.filteredLeads.paginator.firstPage();
-    }
-  }*/
-
   onCourseChange() {
-      // this.filterLeads();
       this.fetchStudents();
-      this.currentPage = 1;
-      this.filteredLeads.paginator = this.paginator;
   }
 
   applyFilter(event: Event) {
@@ -140,7 +126,6 @@ export class InquiryStudentComponent {
           const index = this.Inquirystudents.findIndex(s => s._id === student._id);
           if (index !== -1) {
             this.Inquirystudents[index] = result;
-            // this.filterLeads();
             this.fetchStudents();
             this.mongodbService.booleanSubject.next(true);
           }

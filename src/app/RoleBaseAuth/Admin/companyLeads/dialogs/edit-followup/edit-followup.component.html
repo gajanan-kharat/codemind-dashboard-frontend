@@ -9,60 +9,43 @@
   </button>
   
   <div mat-dialog-content>
-    <form [formGroup]="inquiryForm">
+    <form [formGroup]="followupForm">
       <div class="section">
         <div class="form-container">
         <mat-form-field appearance="fill">
           <mat-label> Name</mat-label>
           <input matInput formControlName="name">
-          <mat-error *ngIf="inquiryForm.get('name')?.hasError('required') && inquiryForm.get('name')?.touched">
+          <mat-error *ngIf="followupForm.get('name')?.hasError('required') && followupForm.get('name')?.touched">
             Name is required.
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Company</mat-label>
           <input matInput formControlName="company">
-          <mat-error *ngIf="inquiryForm.get('company')?.hasError('required') && inquiryForm.get('company')?.touched">
+          <mat-error *ngIf="followupForm.get('company')?.hasError('required') && followupForm.get('company')?.touched">
             Last Name is required.
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
           <input matInput formControlName="email">
-          <mat-error *ngIf="inquiryForm.get('email')?.hasError('required') && inquiryForm.get('email')?.touched">
+          <mat-error *ngIf="followupForm.get('email')?.hasError('required') && followupForm.get('email')?.touched">
             Email is required.
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Mobile Number</mat-label>
           <input matInput formControlName="mobileNumber">
-          <mat-error *ngIf="inquiryForm.get('mobileNumber')?.hasError('required') && inquiryForm.get('mobileNumber')?.touched">
+          <mat-error *ngIf="followupForm.get('mobileNumber')?.hasError('required') && followupForm.get('mobileNumber')?.touched">
             Mobile Number is required.
           </mat-error>
         </mat-form-field>
-        <!-- <mat-form-field appearance="fill" *ngIf="isEditMode">
-            <mat-label>Course</mat-label>
-            <input matInput formControlName="course">
-            <mat-error *ngIf="inquiryForm.get('course')?.hasError('required') && inquiryForm.get('course')?.touched">
-                course is required.
-            </mat-error>
-        </mat-form-field> -->
-          <!-- Course -->
-        <!-- <mat-form-field appearance="fill" *ngIf="!isEditMode">
-          <mat-label>Course</mat-label>
-          <mat-select formControlName="course">
-            <mat-option *ngFor="let course of courses" [value]="course">{{ course }}</mat-option>
-          </mat-select>
-          <mat-error *ngIf="inquiryForm.get('course')?.hasError('required') && inquiryForm.get('course')?.touched">
-            Course is required.
-          </mat-error>
-        </mat-form-field> -->
         <mat-form-field appearance="fill" *ngIf="isEditMode" >
           <mat-label>Inquiry Status</mat-label>
           <mat-select formControlName="inquiryStatus">
             <mat-option *ngFor="let status of inquiryStatuses" [value]="status">{{ status }}</mat-option>
           </mat-select>
-          <mat-error *ngIf="inquiryForm.get('inquiryStatus')?.hasError('required') && inquiryForm.get('inquiryStatus')?.touched">
+          <mat-error *ngIf="followupForm.get('inquiryStatus')?.hasError('required') && followupForm.get('inquiryStatus')?.touched">
             Inquiry Status is required.
           </mat-error>
         </mat-form-field>
@@ -71,7 +54,7 @@
           <input matInput [matDatepicker]="picker" formControlName="date" >
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-          <mat-error *ngIf="inquiryForm.get('date')?.hasError('required') && inquiryForm.get('date')?.touched">
+          <mat-error *ngIf="followupForm.get('date')?.hasError('required') && followupForm.get('date')?.touched">
             Date is required.
           </mat-error>
         </mat-form-field>
@@ -81,12 +64,12 @@
           <mat-select formControlName="source">
             <mat-option *ngFor="let source of sourceOptions" [value]="source">{{ source }}</mat-option>
           </mat-select>
-          <mat-error *ngIf="inquiryForm.get('source')?.hasError('required') && inquiryForm.get('source')?.touched">
+          <mat-error *ngIf="followupForm.get('source')?.hasError('required') && followupForm.get('source')?.touched">
             Source is required.
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" *ngIf="isEditMode" >
-          <mat-label>Comment</mat-label>
+          <mat-label>Source Comment</mat-label>
           <textarea matInput formControlName="sourcecomment"></textarea>
         </mat-form-field>
         </div>
@@ -96,7 +79,7 @@
   
   <div class="bottom-section" mat-dialog-actions>
     <button *ngIf="!isEditMode" class="save-btn" mat-button (click)="onSaveAdd()">Save</button>
-    <button *ngIf="isEditMode" class="save-btn" mat-button (click)="onSave()">Save</button>
+    <button *ngIf="isEditMode" class="save-btn" mat-button (click)="onSave()">Update</button>
   </div>
   </div>
 

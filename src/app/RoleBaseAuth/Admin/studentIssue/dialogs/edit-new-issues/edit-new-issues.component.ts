@@ -20,19 +20,14 @@ export class EditNewIssuesComponent {
   batches = BATCHES; 
   issueStatus = ['New Issue','In Progress','Block','Resolve'];
 
-
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<EditCollegeInfoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any ,
-    private collegeDataService: CollegeDataService,
     private toastr: ToastrService,
     private studentIssueService: StudentIssueService
   ) {
-
-
     this.isEditMode = !!data && !!data.student;
-
     // Initialize the form
     this.studentIssueForm = this.fb.group({
       firstName: [ this.isEditMode ? data.student.firstName : '', Validators.required],

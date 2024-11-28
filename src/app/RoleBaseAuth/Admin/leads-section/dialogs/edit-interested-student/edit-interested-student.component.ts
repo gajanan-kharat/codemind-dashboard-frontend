@@ -64,38 +64,8 @@ export class EditInterestedStudentComponent {
   }
 
   onAdmissionStatusChange(value: string): void {
-    this.selectedAdmissionStatus = value; // Update the selected status
+    this.selectedAdmissionStatus = value; 
   }
-
-  /*onSave() {
-    if (this.interestedForm.valid) {
- 
-      console.log("payment data :=>",   this.formData);
-      // console.log("payment Data:=>",formData);
-      // this.onPaymentDataChange() 
-      this.mongodbService.updateInterestedStudent(this.data.student._id, this.interestedForm.value)
-        .subscribe(
-          (updatedStudent) => {
-            this.toastr.success('Updated Interested Student Data successfully.', 'Success', {
-              timeOut: 3000,
-              positionClass: 'toast-top-right',
-              progressBar: true,
-              closeButton: true
-            });
-            this.dialogRef.close(updatedStudent); 
-          },
-          (error) => {
-            this.toastr.error('Error updating Interstered Student Data. Please try again.', 'Error', {
-              timeOut: 3000,
-              positionClass: 'toast-top-right',
-              progressBar: true,
-              closeButton: true
-            });
-            console.error('Error updating student:', error);
-          }
-        );
-    }
-  }*/
 
     onSave() {
       if (this.interestedForm.valid) {

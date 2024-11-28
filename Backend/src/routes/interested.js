@@ -17,16 +17,6 @@ router.post('/', async (req, res) => {
 });
 
 // GET route to fetch all Interested inquiries
-/*router.get('/', async (req, res) => {
-  try {
-    const interestedInquiries = await Interested.find();
-    res.status(200).send(interestedInquiries);
-  } catch (error) {
-    res.status(400).send({ error: 'Error fetching interested inquiries', details: error });
-  }
-});*/
-
-
 router.get('/', async (req, res) => {
   try {
     const searchQuery = req.query.search?.trim();

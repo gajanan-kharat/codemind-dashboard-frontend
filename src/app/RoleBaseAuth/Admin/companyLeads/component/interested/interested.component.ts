@@ -5,10 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
-import { COURSES, DISPLAYED_COLUMNSFOLLOW } from 'src/app/models/admin-content';
-import { InterestedStudentResponse } from 'src/app/models/interestedStudents';
+import { COURSES, DISPLAYED_COLUMNS_COMPANY_FOLLOW } from 'src/app/models/admin-content';
 import { MongodbService } from 'src/app/services/mongodb.service';
-import { EditInterestedStudentComponent } from '../../../leads-section/dialogs/edit-interested-student/edit-interested-student.component';
 import { HireusService } from 'src/app/services/hireus.service';
 import { HireUsInterestedResponse } from 'src/app/models/hireFromUs/interested';
 import { EditInterestedComponent } from '../../dialogs/edit-interested/edit-interested.component';
@@ -25,10 +23,7 @@ export class InterestedComponent {
   filteredInterested = new MatTableDataSource<any>();
   interestedStudents: any[] =[];
 
-  selectedCourseInterested = 'All';
-  courses: string[] = ["All",...COURSES]; 
-  displayedColumns: string[] = ["name","email","inquiryStatus","date","actions"];
-  dateRangeForm: FormGroup;
+  displayedColumns =  DISPLAYED_COLUMNS_COMPANY_FOLLOW;
 
   totalPages: number = 0;
   currentPage: number = 1;
@@ -36,15 +31,9 @@ export class InterestedComponent {
   totalRecords:number = 0;
   role: string | null = '';
 
-  constructor(private mongodbService: MongodbService,
-              private hireusService: HireusService,
+  constructor(private hireusService: HireusService,
               private dialog: MatDialog, 
-              private fb: FormBuilder,
               private toastr: ToastrService){
-    this.dateRangeForm = this.fb.group({
-      start: [''],
-      end: ['']
-    });
     this.role = localStorage.getItem('user_role');
 }
   ngOnInit(): void {
@@ -52,13 +41,11 @@ export class InterestedComponent {
   }
 
   ngAfterViewInit() {
-    // this.filteredInterested.paginator = this.paginator;
     this.filteredInterested.sort = this.sort; 
   }
 
   fetchStudents(searchTerm: string = ''): void {
     const filters = {
-      course: this.selectedCourseInterested|| '',
     };
     this.hireusService.getHireUsInterested(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response:HireUsInterestedResponse) => {
@@ -67,11 +54,7 @@ export class InterestedComponent {
         this.currentPage = currentPage;       
         this.interestedStudents = data;
         this.totalRecords = totalRecords;
-        this.filteredInterested.data =  this.interestedStudents;
-        console.log("HireUs Intereted",this.filteredInterested.data);
-        // this.fetchStudents();
-        // this.filterInterested() 
-        // console.log("Interested Student :=> ", this.interestedStudents);  
+        this.filteredInterested.data =  this.interestedStudents;  
       },
       (error) => {
         console.error('Error fetching students:', error);
@@ -79,24 +62,6 @@ export class InterestedComponent {
     );
   }
   
-  /*filterInterested() {
-      this.filteredInterested.data = this.interestedStudents.filter(student => {
-      return (!this.selectedCourseInterested || student.course === this.selectedCourseInterested);
-      // && (!this.selectedBatchNotInterested || student.batch === this.selectedBatchNotInterested);
-    });
-    if (this.filteredInterested.paginator) {
-      this.filteredInterested.paginator.firstPage();
-    }
-
-  }*/
-
-  onCourseChange() {
-    // this.filterInterested();
-    this.fetchStudents();
-    this.currentPage = 1;
-    this.filteredInterested.paginator = this.paginator;
-  }
-
   onPageChange(event: any): void {
     this.currentPage = event.pageIndex+1; 
     this.limit = event.pageSize; 
@@ -106,7 +71,6 @@ export class InterestedComponent {
   refreshData(){
     this.interestedStudents = [];
     this.filteredInterested.data = [];
-    this.selectedCourseInterested = '';
     const searchInput = document.querySelector('input[matInput]') as HTMLInputElement;
     if (searchInput) {
       searchInput.value = '';
@@ -127,9 +91,8 @@ export class InterestedComponent {
           const index = this.interestedStudents.findIndex(s => s._id === student._id);
           if (index !== -1) {
             this.interestedStudents[index] = result;
-            // this.filterInterested();
             this.fetchStudents();
-            this.mongodbService.booleanSubject.next(true);
+            this.hireusService.booleanSubject.next(true);
           }      
       }
     });

@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
-import { ISSUESTATUS } from 'src/app/models/admin-content';
+import { DISPLAYED_COLUMNS_INVENTORY, ISSUESTATUS } from 'src/app/models/admin-content';
 import { StudentIssueService } from 'src/app/services/student-issue.service';
 import { EditNewIssuesComponent } from '../../dialogs/edit-new-issues/edit-new-issues.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -17,14 +17,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class NewIssuesComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;  
-  dateRangeForm!: FormGroup;
   
   filteredStudentIssuesData = new MatTableDataSource<any>();
   role: string | null = '';
   studentIssuesInfo: any[] = [];
 
   topItems =  ISSUESTATUS ;   
-  displayedColumns: string[] = ['name','email','mobileNumber','status','Actions'];
+  displayedColumns =  DISPLAYED_COLUMNS_INVENTORY;
   selectedName = '';
  
   totalPages: number = 0;
@@ -32,23 +31,16 @@ export class NewIssuesComponent {
   limit: number = 10;
   totalRecords:number = 0;
 
-  /*startDate: Date | null = null;
-  endDate: Date | null = null;*/
-  
   constructor(  private studentIssueService: StudentIssueService, 
                private dialog: MatDialog,
                private toastr: ToastrService,
                private fb: FormBuilder) {
-  this.dateRangeForm = this.fb.group({
-     start: [''],
-     end: ['']
-    });
+  
     this.role = localStorage.getItem('user_role');
   }
 
   ngOnInit(): void {
     this.fetchStudentIssues(); 
-    this.dateRangeForm.valueChanges.subscribe(() => this.fetchStudentIssues());
   }
 
   ngAfterViewInit() {
@@ -62,24 +54,13 @@ export class NewIssuesComponent {
       this.filteredStudentIssuesData.paginator = this.paginator;
     
     }
-  
-   /* onDateChange(): void {
-      this.currentPage = 1;
-      this.fetchCollegeData();
-      this.filteredCollegeData.paginator = this.paginator;
-    }*/
 
   fetchStudentIssues(searchTerm: string = ''): void {
      const filters = {
       issueStatus: this.selectedName || '',
-      startDate: this.dateRangeForm.value.start || '', 
-      endDate: this.dateRangeForm.value.end || '',   
-       /*startDate: this.startDate ? this.startDate.toISOString() : '',
-       endDate: this.endDate ? this.endDate.toISOString() : ''*/
     };
     this.studentIssueService.getStudentIssuesData(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response: any) => {
-        // console.log("scholarship:=>",response);
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
         this.currentPage = currentPage;       
@@ -110,13 +91,10 @@ export class NewIssuesComponent {
     this.studentIssuesInfo= [];
     this.filteredStudentIssuesData.data = [];
     this.selectedName = '';
-    /*this.startDate = null;
-    this.endDate = null;*/
     const searchInput = document.getElementById('search-input') as HTMLInputElement;
     if (searchInput) {
       searchInput.value = '';
     }
-    this.dateRangeForm.reset();
     this.fetchStudentIssues();
   }
  
@@ -127,7 +105,6 @@ export class NewIssuesComponent {
       maxWidth: '80vw', 
       minWidth: '300px',
     });
-  //  console.log("scholarship:=>",student);
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
         const index = this.studentIssuesInfo.findIndex(s => s._id === student._id);
@@ -166,8 +143,8 @@ export class NewIssuesComponent {
     const dialogRef = this.dialog.open(EditNewIssuesComponent, {
       width: '50%',
       data: { student:null }, 
-      // maxWidth: '80vw',
-      // minWidth: '300px',
+      maxWidth: '80vw',
+      minWidth: '300px',
     });
   
     dialogRef.afterClosed().subscribe(result => {

@@ -27,10 +27,7 @@ export class EditBootcampStudentComponent {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<EditBootcampStudentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private formBuilder: FormBuilder,
-    private mongodbService: MongodbService,
     private toastr: ToastrService,
-    private datePipe: DatePipe,
     private bootcampService: BootcampService
   ) {
     this.bootcampForm = this.fb.group({
@@ -142,7 +139,6 @@ export class EditBootcampStudentComponent {
       closeButton: true,
     });
   }
-
 
   onCancel() {
     this.dialogRef.close();

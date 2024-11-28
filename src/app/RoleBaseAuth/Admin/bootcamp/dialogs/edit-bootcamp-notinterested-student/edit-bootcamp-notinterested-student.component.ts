@@ -21,9 +21,7 @@ export class EditBootcampNotinterestedStudentComponent {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<EditBootcampNotinterestedStudentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private mongodbService: MongodbService,
     private toastr: ToastrService,
-    private datePipe: DatePipe,
     private bootcampService: BootcampService
   ) {
     this.notInterestedForm = this.fb.group({

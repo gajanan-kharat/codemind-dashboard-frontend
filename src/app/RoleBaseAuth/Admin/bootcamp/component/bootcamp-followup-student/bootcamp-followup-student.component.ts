@@ -8,7 +8,6 @@ import { ToastrService } from 'ngx-toastr';
 import { COURSES, BATCHES, DISPLAYED_COLUMNSFOLLOW, INQUIRYSTATUSES } from 'src/app/models/admin-content';
 import { FollowUpStudentResponse } from 'src/app/models/followup';
 import { MongodbService } from 'src/app/services/mongodb.service';
-import { EditFollowupStudentComponent } from '../../../leads-section/dialogs/edit-followup-student/edit-followup-student.component';
 import { EditBootcampFollowupStudentComponent } from '../../dialogs/edit-bootcamp-followup-student/edit-bootcamp-followup-student.component';
 import { BootcampService } from 'src/app/services/bootcamp.service';
 
@@ -41,8 +40,9 @@ export class BootcampFollowupStudentComponent {
   role: string | null = '';
 
   dateRangeForm: FormGroup;
-  constructor(private mongodbService: MongodbService, private dialog: MatDialog, 
-              private fb: FormBuilder, private toastr: ToastrService,
+  constructor(private dialog: MatDialog, 
+              private fb: FormBuilder, 
+              private toastr: ToastrService,
               private bootcampService: BootcampService) {
     this.dateRangeForm = this.fb.group({
       start: [''],
@@ -56,7 +56,6 @@ export class BootcampFollowupStudentComponent {
     this.dateRangeForm.valueChanges.subscribe(() => this.fetchStudents());
   }
   ngAfterViewInit() {
-    // this.filteredFollowUp.paginator = this.paginator;
       this.filteredFollowUp.sort = this.sort; 
   }
 
@@ -67,7 +66,6 @@ export class BootcampFollowupStudentComponent {
       startDate: this.dateRangeForm.value.start || '', 
       endDate: this.dateRangeForm.value.end || '',     
     };
-    // console.log("date :=>", filters.startDate, filters.endDate, filters);
     this.bootcampService.getBootcampFollowUp(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response: FollowUpStudentResponse) => {
         const {totalRecords, totalPages, currentPage, data } = response;
@@ -76,7 +74,6 @@ export class BootcampFollowupStudentComponent {
         this.followUpStudents = data;
         this.totalRecords = totalRecords;
         this.filteredFollowUp.data = this.followUpStudents;
-        // this.filterFollowUp();
       },
       (error) => {
         console.error('Error fetching follow-up students:', error);
@@ -103,30 +100,17 @@ export class BootcampFollowupStudentComponent {
     this.dateRangeForm.reset();
     this.fetchStudents();
   }
-  
-  /*filterFollowUp() {
-    const { start, end } = this.dateRangeForm.value;
-    this.filteredFollowUp.data = this.followUpStudents.filter(student => {
-      const studentDate = new Date(student.date);
-      const isDateInRange = (!start || studentDate >= new Date(start)) && (!end || studentDate <= new Date(end));
-      return isDateInRange &&
-            (!this.selectedCourseFollowUp || student.course === this.selectedCourseFollowUp) &&
-             (!this.selectedStatusFollowUp || student.inquiryStatus === this.selectedStatusFollowUp);
-    });
-    if (this.filteredFollowUp.paginator) {
-      this.filteredFollowUp.paginator.firstPage();
-    }
-    // this.filteredFollowUp.paginator = this.paginator;
-  }*/
 
   onCourseChange() {
     this.fetchStudents();
-    // this.filterFollowUp();
+    this.currentPage = 1;
+    this.filteredFollowUp.paginator = this.paginator;
   }
 
   onStatusChange() {
     this.fetchStudents();
-    //  this.filterFollowUp();   
+    this.currentPage = 1;
+    this.filteredFollowUp.paginator = this.paginator;
   }
 
   editFollowUpStudent(student: any) {
@@ -142,9 +126,8 @@ export class BootcampFollowupStudentComponent {
             const index = this.followUpStudents.findIndex(s => s._id === student._id);
             if (index !== -1) {
                 this.followUpStudents[index] = result;
-                // this.filterFollowUp();
                 this.fetchStudents(); 
-                this.mongodbService.booleanSubject.next(true);
+                this.bootcampService.booleanSubject.next(true);
             }
         }
     });
@@ -160,7 +143,7 @@ deleteStudent(student:any){
   console.log(student._id);
   this.bootcampService.deleteBootcampFollowUpStudent(student._id).subscribe(
     () => {
-        this.toastr.success('Inquiry Student deleted successfully.', 'Success', {
+        this.toastr.success('FollowUp Student deleted successfully.', 'Success', {
         timeOut: 3000,
         positionClass: 'toast-top-right',
         progressBar: true,
@@ -169,8 +152,8 @@ deleteStudent(student:any){
       this.fetchStudents(); 
     },
     (error) => {
-      console.error('Error deleting Inquiry Student:', error);
-      this.toastr.error('Error deleting Inquiry Student. Please try again.', 'Error', {
+      console.error('Error deleting FollowUp Student:', error);
+      this.toastr.error('Error deleting FollowUp Student. Please try again.', 'Error', {
         timeOut: 3000,
         positionClass: 'toast-top-right',
         progressBar: true,
@@ -179,8 +162,6 @@ deleteStudent(student:any){
     }
   );
 }
-
-
 }
 
 

@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -7,8 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { DISPLAYED_COLUMNS, COURSES } from 'src/app/models/admin-content';
 import { NotInterestedStudentResponse } from 'src/app/models/notInterestedStudents';
-import { MongodbService } from 'src/app/services/mongodb.service';
-import { EditNotintrestedStudentComponent } from '../../../leads-section/dialogs/edit-notintrested-student/edit-notintrested-student.component';
 import { EditBootcampNotinterestedStudentComponent } from '../../dialogs/edit-bootcamp-notinterested-student/edit-bootcamp-notinterested-student.component';
 import { BootcampService } from 'src/app/services/bootcamp.service';
 
@@ -19,51 +16,48 @@ import { BootcampService } from 'src/app/services/bootcamp.service';
 })
 export class BootcampNotinterestedStudentComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort; 
+  @ViewChild(MatSort) sort!: MatSort;
   filteredNotInterested = new MatTableDataSource<any>();
-  notInterestedStudents: any[] =[];
+  notInterestedStudents: any[] = [];
 
   displayedColumns: string[] = DISPLAYED_COLUMNS;
 
-  courses: string[] = ["All",...COURSES]; 
+  courses: string[] = ["All", ...COURSES];
 
   selectedCourseNotInterested = 'All';
 
   totalPages: number = 0;
   currentPage: number = 1;
   limit: number = 10;
-  totalRecords:number = 0;
+  totalRecords: number = 0;
   role: string | null = '';
 
-  constructor(private mongodbService: MongodbService,
-              private dialog: MatDialog, 
-              private fb: FormBuilder,
-              private toastr: ToastrService,
-              private bootcampService: BootcampService) {
-                this.role = localStorage.getItem('user_role');
-              }
-  
+  constructor(private dialog: MatDialog,
+    private toastr: ToastrService,
+    private bootcampService: BootcampService) {
+    this.role = localStorage.getItem('user_role');
+  }
+
   ngOnInit(): void {
     this.fetchStudents();
   }
 
   ngAfterViewInit() {
-    this.filteredNotInterested.sort = this.sort; 
+    this.filteredNotInterested.sort = this.sort;
   }
 
   fetchStudents(searchTerm: string = ''): void {
     const filters = {
-      course: this.selectedCourseNotInterested|| '',
+      course: this.selectedCourseNotInterested || '',
     };
-    this.bootcampService.getBootcampNotInterested(this.currentPage, this.limit, searchTerm,filters).subscribe(
-      (response:NotInterestedStudentResponse) => {
-        const {totalRecords, totalPages, currentPage, data } = response;
-        this.totalPages = totalPages;         
-        this.currentPage = currentPage;       
+    this.bootcampService.getBootcampNotInterested(this.currentPage, this.limit, searchTerm, filters).subscribe(
+      (response: NotInterestedStudentResponse) => {
+        const { totalRecords, totalPages, currentPage, data } = response;
+        this.totalPages = totalPages;
+        this.currentPage = currentPage;
         this.notInterestedStudents = data;
         this.totalRecords = totalRecords;
         this.filteredNotInterested.data = this.notInterestedStudents;
-        // this.filterNotInterested()  
       },
       (error) => {
         console.error('Error fetching follow-up students:', error);
@@ -71,16 +65,15 @@ export class BootcampNotinterestedStudentComponent {
     );
   }
   onPageChange(event: any): void {
-    this.currentPage = event.pageIndex+1; 
-    this.limit = event.pageSize; 
+    this.currentPage = event.pageIndex + 1;
+    this.limit = event.pageSize;
     this.fetchStudents();
   }
-  
-  refreshData(){
+
+  refreshData() {
     this.notInterestedStudents = [];
     this.filteredNotInterested.data = [];
     this.selectedCourseNotInterested = '';
-    // this.selectedBatchNotInterested = '';
     const searchInput = document.querySelector('input[matInput]') as HTMLInputElement;
     if (searchInput) {
       searchInput.value = '';
@@ -94,45 +87,45 @@ export class BootcampNotinterestedStudentComponent {
     this.filteredNotInterested.paginator = this.paginator;
   }
 
-  editNotInterestedStudent(student:any){
+  applyFilterNotInterested(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.filteredNotInterested.filter = filterValue.trim().toLowerCase();
+
+    if (this.filteredNotInterested.paginator) {
+      this.filteredNotInterested.paginator.firstPage();
+    }
+  }
+
+  editNotInterestedStudent(student: any) {
     const dialogRef = this.dialog.open(EditBootcampNotinterestedStudentComponent, {
       width: '50%',
       data: { student },
-      maxWidth: '80vw', 
-    minWidth: '300px',
+      maxWidth: '80vw',
+      minWidth: '300px',
     });
-  
+
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        const index = this.notInterestedStudents .findIndex(s => s._id === student._id);
+        const index = this.notInterestedStudents.findIndex(s => s._id === student._id);
         if (index !== -1) {
           this.notInterestedStudents[index] = result;
           this.fetchStudents();
-          this.mongodbService.booleanSubject.next(true);
-        } 
+          this.bootcampService.booleanSubject.next(true);
+        }
       }
     });
   }
 
-  applyFilterNotInterested(event: Event){
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.filteredNotInterested.filter = filterValue.trim().toLowerCase();
-  
-    if (this.filteredNotInterested.paginator) {
-      this. filteredNotInterested.paginator.firstPage();
-    }
-  }
-  
-  deleteStudent(student:any){
+  deleteStudent(student: any) {
     this.bootcampService.deleteBootcampNotinterestedStudent(student._id).subscribe(
       () => {
-          this.toastr.success('Not Interested Student deleted successfully.', 'Success', {
+        this.toastr.success('Not Interested Student deleted successfully.', 'Success', {
           timeOut: 3000,
           positionClass: 'toast-top-right',
           progressBar: true,
           closeButton: true
         });
-        this.fetchStudents(); 
+        this.fetchStudents();
       },
       (error) => {
         console.error('Error deleting Not Interested Student:', error);
@@ -146,8 +139,8 @@ export class BootcampNotinterestedStudentComponent {
     );
   }
 
-  onSendEmail(student:any) {
-    const notInterestedId = student._id; 
+  onSendEmail(student: any) {
+    const notInterestedId = student._id;
     this.bootcampService.sendNotInterestedEmail(notInterestedId).subscribe(
       (response) => {
         this.toastr.success('Email sent successfully');
@@ -157,5 +150,4 @@ export class BootcampNotinterestedStudentComponent {
       }
     );
   }
-
 }

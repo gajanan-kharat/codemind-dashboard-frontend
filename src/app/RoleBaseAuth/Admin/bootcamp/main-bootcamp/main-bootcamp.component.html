@@ -21,7 +21,6 @@
           <h3 class="card-title">Follow-Up</h3>
         </div>
       </div>
-
       <!--  Interested Card -->
       <div class="card" [class.selected]="selectedCard === 'interested'" (click)="onCardClick('interested')">
         <div class="card-icon-container">
@@ -32,7 +31,6 @@
           <h3 class="card-title">Interested</h3>
         </div>
       </div>
-
       <!-- Not Interested Card -->
       <div class="card" [class.selected]="selectedCard === 'notinterested'" (click)="onCardClick('notinterested')">
         <div class="card-icon-container">
@@ -81,5 +79,4 @@
   <section class="student-table" *ngIf="selectedCard === 'codemindBootcamp'">
     <app-codemind-bootcamp></app-codemind-bootcamp>
   </section>
-
 </div>

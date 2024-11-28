@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environment/environment';
-import { InquiryStudentResponse } from '../models/inquiryStudents';
 import { HireUsResponse } from '../models/hireFromUs/hireus';
 import { HireUsInterestedResponse } from '../models/hireFromUs/interested';
 import { HireUsFollowUpResponse } from '../models/hireFromUs/followUp';
@@ -31,6 +30,7 @@ export class HireusService {
     return this.http.post<any>(`${this.baseApiUrl}/hireus`,studentData);
   }
 
+
   //delete HireUs
   deleteHireUs(studentId: string): Observable<any> {
     return this.http.delete<any>(`${this.baseApiUrl}/hireus/${studentId}`);
@@ -50,6 +50,11 @@ export class HireusService {
       ...filters
     };
     return this.http.get<any>(`${this.baseApiUrl}/hireus/interested?search=${searchTerm}`,{ params });
+  }
+
+  //update HireUs Interested
+  updateHireUsInterested(id: string, data: any): Observable<any> {
+    return this.http.put(`${this.baseApiUrl}/hireus/interested/${id}`, data);
   }
 
   //delete HireUs Interested
@@ -74,6 +79,11 @@ export class HireusService {
     return this.http.get<any>(`${this.baseApiUrl}/hireus/notInterested?search=${searchTerm}`,{ params });
   }
 
+  //update HireUs Interested
+  updateHireUsNotInterested(id: string, data: any): Observable<any> {
+    return this.http.put(`${this.baseApiUrl}/hireus/notInterested/${id}`, data);
+  }
+
   //delete HireUs Interested
   deleteHireUsNotInterested(studentId: string): Observable<any> {
     return this.http.delete<any>(`${this.baseApiUrl}/hireus/notInterested/${studentId}`);
@@ -94,6 +104,12 @@ export class HireusService {
     };
     return this.http.get<any>(`${this.baseApiUrl}/hireus/followUp?search=${searchTerm}`,{ params });
   }
+
+  //Update HireUs Followup
+  updateHireUsFollowUp(student: any): Observable<any> {
+    return this.http.put(`${this.baseApiUrl}/hireus/followUp/${student._id}`, student);
+  }
+
 
   //delete HireUs FollowUp
   deleteHireUsFollowUp(studentId: string): Observable<any> {

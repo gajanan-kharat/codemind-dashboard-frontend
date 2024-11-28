@@ -82,8 +82,6 @@ router.put('/:id', async (req, res) => {
       return res.status(404).send({ error: ' bootcamp Not Interested inquiry not found' });
     }
 
-    // await sendNotInterestedEmail(notInterestedId);
-
     res.status(200).send(updatedNotInterested);
   } catch (error) {
     res.status(400).send({ error: 'Error updating bootcamp not interested inquiry', details: error });

@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ScholarshipService } from 'src/app/services/scholarship.service';
-import { BATCHES, COURSES, FEEDBACK_OPTIONS } from 'src/app/models/admin-content';
+import { BATCHES, COURSES, SHOLARSHIP_FEEDBACK_OPTIONS, VISITED_SHOLARSHIP_OPTIONS } from 'src/app/models/admin-content';
 import { EditPaymentDialogComponent } from '../../../dialogs/edit-payment-dialog/edit-payment-dialog.component';
 import { MongodbService } from 'src/app/services/mongodb.service';
 
@@ -18,8 +18,8 @@ export class EditScholarshipComponent {
   scholarshipForm: FormGroup;
   isEditMode: boolean;
   isLoading: Boolean = false;
-  visitedStatusOptions = ['Scholarship', 'In Progress', 'Selected', 'Rejected'];
-  feedback = ['Excellent', 'Good', 'Average', 'Poor'];
+  visitedStatusOptions = VISITED_SHOLARSHIP_OPTIONS;
+  feedback = SHOLARSHIP_FEEDBACK_OPTIONS;
   selectedScholarshipStatus: string = 'Scholarship';
   courses = COURSES;
   batches = BATCHES;
@@ -62,13 +62,10 @@ export class EditScholarshipComponent {
 
   onScholarshipStatusChange(value: string): void {
     this.selectedScholarshipStatus = value;
-    console.log("scholarship status:=>", this.selectedScholarshipStatus);
   }
 
-  // Submit the form (for create or edit)
   onSubmit(): void {
     if (this.scholarshipForm.valid) {
-      // console.log("data",this.scholarshipForm.value);
       if (this.isEditMode) {
         this.updateScholarship(this.data.student._id, this.scholarshipForm.value);
       } else {
@@ -120,7 +117,6 @@ export class EditScholarshipComponent {
           const payments = [payment];
           const name = this.scholarshipForm.value.name || "";
           const [firstName, lastName] = name.split(" ");
-          //  console.log("Scholarship Payments:=>",payments);
           const confirmedStudentData = {
             ...this.scholarshipForm.value,
             firstName: firstName || "",
@@ -128,7 +124,6 @@ export class EditScholarshipComponent {
             payments,
           };
 
-          console.log("Scholarship confirmedStudentData :=>", confirmedStudentData);
           // Save student data in another table (e.g., a "Confirmed Students" table)
           this.mongodbService.saveConfirmedStudent(confirmedStudentData)
             .subscribe(
@@ -171,8 +166,6 @@ export class EditScholarshipComponent {
     }
   }
 
-
-
   createScholarship(newUser: any): void {
     this.isLoading = true;
     this.scholarshipDataService.saveScholarshipData(newUser).subscribe(
@@ -201,5 +194,4 @@ export class EditScholarshipComponent {
   onCancel(): void {
     this.dialogRef.close();
   }
-
 }

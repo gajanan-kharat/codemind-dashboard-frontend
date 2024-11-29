@@ -50,8 +50,8 @@ export class LoginComponent {
           this.authService.setUsername(response.firstname);
           this.authService.setId(response.id);
           this.authService.setFullname(response.fullName);
-          console.log("login response :=> ",response);
-          console.log(response.token, response.role, response.firstname, response.id);
+          // console.log("login response :=> ",response);
+          // console.log(response.token, response.role, response.firstname, response.id);
 
           // Redirect based on user role
           this.redirectBasedOnRole(response.role);
@@ -72,13 +72,13 @@ export class LoginComponent {
   }
   private redirectBasedOnRole(role: string) {
     if (role === 'Admin') {
-      this.router.navigate(['/admin-dashboard']);
+      this.router.navigate(['/codemind-dashboard/admin-dashboard']);
     } else if (role === 'Sub-Admin') {
-      this.router.navigate(['/subadmin-dashboard']);
+      this.router.navigate(['/codemind-dashboard/subadmin-dashboard']);
     } else if (role === 'Counselor') {
-      this.router.navigate(['/counselor-dashboard']);
+      this.router.navigate(['/codemind-dashboard/counselor-dashboard']);
     } else if (role === 'Technical-Expert') {
-      this.router.navigate(['/student-issues-dashboard']);
+      this.router.navigate(['/codemind-dashboard/student-issues-dashboard']);
     } else {
       this.router.navigate(['/']);
     }

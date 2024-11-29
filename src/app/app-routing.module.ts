@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+
 const routes: Routes = [
 
+  { path: '', redirectTo: 'codemind-dashboard', pathMatch: 'full' },
+
   {
-    path: '', loadChildren: () => import('./RoleBaseAuth/role-base.module').then(m => m.RoleBaseModule)
+    path: 'codemind-dashboard', loadChildren: () => import('./RoleBaseAuth/role-base.module').then(m => m.RoleBaseModule)
   },
 
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'codemind-dashboard' }
 ];
 
 @NgModule({

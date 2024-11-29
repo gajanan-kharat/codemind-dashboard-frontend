@@ -21,8 +21,9 @@ import { InvertoryComponent } from './Admin/inventory/component/invertory/invert
 const routes: Routes = [
   // { path: 'signup', component: SignupComponent },
   // { path: 'codemindDashboard', component: LoginComponent },
-  { path: 'codemind-dashboard', component: LoginComponent },
-  { path: '', redirectTo: '/codemind-dashboard', pathMatch: 'full' },
+  
+  { path: '', component: LoginComponent },
+
   {
     path: 'admin-dashboard',
     component: AdminDashboardComponent,

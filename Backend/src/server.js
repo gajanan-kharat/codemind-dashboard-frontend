@@ -5,19 +5,30 @@ const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
 
+//Login Data
 const authRoutes = require('./routes/auth');
+
+//Dashboard Data
+const studentInformationRoutes = require('./routes/studentInformation');
+
+//Student-Leads Data
 const inquiryRoutes = require('./routes/Inquiry');
 const notInterestedRoutes = require('./routes/notInterested');
 const interestedRoutes = require('./routes/interested');
 const followUpRoutes = require('./routes/followUp');
-const studentInformationRoutes = require('./routes/studentInformation');
+const totalRecordsRouter = require('./routes/totalTableRecords');
+
+//Report Data
 const reportRoutes = require('./routes/report');
-// const studentMockInformationRoutes = require('./routes/studentMockInformation');
 const usersReportRoutes = require('./routes/usersReport');
 const studentsReportRoutes = require('./routes/ReportGenerate/studentsreports');
+
+// const studentMockInformationRoutes = require('./routes/studentMockInformation');
+
+//Course and Fees Data
 const courseRoutes = require('./routes/course');
 const feesRoutes = require('./routes/fees');
-const totalRecordsRouter = require('./routes/totalTableRecords');
+
 
 //Bootcamp Data
 const bootcampRoutes = require('./routes/bootcampData/bootcamp');
@@ -62,20 +73,28 @@ app.use('/reports', express.static(path.join(__dirname, 'reports')));
 app.use('/usersReports', express.static(path.join(__dirname, 'usersReports')));
 app.use('/studentsReports', express.static(path.join(__dirname, 'studentsReports')));
 
+//Login Routes
 app.use('/api/auth', authRoutes);
+
+//Dashboard Routes
+app.use('/api/studentInformation', studentInformationRoutes);
+
+//Student-Leads Routes
 app.use('/api/students', inquiryRoutes);
 app.use('/api/notInterested',notInterestedRoutes);
 app.use('/api/interested',interestedRoutes)
 app.use('/api/followup', followUpRoutes);
+app.use('/api/total-records', totalRecordsRouter);
 
-app.use('/api/studentInformation', studentInformationRoutes);
+//Reports Routes
 app.use('/api', reportRoutes);
 app.use('/api/', usersReportRoutes);
 app.use('/api/',studentsReportRoutes);
 // app.use('/api/studentMockInformation', studentMockInformationRoutes);
+
+//Course and Fees Routes
 app.use('/api/course', courseRoutes);
 app.use('/api/fees', feesRoutes);
-app.use('/api/total-records', totalRecordsRouter);
 
 //Bootcamp Routes
 app.use('/api/bootcamp', bootcampRoutes);

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Bootcamp = require('../../models/bootcampData/codemindBootcamp');
+const { sendBootcampEmail } = require('../bootcampData/services/emailServices');
 
 // API Endpoint to Save Bootcamp Data
 router.post('/', async (req, res) => {
@@ -69,6 +70,25 @@ router.get('/', async (req, res) => {
       res.status(400).send({ error: 'Error fetching Bootcamp student information', details: error });
     }
   });
+
+  // New route for sending the email
+ router.post('/:id/send-email', async (req, res) => {
+  try {
+    const bootcampId = req.params.id;
+    const student = await Bootcamp.findById( bootcampId );
+
+    if (!student) {
+      return res.status(404).send({ error: 'Student not found' });
+    }
+    const { firstName, email, selectedBootcamp } = student;
+
+    await sendBootcampEmail( firstName, email, selectedBootcamp );
+
+    res.status(200).send({ message: 'Email sent successfully' });
+  } catch (error) {
+    res.status(400).send({ error: 'Error sending email', details: error });
+  }
+});
   
 // API Endpoint to Update Bootcamp Data
 router.put('/:id', async (req, res) => {

@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
         if (decodedToken.role === expectedRole) {
           return true;
         }
-        this.redirectBasedOnRole(decodedToken.role);
+        // this.redirectBasedOnRole(decodedToken.role);
         return false;
       }
     }
@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate {
     }
   }
 
-  private redirectBasedOnRole(role: string) {
+  /*private redirectBasedOnRole(role: string) {
     if (role === 'Admin') {
       this.router.navigate(['/admin/admin-dashboard']);
     } else if (role === 'Sub-Admin') {
@@ -50,5 +50,5 @@ export class AuthGuard implements CanActivate {
     else {
       this.router.navigate(['/']);
     }
-  }
+  }*/
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { BATCHES, COURSES, TOP_ITEMS } from 'src/app/models/admin-content';
+import { BATCHES, COURSES, DISPLAYED_FEES_COLUMNS, TOP_ITEMS } from 'src/app/models/admin-content';
 import { MongodbService } from 'src/app/services/mongodb.service';
 
 @Component({
@@ -19,8 +19,7 @@ export class TotalFeesComponent {
   batches = BATCHES;
   topItems = TOP_ITEMS; 
   displayRow = false;  
-  displayedFeesColumns: string[] = ['course', 'batch', 'totalFees', 'totalPaidFees', 'totalRemainingFees','totalDiscounts', 'totalReferenceDiscountFees','totalStudents'];
-
+  displayedFeesColumns = DISPLAYED_FEES_COLUMNS ;
   constructor(private mongodb:MongodbService){
 
   }
@@ -40,7 +39,7 @@ export class TotalFeesComponent {
    
   }
   formatDate(date: Date): string {
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-indexed
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
     const year = date.getFullYear();
     return `${year}-${month}-${day}`; 

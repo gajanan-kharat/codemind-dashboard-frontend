@@ -4,10 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
-import { COURSES, DISPLAYED_COLUMNS } from 'src/app/models/admin-content';
-import { InquiryStudentResponse } from 'src/app/models/inquiryStudents';
-import { MongodbService } from 'src/app/services/mongodb.service';
-import { EditInquiryStudentComponent } from '../../../leads-section/dialogs/edit-inquiry-student/edit-inquiry-student.component';
+import { COURSES } from 'src/app/models/admin-content';
 import { HireusService } from 'src/app/services/hireus.service';
 import { HireUsResponse } from 'src/app/models/hireFromUs/hireus';
 import { EditCompanyLeadsComponent } from '../../dialogs/edit-company-leads/edit-company-leads.component';
@@ -48,7 +45,6 @@ export class NewCompanyLeadsComponent {
   }
   
   ngAfterViewInit() {
-    // this.filteredLeads.paginator = this.paginator;
     this.filteredLeads.sort = this.sort; 
   }
 
@@ -63,9 +59,7 @@ export class NewCompanyLeadsComponent {
         this.currentPage = currentPage;       
         this.Inquirystudents = data;
         this.totalRecords = totalRecords;
-        console.log(this.Inquirystudents);
         this.filteredLeads.data =  this.Inquirystudents;
-        // this.filterLeads();
       },
       (error) => {
         console.error('Error fetching students:', error);
@@ -79,18 +73,7 @@ export class NewCompanyLeadsComponent {
     this.fetchStudents();
   }
   
-
-  /*filterLeads() {
-    this.filteredLeads.data = this.Inquirystudents.filter(student =>
-      (!this.selectedCourseLeads || student.course === this.selectedCourseLeads)
-    );
-    if (this.filteredLeads.paginator) {
-      this.filteredLeads.paginator.firstPage();
-    }
-  }*/
-
   onCourseChange() {
-      // this.filterLeads();
       this.fetchStudents();
       this.currentPage = 1;
       this.filteredLeads.paginator = this.paginator;
@@ -132,7 +115,6 @@ export class NewCompanyLeadsComponent {
   
  
   editStudent(student: any) {
-    console.log("Student data =>", student);
     const dialogRef = this.dialog.open(EditCompanyLeadsComponent, {
       width: '50%',
       data: { student },
@@ -145,7 +127,6 @@ export class NewCompanyLeadsComponent {
           const index = this.Inquirystudents.findIndex(s => s._id === student._id);
           if (index !== -1) {
             this.Inquirystudents[index] = result;
-            // this.filterLeads();
             this.fetchStudents();
             this.hireusService.booleanSubject.next(true);
           }

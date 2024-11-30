@@ -49,6 +49,11 @@ export const DISPLAYED_COLUMNSFOLLOW = ['name', 'email', 'course', 'inquiryStatu
 export const DISPLAYED_COLUMNSBOOTCAMP= ['name', 'email', 'paymentStatus','actions'];
 export const DISPLAYED_COLUMNS_CODEMINDBOOTCAMP= ['name', 'email', 'selectedBootcamp','actions'];
 export const DISPLAYED_COLUMNSUSERS = ['name', 'email', 'mobile_number', 'role','actions'];
+export const DISPLAYED_COLUMNS_COMPANY_FOLLOW = ["name","email","inquiryStatus","date","actions"];
+export const DISPLAYED_COLUMNS_COLLEGE=['collegeName', 'dist', 'university', 'status', 'Actions'];
+export const DISPLAYED_COLUMNS_INVENTORY = ['name','email','mobileNumber','status','Actions'];
+export const DISPLAYED_FEES_COLUMNS  = ['course', 'batch', 'totalFees', 'totalPaidFees', 'totalRemainingFees','totalDiscounts', 'totalReferenceDiscountFees','totalStudents'];
+
 export const COURSES = ['Angular MEAN Stack', 'React MEAN Stack', 'Java Full Stack', '.Net Full Stack', 'Manual and Automation Testing', 'Python with Data Science'];
 export const INQUIRYSTATUSES = ['Interested', 'Need FollowUp', 'Not Interested', 'No Response'];
 export const PAYMENT_STATUS = ['success','fail']; 
@@ -56,7 +61,11 @@ export const FEEDBACK_OPTIONS = ['All', 'Poor', 'Average', 'Good', 'Excellent'];
 export const PAYMENT_STATUSES = ['Not Paid', 'Partially Paid', 'Completed'];
 export const SOURCE_STATUS = ['3-Day HTML CSS Bootcamp', '1-Day HTML CSS Bootcamp', '2-Day HTML CSS Bootcamp'];
 export const PLACEMENT_STATUSES = ['Placement Complete', 'Placement Pending'];
+export const VISITED_SHOLARSHIP_OPTIONS = ['Scholarship', 'In Progress', 'Selected', 'Rejected'];
+export const SHOLARSHIP_FEEDBACK_OPTIONS = ['Excellent', 'Good', 'Average', 'Poor'];
   // export const ISSUESTATUS = ['In Progress', 'Block', 'Complete', 'Resolve'];
+export const  VISITEDSTATUSOPTIONS = ['In Progress','In Plan','TODO','Visited'];
+export const SOURCEOPTIONS = [ 'Codemind Website','Instagram','Facebook','LinkedIn','Reference','Offline Office'];
 
 export const UNIVERSITY = ['All','Bharati Vidyapeeth, Pune','Central Institute of Fisheries Education, Mumbai','D. Y. Patil Education Society, Kolhapur',
     'Dnyaneshwar Vidyapeeth Educational trust, Pune','Datta Meghe Institute of Medical Sciences, Wardha',

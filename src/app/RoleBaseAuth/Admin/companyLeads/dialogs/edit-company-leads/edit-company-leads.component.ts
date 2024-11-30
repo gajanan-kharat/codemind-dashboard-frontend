@@ -3,7 +3,7 @@ import { Component, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { COURSES } from 'src/app/models/admin-content';
+import { COURSES, INQUIRYSTATUSES, SOURCEOPTIONS } from 'src/app/models/admin-content';
 import { HireusService } from 'src/app/services/hireus.service';
 
 @Component({
@@ -15,15 +15,8 @@ export class EditCompanyLeadsComponent {
   inquiryForm!: FormGroup;
   isLoading = false;
   isEditMode: boolean = false;
-  inquiryStatuses: string[] = ['Interested', 'Need FollowUp', 'Not Interested', 'No Response'];
-  sourceOptions: string[] = [
-    'Codemind Website',
-    'Instagram',
-    'Facebook',
-    'LinkedIn',
-    'Reference',
-    'Offline Office'
-  ];
+  inquiryStatuses = INQUIRYSTATUSES;
+  sourceOptions = SOURCEOPTIONS;
   courses = COURSES;
 
   constructor(
@@ -32,7 +25,6 @@ export class EditCompanyLeadsComponent {
     private fb: FormBuilder,
     private hireusService: HireusService,
     private toastr: ToastrService,
-    private datePipe: DatePipe
   ) { }
 
   ngOnInit(): void {
@@ -202,7 +194,7 @@ export class EditCompanyLeadsComponent {
           this.dialogRef.close(formData);
         },
         (error) => {
-          this.toastr.error('Error adding HireUs/. Please try again.', 'Error', {
+          this.toastr.error('Error adding HireUs. Please try again.', 'Error', {
             timeOut: 3000,
             positionClass: 'toast-top-right',
             progressBar: true,

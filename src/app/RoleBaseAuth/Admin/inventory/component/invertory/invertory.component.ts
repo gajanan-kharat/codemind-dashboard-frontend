@@ -1,14 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
-import { INVENTORYISSUES } from 'src/app/models/admin-content';
+import { DISPLAYED_COLUMNS_INVENTORY, INVENTORYISSUES } from 'src/app/models/admin-content';
 import { InventoryService } from 'src/app/services/inventory.service';
 import { EditInventoryComponent } from '../../dialogs/edit-inventory/edit-inventory.component';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-invertory',
@@ -25,7 +24,7 @@ export class InvertoryComponent {
   statusCounts: any[] = [];
 
   topItems = INVENTORYISSUES ;   
-  displayedColumns: string[] = ['name','email','mobileNumber','status','Actions'];
+  displayedColumns = DISPLAYED_COLUMNS_INVENTORY;
   selectedName = '';
  
   totalPages: number = 0;
@@ -33,10 +32,10 @@ export class InvertoryComponent {
   limit: number = 10;
   totalRecords:number = 0;
 
-  constructor(  private inventoryService: InventoryService, 
+  constructor( private inventoryService: InventoryService, 
                private dialog: MatDialog,
                private toastr: ToastrService,
-               private fb: FormBuilder) {
+              ) {
     this.role = localStorage.getItem('user_role');
     this.fetchInventory(); 
   }
@@ -47,14 +46,18 @@ export class InvertoryComponent {
 
   ngAfterViewInit() {
     this.filteredInventoryData.sort = this.sort; 
+    this.inventoryService.booleanSubject.subscribe(value => {
+      if (value == true) {
+        this.fetchInventory();
+      }
+    });
   }
     
   onClick(name: string) {
     this.selectedName = name;
     this.currentPage = 1;
     this.fetchInventory();
-    this.filteredInventoryData.paginator = this.paginator;
-    
+    this.filteredInventoryData.paginator = this.paginator; 
   }
 
   fetchInventory(searchTerm: string = ''): void {
@@ -78,9 +81,6 @@ export class InvertoryComponent {
           }
         
         });
-       
-        
-        console.log("Inventory data :=> ", response);
       },
       (error) => {
         console.error('Error fetching students Mock:', error);
@@ -118,7 +118,6 @@ export class InvertoryComponent {
       maxWidth: '80vw', 
       minWidth: '300px',
     });
-  //  console.log("scholarship:=>",student);
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
         const index = this.inventoryInfo.findIndex(s => s._id === inventory._id);

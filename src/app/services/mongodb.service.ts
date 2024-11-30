@@ -181,29 +181,10 @@ export class MongodbService {
     return this.http.delete<any>(`${this.baseApiUrl}/notInterested/${studentId}`);
   }
   
-  //Bootcamp 
-  /*getBootCamp(page: number, limit: number, searchTerm: string = '',filters: any = {}): Observable<any> {
-    const params: any = {
-      page,
-      limit,
-      ...filters
-    };
-    return this.http.get<any>(`${this.baseApiUrl}/bootcamp?search=${searchTerm}`,{ params });
-  }
-
-  updateBootcampStudent(student: any): Observable<any> {
-    return this.http.put<any>(`${this.baseApiUrl}/bootcamp/${student._id}`,student);
-  }
-
-  deleteBootcampStudent(studentId: string): Observable<any> {
-    return this.http.delete<any>(`${this.baseApiUrl}/bootcamp/${studentId}`);
-  }*/
-
   //Get Total Records for Leads section
   getTotalRecords(): Observable<any> {
     return this.http.get<any>(`${this.baseApiUrl}/total-records`);
   }
-
 
   //get fees data
   getStudentFees(filters: any = {}): Observable<any> { 
@@ -212,7 +193,6 @@ export class MongodbService {
     };
     return this.http.get<any>(`${this.baseApiUrl}/studentInformation/fees-summary`,{ params });  
   }
-
 
 }
  

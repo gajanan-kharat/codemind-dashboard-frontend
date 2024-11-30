@@ -1,14 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
-import { COURSES } from 'src/app/models/admin-content';
+import { DISPLAYED_COLUMNS_COMPANY_FOLLOW } from 'src/app/models/admin-content';
 import { HireUsNotInterestedResponse } from 'src/app/models/hireFromUs/notInterested';
 import { HireusService } from 'src/app/services/hireus.service';
-import { MongodbService } from 'src/app/services/mongodb.service';
+import { EditNotinterestedComponent } from '../../dialogs/edit-notinterested/edit-notinterested.component';
 
 @Component({
   selector: 'app-not-interested',
@@ -18,15 +17,12 @@ import { MongodbService } from 'src/app/services/mongodb.service';
 export class NotInterestedComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-
-  filteredInterested = new MatTableDataSource<any>();
-  interestedStudents: any[] = [];
-
-  selectedCourseInterested = 'All';
-  courses: string[] = ["All", ...COURSES];
-  displayedColumns: string[] = ["name", "email", "inquiryStatus", "date", "actions"];
-  dateRangeForm: FormGroup;
+  @ViewChild(MatSort) sort!: MatSort; 
+  
+  filteredNotInterested = new MatTableDataSource<any>();
+  NotInterestedStudents: any[] =[];
+ 
+  displayedColumns=DISPLAYED_COLUMNS_COMPANY_FOLLOW;
 
   totalPages: number = 0;
   currentPage: number = 1;
@@ -34,15 +30,9 @@ export class NotInterestedComponent {
   totalRecords: number = 0;
   role: string | null = '';
 
-  constructor(private mongodbService: MongodbService,
-    private hireusService: HireusService,
-    private dialog: MatDialog,
-    private fb: FormBuilder,
-    private toastr: ToastrService) {
-    this.dateRangeForm = this.fb.group({
-      start: [''],
-      end: ['']
-    });
+  constructor(private hireusService: HireusService,
+              private dialog: MatDialog, 
+              private toastr: ToastrService){
     this.role = localStorage.getItem('user_role');
   }
   ngOnInit(): void {
@@ -50,51 +40,36 @@ export class NotInterestedComponent {
   }
 
   ngAfterViewInit() {
-    // this.filteredInterested.paginator = this.paginator;
-    this.filteredInterested.sort = this.sort;
+    this.filteredNotInterested.sort = this.sort; 
   }
 
   fetchStudents(searchTerm: string = ''): void {
     const filters = {
-      course: this.selectedCourseInterested || '',
     };
     this.hireusService.getHireUsNotInterested(this.currentPage, this.limit, searchTerm, filters).subscribe(
-      (response: HireUsNotInterestedResponse) => {
-        const { totalRecords, totalPages, currentPage, data } = response;
-        this.totalPages = totalPages;
-        this.currentPage = currentPage;
-        this.interestedStudents = data;
+      (response:HireUsNotInterestedResponse) => {
+        const {totalRecords, totalPages, currentPage, data } = response;
+        this.totalPages = totalPages;         
+        this.currentPage = currentPage;       
+        this.NotInterestedStudents = data;
         this.totalRecords = totalRecords;
-        this.filteredInterested.data = this.interestedStudents;
-        console.log("HireUs Intereted", this.filteredInterested.data);
-        // this.fetchStudents();
-        // this.filterInterested() 
-        // console.log("Interested Student :=> ", this.interestedStudents);  
+        this.filteredNotInterested.data =  this.NotInterestedStudents;
       },
       (error) => {
         console.error('Error fetching students:', error);
       }
     );
   }
-
-
-  onCourseChange() {
-    // this.filterInterested();
-    this.fetchStudents();
-    this.currentPage = 1;
-    this.filteredInterested.paginator = this.paginator;
-  }
-
+  
   onPageChange(event: any): void {
     this.currentPage = event.pageIndex + 1;
     this.limit = event.pageSize;
     this.fetchStudents();
   }
-
-  refreshData() {
-    this.interestedStudents = [];
-    this.filteredInterested.data = [];
-    this.selectedCourseInterested = '';
+  
+  refreshData(){
+    this. NotInterestedStudents = [];
+    this.filteredNotInterested.data = [];
     const searchInput = document.querySelector('input[matInput]') as HTMLInputElement;
     if (searchInput) {
       searchInput.value = '';
@@ -102,55 +77,52 @@ export class NotInterestedComponent {
     this.fetchStudents();
   }
 
-  editInterestedStudent(student: any) {
-    /*const dialogRef = this.dialog.open(EditNotinterestedComponent , {
-      width: '80%',
+  editInterestedStudent(student:any){
+    const dialogRef = this.dialog.open(EditNotinterestedComponent , {
+      width: '50%',
       data: { student },
       maxWidth: '80vw', 
-    minWidth: '300px',
+      minWidth: '300px',
     });
   
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-          const index = this.interestedStudents .findIndex(s => s._id === student._id);
-          if (index !== -1) {
-            this.interestedStudents[index] = result;
-            // this.filterInterested();
-            this.fetchStudents();
-            this.mongodbService.booleanSubject.next(true);
-          }      
+        const index = this.NotInterestedStudents .findIndex(s => s._id === student._id);
+        if (index !== -1) {
+          this.NotInterestedStudents[index] = result;
+          this.fetchStudents();
+          this.hireusService.booleanSubject.next(true);
+        }      
       }
-    });*/
-
+    });
   }
-
-  applyFilterInterested(event: Event) {
+  
+  applyFilterInterested(event: Event){
     const filterValue = (event.target as HTMLInputElement).value;
     this.currentPage = 1;
-    this.fetchStudents(filterValue);
+    this.fetchStudents(filterValue); 
   }
 
-  deleteHireUs(student: any) {
-    this.hireusService.deleteHireUsNotInterested(student._id).subscribe(
-      () => {
-        this.toastr.success('HireUs Interested deleted successfully.', 'Success', {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-          progressBar: true,
-          closeButton: true
-        });
-        this.fetchStudents();
-      },
-      (error) => {
-        console.error('Error deleting Hireus Interested:', error);
-        this.toastr.error('Error deleting HireUs Interested. Please try again.', 'Error', {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-          progressBar: true,
-          closeButton: true
-        })
-      }
-    );
-  }
-
+    deleteHireUs(student:any){
+      this.hireusService.deleteHireUsNotInterested(student._id).subscribe(
+        () => {
+            this.toastr.success('HireUs Interested deleted successfully.', 'Success', {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+            progressBar: true,
+            closeButton: true
+          });
+          this.fetchStudents(); 
+        },
+        (error) => {
+          console.error('Error deleting Hireus Interested:', error);
+          this.toastr.error('Error deleting HireUs Interested. Please try again.', 'Error', {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+            progressBar: true,
+            closeButton: true
+          })
+        }
+      );
+    }
 }

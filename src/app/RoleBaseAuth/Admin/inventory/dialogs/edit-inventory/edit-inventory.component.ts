@@ -78,7 +78,6 @@ export class EditInventoryComponent {
   save() {
     if (this.inventoryForm.valid) {
       this.isLoading = true;
-      // console.log("inventory form data:=>",this.inventoryForm.value);
       if (this.isEditMode) {
         this.isLoading = true;
         this.inventoryService.updateInventoryData(this.data.inventory._id, this.inventoryForm.value).subscribe(

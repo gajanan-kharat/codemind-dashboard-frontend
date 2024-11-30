@@ -28,7 +28,6 @@ export class EditBootcampInterestedStudentComponent {
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private toastr: ToastrService,
-    private dialog: MatDialog,
     private bootcampService: BootcampService
   ) {
     this.interestedForm = this.fb.group({
@@ -109,7 +108,6 @@ export class EditBootcampInterestedStudentComponent {
             username: username
           };
           const payments = [payment];
-          //  console.log("payments:=>",payments);
           const confirmedStudentData = {
             ...this.interestedForm.value,
             payments,

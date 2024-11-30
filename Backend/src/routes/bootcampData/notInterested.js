@@ -90,16 +90,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// New route for sending the email
-router.post('/:id/send-email', async (req, res) => {
-  try {
-    const notInterestedId = req.params.id;
-    await sendNotInterestedEmail(notInterestedId);
-    res.status(200).send({ message: 'Email sent successfully' });
-  } catch (error) {
-    res.status(400).send({ error: 'Error sending email', details: error });
-  }
-});
 
 // New route for sending the email
 router.post('/:id/send-email', async (req, res) => {

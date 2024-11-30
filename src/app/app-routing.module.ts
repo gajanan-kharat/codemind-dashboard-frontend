@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '', loadChildren: () => import('./RoleBaseAuth/role-base.module').then(m => m.RoleBaseModule)
   },
 
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: ''}
 ];
 
 @NgModule({

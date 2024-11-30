@@ -17,12 +17,11 @@ export class MainCompanyLeadsComponent {
   HireUsNewLeads: number = 0;
   totalRecords$!: Observable<any>;
   selectedCard = 'leads';
-  constructor(private mongodbService: MongodbService, 
-              private hireusService: HireusService,){
+  constructor(private hireusService: HireusService,){
    
   }
  ngAfterViewInit(): void {
-    this.mongodbService.booleanSubject.subscribe(value => {
+    this.hireusService.booleanSubject.subscribe(value => {
       if (value == true) {
         this.fetchTotalRecords();
       }
@@ -46,18 +45,10 @@ export class MainCompanyLeadsComponent {
         this.followUpCount = this.totalRecords.followUp;
         this.interestedCount = this.totalRecords.interested;
         this.notInterestedCount = this.totalRecords.notInterested;
-        // console.log(" after data:=>",data);
-       
-        console.log('Total Records:', this.totalRecords);
       },
       (error) => {
         console.error('Error fetching total records:', error);
       }
     );
-    // Poll the server every 5 seconds (5000 ms)
-    // this.totalRecords$ = interval(1000).pipe(
-    //   // Switch to the latest observable (data) from the service
-    //   switchMap(() => this.mongodbService.getTotalRecords())
-    // );
   }
 }

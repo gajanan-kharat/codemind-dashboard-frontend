@@ -23,7 +23,6 @@ router.get('/', async (req, res) => {
       const limit = parseInt(req.query.limit) || 10;  
       const skip = (page - 1) * limit;  
       let   HireUsInterestedInfo, totalDocuments;
-      const{ course }=req.query;
       const baseFilter = searchQuery
         ? {
             $or: [
@@ -37,9 +36,6 @@ router.get('/', async (req, res) => {
             ]
           }
         : {};
-        // if (course && course !== 'All') {
-        //   baseFilter.course = course;
-        // }
   
       totalDocuments = await HireUsInterested.countDocuments(baseFilter);
       
@@ -71,6 +67,22 @@ router.get('/', async (req, res) => {
       res.status(400).send({ error: 'Error fetching HireUs Interested information', details: error });
     }
   });
+
+  // PUT route to update an Interested inquiry by ID
+router.put('/:id', async (req, res) => {
+  try {
+    const interestedId = req.params.id;
+    const updatedInterested = await HireUsInterested.findByIdAndUpdate(interestedId, req.body, { new: true, runValidators: true });
+
+    if (!updatedInterested) {
+      return res.status(404).send({ error: 'Interested inquiry not found' });
+    }
+
+    res.status(200).send(updatedInterested);
+  } catch (error) {
+    res.status(400).send({ error: 'Error updating interested inquiry', details: error });
+  }
+});
   
   // API Endpoint to Delete HireUs
 router.delete('/:id', async (req, res) => {

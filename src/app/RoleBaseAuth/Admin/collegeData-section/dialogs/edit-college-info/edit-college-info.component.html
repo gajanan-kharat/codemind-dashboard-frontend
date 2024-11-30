@@ -1,102 +1,96 @@
 <h2 mat-dialog-title>{{ isEditMode ? 'Edit College Information' : 'Create New College' }}</h2>
 <button class="cancel-btn" (click)="onCancel()">
-    <mat-icon>close</mat-icon>
-  </button>  
-  <div mat-dialog-content>
-<form [formGroup]="collegeForm" (ngSubmit)="onSubmit()">
-  <mat-form-field appearance="fill">
-    <mat-label>College Name</mat-label>
-    <input matInput formControlName="collegeName" required>
-    <mat-error *ngIf="collegeForm.controls['collegeName'].hasError('required')">College Name is required.</mat-error>
-  </mat-form-field>
+  <mat-icon>close</mat-icon>
+</button>
+<div mat-dialog-content>
+  <form [formGroup]="collegeForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>College Name</mat-label>
+      <input matInput formControlName="collegeName" required>
+      <mat-error *ngIf="collegeForm.controls['collegeName'].hasError('required')">College Name is required.</mat-error>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>University Name</mat-label>
-    <input matInput formControlName="universityName" required>
-    <mat-error *ngIf="collegeForm.controls['universityName'].hasError('required')">University Name is required.</mat-error>
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>University Name</mat-label>
+      <input matInput formControlName="universityName" required>
+      <mat-error *ngIf="collegeForm.controls['universityName'].hasError('required')">University Name is
+        required.</mat-error>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Address</mat-label>
-    <input matInput formControlName="address" required>
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="address" required>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>City</mat-label>
-    <input matInput formControlName="city" required>
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>City</mat-label>
+      <input matInput formControlName="city" required>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>State</mat-label>
-    <input matInput formControlName="state" required>
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>State</mat-label>
+      <input matInput formControlName="state" required>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>District</mat-label>
-    <input matInput formControlName="district" required>
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>District</mat-label>
+      <input matInput formControlName="district" required>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Principal Name</mat-label>
-    <input matInput formControlName="principalName" required>
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Principal Name</mat-label>
+      <input matInput formControlName="principalName" required>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>College Contact</mat-label>
-    <input matInput formControlName="collegeContact" required>
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>College Contact</mat-label>
+      <input matInput formControlName="collegeContact" required>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Total Students</mat-label>
-    <input matInput formControlName="totalStudents" type="number" required>
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Total Students</mat-label>
+      <input matInput formControlName="totalStudents" type="number" required>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Total Branches</mat-label>
-    <input matInput formControlName="totalBranches" type="number" required>
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Total Branches</mat-label>
+      <input matInput formControlName="totalBranches" type="number" required>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Website Link</mat-label>
-    <input matInput formControlName="websiteLink" required>
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Website Link</mat-label>
+      <input matInput formControlName="websiteLink" required>
+    </mat-form-field>
 
- <!-- Visited Status Dropdown -->
- <mat-form-field appearance="fill">
-    <mat-label>Visited Status</mat-label>
-    <mat-select formControlName="visitedStatus">
-      <mat-option *ngFor="let option of visitedStatusOptions" [value]="option">
-        {{ option }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-<!-- 
-  <mat-form-field appearance="fill">
-    <mat-label>Visited Plan Date</mat-label>
-    <input matInput [matDatepicker]="picker" formControlName="visitedPlanDate" type="date">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field> -->
+    <!-- Visited Status Dropdown -->
+    <mat-form-field appearance="fill">
+      <mat-label>Visited Status</mat-label>
+      <mat-select formControlName="visitedStatus">
+        <mat-option *ngFor="let option of visitedStatusOptions" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Visited Plan Date</mat-label>
-    <input matInput [matDatepicker]="datepicker" formControlName="visitedPlanDate" placeholder="Choose a date">
-    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-    <mat-datepicker #datepicker></mat-datepicker>
-    <mat-error *ngIf="collegeForm.get('mockDate')?.hasError('required') && collegeForm.get('mockDate')?.touched">
+    <mat-form-field appearance="fill">
+      <mat-label>Visited Plan Date</mat-label>
+      <input matInput [matDatepicker]="datepicker" formControlName="visitedPlanDate" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker></mat-datepicker>
+      <mat-error *ngIf="collegeForm.get('mockDate')?.hasError('required') && collegeForm.get('mockDate')?.touched">
         Visited Plan Date is required.
-    </mat-error>
-  </mat-form-field>
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Companies Visited</mat-label>
-    <input matInput formControlName="companiesVisited">
-  </mat-form-field>
-</form>
+    <mat-form-field appearance="fill">
+      <mat-label>Companies Visited</mat-label>
+      <input matInput formControlName="companiesVisited">
+    </mat-form-field>
+  </form>
 </div>
 <div mat-dialog-actions>
-    <button  class="save-btn" mat-button color="primary" type="submit" [disabled]="!collegeForm.valid" (click)="onSubmit()">
-      {{ isEditMode ? 'Update' : 'Create' }}
-    </button>
+  <button class="save-btn" mat-button color="primary" type="submit" [disabled]="!collegeForm.valid"
+    (click)="onSubmit()">
+    {{ isEditMode ? 'Update' : 'Create' }}
+  </button>
 </div>
-

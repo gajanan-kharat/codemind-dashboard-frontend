@@ -4,10 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
-import { TOP_ITEMS, BATCHES, DISPLAYED_COLUMNS, COLLEGE_ITEMS, UNIVERSITY, DISTRICT } from 'src/app/models/admin-content';
-import { StudentMockResponse } from 'src/app/models/studentMockInformation';
-import { MongodbService } from 'src/app/services/mongodb.service';
-import { EditStudentmockDialogComponent } from '../../dialogs/edit-studentmock-dialog/edit-studentmock-dialog.component';
+import { COLLEGE_ITEMS, UNIVERSITY, DISTRICT, DISPLAYED_COLUMNS_COLLEGE } from 'src/app/models/admin-content';
 import { EditCollegeInfoComponent } from '../../dialogs/edit-college-info/edit-college-info.component';
 import { CollegeDataResponse } from 'src/app/models/collegeData/collegeInfo';
 import { CollegeDataService } from 'src/app/services/college-data.service';
@@ -19,89 +16,87 @@ import { CollegeDataService } from 'src/app/services/college-data.service';
 })
 export class CollegeInfoComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;  
-  
+  @ViewChild(MatSort) sort!: MatSort;
+
   filteredCollegeData = new MatTableDataSource<any>();
   role: string | null = '';
   collegeInfo: any[] = [];
 
-  topItems = COLLEGE_ITEMS;   
+  topItems = COLLEGE_ITEMS;
   University = UNIVERSITY;
   District = DISTRICT;
-  displayedColumns: string[] = ['collegeName','dist','university','status','Actions'];
-  
+  displayedColumns = DISPLAYED_COLUMNS_COLLEGE;
+
   selectedUniversity = 'All';
   selectedName = '';
-  selectedDistrictStatus : string = 'All'; 
+  selectedDistrictStatus: string = 'All';
 
   totalPages: number = 0;
   currentPage: number = 1;
   limit: number = 10;
-  totalRecords:number = 0;
+  totalRecords: number = 0;
 
   startDate: Date | null = null;
   endDate: Date | null = null;
-  
-  constructor(  private collegeDataService: CollegeDataService, 
-               private dialog: MatDialog,
-               private toastr: ToastrService) {
+
+  constructor(private collegeDataService: CollegeDataService,
+    private dialog: MatDialog,
+    private toastr: ToastrService) {
 
     this.role = localStorage.getItem('user_role');
   }
 
   ngOnInit(): void {
-    this.fetchCollegeData(); 
+    this.fetchCollegeData();
   }
 
   ngAfterViewInit() {
-    this.filteredCollegeData.sort = this.sort; 
+    this.filteredCollegeData.sort = this.sort;
   }
-    
-  
-    onDistrictChange() {
-      this.currentPage = 1;
-      this.fetchCollegeData();
-      this.filteredCollegeData.paginator = this.paginator;
- 
-    }
-  
-    onClick(name: string) {
-      this.selectedName = name;
-      this.currentPage = 1;
-      this.fetchCollegeData();
-      this.filteredCollegeData.paginator = this.paginator;
-    
-    }
-  
-    onUniversityChange() {
-      this.fetchCollegeData();
-      this.currentPage = 1;
-      this.filteredCollegeData.paginator = this.paginator;
-    }
 
-    onDateChange(): void {
-      this.currentPage = 1;
-      this.fetchCollegeData();
-      this.filteredCollegeData.paginator = this.paginator;
-    }
+  onDistrictChange() {
+    this.currentPage = 1;
+    this.fetchCollegeData();
+    this.filteredCollegeData.paginator = this.paginator;
+
+  }
+
+  onClick(name: string) {
+    this.selectedName = name;
+    this.currentPage = 1;
+    this.fetchCollegeData();
+    this.filteredCollegeData.paginator = this.paginator;
+  }
+
+  onUniversityChange() {
+    this.fetchCollegeData();
+    this.currentPage = 1;
+    this.filteredCollegeData.paginator = this.paginator;
+  }
+
+  onDateChange(): void {
+    this.currentPage = 1;
+    this.fetchCollegeData();
+    this.filteredCollegeData.paginator = this.paginator;
+  }
 
   fetchCollegeData(searchTerm: string = ''): void {
-     const filters = {
-       universityName:  this.selectedUniversity || '',
-       visitedStatus: this.selectedName || '',
-       district: this.selectedDistrictStatus  || '',
-       startDate: this.startDate ? this.startDate.toISOString() : '',
-       endDate: this.endDate ? this.endDate.toISOString() : ''
+    const filters = {
+      universityName: this.selectedUniversity || '',
+      visitedStatus: this.selectedName || '',
+      district: this.selectedDistrictStatus || '',
+      startDate: this.startDate ? this.startDate.toISOString() : '',
+      endDate: this.endDate ? this.endDate.toISOString() : ''
     };
     this.collegeDataService.getCollegeData(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response: CollegeDataResponse) => {
-        const {totalRecords, totalPages, currentPage, data } = response;
-        this.totalPages = totalPages;         
-        this.currentPage = currentPage;       
+        const { totalRecords, totalPages, currentPage, data } = response;
+        this.totalPages = totalPages;
+        this.currentPage = currentPage;
         this.collegeInfo = data;
         this.totalRecords = totalRecords;
         this.filteredCollegeData.data = this.collegeInfo;
-   
+
       },
       (error) => {
         console.error('Error fetching students Mock:', error);
@@ -110,22 +105,22 @@ export class CollegeInfoComponent {
   }
 
   onPageChange(event: any): void {
-    this.currentPage = event.pageIndex+1; 
-    this.limit = event.pageSize; 
+    this.currentPage = event.pageIndex + 1;
+    this.limit = event.pageSize;
     this.fetchCollegeData();
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.currentPage = 1;
-    this.fetchCollegeData(filterValue); 
+    this.fetchCollegeData(filterValue);
   }
 
-  refreshData(){
+  refreshData() {
     this.collegeInfo = [];
     this.filteredCollegeData.data = [];
-    this.selectedDistrictStatus = 'All'; 
-    this.selectedUniversity  = 'All';
+    this.selectedDistrictStatus = 'All';
+    this.selectedUniversity = 'All';
     this.selectedName = '';
     this.startDate = null;
     this.endDate = null;
@@ -133,9 +128,9 @@ export class CollegeInfoComponent {
     if (searchInput) {
       searchInput.value = '';
     }
-    this. fetchCollegeData();
+    this.fetchCollegeData();
   }
- 
+
   editStudent(college: any) {
     const dialogRef = this.dialog.open(EditCollegeInfoComponent, {
       width: '50%',
@@ -153,10 +148,10 @@ export class CollegeInfoComponent {
     });
   }
 
-  deleteStudentMock(college:any){
+  deleteStudentMock(college: any) {
     this.collegeDataService.deleteCollgeData(college._id).subscribe(
       () => {
-          this.toastr.success('College Data deleted successfully.', 'Success', {
+        this.toastr.success('College Data deleted successfully.', 'Success', {
           timeOut: 3000,
           positionClass: 'toast-top-right',
           progressBar: true,
@@ -176,14 +171,14 @@ export class CollegeInfoComponent {
     );
   }
 
-  addNewStudent(){
+  addNewStudent() {
     const dialogRef = this.dialog.open(EditCollegeInfoComponent, {
       width: '50%',
-      data: {  college:null }, 
+      data: { college: null },
       // maxWidth: '80vw',
       // minWidth: '300px',
     });
-  
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.collegeInfo.push(result);

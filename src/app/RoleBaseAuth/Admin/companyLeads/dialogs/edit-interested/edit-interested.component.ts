@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { COURSES } from 'src/app/models/admin-content';
+import { COURSES, INQUIRYSTATUSES, SOURCEOPTIONS } from 'src/app/models/admin-content';
 import { HireusService } from 'src/app/services/hireus.service';
 import { EditFollowupComponent } from '../edit-followup/edit-followup.component';
 
@@ -12,17 +12,11 @@ import { EditFollowupComponent } from '../edit-followup/edit-followup.component'
   styleUrls: ['./edit-interested.component.scss']
 })
 export class EditInterestedComponent {
-  inquiryForm!: FormGroup;
+  interestedForm!: FormGroup;
   isLoading = false;
   isEditMode: boolean = false;
-  inquiryStatuses: string[] = ['Interested', 'Need FollowUp', 'Not Interested', 'No Response'];
-  sourceOptions: string[] = [
-    'Codemind Website',
-    'Instagram',
-    'Facebook',
-    'LinkedIn',
-    'Reference'
-  ];
+  inquiryStatuses = INQUIRYSTATUSES;
+  sourceOptions = SOURCEOPTIONS;
   courses = COURSES;
 
   constructor(
@@ -37,7 +31,7 @@ export class EditInterestedComponent {
       this.isEditMode = this.data && this.data.student;
     
       // Initialize the form controls
-      this.inquiryForm = this.fb.group({
+      this.interestedForm = this.fb.group({
         name: [this.isEditMode ? this.data.student.name : '', Validators.required],
         company: [this.isEditMode ? this.data.student.company : '', Validators.required],
         email: [this.isEditMode ? this.data.student.email : '', [Validators.required, Validators.email]],
@@ -55,135 +49,41 @@ export class EditInterestedComponent {
     private setDynamicValidators(): void {
       if (this.isEditMode) {
         // Set all fields as required in edit mode
-        this.inquiryForm.get('inquiryStatus')?.setValidators(Validators.required);
+        this.interestedForm.get('inquiryStatus')?.setValidators(Validators.required);
       } else {
         // Clear validators for fields not required in add mode
-        this.inquiryForm.get('inquiryStatus')?.clearValidators();
-        this.inquiryForm.get('date')?.clearValidators();
-        this.inquiryForm.get('source')?.clearValidators();
-        this.inquiryForm.get('sourcecomment')?.clearValidators();
+        this.interestedForm.get('inquiryStatus')?.clearValidators();
       }
     
       // Update the validity of the form after setting/removing validators
-      this.inquiryForm.updateValueAndValidity();
+      this.interestedForm.updateValueAndValidity();
     }
     
-    onSave(): void {
-        if (this.inquiryForm.valid) {
-    
-          const updatedInquiry = { ...this.data.student, ...this.inquiryForm.value};
-          
-          /*if (updatedInquiry.inquiryStatus === 'Not Interested') {
-            // Logic for 'Not Interested' case
-            this.hireusService.addHireUsNotInterested(updatedInquiry).subscribe(
-              (response) => {
-                this.hireusService.deleteHireUs(this.data.student._id).subscribe(
-                  (deleteResponse) => {
-                    this.toastr.success('HireUs moved to Not Interested table successfully.', 'Success', {
-                      timeOut: 3000,
-                      positionClass: 'toast-top-right',
-                      progressBar: true,
-                      closeButton: true
-                    });
-                    this.dialogRef.close(updatedInquiry);
-                  },
-                  (deleteError) => {
-                    console.error('Error deleting original HireUs:', deleteError);
-                    this.toastr.error('Error deleting original HireUs. Please try again.', 'Error', {
-                      timeOut: 3000,
-                      positionClass: 'toast-top-right',
-                      progressBar: true,
-                      closeButton: true
-                    });
-                  }
-                );
-              },
-              (error) => {
-                console.error('Error adding to Not Interested:', error);
-                this.toastr.error('Error adding to Not Interested. Please try again.', 'Error', {
-                  timeOut: 3000,
-                  positionClass: 'toast-top-right',
-                  progressBar: true,
-                  closeButton: true
-                });
-              }
-            );
-          } else if (updatedInquiry.inquiryStatus === 'Interested') {
-            // Logic for 'Interested' case
-            this.hireusService.addHireUsInterested(updatedInquiry).subscribe(
-              (interestedResponse) => {
-                this.hireusService.deleteHireUs(this.data.student._id).subscribe(
-                  (deleteResponse) => {
-                    this.toastr.success('Inquiry updated and moved to Interested table successfully.', 'Success', {
-                      timeOut: 3000,
-                      positionClass: 'toast-top-right',
-                      progressBar: true,
-                      closeButton: true
-                    });
-                    this.dialogRef.close(updatedInquiry);
-                  },
-                  (deleteError) => {
-                    console.error('Error deleting original inquiry:', deleteError);
-                    this.toastr.error('Error deleting original inquiry. Please try again.', 'Error', {
-                      timeOut: 3000,
-                      positionClass: 'toast-top-right',
-                      progressBar: true,
-                      closeButton: true
-                    });
-                  }
-                );
-              },
-              (interestedError) => {
-                console.error('Error adding to Interested:', interestedError);
-                this.toastr.error('Error adding to Interested. Please try again.', 'Error', {
-                  timeOut: 3000,
-                  positionClass: 'toast-top-right',
-                  progressBar: true,
-                  closeButton: true
-                });
-              }
-            );
-          } else {
-            // Logic for 'Follow Up' case (as before)
-            this.hireusService.addHireUsFollowUp(updatedInquiry).subscribe(
-              (followUpResponse) => {
-                this.hireusService.deleteHireUs(this.data.student._id).subscribe(
-                  (deleteResponse) => {
-                    this.toastr.success('HireUs updated and moved to Follow Up table successfully.', 'Success', {
-                      timeOut: 3000,
-                      positionClass: 'toast-top-right',
-                      progressBar: true,
-                      closeButton: true
-                    });
-                    this.dialogRef.close(updatedInquiry);
-                  },
-                  (deleteError) => {
-                    console.error('Error deleting original HireUs:', deleteError);
-                    this.toastr.error('Error deleting original HireUs. Please try again.', 'Error', {
-                      timeOut: 3000,
-                      positionClass: 'toast-top-right',
-                      progressBar: true,
-                      closeButton: true
-                    });
-                  }
-                );
-              },
-              (followUpError) => {
-                console.error('Error adding to Follow Up:', followUpError);
-                this.toastr.error('Error adding to Follow Up. Please try again.', 'Error', {
-                  timeOut: 3000,
-                  positionClass: 'toast-top-right',
-                  progressBar: true,
-                  closeButton: true
-                });
-              }
-            );
-          }*/
-        } else {
-          this.inquiryForm.markAllAsTouched();
-        }
-      }
-      
+    onSave() {
+    if (this.interestedForm.valid) {
+      this.hireusService.updateHireUsInterested(this.data.student._id, this.interestedForm.value)
+        .subscribe(
+          (updatedStudent) => {
+            this.toastr.success('Updated Interested Student Data successfully.', 'Success', {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+              progressBar: true,
+              closeButton: true
+            });
+            this.dialogRef.close(updatedStudent); 
+          },
+          (error) => {
+            this.toastr.error('Error updating Interstered Student Data. Please try again.', 'Error', {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+              progressBar: true,
+              closeButton: true
+            });
+            console.error('Error updating student:', error);
+          }
+        );
+    }
+  }
       onSaveAdd():void{
         /*if (this.inquiryForm.valid) {
           const { name, company, email, mobileNumber } = this.inquiryForm.value;
@@ -216,6 +116,5 @@ export class EditInterestedComponent {
   onCancel(): void {
     this.dialogRef.close();
   }
-
 
 }

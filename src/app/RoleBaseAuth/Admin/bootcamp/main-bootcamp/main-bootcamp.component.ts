@@ -18,8 +18,7 @@ export class MainBootcampComponent {
   totalRecords$!: Observable<any>;
   selectedCard = 'leads';
 
-  constructor(private mongodbService: MongodbService, 
-              private bootcampService: BootcampService) {
+  constructor(private bootcampService: BootcampService) {
   }
   ngAfterViewInit(): void {
     this.bootcampService.booleanSubject.subscribe(value => {

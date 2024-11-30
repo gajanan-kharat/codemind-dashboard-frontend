@@ -94,22 +94,6 @@
 
   <!-- Main content -->
   <mat-drawer-content [class.full-width]="isSidenavCollapsed">
-    <!-- <mat-toolbar color="primary">
-      <button mat-icon-button (click)="toggleSidenav()" class="menu-button">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span>{{role}} Dashboard</span>
-      <span class="spacer"></span>
-      <div class="profile-menu">
-        <span class="username">{{firstName}}</span>
-        <div class="profile-pic" [matMenuTriggerFor]="menu">{{firstLetter}}</div>
-      </div>
-    </mat-toolbar>
-
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="logout()">Logout</button>
-    </mat-menu> -->
-
     <div class="content">
       <ng-content></ng-content>
     </div>

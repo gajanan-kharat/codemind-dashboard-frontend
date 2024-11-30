@@ -50,8 +50,8 @@ export class LoginComponent {
           this.authService.setUsername(response.firstname);
           this.authService.setId(response.id);
           this.authService.setFullname(response.fullName);
-          console.log("login response :=> ",response);
-          console.log(response.token, response.role, response.firstname, response.id);
+          // console.log("login response :=> ",response);
+          // console.log(response.token, response.role, response.firstname, response.id);
 
           // Redirect based on user role
           this.redirectBasedOnRole(response.role);

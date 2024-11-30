@@ -71,6 +71,23 @@ router.get('/', async (req, res) => {
       res.status(400).send({ error: 'Error fetching HireUs FollowUp information', details: error });
     }
   });
+
+  // API Endpoint to Update Follow-Up Data
+router.put('/:id', async (req, res) => {
+  try {
+    const followUpId = req.params.id;
+    const updatedFollowUp = await HireUsFollowUp.findByIdAndUpdate(followUpId, req.body, { new: true, runValidators: true, });
+
+    if (!updatedFollowUp) {
+      return res.status(404).send({ error: 'HireUs Follow-up not found' });
+    }
+
+    res.status(200).send(updatedFollowUp);
+  } catch (error) {
+    res.status(400).send({ error: 'Error updating HireUs follow-up data', details: error });
+  }
+});
+
   
   // API Endpoint to Delete HireUs
 router.delete('/:id', async (req, res) => {

@@ -72,13 +72,13 @@ export class LoginComponent {
   }
   private redirectBasedOnRole(role: string) {
     if (role === 'Admin') {
-      this.router.navigate(['/codemind-dashboard/admin-dashboard']);
+      this.router.navigate(['/admin-dashboard']);
     } else if (role === 'Sub-Admin') {
-      this.router.navigate(['/codemind-dashboard/subadmin-dashboard']);
+      this.router.navigate(['/subadmin-dashboard']);
     } else if (role === 'Counselor') {
-      this.router.navigate(['/codemind-dashboard/counselor-dashboard']);
+      this.router.navigate(['/counselor-dashboard']);
     } else if (role === 'Technical-Expert') {
-      this.router.navigate(['/codemind-dashboard/student-issues-dashboard']);
+      this.router.navigate(['/student-issues-dashboard']);
     } else {
       this.router.navigate(['/']);
     }

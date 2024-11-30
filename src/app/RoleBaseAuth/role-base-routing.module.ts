@@ -21,6 +21,8 @@ import { InvertoryComponent } from './Admin/inventory/component/invertory/invert
 const routes: Routes = [
   // { path: 'signup', component: SignupComponent },
   // { path: 'codemindDashboard', component: LoginComponent },
+
+  { path: '', redirectTo: '', pathMatch: 'full' },
   
   { path: '', component: LoginComponent },
 
@@ -69,6 +71,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'studentIssue', pathMatch: 'full' }
     ]
   },
+
 ]
 @NgModule({
   imports: [RouterModule.forChild(routes)],

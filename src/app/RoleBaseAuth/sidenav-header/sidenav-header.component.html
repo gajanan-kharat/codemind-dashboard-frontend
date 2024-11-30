@@ -19,25 +19,25 @@
     </div>
     <mat-nav-list class="list">
       <!-- Admin -->
-      <p *ngIf="currentUrl=='admin-dashboard'" class="item" routerLink="/codemind-dashboard/admin-dashboard" (click)="onClick('admin')" [ngClass]="{'selected': selectedItem === 'admin'}">
+      <p *ngIf="currentUrl=='admin-dashboard'" class="item" routerLink="/admin-dashboard" (click)="onClick('admin')" [ngClass]="{'selected': selectedItem === 'admin'}">
         <mat-icon>admin_panel_settings</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Admin</span>
       </p>
-      <p *ngIf="currentUrl=='admin-dashboard'" class="item" routerLink="/codemind-dashboard/subadmin-dashboard" (click)="onClick('sub-admin')" [ngClass]="{'selected': selectedItem === 'sub-admin'}">
+      <p *ngIf="currentUrl=='admin-dashboard'" class="item" routerLink="/subadmin-dashboard" (click)="onClick('sub-admin')" [ngClass]="{'selected': selectedItem === 'sub-admin'}">
         <mat-icon>verified_user</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Sub Admin</span>
       </p>
-      <p *ngIf="currentUrl=='admin-dashboard'"  class="item" routerLink="/codemind-dashboard/counselor-dashboard" (click)="onClick('counselor')" [ngClass]="{'selected': selectedItem === 'counselor'}">
+      <p *ngIf="currentUrl=='admin-dashboard'"  class="item" routerLink="/counselor-dashboard" (click)="onClick('counselor')" [ngClass]="{'selected': selectedItem === 'counselor'}">
         <mat-icon>group_add</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Counselor</span>
       </p>
-      <p *ngIf="currentUrl=='admin-dashboard'"  class="item" routerLink="/codemind-dashboard/student-issues-dashboard" (click)="onClick('Technical-Expert')" [ngClass]="{'selected': selectedItem === 'Technical-Expert'}">
+      <p *ngIf="currentUrl=='admin-dashboard'"  class="item" routerLink="/student-issues-dashboard" (click)="onClick('Technical-Expert')" [ngClass]="{'selected': selectedItem === 'Technical-Expert'}">
         <mat-icon>support_agent</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Technical-Expert</span>
       </p>
 
       <!-- subAdmin-->
-      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/codemind-dashboard/subadmin-dashboard/dashboard" (click)="onClick('dashboard')" [ngClass]="{'selected': selectedItem === 'dashboard'}">
+      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/dashboard" (click)="onClick('dashboard')" [ngClass]="{'selected': selectedItem === 'dashboard'}">
         <mat-icon>dashboard</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Dashboard</span>
       </p>
@@ -45,42 +45,42 @@
         <mat-icon>feedback</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Feedback</span>
       </p> -->
-      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/codemind-dashboard/subadmin-dashboard/lead" (click)="onClick('leads')" [ngClass]="{'selected': selectedItem === 'leads'}">
+      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/lead" (click)="onClick('leads')" [ngClass]="{'selected': selectedItem === 'leads'}">
         <mat-icon>supervisor_account</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Students Leads</span>
       </p>
-      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/codemind-dashboard/subadmin-dashboard/totalFees" (click)="onClick('totalFees')" [ngClass]="{'selected': selectedItem === 'totalFees'}">
+      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/totalFees" (click)="onClick('totalFees')" [ngClass]="{'selected': selectedItem === 'totalFees'}">
         <mat-icon>monetization_on</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Payment Status</span>
       </p>
 
-      <p *ngIf="currentUrl=='subadmin-dashboard'"  class="item" routerLink="/codemind-dashboard/subadmin-dashboard/companyLeads" (click)="onClick('companyLeads')" [ngClass]="{'selected': selectedItem === 'companyLeads'}">
+      <p *ngIf="currentUrl=='subadmin-dashboard'"  class="item" routerLink="/subadmin-dashboard/companyLeads" (click)="onClick('companyLeads')" [ngClass]="{'selected': selectedItem === 'companyLeads'}">
         <mat-icon>business_center</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Company Leads</span>
       </p>
-      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/codemind-dashboard/subadmin-dashboard/collegeData" (click)="onClick('collegeInfo')"  [ngClass]="{'selected': selectedItem === 'collegeInfo'}">
+      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/collegeData" (click)="onClick('collegeInfo')"  [ngClass]="{'selected': selectedItem === 'collegeInfo'}">
         <mat-icon>school</mat-icon>
         <span *ngIf="!isSidenavCollapsed">College Data</span>
       </p>
-      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/codemind-dashboard/subadmin-dashboard/scholarshipData" (click)="onClick('scholarship')"  [ngClass]="{'selected': selectedItem === 'scholarship'}">
+      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/scholarshipData" (click)="onClick('scholarship')"  [ngClass]="{'selected': selectedItem === 'scholarship'}">
         <mat-icon>stars</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Scholarship</span>
       </p>
-      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/codemind-dashboard/subadmin-dashboard/bootcamp" (click)="onClick('bootcamp')"  [ngClass]="{'selected': selectedItem === 'bootcamp'}">
+      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/bootcamp" (click)="onClick('bootcamp')"  [ngClass]="{'selected': selectedItem === 'bootcamp'}">
         <mat-icon>laptop</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Bootcamp</span>
       </p>
       <p 
       *ngIf="currentUrl === 'subadmin-dashboard' || currentUrl === 'student-issues-dashboard'" 
       class="item" 
-      [routerLink]="currentUrl === 'subadmin-dashboard' ? '/codemind-dashboard/subadmin-dashboard/studentIssue' : 
-                    '/codemind-dashboard/student-issues-dashboard/studentIssue'" 
+      [routerLink]="currentUrl === 'subadmin-dashboard' ? '/subadmin-dashboard/studentIssue' : 
+                    '/student-issues-dashboard/studentIssue'" 
       (click)="onClick('studentIssue')"  
       [ngClass]="{'selected': selectedItem === 'studentIssue'}">
         <mat-icon>help_outline</mat-icon>
         <span *ngIf="!isSidenavCollapsed">Student Issues</span>
       </p>
-      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/codemind-dashboard/subadmin-dashboard/inventory" (click)="onClick('inventory')"  [ngClass]="{'selected': selectedItem === 'inventory'}">
+      <p *ngIf="currentUrl=='subadmin-dashboard'" class="item" routerLink="/subadmin-dashboard/inventory" (click)="onClick('inventory')"  [ngClass]="{'selected': selectedItem === 'inventory'}">
         <mat-icon>inventory_2</mat-icon>
         <span *ngIf="!isSidenavCollapsed">inventory</span>
       </p>

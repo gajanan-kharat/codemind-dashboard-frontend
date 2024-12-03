@@ -25,7 +25,8 @@ export class BootcampNotinterestedStudentComponent {
   courses: string[] = ["All", ...COURSES];
 
   selectedCourseNotInterested = 'All';
-
+  
+  isLoading:Boolean = false;
   totalPages: number = 0;
   currentPage: number = 1;
   limit: number = 10;
@@ -47,11 +48,13 @@ export class BootcampNotinterestedStudentComponent {
   }
 
   fetchStudents(searchTerm: string = ''): void {
+    this.isLoading = true;
     const filters = {
       course: this.selectedCourseNotInterested || '',
     };
     this.bootcampService.getBootcampNotInterested(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response: NotInterestedStudentResponse) => {
+        this.isLoading = false;
         const { totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;
         this.currentPage = currentPage;
@@ -89,11 +92,8 @@ export class BootcampNotinterestedStudentComponent {
 
   applyFilterNotInterested(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.filteredNotInterested.filter = filterValue.trim().toLowerCase();
-
-    if (this.filteredNotInterested.paginator) {
-      this.filteredNotInterested.paginator.firstPage();
-    }
+    this.currentPage = 1;
+    this.fetchStudents(filterValue); 
   }
 
   editNotInterestedStudent(student: any) {

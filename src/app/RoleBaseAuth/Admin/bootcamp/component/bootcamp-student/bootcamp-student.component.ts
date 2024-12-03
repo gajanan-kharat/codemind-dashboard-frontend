@@ -29,6 +29,7 @@ export class BootcampStudentComponent {
   limit: number = 10;
   totalRecords: number = 0;
   role: string | null = '';
+  isLoading:Boolean = false;
 
   selectedPaymentBootCamp = 'All';
   selectedSourceBootCamp = '';
@@ -47,12 +48,14 @@ export class BootcampStudentComponent {
   }
 
   fetchStudents(searchTerm: string = ''): void {
+    this.isLoading = true;
     const filters = {
       paymentStatus: this.selectedPaymentBootCamp || '',
       source: this.selectedSourceBootCamp || ''
     };
     this.bootcampService.getBootCamp(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response: any) => {
+        this.isLoading = false;
         const { totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;
         this.currentPage = currentPage;

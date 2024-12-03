@@ -272,7 +272,7 @@ router.delete('/:id', async (req, res) => {
 });
 
 
-router.get('/fees-summary', async (req, res) => {
+/*router.get('/fees-summary', async (req, res) => {
   try {
     const { startDate, endDate, course, batch } = req.query;
 
@@ -401,6 +401,87 @@ router.get('/fees-summary', async (req, res) => {
 
     res.status(200).json({
       data: finalSummary,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(400).send({ error: 'Error fetching fees summary', details: error.message });
+  }
+});*/
+
+
+router.get('/fees-summary', async (req, res) => {
+  try {
+    const { startDate, endDate, course, batch, page = 1, limit = 10 } = req.query;
+
+    if (!startDate || !endDate) {
+      return res.status(400).send({ error: 'Both startDate and endDate are required' });
+    }
+
+    const from = new Date(startDate);
+    from.setHours(0, 0, 0, 0);
+    const to = new Date(endDate);
+    to.setHours(23, 59, 59, 999);
+
+    const query = {
+      'payments.paymentDate': { $gte: from, $lte: to },
+    };
+
+    if (course && course !== 'All') query.course = course;
+    if (batch && batch !== 'All') query.batch = batch;
+
+    const students = await StudentInformation.find(query);
+
+    const courseSummary = {};
+    students.forEach((student) => {
+      const studentCourse = student.course;
+      const studentBatch = student.batch;
+
+      if (!courseSummary[`${studentCourse}_${studentBatch}`]) {
+        courseSummary[`${studentCourse}_${studentBatch}`] = {
+          course: studentCourse,
+          batch: studentBatch,
+          totalFees: 0,
+          totalPaidFees: 0,
+          totalRemainingFees: 0,
+          totalDiscount: 0,
+          referenceAmount: 0,
+          totalStudents: 0,
+        };
+      }
+
+      const filteredPayments = student.payments.filter((payment) => {
+        const paymentDate = new Date(payment.paymentDate);
+        return paymentDate >= from && paymentDate <= to;
+      });
+
+      if (filteredPayments.length > 0) {
+        const lastPayment = filteredPayments[filteredPayments.length - 1];
+        const { totalFees = 0, totalPaidFees = 0, remainingFees = 0, discountPercentage, discountAmount, reference } = lastPayment;
+
+        const summary = courseSummary[`${studentCourse}_${studentBatch}`];
+        summary.totalFees += totalFees;
+        summary.totalPaidFees += totalPaidFees;
+        summary.totalRemainingFees += remainingFees;
+        summary.totalDiscount += discountPercentage ? (discountPercentage / 100) * totalFees : 0;
+        summary.totalDiscount += discountAmount || 0;
+        summary.referenceAmount += reference || 0;
+        summary.totalStudents += 1;
+      }
+    });
+
+    const finalSummary = Object.values(courseSummary);
+
+    // Pagination
+    const totalRecords = finalSummary.length;
+    const totalPages = Math.ceil(totalRecords / limit);
+    const currentPage = parseInt(page);
+    const paginatedData = finalSummary.slice((currentPage - 1) * limit, currentPage * limit);
+
+    res.status(200).json({
+      totalRecords,
+      totalPages,
+      currentPage,
+      data: paginatedData,
     });
   } catch (error) {
     console.error(error);

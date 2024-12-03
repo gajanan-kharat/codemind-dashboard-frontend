@@ -187,8 +187,10 @@ export class MongodbService {
   }
 
   //get fees data
-  getStudentFees(filters: any = {}): Observable<any> { 
-    const params: any = {
+  getStudentFees(page: number, limit: number,filters: any = {}): Observable<any> { 
+    const params: any = {  
+      page,
+      limit,
       ...filters
     };
     return this.http.get<any>(`${this.baseApiUrl}/studentInformation/fees-summary`,{ params });  

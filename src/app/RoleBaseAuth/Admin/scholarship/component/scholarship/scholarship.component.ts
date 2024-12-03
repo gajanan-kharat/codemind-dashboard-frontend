@@ -25,6 +25,7 @@ export class ScholarshipComponent {
   topItems = SCHOLARSHIP_ITEMS;   
   displayedColumns = DISPLAYED_COLUMNS_INVENTORY;
   
+  isLoading:Boolean = false;
   selectedName = '';
 
   totalPages: number = 0;
@@ -43,7 +44,7 @@ export class ScholarshipComponent {
   }
 
   ngAfterViewInit() {
-    this.filteredScholarshipData .sort = this.sort; 
+    this.filteredScholarshipData.sort = this.sort; 
   }
     
   onClick(name: string) {
@@ -54,11 +55,13 @@ export class ScholarshipComponent {
   }
 
   fetchCollegeData(searchTerm: string = ''): void {
+    this.isLoading = true;
      const filters = {
       scholarshipStatus: this.selectedName || '',
     };
     this.scholarshipService.getScholarshipData(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response: ScholarshipDataResponse) => {
+        this.isLoading = false;
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
         this.currentPage = currentPage;       

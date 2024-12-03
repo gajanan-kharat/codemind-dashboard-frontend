@@ -1,6 +1,7 @@
-<!-- <div *ngIf="isLoading" class="loader-container">
+<div *ngIf="isLoading" class="loader-container">
   <mat-spinner></mat-spinner>
-</div> -->
+</div>
+
 <div class="content">
   <section class="top-cards">
     <div class="card-container">
@@ -18,7 +19,7 @@
     </div>
   </section>
   <div>
-</div>
+  </div>
   <section class="student-table">
     <div class="dropdown-container">
       <div class="filters">
@@ -99,10 +100,15 @@
             <button class="email-btn" (click)="sendEmail(student)"><i class="fa fa-envelope"></i></button>
           </td>
         </ng-container>
-
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
+      <!-- No Data Row -->
+      <ng-container *ngIf="filteredStudents.data.length === 0">
+        <p class="no-data-message">
+          No records available.
+        </p>
+      </ng-container >
       <mat-paginator [length]="totalRecords" [pageSize]="limit" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons
         (page)="onPageChange($event)">
       </mat-paginator>

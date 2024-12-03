@@ -26,7 +26,7 @@ export class InquiryStudentComponent {
 
   courses: string[] = ['All',...COURSES]; 
   displayedColumns: string[] = DISPLAYED_COLUMNS;
-
+  isLoading:Boolean = false; 
   selectedCourseLeads = 'All';
 
   totalPages: number = 0;
@@ -48,11 +48,13 @@ export class InquiryStudentComponent {
   }
 
   fetchStudents(searchTerm: string = ''): void {
+    this.isLoading = true;
     const filters = {
       course: this.selectedCourseLeads || '',
     };
     this.mongodbService.getInquiryStudent(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response: InquiryStudentResponse) => {
+        this.isLoading = false;
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
         this.currentPage = currentPage;       

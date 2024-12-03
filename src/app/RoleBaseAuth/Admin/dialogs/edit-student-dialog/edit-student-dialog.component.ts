@@ -45,7 +45,7 @@ export class EditStudentDialogComponent {
         const lastPayment = this.data.student.payments[this.data.student.payments.length - 1];
         this.paymentStatusValue = lastPayment.paymentStatus || 'Not Paid'; 
       } else {
-        this.paymentStatusValue = 'Not Paid'; // Default value when no payments exist
+        this.paymentStatusValue = 'Not Paid'; 
       }
       
 

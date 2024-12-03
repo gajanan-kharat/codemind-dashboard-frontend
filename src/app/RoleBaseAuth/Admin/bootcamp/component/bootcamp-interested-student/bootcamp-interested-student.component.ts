@@ -22,6 +22,7 @@ export class BootcampInterestedStudentComponent {
 
   filteredInterested = new MatTableDataSource<any>();
   interestedStudents: any[] = [];
+  isLoading:Boolean = false;
 
   selectedCourseInterested = 'All';
   courses: string[] = ["All", ...COURSES];
@@ -48,11 +49,13 @@ export class BootcampInterestedStudentComponent {
   }
 
   fetchStudents(searchTerm: string = ''): void {
+    this.isLoading = true;
     const filters = {
       course: this.selectedCourseInterested || '',
     };
     this.bootcampService.getBootcampInterested(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response: InterestedStudentResponse) => {
+        this.isLoading = false;
         const { totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;
         this.currentPage = currentPage;

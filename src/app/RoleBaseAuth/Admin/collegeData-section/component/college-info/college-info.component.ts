@@ -22,6 +22,7 @@ export class CollegeInfoComponent {
   role: string | null = '';
   collegeInfo: any[] = [];
 
+  isLoading:Boolean = false;
   topItems = COLLEGE_ITEMS;
   University = UNIVERSITY;
   District = DISTRICT;
@@ -42,7 +43,6 @@ export class CollegeInfoComponent {
   constructor(private collegeDataService: CollegeDataService,
     private dialog: MatDialog,
     private toastr: ToastrService) {
-
     this.role = localStorage.getItem('user_role');
   }
 
@@ -81,6 +81,7 @@ export class CollegeInfoComponent {
   }
 
   fetchCollegeData(searchTerm: string = ''): void {
+    this.isLoading = true;
     const filters = {
       universityName: this.selectedUniversity || '',
       visitedStatus: this.selectedName || '',
@@ -90,13 +91,13 @@ export class CollegeInfoComponent {
     };
     this.collegeDataService.getCollegeData(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response: CollegeDataResponse) => {
+        this.isLoading = false;
         const { totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;
         this.currentPage = currentPage;
         this.collegeInfo = data;
         this.totalRecords = totalRecords;
         this.filteredCollegeData.data = this.collegeInfo;
-
       },
       (error) => {
         console.error('Error fetching students Mock:', error);

@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DISPLAYED_COLUMNS_INVENTORY, INVENTORYISSUES } from 'src/app/models/admin-content';
 import { InventoryService } from 'src/app/services/inventory.service';
 import { EditInventoryComponent } from '../../dialogs/edit-inventory/edit-inventory.component';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-invertory',
@@ -16,92 +17,101 @@ import { EditInventoryComponent } from '../../dialogs/edit-inventory/edit-invent
 })
 export class InvertoryComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;  
+  @ViewChild(MatSort) sort!: MatSort;
 
   filteredInventoryData = new MatTableDataSource<any>();
   role: string | null = '';
   inventoryInfo: any[] = [];
-  statusCounts: any[] = [];
+  // statusCounts: any[] = [];
+  isLoading: Boolean = false;
 
-  topItems = INVENTORYISSUES ;   
+  topItems = INVENTORYISSUES;
   displayedColumns = DISPLAYED_COLUMNS_INVENTORY;
   selectedName = '';
- 
+
+  statusCounts = new BehaviorSubject<any[]>([]);
   totalPages: number = 0;
   currentPage: number = 1;
   limit: number = 10;
-  totalRecords:number = 0;
+  totalRecords: number = 0;
 
-  constructor( private inventoryService: InventoryService, 
-               private dialog: MatDialog,
-               private toastr: ToastrService,
-              ) {
+  constructor(private inventoryService: InventoryService,
+    private dialog: MatDialog,
+    private toastr: ToastrService,
+  ) {
     this.role = localStorage.getItem('user_role');
-    this.fetchInventory(); 
+    this.fetchInventory();
   }
 
   ngOnInit(): void {
-    this.fetchInventory(); 
+    this.fetchInventory();
   }
 
   ngAfterViewInit() {
-    this.filteredInventoryData.sort = this.sort; 
+    this.filteredInventoryData.sort = this.sort;
     this.inventoryService.booleanSubject.subscribe(value => {
       if (value == true) {
         this.fetchInventory();
       }
     });
   }
-    
+
   onClick(name: string) {
     this.selectedName = name;
     this.currentPage = 1;
     this.fetchInventory();
-    this.filteredInventoryData.paginator = this.paginator; 
+    this.filteredInventoryData.paginator = this.paginator;
   }
 
   fetchInventory(searchTerm: string = ''): void {
-     const filters = {
-      status : this.selectedName || '',
+    this.isLoading = true;
+    const filters = {
+      status: this.selectedName || '',
     };
     this.inventoryService.getInventoryData(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response: any) => {
-        const {totalRecords, totalPages, currentPage, data ,statusCounts} = response;
-        this.totalPages = totalPages;         
-        this.currentPage = currentPage;       
+        this.isLoading = false;
+        const { totalRecords, totalPages, currentPage, data, statusCounts } = response;
+        this.totalPages = totalPages;
+        this.currentPage = currentPage;
         this.inventoryInfo = data;
         this.totalRecords = totalRecords;
         this.filteredInventoryData.data = this.inventoryInfo;
-        this.statusCounts = statusCounts;
+        // this.statusCounts = statusCounts;
 
+        // Emit new value to BehaviorSubject
+        this.statusCounts.next(statusCounts);
+
+        // Access the latest statusCounts inside the loop
         this.topItems.forEach(item => {
-          const statusCount =  this.statusCounts.find(status => status.status === item.name);
+          const currentStatusCounts = this.statusCounts.getValue(); // Get latest emitted value
+          const statusCount = currentStatusCounts.find(status => status.status === item.name);
+
           if (statusCount) {
             item.count = statusCount.count;
           }
-        
         });
       },
       (error) => {
-        console.error('Error fetching students Mock:', error);
+        console.error('Error fetching Inventory:', error);
       }
     );
   }
 
   onPageChange(event: any): void {
-    this.currentPage = event.pageIndex+1; 
-    this.limit = event.pageSize; 
+    this.currentPage = event.pageIndex + 1;
+    this.limit = event.pageSize;
     this.fetchInventory();
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.currentPage = 1;
-    this.fetchInventory(filterValue); 
+    this.fetchInventory(filterValue);
   }
 
-  refreshData(){
-    this.inventoryInfo= [];
+  refreshData() {
+    this.inventoryInfo = [];
     this.filteredInventoryData.data = [];
     this.selectedName = '';
     const searchInput = document.getElementById('search-input') as HTMLInputElement;
@@ -110,12 +120,12 @@ export class InvertoryComponent {
     }
     this.fetchInventory();
   }
- 
+
   editInventory(inventory: any) {
     const dialogRef = this.dialog.open(EditInventoryComponent, {
       width: '50%',
       data: { inventory },
-      maxWidth: '80vw', 
+      maxWidth: '80vw',
       minWidth: '300px',
     });
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -130,10 +140,10 @@ export class InvertoryComponent {
     });
   }
 
-  deleteInventory(inventory:any){
+  deleteInventory(inventory: any) {
     this.inventoryService.deleteInventoryData(inventory._id).subscribe(
       () => {
-          this.toastr.success('Inventory Data deleted successfully.', 'Success', {
+        this.toastr.success('Inventory Data deleted successfully.', 'Success', {
           timeOut: 3000,
           positionClass: 'toast-top-right',
           progressBar: true,
@@ -154,14 +164,14 @@ export class InvertoryComponent {
     );
   }
 
-  addNewInventory(){
+  addNewInventory() {
     const dialogRef = this.dialog.open(EditInventoryComponent, {
       width: '50%',
-      data: { inventory:null }, 
+      data: { inventory: null },
       // maxWidth: '80vw',
       // minWidth: '300px',
     });
-  
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.inventoryInfo.push(result);

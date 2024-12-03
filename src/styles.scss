@@ -177,6 +177,7 @@ body {
     transform: translate(-50%, -50%);
     z-index: 1000;
   }
+
   //Email Button 
   .email-btn{
     margin-left: 10px;
@@ -192,3 +193,9 @@ body {
     transform: scale(1.05); 
   }
 
+  // No Data message line
+  .no-data-message{
+    text-align: center;
+    font-weight: bold;
+    padding-top: 10px;
+  }

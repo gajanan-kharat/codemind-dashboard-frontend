@@ -1,3 +1,6 @@
+<div *ngIf="isLoading" class="loader-container">
+    <mat-spinner></mat-spinner>
+</div>
 <div class="content">
     <section class="top-cards">
         <div class="card-container">
@@ -43,12 +46,14 @@
                 </mat-select>
             </mat-form-field>
         </div>
+        <div>
+            <mat-icon class="refresh-icon" (click)="refreshData()" mat-ripple>refresh</mat-icon>
+        </div>
     </div>
 
     <!-- Table to display the data -->
-    <div *ngIf="feesSummary">
-        <table mat-table [dataSource]="feesSummary" class="mat-elevation-z8">
-
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="feesSummary">
             <!-- Course Column -->
             <ng-container matColumnDef="course">
                 <th mat-header-cell *matHeaderCellDef> Course </th>
@@ -100,5 +105,13 @@
             <tr mat-header-row *matHeaderRowDef="displayedFeesColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedFeesColumns;"></tr>
         </table>
+        <ng-container *ngIf="feesSummary.data.length === 0">
+            <p class="no-data-message">
+                No records available.
+            </p>
+        </ng-container>
+        <mat-paginator [length]="totalRecords" [pageSize]="limit" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons
+            (page)="onPageChange($event)">
+        </mat-paginator>
     </div>
 </div>

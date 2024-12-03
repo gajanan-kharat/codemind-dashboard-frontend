@@ -37,6 +37,7 @@ export class FollowupStudentComponent {
   limit: number = 10;
   totalRecords:number = 0;
   role: string | null = '';
+  isLoading:Boolean = false; 
 
   dateRangeForm: FormGroup;
   constructor(private mongodbService: MongodbService, private dialog: MatDialog, 
@@ -57,6 +58,7 @@ export class FollowupStudentComponent {
   }
 
   fetchStudents(searchTerm: string = ''): void {
+    this.isLoading =  true;
     const filters = {
       course: this.selectedCourseFollowUp || '',
       inquiryStatus:this. selectedStatusFollowUp || '',
@@ -65,6 +67,7 @@ export class FollowupStudentComponent {
     };
     this.mongodbService.getFollowUp(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response: FollowUpStudentResponse) => {
+        this.isLoading =  false;
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
         this.currentPage = currentPage;       

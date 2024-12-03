@@ -1,3 +1,7 @@
+<div *ngIf="isLoading" class="loader-container">
+  <mat-spinner></mat-spinner>
+</div>
+
 <div class="filter-container">
   <div class="filters">
     <mat-form-field appearance="fill">
@@ -66,6 +70,13 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumnsFollow"></tr>
     <tr mat-row *matRowDef="let row; columns:  displayedColumnsFollow;"></tr>
   </table>
+
+ <!-- No Data Row -->
+ <ng-container *ngIf="filteredFollowUp.data.length === 0">
+  <p class="no-data-message">
+    No records available.
+  </p>
+</ng-container>
   <mat-paginator [length]="totalRecords" [pageSize]="limit" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons
     (page)="onPageChange($event)">
   </mat-paginator>

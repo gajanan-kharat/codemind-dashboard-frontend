@@ -65,7 +65,7 @@ export class EditInventoryComponent {
         issueDescription: [''],
         issueDate: [null],
         assignedTo: [''],
-        status: ['No Issue'],
+        status: ['New Issue'],
         resolvedDate: [null],
         resolutionComment: [''],
         returned: ['Not Return'],

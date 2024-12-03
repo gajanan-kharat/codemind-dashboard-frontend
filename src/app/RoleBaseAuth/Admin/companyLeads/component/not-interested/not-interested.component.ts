@@ -30,6 +30,8 @@ export class NotInterestedComponent {
   totalRecords:number = 0;
   role: string | null = '';
 
+  isLoading:Boolean = false;
+
   constructor(private hireusService: HireusService,
               private dialog: MatDialog, 
               private toastr: ToastrService){
@@ -44,10 +46,12 @@ export class NotInterestedComponent {
   }
 
   fetchStudents(searchTerm: string = ''): void {
+    this.isLoading = true;
     const filters = {
     };
     this.hireusService.getHireUsNotInterested(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response:HireUsNotInterestedResponse) => {
+        this.isLoading = false;
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
         this.currentPage = currentPage;       

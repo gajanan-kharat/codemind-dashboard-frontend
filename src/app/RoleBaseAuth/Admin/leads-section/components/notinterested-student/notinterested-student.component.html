@@ -1,56 +1,56 @@
-    <div class="filter-container">
-      <div class="filters">
-        <mat-form-field appearance="fill">
-          <mat-label>Search</mat-label>
-          <input matInput (keyup)="applyFilterNotInterested($event)" placeholder="Search Students">
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Select Course</mat-label>
-          <mat-select [(value)]="selectedCourseNotInterested" (selectionChange)="onCourseChange()">
-            <mat-option *ngFor="let course of courses" [value]="course">{{course}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-icon class="refresh-icon" (click)="refreshData()" mat-ripple>refresh</mat-icon>
-      </div>
-    </div>
-    <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="filteredNotInterested" matSort>
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-          <td mat-cell *matCellDef="let student">{{student.name}}</td>
-        </ng-container>
-        <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-          <td mat-cell *matCellDef="let student">{{student.email}}</td>
-        </ng-container>
-        <ng-container matColumnDef="course">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Course</th>
-          <td mat-cell *matCellDef="let student">{{student.course}}</td>
-        </ng-container>
-        <!-- <ng-container matColumnDef="inquiryStatus">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-          <td mat-cell *matCellDef="let student">{{student.inquiryStatus}}</td>
-        </ng-container> -->
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef>Actions</th>
-          <td mat-cell *matCellDef="let student">
-            <button class="edit" (click)="editNotInterestedStudent(student)">
-              <!-- <mat-icon class="blue-icon">drive_file_rename_outline</mat-icon> -->
-              <i class="fa fa-pencil blue-icon"></i>
-            </button>
-            <button *ngIf="role=='Admin'" class="edit" (click)="deleteStudent(student)">
-              <!-- <mat-icon class="red-icon">delete_forever</mat-icon> -->
-              <i class="fa fa-trash red-icon"></i>
-            </button>
-            <button class="email-btn" (click)="onSendEmail(student)"><i class="fa fa-envelope"></i></button>
-          </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-      <!-- <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator> -->
-      <mat-paginator [length]="totalRecords" [pageSize]="limit" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons
-      (page)="onPageChange($event)"></mat-paginator>   
-    </div>
-
-
+<div *ngIf="isLoading" class="loader-container">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="filter-container">
+  <div class="filters">
+    <mat-form-field appearance="fill">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilterNotInterested($event)" placeholder="Search Students">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Select Course</mat-label>
+      <mat-select [(value)]="selectedCourseNotInterested" (selectionChange)="onCourseChange()">
+        <mat-option *ngFor="let course of courses" [value]="course">{{course}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-icon class="refresh-icon" (click)="refreshData()" mat-ripple>refresh</mat-icon>
+  </div>
+</div>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="filteredNotInterested" matSort>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let student">{{student.name}}</td>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+      <td mat-cell *matCellDef="let student">{{student.email}}</td>
+    </ng-container>
+    <ng-container matColumnDef="course">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Course</th>
+      <td mat-cell *matCellDef="let student">{{student.course}}</td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let student">
+        <button class="edit" (click)="editNotInterestedStudent(student)">
+          <i class="fa fa-pencil blue-icon"></i>
+        </button>
+        <button *ngIf="role=='Admin'" class="edit" (click)="deleteStudent(student)">
+          <i class="fa fa-trash red-icon"></i>
+        </button>
+        <button class="email-btn" (click)="onSendEmail(student)"><i class="fa fa-envelope"></i></button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <!-- No Data Row -->
+  <ng-container *ngIf="filteredNotInterested.data.length === 0">
+    <p class="no-data-message">
+      No records available.
+    </p>
+  </ng-container >
+  <mat-paginator [length]="totalRecords" [pageSize]="limit" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons
+    (page)="onPageChange($event)"></mat-paginator>
+</div>

@@ -28,6 +28,7 @@ export class CodemindBootcampComponent {
   limit: number = 10;
   totalRecords: number = 0;
   role: string | null = '';
+  isLoading:Boolean = false;
 
   selectedSourceBootCamp = '';
   constructor(private dialog: MatDialog,
@@ -45,13 +46,14 @@ export class CodemindBootcampComponent {
   }
 
   fetchStudents(searchTerm: string = ''): void {
+    this.isLoading = true;
     const filters = {
       selectedBootcamp: this.selectedSourceBootCamp || ''
 
     };
-
     this.bootcampService.getCodemindBootCamp(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response: any) => {
+        this.isLoading = false;
         const { totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;
         this.currentPage = currentPage;

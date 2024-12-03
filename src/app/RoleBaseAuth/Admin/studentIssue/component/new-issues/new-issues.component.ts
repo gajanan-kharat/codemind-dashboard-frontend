@@ -16,58 +16,61 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class NewIssuesComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;  
-  
+  @ViewChild(MatSort) sort!: MatSort;
+
   filteredStudentIssuesData = new MatTableDataSource<any>();
   role: string | null = '';
   studentIssuesInfo: any[] = [];
 
-  topItems =  ISSUESTATUS ;   
-  displayedColumns =  DISPLAYED_COLUMNS_INVENTORY;
+  topItems = ISSUESTATUS;
+  displayedColumns = DISPLAYED_COLUMNS_INVENTORY;
   selectedName = '';
- 
+
+  isLoading: Boolean = false;
   totalPages: number = 0;
   currentPage: number = 1;
   limit: number = 10;
-  totalRecords:number = 0;
+  totalRecords: number = 0;
 
-  constructor(  private studentIssueService: StudentIssueService, 
-               private dialog: MatDialog,
-               private toastr: ToastrService,
-               private fb: FormBuilder) {
-  
+  constructor(private studentIssueService: StudentIssueService,
+    private dialog: MatDialog,
+    private toastr: ToastrService,
+    private fb: FormBuilder) {
+
     this.role = localStorage.getItem('user_role');
   }
 
   ngOnInit(): void {
-    this.fetchStudentIssues(); 
+    this.fetchStudentIssues();
   }
 
   ngAfterViewInit() {
-    this.filteredStudentIssuesData.sort = this.sort; 
+    this.filteredStudentIssuesData.sort = this.sort;
   }
-    
-    onClick(name: string) {
-      this.selectedName = name;
-      this.currentPage = 1;
-      this.fetchStudentIssues();
-      this.filteredStudentIssuesData.paginator = this.paginator;
-    
-    }
+
+  onClick(name: string) {
+    this.selectedName = name;
+    this.currentPage = 1;
+    this.fetchStudentIssues();
+    this.filteredStudentIssuesData.paginator = this.paginator;
+
+  }
 
   fetchStudentIssues(searchTerm: string = ''): void {
-     const filters = {
+    this.isLoading = true;
+    const filters = {
       issueStatus: this.selectedName || '',
     };
     this.studentIssueService.getStudentIssuesData(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response: any) => {
-        const {totalRecords, totalPages, currentPage, data } = response;
-        this.totalPages = totalPages;         
-        this.currentPage = currentPage;       
+        this.isLoading = false;
+        const { totalRecords, totalPages, currentPage, data } = response;
+        this.totalPages = totalPages;
+        this.currentPage = currentPage;
         this.studentIssuesInfo = data;
         this.totalRecords = totalRecords;
         this.filteredStudentIssuesData.data = this.studentIssuesInfo;
-   
+
       },
       (error) => {
         console.error('Error fetching students Mock:', error);
@@ -76,19 +79,19 @@ export class NewIssuesComponent {
   }
 
   onPageChange(event: any): void {
-    this.currentPage = event.pageIndex+1; 
-    this.limit = event.pageSize; 
+    this.currentPage = event.pageIndex + 1;
+    this.limit = event.pageSize;
     this.fetchStudentIssues();
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.currentPage = 1;
-    this.fetchStudentIssues(filterValue); 
+    this.fetchStudentIssues(filterValue);
   }
 
-  refreshData(){
-    this.studentIssuesInfo= [];
+  refreshData() {
+    this.studentIssuesInfo = [];
     this.filteredStudentIssuesData.data = [];
     this.selectedName = '';
     const searchInput = document.getElementById('search-input') as HTMLInputElement;
@@ -97,12 +100,12 @@ export class NewIssuesComponent {
     }
     this.fetchStudentIssues();
   }
- 
+
   editStudent(student: any) {
     const dialogRef = this.dialog.open(EditNewIssuesComponent, {
       width: '50%',
       data: { student },
-      maxWidth: '80vw', 
+      maxWidth: '80vw',
       minWidth: '300px',
     });
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -116,10 +119,10 @@ export class NewIssuesComponent {
     });
   }
 
-  deleteScholarship(student:any){
+  deleteScholarship(student: any) {
     this.studentIssueService.deleteStudentIssuesData(student._id).subscribe(
       () => {
-          this.toastr.success('student Issue Data deleted successfully.', 'Success', {
+        this.toastr.success('student Issue Data deleted successfully.', 'Success', {
           timeOut: 3000,
           positionClass: 'toast-top-right',
           progressBar: true,
@@ -139,14 +142,14 @@ export class NewIssuesComponent {
     );
   }
 
-  addNewStudentIssue(){
+  addNewStudentIssue() {
     const dialogRef = this.dialog.open(EditNewIssuesComponent, {
       width: '50%',
-      data: { student:null }, 
+      data: { student: null },
       maxWidth: '80vw',
       minWidth: '300px',
     });
-  
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.studentIssuesInfo.push(result);

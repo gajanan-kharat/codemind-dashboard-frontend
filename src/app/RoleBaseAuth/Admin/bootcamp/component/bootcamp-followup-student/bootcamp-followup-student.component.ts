@@ -21,6 +21,7 @@ export class BootcampFollowupStudentComponent {
   @ViewChild(MatSort) sort!: MatSort; 
   filteredFollowUp = new MatTableDataSource<any>();
   followUpStudents: any[] = [];
+  isLoading:Boolean = false;
 
   courses: string[] = COURSES; 
   batches: string[] = BATCHES;
@@ -60,6 +61,7 @@ export class BootcampFollowupStudentComponent {
   }
 
   fetchStudents(searchTerm: string = ''): void {
+    this.isLoading = true;
     const filters = {
       course: this.selectedCourseFollowUp || '',
       inquiryStatus:this. selectedStatusFollowUp || '',
@@ -68,6 +70,7 @@ export class BootcampFollowupStudentComponent {
     };
     this.bootcampService.getBootcampFollowUp(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response: FollowUpStudentResponse) => {
+        this.isLoading = false;
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
         this.currentPage = currentPage;       

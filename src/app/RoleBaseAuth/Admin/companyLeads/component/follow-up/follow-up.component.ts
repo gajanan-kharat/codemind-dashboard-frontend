@@ -31,6 +31,7 @@ export class FollowUpComponent {
   limit: number = 10;
   totalRecords:number = 0;
   role: string | null = '';
+  isLoading:Boolean = false;
 
   constructor(private hireusService: HireusService,
               private dialog: MatDialog, 
@@ -46,10 +47,12 @@ export class FollowUpComponent {
   }
 
   fetchStudents(searchTerm: string = ''): void {
+    this.isLoading = true;
     const filters = {
     };
     this.hireusService.getHireUsFollowUp(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response:HireUsFollowUpResponse) => {
+        this.isLoading = false;
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
         this.currentPage = currentPage;       

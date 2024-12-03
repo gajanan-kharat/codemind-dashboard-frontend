@@ -35,6 +35,7 @@ export class AdminContentComponent implements OnInit {
   selectedCourse = '';
   searchTerm: string = '';
 
+  isLoading:Boolean = false;
   totalPages: number = 0;
   currentPage: number = 1;
   limit: number = 10;
@@ -96,7 +97,7 @@ onFeedbackChange() {
   }
 
   fetchStudents(searchTerm: string = ''): void {
-    
+    this.isLoading = true;
     const filters = {
       batch: this.selectedBatch || '',
       course: this.selectedCourse || '',
@@ -107,6 +108,7 @@ onFeedbackChange() {
     
     this.moongodb.getStudent(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response) => {
+        this.isLoading = false;
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
         this.currentPage = currentPage;       

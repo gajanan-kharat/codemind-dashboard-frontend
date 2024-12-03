@@ -32,46 +32,36 @@ export class UserManagementComponent {
   currentPage: number = 1;
   limit: number = 10;
   totalRecords:number = 0;
+  isLoading:Boolean = false;
 
   selectedRole = ''; 
-  // searchTerm: string = '';
 
   constructor(private authService: AuthService,
      private moongodb: MongodbService,
      private dialog: MatDialog,
      private toastr: ToastrService) {}
-  ngOnInit(): void {
-    // this.filterUsers();  
+  ngOnInit(): void { 
     this.fetchUsers();
   }
 
   ngAfterViewInit() {
-    // this.filteredUsers.paginator = this.paginator;
     this.filteredUsers.sort = this.sort; 
   }
 
-  /*filterUsers() {  
-    if (this.selectedRole) {
-      this.filteredUsers.data = this.users.filter(user => user.role === this.selectedRole);  
-    } else {
-      this.filteredUsers.data = this.users;  
-    }
-  }*/
-
-  fetchUsers(searchTerm: string = ''): void {  
+  fetchUsers(searchTerm: string = ''): void { 
+    this.isLoading = true; 
     const filters = {
      role: this.selectedRole || '',
     };
     this.authService.getUser(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response:UsersResponse) => {
+        this.isLoading = false; 
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
         this.currentPage = currentPage;       
         this.users = data;
         this.totalRecords = totalRecords;
         this.filteredUsers.data = this.users;
-        // console.log("users data:=>",response);  
-        // this.filterUsers();  
       },
       (error) => {
         console.error('Error fetching users:', error);  
@@ -103,8 +93,7 @@ export class UserManagementComponent {
 
   onRoleClick(role: string) {
     this.selectedRole = role;  
-    this.fetchUsers();
-    // this.filterUsers();       
+    this.fetchUsers();   
   }
 
   addNewUser() {
@@ -117,7 +106,6 @@ export class UserManagementComponent {
       if (result) {
         this.users.push(result); 
         this.fetchUsers(); 
-        // this.filterUsers();  
       }
     });
   }
@@ -157,7 +145,6 @@ export class UserManagementComponent {
         if (index !== -1) {
           this.users[index] = result;
           this.fetchUsers();  
-          // this.filterUsers(); 
         }
       }
     });

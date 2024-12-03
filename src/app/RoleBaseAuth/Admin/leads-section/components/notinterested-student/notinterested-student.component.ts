@@ -26,7 +26,7 @@ export class NotinterestedStudentComponent {
   courses: string[] = ["All",...COURSES]; 
  
   selectedCourseNotInterested = 'All';
-
+  isLoading: Boolean = false;
 
   totalPages: number = 0;
   currentPage: number = 1;
@@ -36,7 +36,6 @@ export class NotinterestedStudentComponent {
 
   constructor(private mongodbService: MongodbService,
               private dialog: MatDialog, 
-              private fb: FormBuilder,
               private toastr: ToastrService) {
                 this.role = localStorage.getItem('user_role');
               }
@@ -50,11 +49,13 @@ export class NotinterestedStudentComponent {
   }
 
   fetchStudents(searchTerm: string = ''): void {
+    this.isLoading = true;
     const filters = {
       course: this.selectedCourseNotInterested|| '',
     };
     this.mongodbService.getNotInterested(this.currentPage, this.limit, searchTerm,filters).subscribe(
       (response:NotInterestedStudentResponse) => {
+        this.isLoading = false;
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
         this.currentPage = currentPage;       
@@ -63,7 +64,7 @@ export class NotinterestedStudentComponent {
         this.filteredNotInterested.data = this.notInterestedStudents;
       },
       (error) => {
-        console.error('Error fetching follow-up students:', error);
+        console.error('Error fetching not interested students:', error);
       }
     );
   }
@@ -77,7 +78,6 @@ export class NotinterestedStudentComponent {
     this.notInterestedStudents = [];
     this.filteredNotInterested.data = [];
     this.selectedCourseNotInterested = '';
-    // this.selectedBatchNotInterested = '';
     const searchInput = document.querySelector('input[matInput]') as HTMLInputElement;
     if (searchInput) {
       searchInput.value = '';
@@ -113,11 +113,8 @@ export class NotinterestedStudentComponent {
 
   applyFilterNotInterested(event: Event){
     const filterValue = (event.target as HTMLInputElement).value;
-    this.filteredNotInterested.filter = filterValue.trim().toLowerCase();
-  
-    if (this.filteredNotInterested.paginator) {
-      this. filteredNotInterested.paginator.firstPage();
-    }
+    this.currentPage = 1;
+    this.fetchStudents(filterValue); 
   }
   
   deleteStudent(student:any){

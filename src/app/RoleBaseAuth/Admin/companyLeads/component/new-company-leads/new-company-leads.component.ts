@@ -28,6 +28,7 @@ export class NewCompanyLeadsComponent {
 
   selectedCourseLeads = 'All';
 
+  isLoading:Boolean = false;
   totalPages: number = 0;
   currentPage: number = 1;
   limit: number = 10;
@@ -49,11 +50,13 @@ export class NewCompanyLeadsComponent {
   }
 
   fetchStudents(searchTerm: string = ''): void {
+    this.isLoading =  true;
     const filters = {
       course: this.selectedCourseLeads || '',
     };
     this.hireusService.getHireUs(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response:  HireUsResponse) => {
+        this.isLoading =  false;
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
         this.currentPage = currentPage;       
@@ -62,7 +65,7 @@ export class NewCompanyLeadsComponent {
         this.filteredLeads.data =  this.Inquirystudents;
       },
       (error) => {
-        console.error('Error fetching students:', error);
+        console.error('Error fetching new company leads:', error);
       }
     );
   }

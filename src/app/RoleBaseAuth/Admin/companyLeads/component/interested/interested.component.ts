@@ -24,6 +24,7 @@ export class InterestedComponent {
   interestedStudents: any[] =[];
 
   displayedColumns =  DISPLAYED_COLUMNS_COMPANY_FOLLOW;
+  isLoading:Boolean = false;
 
   totalPages: number = 0;
   currentPage: number = 1;
@@ -45,10 +46,12 @@ export class InterestedComponent {
   }
 
   fetchStudents(searchTerm: string = ''): void {
+    this.isLoading = true;
     const filters = {
     };
     this.hireusService.getHireUsInterested(this.currentPage, this.limit, searchTerm, filters).subscribe(
       (response:HireUsInterestedResponse) => {
+        this.isLoading = false;
         const {totalRecords, totalPages, currentPage, data } = response;
         this.totalPages = totalPages;         
         this.currentPage = currentPage;       

@@ -106,7 +106,7 @@ export class CodemindBootcampComponent {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        const index = this.bootCampStudents.findIndex(s => s._id === student._id);
+        const index = this.bootCampStudents.findIndex(s => s.id === student.id);
         if (index !== -1) {
           this.bootCampStudents[index] = result;
           this.fetchStudents();
@@ -117,7 +117,7 @@ export class CodemindBootcampComponent {
   }
 
   deleteStudent(student: any) {
-    this.bootcampService.deleteCodemindBootcampStudent(student._id).subscribe(
+    this.bootcampService.deleteCodemindBootcampStudent(student.id).subscribe(
       () => {
         this.toastr.success('Bootcamp Student deleted successfully.', 'Success', {
           timeOut: 3000,
@@ -141,7 +141,7 @@ export class CodemindBootcampComponent {
 
   //send email
   onSendEmail(student: any) {
-    const codemindBootcampId = student._id;
+    const codemindBootcampId = student.id;
     this.bootcampService.sendcodemindBootcampEmail(codemindBootcampId).subscribe(
       (response) => {
         this.toastr.success('Email sent successfully');

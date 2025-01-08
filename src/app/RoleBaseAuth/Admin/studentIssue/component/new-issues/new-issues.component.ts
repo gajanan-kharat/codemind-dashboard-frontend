@@ -110,7 +110,7 @@ export class NewIssuesComponent {
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        const index = this.studentIssuesInfo.findIndex(s => s._id === student._id);
+        const index = this.studentIssuesInfo.findIndex(s => s.id === student.id);
         if (index !== -1) {
           this.studentIssuesInfo[index] = result;
           this.fetchStudentIssues();
@@ -120,7 +120,7 @@ export class NewIssuesComponent {
   }
 
   deleteScholarship(student: any) {
-    this.studentIssueService.deleteStudentIssuesData(student._id).subscribe(
+    this.studentIssueService.deleteStudentIssuesData(student.id).subscribe(
       () => {
         this.toastr.success('student Issue Data deleted successfully.', 'Success', {
           timeOut: 3000,

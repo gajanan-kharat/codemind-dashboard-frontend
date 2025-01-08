@@ -107,7 +107,7 @@ export class ScholarshipComponent {
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        const index = this.scholarshipInfo.findIndex(s => s._id === student._id);
+        const index = this.scholarshipInfo.findIndex(s => s.id === student.id);
         if (index !== -1) {
           this.scholarshipInfo[index] = result;
           this.fetchCollegeData();
@@ -117,7 +117,7 @@ export class ScholarshipComponent {
   }
 
   deleteScholarship(scholarship:any){
-    this.scholarshipService.deleteScholarshipData(scholarship._id).subscribe(
+    this.scholarshipService.deleteScholarshipData(scholarship.id).subscribe(
       () => {
           this.toastr.success('scholarship Data deleted successfully.', 'Success', {
           timeOut: 3000,

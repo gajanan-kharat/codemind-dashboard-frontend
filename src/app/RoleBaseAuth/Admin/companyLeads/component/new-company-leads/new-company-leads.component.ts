@@ -127,7 +127,7 @@ export class NewCompanyLeadsComponent {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-          const index = this.Inquirystudents.findIndex(s => s._id === student._id);
+          const index = this.Inquirystudents.findIndex(s => s.id === student.id);
           if (index !== -1) {
             this.Inquirystudents[index] = result;
             this.fetchStudents();
@@ -138,7 +138,7 @@ export class NewCompanyLeadsComponent {
   }
 
   deleteHireUs(student:any){
-   this.hireusService.deleteHireUs(student._id).subscribe(
+   this.hireusService.deleteHireUs(student.id).subscribe(
       () => {
           this.toastr.success('HireUs deleted successfully.', 'Success', {
           timeOut: 3000,

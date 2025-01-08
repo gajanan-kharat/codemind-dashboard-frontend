@@ -71,7 +71,7 @@ export class EditCompanyLeadsComponent {
         // Logic for 'Not Interested' case
         this.hireusService.addHireUsNotInterested(updatedInquiry).subscribe(
           (response) => {
-            this.hireusService.deleteHireUs(this.data.student._id).subscribe(
+            this.hireusService.deleteHireUs(this.data.student.id).subscribe(
               (deleteResponse) => {
                 this.toastr.success('HireUs moved to Not Interested table successfully.', 'Success', {
                   timeOut: 3000,
@@ -106,7 +106,7 @@ export class EditCompanyLeadsComponent {
         // Logic for 'Interested' case
         this.hireusService.addHireUsInterested(updatedInquiry).subscribe(
           (interestedResponse) => {
-            this.hireusService.deleteHireUs(this.data.student._id).subscribe(
+            this.hireusService.deleteHireUs(this.data.student.id).subscribe(
               (deleteResponse) => {
                 this.toastr.success('Inquiry updated and moved to Interested table successfully.', 'Success', {
                   timeOut: 3000,
@@ -141,7 +141,7 @@ export class EditCompanyLeadsComponent {
         // Logic for 'Follow Up' case (as before)
         this.hireusService.addHireUsFollowUp(updatedInquiry).subscribe(
           (followUpResponse) => {
-            this.hireusService.deleteHireUs(this.data.student._id).subscribe(
+            this.hireusService.deleteHireUs(this.data.student.id).subscribe(
               (deleteResponse) => {
                 this.toastr.success('HireUs updated and moved to Follow Up table successfully.', 'Success', {
                   timeOut: 3000,
@@ -182,7 +182,7 @@ export class EditCompanyLeadsComponent {
     if (this.inquiryForm.valid) {
       const { name, company, email, mobileNumber } = this.inquiryForm.value;
       const formData = { name, company, email, mobileNumber };
-      console.log("Iquirty Data :=>", formData);
+      // console.log("Iquirty Data :=>", formData);
       this.hireusService.addHireUs(formData).subscribe(
         (response) => {
           this.toastr.success('HireUs added successfully.', 'Success', {

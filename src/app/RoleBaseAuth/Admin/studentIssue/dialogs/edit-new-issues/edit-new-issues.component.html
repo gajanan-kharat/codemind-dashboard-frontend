@@ -74,7 +74,7 @@
       <mat-error *ngIf="studentIssueForm.get('description')?.hasError('required')">Description is required.</mat-error>
     </mat-form-field>
 
-    <div formGroupName="technicalExpert">
+    <!-- <div formGroupName="technicalExpert"> -->
       <mat-form-field appearance="fill">
         <mat-label>Technical Expert Name</mat-label>
         <input matInput formControlName="technicalExpertName" required>
@@ -86,7 +86,7 @@
         <mat-datepicker-toggle matSuffix [for]="mentorPicker"></mat-datepicker-toggle>
         <mat-datepicker #mentorPicker></mat-datepicker>
       </mat-form-field>
-    </div>
+    <!-- </div> -->
   </form>
 </div>
 <div mat-dialog-actions>

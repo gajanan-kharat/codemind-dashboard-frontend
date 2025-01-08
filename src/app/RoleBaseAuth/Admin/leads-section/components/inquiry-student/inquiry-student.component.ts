@@ -64,6 +64,7 @@ export class InquiryStudentComponent {
         // this.filterLeads();
       },
       (error) => {
+        this.isLoading = false;
         console.error('Error fetching students:', error);
       }
     );
@@ -115,7 +116,7 @@ export class InquiryStudentComponent {
   
  
   editStudent(student: any) {
-    console.log("Student data =>", student);
+    // console.log("Student data =>", student);
     const dialogRef = this.dialog.open(EditInquiryStudentComponent, {
       width: '50%',
       data: { student },
@@ -125,7 +126,7 @@ export class InquiryStudentComponent {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-          const index = this.Inquirystudents.findIndex(s => s._id === student._id);
+          const index = this.Inquirystudents.findIndex(s => s.id === student.id);
           if (index !== -1) {
             this.Inquirystudents[index] = result;
             this.fetchStudents();
@@ -136,7 +137,7 @@ export class InquiryStudentComponent {
   }
 
   deleteInquiryStudent(student:any){
-    this.mongodbService.deleteStudent(student._id).subscribe(
+    this.mongodbService.deleteStudent(student.id).subscribe(
       () => {
           this.toastr.success('Inquiry Student deleted successfully.', 'Success', {
           timeOut: 3000,

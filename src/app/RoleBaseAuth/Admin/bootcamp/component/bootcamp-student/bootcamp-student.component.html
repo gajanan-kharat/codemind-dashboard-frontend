@@ -60,7 +60,7 @@
   </table>
 
   <!-- No Data Row -->
-  <ng-container *ngIf="filteredBootCamp.data.length === 0">
+  <ng-container *ngIf="filteredBootCamp.data.length === 0 && !isLoading">
     <p class="no-data-message">
       No records available.
     </p>

@@ -37,7 +37,7 @@ export class NewIssuesComponent {
     private toastr: ToastrService,
     private fb: FormBuilder) {
 
-    this.role = localStorage.getItem('user_role');
+    this.role = sessionStorage.getItem('user_role');
   }
 
   ngOnInit(): void {
@@ -70,9 +70,9 @@ export class NewIssuesComponent {
         this.studentIssuesInfo = data;
         this.totalRecords = totalRecords;
         this.filteredStudentIssuesData.data = this.studentIssuesInfo;
-
       },
       (error) => {
+        this.isLoading = false;
         console.error('Error fetching students Mock:', error);
       }
     );

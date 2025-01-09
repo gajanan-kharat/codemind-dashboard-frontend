@@ -78,8 +78,9 @@ export class TotalFeesComponent {
         this.currentPage = currentPage;
         this.totalRecords = totalRecords;
         this.feesSummary.data = data;
-        console.log(this.feesSummary);
+        // console.log(this.feesSummary);
       }, (error) => {
+        this.isLoading = false;
         console.error('Error fetching fees summary', error);
       });
   }

@@ -38,7 +38,7 @@ export class NewCompanyLeadsComponent {
   constructor(private hireusService: HireusService, 
               private dialog: MatDialog,
               private toastr: ToastrService){
-    this.role = localStorage.getItem('user_role');
+    this.role = sessionStorage.getItem('user_role');
   }
 
   ngOnInit(): void {
@@ -65,6 +65,7 @@ export class NewCompanyLeadsComponent {
         this.filteredLeads.data =  this.Inquirystudents;
       },
       (error) => {
+        this.isLoading =  false;
         console.error('Error fetching new company leads:', error);
       }
     );

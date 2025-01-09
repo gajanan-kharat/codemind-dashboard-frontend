@@ -49,7 +49,7 @@ export class BootcampFollowupStudentComponent {
       start: [''],
       end: ['']
     });
-    this.role = localStorage.getItem('user_role');
+    this.role = sessionStorage.getItem('user_role');
   }
   
   ngOnInit(): void {
@@ -79,6 +79,7 @@ export class BootcampFollowupStudentComponent {
         this.filteredFollowUp.data = this.followUpStudents;
       },
       (error) => {
+        this.isLoading = false;
         console.error('Error fetching follow-up students:', error);
       }
     );

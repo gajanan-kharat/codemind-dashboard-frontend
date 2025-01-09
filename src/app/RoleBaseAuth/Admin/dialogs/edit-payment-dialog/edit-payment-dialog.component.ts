@@ -171,7 +171,7 @@ export class EditPaymentDialogComponent {
     const remainingFees = this.paymentForm.get('remainingFees')?.value;
     const totalFees = this.paymentForm.get('totalFees')?.value;
     const course = this.paymentForm.get('course')?.value;
-    const username =  localStorage.getItem('user_fullName');
+    const username =  sessionStorage.getItem('user_fullName');
     if (this.paymentForm.valid) {
     this.formDataChange.emit({ ...this.paymentForm.value, remainingFees , username, totalFees, course});
     }else{
@@ -282,7 +282,7 @@ export class EditPaymentDialogComponent {
     if (this.paymentForm.valid) {
       const installmentValue = this.paymentForm.get('installment')?.value;
       const paymentData = {
-        username: localStorage.getItem('user_fullName'),
+        username: sessionStorage.getItem('user_fullName'),
         paidFees: this.paymentForm.get('paidFees')?.value,
         totalFees: this.paymentForm.get('totalFees')?.value,
         totalPaidFees: this.paymentForm.get('totalPaidFees')?.value,

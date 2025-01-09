@@ -29,49 +29,49 @@ export class AuthService {
   }
 
   setToken(token: string) {
-    localStorage.setItem(this.tokenKey, token);
+    sessionStorage.setItem(this.tokenKey, token);
   }
 
   getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+    return  sessionStorage.getItem(this.tokenKey);
   }
 
   setRole(role: string) {
-    localStorage.setItem(this.roleKey, role);
+    sessionStorage.setItem(this.roleKey, role);
   }
 
   getRole(): string | null {
-    return localStorage.getItem(this.roleKey);
+    return sessionStorage.getItem(this.roleKey);
   }
   
   setUsername(role: string) {
-    localStorage.setItem(this.userKey , role);
+    sessionStorage.setItem(this.userKey , role);
   }
 
   getUsername(): string | null {
-    return localStorage.getItem(this.userKey);
+    return sessionStorage.getItem(this.userKey);
   }
   
   setFullname(fullname: string) {
-    localStorage.setItem(this.fullName , fullname);
+    sessionStorage.setItem(this.fullName , fullname);
   }
 
   getFullname(): string | null {
-    return localStorage.getItem(this.fullName);
+    return sessionStorage.getItem(this.fullName);
   }
   setId(id: string) {
-    localStorage.setItem(this.id , id);
+    sessionStorage.setItem(this.id , id);
   }
 
   getId(): string |null{
-    return localStorage.getItem(this.id);
+    return sessionStorage.getItem(this.id);
   }
 
   logout() {
-    localStorage.removeItem(this.tokenKey);
-    localStorage.removeItem(this.roleKey);
-    localStorage.removeItem(this.userKey);
-    localStorage.removeItem(this.id);
+    sessionStorage.removeItem(this.tokenKey);
+    sessionStorage.removeItem(this.roleKey);
+    sessionStorage.removeItem(this.userKey);
+    sessionStorage.removeItem(this.id);
     this.router.navigate(['/']);
   }
 

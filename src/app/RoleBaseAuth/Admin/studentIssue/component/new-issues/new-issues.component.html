@@ -61,7 +61,7 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
       <!-- No Data Row -->
-      <ng-container *ngIf="filteredStudentIssuesData.data.length === 0">
+      <ng-container *ngIf="filteredStudentIssuesData.data.length === 0 && !isLoading">
         <p class="no-data-message">
           No records available.
         </p>

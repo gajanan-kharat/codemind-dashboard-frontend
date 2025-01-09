@@ -36,7 +36,7 @@ export class ScholarshipComponent {
   constructor(private scholarshipService:  ScholarshipService, 
               private dialog: MatDialog,
               private toastr: ToastrService) {
-    this.role = localStorage.getItem('user_role');
+    this.role = sessionStorage.getItem('user_role');
   }
 
   ngOnInit(): void {
@@ -70,6 +70,7 @@ export class ScholarshipComponent {
         this.filteredScholarshipData .data = this.scholarshipInfo;
       },
       (error) => {
+        this.isLoading = false;
         console.error('Error fetching students Mock:', error);
       }
     );

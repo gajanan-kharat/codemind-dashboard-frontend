@@ -30,7 +30,7 @@ export class SidenavHeaderComponent {
               private router: Router ) {}
   ngOnInit(): void {
     // this.selectedItem = this.dashborad;
-    this.username = localStorage.getItem('user_name');
+    this.username = sessionStorage.getItem('user_name');
     if (this.username) {
       this.firstName = this.capitalizeFirstLetter(this.username);
       this.firstLetter = this.firstName.charAt(0).toUpperCase();

@@ -39,8 +39,8 @@ export class InvertoryComponent {
     private dialog: MatDialog,
     private toastr: ToastrService,
   ) {
-    this.role = localStorage.getItem('user_role');
-    this.fetchInventory();
+    this.role = sessionStorage.getItem('user_role');
+    // this.fetchInventory();
   }
 
   ngOnInit(): void {
@@ -84,7 +84,7 @@ export class InvertoryComponent {
 
         // Access the latest statusCounts inside the loop
         this.topItems.forEach(item => {
-          const currentStatusCounts = this.statusCounts.getValue(); // Get latest emitted value
+          const currentStatusCounts = this.statusCounts.getValue(); 
           const statusCount = currentStatusCounts.find(status => status.status === item.name);
 
           if (statusCount) {
@@ -93,6 +93,7 @@ export class InvertoryComponent {
         });
       },
       (error) => {
+        this.isLoading = false;
         console.error('Error fetching Inventory:', error);
       }
     );

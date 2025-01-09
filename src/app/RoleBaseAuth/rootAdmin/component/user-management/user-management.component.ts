@@ -64,6 +64,7 @@ export class UserManagementComponent {
         this.filteredUsers.data = this.users;
       },
       (error) => {
+        this.isLoading = false; 
         console.error('Error fetching users:', error);  
       }
     );
@@ -111,7 +112,7 @@ export class UserManagementComponent {
   }
 
   deleteUser(user:any){
-     this.authService.deleteUsers(user._id).subscribe(
+     this.authService.deleteUsers(user.id).subscribe(
         () => {
             this.toastr.success('User deleted successfully.', 'Success', {
             timeOut: 3000,
@@ -138,7 +139,7 @@ export class UserManagementComponent {
       width: '50%',
       data: { user }  
     });
-  
+    console.log(user);
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
         const index = this.users.findIndex(u => u._id === user._id);  

@@ -67,7 +67,7 @@ export class EditScholarshipComponent {
   onSubmit(): void {
     if (this.scholarshipForm.valid) {
       if (this.isEditMode) {
-        this.updateScholarship(this.data.student._id, this.scholarshipForm.value);
+        this.updateScholarship(this.data.student.id, this.scholarshipForm.value);
       } else {
         this.createScholarship(this.scholarshipForm.value);
 
@@ -109,7 +109,7 @@ export class EditScholarshipComponent {
         this.childFormComponent.markFormTouched();
         if (this.childFormComponent.isValid) {
           const formValues = this.childFormComponent.form;
-          const username = localStorage.getItem('user_fullName');
+          const username = sessionStorage.getItem('user_fullName');
           const payment = {
             ...formValues,
             username: username
@@ -129,7 +129,7 @@ export class EditScholarshipComponent {
             .subscribe(
               (savedStudent) => {
                 // If successful, remove the student from the "Interested" table
-                this.scholarshipDataService.deleteScholarshipData(this.data.student._id)
+                this.scholarshipDataService.deleteScholarshipData(this.data.student.id)
                   .subscribe(
                     () => {
                       this.toastr.success('Scholarship Student confirmed and moved to Confirmed table.', 'Success', {

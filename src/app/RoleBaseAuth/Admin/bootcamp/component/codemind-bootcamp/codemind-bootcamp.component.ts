@@ -34,7 +34,7 @@ export class CodemindBootcampComponent {
   constructor(private dialog: MatDialog,
     private toastr: ToastrService,
     private bootcampService: BootcampService) {
-    this.role = localStorage.getItem('user_role');
+    this.role = sessionStorage.getItem('user_role');
   }
 
   ngOnInit(): void {
@@ -62,6 +62,7 @@ export class CodemindBootcampComponent {
         this.filteredBootCamp.data = this.bootCampStudents;
       },
       (error) => {
+        this.isLoading = false;
         console.error('Error fetching bootcamp students:', error);
       }
     );
@@ -106,7 +107,7 @@ export class CodemindBootcampComponent {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        const index = this.bootCampStudents.findIndex(s => s._id === student._id);
+        const index = this.bootCampStudents.findIndex(s => s.id === student.id);
         if (index !== -1) {
           this.bootCampStudents[index] = result;
           this.fetchStudents();
@@ -117,7 +118,7 @@ export class CodemindBootcampComponent {
   }
 
   deleteStudent(student: any) {
-    this.bootcampService.deleteCodemindBootcampStudent(student._id).subscribe(
+    this.bootcampService.deleteCodemindBootcampStudent(student.id).subscribe(
       () => {
         this.toastr.success('Bootcamp Student deleted successfully.', 'Success', {
           timeOut: 3000,
@@ -141,7 +142,7 @@ export class CodemindBootcampComponent {
 
   //send email
   onSendEmail(student: any) {
-    const codemindBootcampId = student._id;
+    const codemindBootcampId = student.id;
     this.bootcampService.sendcodemindBootcampEmail(codemindBootcampId).subscribe(
       (response) => {
         this.toastr.success('Email sent successfully');

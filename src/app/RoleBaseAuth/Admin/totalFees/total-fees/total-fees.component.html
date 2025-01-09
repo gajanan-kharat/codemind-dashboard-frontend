@@ -105,7 +105,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedFeesColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedFeesColumns;"></tr>
         </table>
-        <ng-container *ngIf="feesSummary.data.length === 0">
+        <ng-container *ngIf="feesSummary.data.length === 0 && !isLoading">
             <p class="no-data-message">
                 No records available.
             </p>

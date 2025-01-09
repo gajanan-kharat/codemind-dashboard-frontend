@@ -57,7 +57,7 @@ export class EditUserDialogComponent {
           delete user.password;
         }
         if (this.isEditing) {
-          const userId = this.data.user._id; 
+          const userId = this.data.user.id; 
           // console.log("user ",user);
           this.updateUser(userId, user);
         } else {
@@ -82,8 +82,8 @@ export class EditUserDialogComponent {
         this.dialogRef.close(updatedUser);
       },
       (error) => {
-      
-        console.error('Error updating student:', error);
+        this.isLoading = false;
+        // console.error('Error updating student:', error);
         this.toastr.error('Error Updating User Information. Please try again.', 'Error', {
           timeOut: 3000,
           positionClass: 'toast-top-right',
@@ -108,7 +108,8 @@ export class EditUserDialogComponent {
           this.dialogRef.close(newUser); 
         },
         (error) => {
-          console.error('Error creating user:', error);
+          // console.error('Error creating user:', error);
+          this.isLoading = false;
           this.toastr.error('Error creating user. Please try again.', 'Error', {
             timeOut: 3000,
             positionClass: 'toast-top-right',

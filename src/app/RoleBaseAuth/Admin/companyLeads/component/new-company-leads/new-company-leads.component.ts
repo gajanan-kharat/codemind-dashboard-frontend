@@ -38,7 +38,7 @@ export class NewCompanyLeadsComponent {
   constructor(private hireusService: HireusService, 
               private dialog: MatDialog,
               private toastr: ToastrService){
-    this.role = localStorage.getItem('user_role');
+    this.role = sessionStorage.getItem('user_role');
   }
 
   ngOnInit(): void {
@@ -65,6 +65,7 @@ export class NewCompanyLeadsComponent {
         this.filteredLeads.data =  this.Inquirystudents;
       },
       (error) => {
+        this.isLoading =  false;
         console.error('Error fetching new company leads:', error);
       }
     );
@@ -127,7 +128,7 @@ export class NewCompanyLeadsComponent {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-          const index = this.Inquirystudents.findIndex(s => s._id === student._id);
+          const index = this.Inquirystudents.findIndex(s => s.id === student.id);
           if (index !== -1) {
             this.Inquirystudents[index] = result;
             this.fetchStudents();
@@ -138,7 +139,7 @@ export class NewCompanyLeadsComponent {
   }
 
   deleteHireUs(student:any){
-   this.hireusService.deleteHireUs(student._id).subscribe(
+   this.hireusService.deleteHireUs(student.id).subscribe(
       () => {
           this.toastr.success('HireUs deleted successfully.', 'Success', {
           timeOut: 3000,

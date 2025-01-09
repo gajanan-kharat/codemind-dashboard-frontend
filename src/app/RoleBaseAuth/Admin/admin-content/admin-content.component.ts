@@ -45,7 +45,7 @@ export class AdminContentComponent implements OnInit {
   constructor( private moongodb: MongodbService, private dialog: MatDialog, private toastr: ToastrService) {}
 
   ngOnInit(): void {
-    this.role = localStorage.getItem('user_role');
+    this.role = sessionStorage.getItem('user_role');
     this.fetchStudents(); 
   }
 
@@ -118,6 +118,7 @@ onFeedbackChange() {
         console.log('student data: ', this.students);
       },
       (error) => {
+        this.isLoading = false;
         console.error('Error fetching students:', error);
       }
     );

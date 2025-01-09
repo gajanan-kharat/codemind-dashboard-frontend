@@ -102,7 +102,7 @@ export class EditBootcampInterestedStudentComponent {
         this.childFormComponent.markFormTouched();
         if (this.childFormComponent.isValid) {
           const formValues = this.childFormComponent.form;
-          const username = localStorage.getItem('user_fullName');
+          const username = sessionStorage.getItem('user_fullName');
           const payment = {
             ...formValues,
             username: username

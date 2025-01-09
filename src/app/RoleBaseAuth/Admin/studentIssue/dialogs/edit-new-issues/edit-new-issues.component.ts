@@ -40,10 +40,12 @@ export class EditNewIssuesComponent {
       source: [ this.isEditMode ? data.student.source :'', Validators.required],
       issue_created_date: [ this.isEditMode ? data.student.issue_created_date : new Date(), Validators.required],
       issueStatus: [ this.isEditMode ? data.student.issueStatus :'', Validators.required],
-      technicalExpert: this.fb.group({
-        technicalExpertName: [this.isEditMode ? this.data.student.technicalExpert.technicalExpertName: '', Validators.required],
-        issue_assigned_date: [this.isEditMode ? this.data.student.technicalExpert.issue_assigned_date : new Date(), Validators.required],
-      })
+      technicalExpertName: [this.isEditMode ? this.data.student.technicalExpertName: '', Validators.required],
+      issue_assigned_date: [this.isEditMode ? this.data.student.issue_assigned_date : new Date(), Validators.required],
+     /* technicalExpert: this.fb.group({
+        technicalExpertName: [this.isEditMode ? this.data.student.technicalExpert.technicalExpertName: ''],
+        issue_assigned_date: [this.isEditMode ? this.data.student.technicalExpert.issue_assigned_date : new Date()],
+      })*/
     });
   }
 
@@ -55,7 +57,7 @@ export class EditNewIssuesComponent {
  onSubmit(): void {
   if (this.studentIssueForm.valid) {
     if (this.isEditMode) {
-      this.updateStudentIssues(this.data.student._id,this.studentIssueForm.value);
+      this.updateStudentIssues(this.data.student.id,this.studentIssueForm.value);
     } else {
       this.createStudentIssues(this.studentIssueForm.value);
       

@@ -37,7 +37,7 @@ export class NotinterestedStudentComponent {
   constructor(private mongodbService: MongodbService,
               private dialog: MatDialog, 
               private toastr: ToastrService) {
-                this.role = localStorage.getItem('user_role');
+                this.role = sessionStorage.getItem('user_role');
               }
   
   ngOnInit(): void {
@@ -64,6 +64,7 @@ export class NotinterestedStudentComponent {
         this.filteredNotInterested.data = this.notInterestedStudents;
       },
       (error) => {
+        this.isLoading = false;
         console.error('Error fetching not interested students:', error);
       }
     );

@@ -36,7 +36,7 @@ export class ScholarshipComponent {
   constructor(private scholarshipService:  ScholarshipService, 
               private dialog: MatDialog,
               private toastr: ToastrService) {
-    this.role = localStorage.getItem('user_role');
+    this.role = sessionStorage.getItem('user_role');
   }
 
   ngOnInit(): void {
@@ -70,6 +70,7 @@ export class ScholarshipComponent {
         this.filteredScholarshipData .data = this.scholarshipInfo;
       },
       (error) => {
+        this.isLoading = false;
         console.error('Error fetching students Mock:', error);
       }
     );
@@ -107,7 +108,7 @@ export class ScholarshipComponent {
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        const index = this.scholarshipInfo.findIndex(s => s._id === student._id);
+        const index = this.scholarshipInfo.findIndex(s => s.id === student.id);
         if (index !== -1) {
           this.scholarshipInfo[index] = result;
           this.fetchCollegeData();
@@ -117,7 +118,7 @@ export class ScholarshipComponent {
   }
 
   deleteScholarship(scholarship:any){
-    this.scholarshipService.deleteScholarshipData(scholarship._id).subscribe(
+    this.scholarshipService.deleteScholarshipData(scholarship.id).subscribe(
       () => {
           this.toastr.success('scholarship Data deleted successfully.', 'Success', {
           timeOut: 3000,

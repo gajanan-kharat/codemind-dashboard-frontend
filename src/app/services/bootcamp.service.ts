@@ -117,7 +117,7 @@ export class BootcampService {
   }
 
   updateCodemindBootcampStudent(student: any): Observable<any> {
-    return this.http.put<any>(`${this.baseApiUrl}/bootcamp/codemindBootcamp/${student._id}`, student);
+    return this.http.put<any>(`${this.baseApiUrl}/bootcamp/codemindBootcamp/${student.id}`, student);
   }
 
   deleteCodemindBootcampStudent(studentId: string): Observable<any> {

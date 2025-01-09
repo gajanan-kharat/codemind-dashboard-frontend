@@ -43,7 +43,7 @@ export class InterestedStudentComponent {
       start: [''],
       end: ['']
     });
-    this.role = localStorage.getItem('user_role');
+    this.role = sessionStorage.getItem('user_role');
   }
   ngOnInit(): void {
     this.fetchStudents();
@@ -69,6 +69,7 @@ export class InterestedStudentComponent {
         this.filteredInterested.data = this.interestedStudents;
       },
       (error) => {
+        this.isLoading = false;
         console.error('Error fetching Interested students:', error);
       }
     );

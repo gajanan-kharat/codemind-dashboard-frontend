@@ -36,7 +36,7 @@ export class EditCodemindBootcampComponent {
 
   onSave() {
     if (this.bootcampForm.valid) {
-      let updatedData = { ...this.bootcampForm.value, _id: this.data.student._id }; 
+      let updatedData = { ...this.bootcampForm.value, id: this.data.student.id }; 
       this.bootcampService.updateCodemindBootcampStudent(updatedData).subscribe(
         (response) => {
           this.toastr.success('Codemind Bootcamp student updated successfully');

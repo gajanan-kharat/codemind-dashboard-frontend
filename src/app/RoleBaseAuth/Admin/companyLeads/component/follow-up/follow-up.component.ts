@@ -36,7 +36,7 @@ export class FollowUpComponent {
   constructor(private hireusService: HireusService,
               private dialog: MatDialog, 
               private toastr: ToastrService){
-    this.role = localStorage.getItem('user_role');
+    this.role = sessionStorage.getItem('user_role');
 }
   ngOnInit(): void {
     this.fetchStudents();
@@ -61,6 +61,7 @@ export class FollowUpComponent {
         this.filteredFollowUp.data =  this.FollowUpStudents;
       },
       (error) => {
+        this.isLoading = false;
         console.error('Error fetching students:', error);
       }
     );

@@ -36,7 +36,7 @@ export class BootcampNotinterestedStudentComponent {
   constructor(private dialog: MatDialog,
     private toastr: ToastrService,
     private bootcampService: BootcampService) {
-    this.role = sessionStorage.getItem('user_role');
+    this.role = localStorage.getItem('user_role');
   }
 
   ngOnInit(): void {

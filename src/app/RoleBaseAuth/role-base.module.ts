@@ -59,6 +59,7 @@ import { InvertoryComponent } from './Admin/inventory/component/invertory/invert
 import { EditInventoryComponent } from './Admin/inventory/dialogs/edit-inventory/edit-inventory.component';
 import { CodemindBootcampComponent } from './Admin/bootcamp/component/codemind-bootcamp/codemind-bootcamp.component';
 import { EditCodemindBootcampComponent } from './Admin/bootcamp/dialogs/edit-codemind-bootcamp/edit-codemind-bootcamp.component';
+import { SessionExpiryPopupComponent } from './session-expiry-popup/session-expiry-popup.component';
 
 
 @NgModule({
@@ -116,7 +117,8 @@ import { EditCodemindBootcampComponent } from './Admin/bootcamp/dialogs/edit-cod
     InvertoryComponent,
     EditInventoryComponent,
     CodemindBootcampComponent,
-    EditCodemindBootcampComponent,  
+    EditCodemindBootcampComponent,
+    SessionExpiryPopupComponent,  
   ],
   imports: [
     CommonModule,

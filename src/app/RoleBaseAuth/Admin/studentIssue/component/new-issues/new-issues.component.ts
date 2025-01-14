@@ -37,7 +37,7 @@ export class NewIssuesComponent {
     private toastr: ToastrService,
     private fb: FormBuilder) {
 
-    this.role = sessionStorage.getItem('user_role');
+    this.role = localStorage.getItem('user_role');
   }
 
   ngOnInit(): void {

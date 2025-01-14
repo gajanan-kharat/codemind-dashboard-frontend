@@ -37,7 +37,7 @@ export class NotinterestedStudentComponent {
   constructor(private mongodbService: MongodbService,
               private dialog: MatDialog, 
               private toastr: ToastrService) {
-                this.role = sessionStorage.getItem('user_role');
+                this.role = localStorage.getItem('user_role');
               }
   
   ngOnInit(): void {

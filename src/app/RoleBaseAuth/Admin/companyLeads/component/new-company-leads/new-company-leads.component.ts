@@ -38,7 +38,7 @@ export class NewCompanyLeadsComponent {
   constructor(private hireusService: HireusService, 
               private dialog: MatDialog,
               private toastr: ToastrService){
-    this.role = sessionStorage.getItem('user_role');
+    this.role = localStorage.getItem('user_role');
   }
 
   ngOnInit(): void {

@@ -39,7 +39,7 @@ export class InvertoryComponent {
     private dialog: MatDialog,
     private toastr: ToastrService,
   ) {
-    this.role = sessionStorage.getItem('user_role');
+    this.role = localStorage.getItem('user_role');
     // this.fetchInventory();
   }
 

@@ -1,0 +1,86 @@
+<div *ngIf="isLoading" class="loader-container">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="inquiry-container">
+  <h1 mat-dialog-title>{{ isEditMode ? 'Edit HireUs Interested' : 'New HireUs Interested' }}</h1>
+  <button class="cancel-btn" (click)="onCancel()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <div mat-dialog-content>
+    <form [formGroup]="interestedForm">
+      <div class="section">
+        <div class="form-container">
+          <mat-form-field appearance="fill">
+            <mat-label> Name</mat-label>
+            <input matInput formControlName="name">
+            <mat-error *ngIf="interestedForm.get('name')?.hasError('required') && interestedForm.get('name')?.touched">
+              Name is required.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Company</mat-label>
+            <input matInput formControlName="company">
+            <mat-error *ngIf="interestedForm.get('company')?.hasError('required') && interestedForm.get('company')?.touched">
+              Last Name is required.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+            <mat-error *ngIf="interestedForm.get('email')?.hasError('required') && interestedForm.get('email')?.touched">
+              Email is required.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Mobile Number</mat-label>
+            <input matInput formControlName="mobileNumber">
+            <mat-error
+              *ngIf="interestedForm.get('mobileNumber')?.hasError('required') && interestedForm.get('mobileNumber')?.touched">
+              Mobile Number is required.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" *ngIf="isEditMode">
+            <mat-label>Inquiry Status</mat-label>
+            <mat-select formControlName="inquiryStatus">
+              <mat-option *ngFor="let status of inquiryStatuses" [value]="status">{{ status }}</mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="interestedForm.get('inquiryStatus')?.hasError('required') && interestedForm.get('inquiryStatus')?.touched">
+              Inquiry Status is required.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" *ngIf="isEditMode">
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="interestedForm.get('date')?.hasError('required') && interestedForm.get('date')?.touched">
+              Date is required.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" *ngIf="isEditMode">
+            <mat-label>Source</mat-label>
+            <mat-select formControlName="source">
+              <mat-option *ngFor="let source of sourceOptions" [value]="source">{{ source }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="interestedForm.get('source')?.hasError('required') && interestedForm.get('source')?.touched">
+              Source is required.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" *ngIf="isEditMode">
+            <mat-label> Source Comment</mat-label>
+            <textarea matInput formControlName="sourcecomment"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="bottom-section" mat-dialog-actions>
+    <button *ngIf="!isEditMode" class="save-btn" mat-button (click)="onSaveAdd()">Save</button>
+    <button *ngIf="isEditMode" class="save-btn" mat-button (click)="onSave()">Update</button>
+  </div>
+</div>

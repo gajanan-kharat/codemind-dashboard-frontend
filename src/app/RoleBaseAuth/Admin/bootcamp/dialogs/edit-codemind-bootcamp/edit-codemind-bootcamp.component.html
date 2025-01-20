@@ -1,0 +1,68 @@
+<h1 mat-dialog-title>Edit Codemind Bootcamp Student</h1>
+<button class="cancel-btn" (click)="onCancel()">
+  <mat-icon>close</mat-icon>
+</button>
+<div mat-dialog-content>
+  <form [formGroup]="bootcampForm">
+    <!-- Student Fields -->
+    <mat-form-field appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName">
+      <mat-error *ngIf="bootcampForm.get('firstName')?.hasError('required') && bootcampForm.get('firstName')?.touched">
+        First name is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName">
+      <mat-error *ngIf="bootcampForm.get('lastName')?.hasError('required') && bootcampForm.get('lastName')?.touched">
+        Last name is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Mobile Number</mat-label>
+      <input matInput formControlName="mobileNumber">
+      <mat-error *ngIf="bootcampForm.get('mobileNumber')?.hasError('required') && bootcampForm.get('mobileNumber')?.touched">
+        Mobile number is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+       <mat-label>Email</mat-label>
+       <input matInput formControlName="email">
+       <mat-error *ngIf="bootcampForm.get('email')?.hasError('required') && bootcampForm.get('email')?.touched">
+            Email is required.
+       </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Course</mat-label>
+      <mat-select formControlName="course">
+        <mat-option *ngFor="let course of courses" [value]="course">{{ course }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="bootcampForm.get('course')?.hasError('required') &&bootcampForm.get('course')?.touched">
+        Course is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Bootcamp Name</mat-label>
+        <mat-select formControlName="selectedBootcamp">
+            <mat-option *ngFor="let  bootcampName of  bootcampName" [value]=" bootcampName">{{  bootcampName }}</mat-option>
+          </mat-select>
+        <mat-error *ngIf="bootcampForm.get('selectedBootcamp')?.hasError('required') && bootcampForm.get('selectedBootcamp')?.touched">
+            Bootcamp Name is required.
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Source</mat-label>
+      <input matInput formControlName="source" placeholder="Enter Source">
+      <mat-error *ngIf="bootcampForm.get('source')?.hasError('required') && bootcampForm.get('source')?.touched">
+        Source is required.
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div class="button-container" mat-dialog-actions>
+  <button class="save-btn" mat-button (click)="onSave()">Update</button>
+</div>
+
+
+

@@ -1,0 +1,55 @@
+<div *ngIf="isLoading" class="loader-container">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="filter-container">
+  <div class="filters">
+    <mat-form-field appearance="fill">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilterInterested($event)" placeholder="Search Students">
+    </mat-form-field>
+    <mat-icon class="refresh-icon" (click)="refreshData()" mat-ripple>refresh</mat-icon>
+  </div>
+</div>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="filteredNotInterested" matSort>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let student">{{student.name}}</td>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+      <td mat-cell *matCellDef="let student">{{student.email}}</td>
+    </ng-container>
+    <ng-container matColumnDef="inquiryStatus">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+      <td mat-cell *matCellDef="let student">{{student.inquiryStatus}}</td>
+    </ng-container>
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+      <td mat-cell *matCellDef="let student">{{student.date | date}}</td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let student">
+        <button class="edit" (click)="editInterestedStudent(student)">
+          <i class="fa fa-pencil blue-icon"></i>
+        </button>
+        <button *ngIf="role=='Admin'" class="edit" (click)="deleteHireUs(student)">
+          <i class="fa fa-trash red-icon"></i>
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns:displayedColumns;"></tr>
+  </table>
+  <!-- No Data Row -->
+  <ng-container *ngIf="filteredNotInterested.data.length === 0 && !isLoading">
+    <p class="no-data-message">
+      No records available.
+    </p>
+  </ng-container>
+  <mat-paginator [length]="totalRecords" [pageSize]="limit" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons
+    (page)="onPageChange($event)">
+  </mat-paginator>
+</div>

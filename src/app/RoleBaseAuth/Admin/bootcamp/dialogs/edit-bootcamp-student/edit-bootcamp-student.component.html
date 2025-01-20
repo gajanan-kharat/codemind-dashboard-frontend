@@ -1,0 +1,109 @@
+<h1 mat-dialog-title>Edit Bootcamp Student</h1>
+<button class="cancel-btn" (click)="onCancel()">
+  <mat-icon>close</mat-icon>
+</button>
+<div mat-dialog-content>
+  <form [formGroup]="bootcampForm">
+    <!-- Student Fields -->
+    <mat-form-field appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName">
+      <mat-error *ngIf="bootcampForm.get('firstName')?.hasError('required') && bootcampForm.get('firstName')?.touched">
+        First name is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName">
+      <mat-error *ngIf="bootcampForm.get('lastName')?.hasError('required') && bootcampForm.get('lastName')?.touched">
+        Last name is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+      <mat-error *ngIf="bootcampForm.get('email')?.hasError('required') && bootcampForm.get('email')?.touched">
+        Email is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Mobile Number</mat-label>
+      <input matInput formControlName="mobileNumber">
+      <mat-error *ngIf="bootcampForm.get('mobileNumber')?.hasError('required') && bootcampForm.get('mobileNumber')?.touched">
+        Mobile number is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Course</mat-label>
+      <mat-select formControlName="course">
+        <mat-option *ngFor="let courses of courses" [value]="courses">{{ courses }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="bootcampForm.get('course')?.hasError('required') && bootcampForm.get('course')?.touched">
+        Course is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Batch</mat-label>
+      <mat-select formControlName="batch">
+        <mat-option *ngFor="let batch of batches" [value]="batch">{{ batch }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="bootcampForm.get('batch')?.hasError('required') && bootcampForm.get('batch')?.touched">
+        Batch is required.
+      </mat-error>
+    </mat-form-field>
+  
+   <mat-form-field appearance="fill">
+      <mat-label>Inquiry Status</mat-label>
+      <mat-select formControlName="inquiryStatus">
+        <mat-option *ngFor="let status of inquiryStatuses" [value]="status">{{ status }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="bootcampForm.get('inquiryStatus')?.hasError('required') && bootcampForm.get('inquiryStatus')?.touched">
+        Inquiry status is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Payment_ID</mat-label>
+      <input matInput formControlName="paymentId" [disabled]="true">
+      <mat-error *ngIf="bootcampForm.get('paymentId')?.hasError('required') && bootcampForm.get('paymentId')?.touched">
+        paymentId is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Payment_Status</mat-label>
+      <input matInput formControlName="paymentStatus" [disabled]="true">
+      <mat-error *ngIf="bootcampForm.get('paymentStatus')?.hasError('required') && bootcampForm.get('paymentStatus')?.touched">
+        paymentStatus is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="bootcampDatepicker" formControlName="date" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="bootcampDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #bootcampDatepicker></mat-datepicker>
+      <mat-error *ngIf="bootcampForm.get('date')?.hasError('required') && bootcampForm.get('date')?.touched">
+        Date is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Source</mat-label>
+      <input matInput formControlName="source">
+      <mat-error *ngIf="bootcampForm.get('source')?.hasError('required') && bootcampForm.get('source')?.touched">
+        Source is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Comments</mat-label>
+      <input matInput formControlName="comment">
+      <mat-error *ngIf="bootcampForm.get('comment')?.hasError('required') && bootcampForm.get('comment')?.touched">
+        Comments is required.
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button class="save-btn" mat-button (click)="onSavebootcamp()">Save</button>
+</div>

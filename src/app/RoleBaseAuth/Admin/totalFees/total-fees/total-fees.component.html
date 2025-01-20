@@ -1,0 +1,117 @@
+<div *ngIf="isLoading" class="loader-container">
+    <mat-spinner></mat-spinner>
+</div>
+<div class="content">
+    <section class="top-cards">
+        <div class="card-container">
+            <mat-card *ngFor="let item of topItems" class="card"
+                [ngClass]="{'selected': item.course === selectedCourse}" [ngStyle]="{'background-color': item.color}"
+                (click)="onCourseClick(item.course)">
+                <div class="courses">
+                    <div>
+                        <p class="title">{{item.course}}</p>
+                    </div>
+                    <div>
+                        <i class="{{item.icon}} course-icon" [ngStyle]="{'color': item.iconColor}"></i>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </section>
+
+    <div class="filters">
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>From Date</mat-label>
+                <input matInput [matDatepicker]="pickerFrom" [(ngModel)]="fromDate" (dateChange)="onDateChange()" />
+                <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFrom></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>To Date</mat-label>
+                <input matInput [matDatepicker]="pickerTo" [(ngModel)]="toDate" (dateChange)="onDateChange()" />
+                <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+                <mat-datepicker #pickerTo></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Select Batch</mat-label>
+                <mat-select [(value)]="selectedBatch" (selectionChange)="onBatchChange()">
+                    <mat-option value="All">All</mat-option>
+                    <mat-option *ngFor="let batch of batches" [value]="batch">{{ batch }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-icon class="refresh-icon" (click)="refreshData()" mat-ripple>refresh</mat-icon>
+        </div>
+    </div>
+
+    <!-- Table to display the data -->
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="feesSummary">
+            <!-- Course Column -->
+            <ng-container matColumnDef="course">
+                <th mat-header-cell *matHeaderCellDef> Course </th>
+                <td mat-cell *matCellDef="let element">{{ element.course }}</td>
+            </ng-container>
+
+            <!-- Batch Column -->
+            <ng-container matColumnDef="batch">
+                <th mat-header-cell *matHeaderCellDef> Batch </th>
+                <td mat-cell *matCellDef="let element"> {{ element.batch }}</td>
+            </ng-container>
+
+            <!-- Total Fees Column -->
+            <ng-container matColumnDef="totalFees">
+                <th mat-header-cell *matHeaderCellDef> Total Fees </th>
+                <td mat-cell *matCellDef="let element"> {{ element.totalFees }} </td>
+            </ng-container>
+
+            <!-- Total Paid Fees Column -->
+            <ng-container matColumnDef="totalPaidFees">
+                <th mat-header-cell *matHeaderCellDef> Paid Fees </th>
+                <td mat-cell *matCellDef="let element"> {{ element.totalPaidFees }} </td>
+            </ng-container>
+
+            <!-- Total Remaining Fees Column -->
+            <ng-container matColumnDef="totalRemainingFees">
+                <th mat-header-cell *matHeaderCellDef> Remaining Fees </th>
+                <td mat-cell *matCellDef="let element"> {{ element.totalRemainingFees }} </td>
+            </ng-container>
+
+            <!-- Total Remaining Fees Column -->
+            <ng-container matColumnDef="totalDiscounts">
+                <th mat-header-cell *matHeaderCellDef> Discounts Fees </th>
+                <td mat-cell *matCellDef="let element"> {{ element.totalDiscount }} </td>
+            </ng-container>
+
+            <!-- Total Remaining Fees Column -->
+            <ng-container matColumnDef="totalReferenceDiscountFees">
+                <th mat-header-cell *matHeaderCellDef> Reference Discounts </th>
+                <td mat-cell *matCellDef="let element"> {{ element.referenceAmount }} </td>
+            </ng-container>
+
+            <!-- Total Students Column -->
+            <ng-container matColumnDef="totalStudents">
+                <th mat-header-cell *matHeaderCellDef> Total Students </th>
+                <td mat-cell *matCellDef="let element"> {{ element.totalStudents }} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedFeesColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedFeesColumns;"></tr>
+        </table>
+        <ng-container *ngIf="feesSummary.data.length === 0 && !isLoading">
+            <p class="no-data-message">
+                No records available.
+            </p>
+        </ng-container>
+        <mat-paginator [length]="totalRecords" [pageSize]="limit" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons
+            (page)="onPageChange($event)">
+        </mat-paginator>
+    </div>
+</div>

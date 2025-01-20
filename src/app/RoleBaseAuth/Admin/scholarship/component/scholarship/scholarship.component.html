@@ -1,0 +1,73 @@
+<div *ngIf="isLoading" class="loader-container">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="content">
+  <section class="top-cards">
+    <div class="card-container">
+      <mat-card *ngFor="let item of topItems" class="card" [ngClass]="{'selected': item.name === selectedName}"
+        [ngStyle]="{'background-color': item.color}" (click)="onClick(item.name)">
+        <div class="courses">
+          <div>
+            <p class="title">{{item.name}}</p>
+          </div>
+          <div>
+            <i class="{{item.icon}} course-icon" [ngStyle]="{'color': item.iconColor}"></i>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </section>
+  <section class="student-table">
+    <div class="dropdown-container">
+      <div class="filters">
+        <mat-form-field appearance="fill">
+          <mat-label>Search</mat-label>
+          <input matInput id="search-input" (keyup)="applyFilter($event)" placeholder="Search Students">
+        </mat-form-field>
+        <mat-icon class="refresh-icon" (click)=addNewStudent()>add</mat-icon>
+        <mat-icon class="refresh-icon" (click)="refreshData()" mat-ripple>refresh</mat-icon>
+      </div>
+    </div>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="filteredScholarshipData" matSort>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+          <td mat-cell *matCellDef="let scholarship">{{scholarship.name}}</td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+          <td mat-cell *matCellDef="let scholarship">{{scholarship.email}}</td>
+        </ng-container>
+        <ng-container matColumnDef="mobileNumber">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Mobile Number</th>
+          <td mat-cell *matCellDef="let scholarship">{{scholarship.mobileNumber}}</td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+          <td mat-cell *matCellDef="let scholarship">{{scholarship.scholarshipStatus}}</td>
+        </ng-container>
+        <ng-container matColumnDef="Actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let scholarship">
+            <button class="edit" (click)="editStudent(scholarship)">
+              <i class="fa fa-pencil blue-icon"></i>
+            </button>
+            <button *ngIf="role=='Admin'" class="edit" (click)="deleteScholarship(scholarship)">
+              <i class="fa fa-trash red-icon"></i>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <!-- No Data Row -->
+      <ng-container *ngIf="filteredScholarshipData.data.length === 0 && !isLoading">
+        <p class="no-data-message">
+          No records available.
+        </p>
+      </ng-container >
+      <mat-paginator [length]="totalRecords" [pageSize]="limit" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons
+        (page)="onPageChange($event)">
+      </mat-paginator>
+    </div>
+  </section>

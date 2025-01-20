@@ -1,0 +1,72 @@
+<div *ngIf="isLoading" class="loader-container">
+  <mat-spinner></mat-spinner>
+</div>
+<h1 mat-dialog-title>{{ isEditing ? 'Edit User' : 'Create User' }}</h1>
+<button class="cancel-btn" (click)="onCancel()">
+  <mat-icon>close</mat-icon>
+</button>
+
+<mat-dialog-content>
+  <form [formGroup]="userForm">
+    <mat-form-field appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstname">
+      <mat-error *ngIf="userForm.get('firstname')?.hasError('required') && userForm.get('firstname')?.touched">
+        Firstname is required.
+     </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastname">
+      <mat-error *ngIf="userForm.get('lastname')?.hasError('required') && userForm.get('lastname')?.touched">
+        Lastname is required.
+     </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Mobile Number</mat-label>
+      <input matInput formControlName="mobile_number">
+      <mat-error *ngIf="userForm.get('mobile_number')?.hasError('required') && userForm.get('mobile_number')?.touched">
+        Mobile Number is required.
+     </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+      <mat-error *ngIf="userForm.get('email')?.hasError('required') && userForm.get('email')?.touched">
+        Email is required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Password Field - Only visible when creating a new user -->
+    <mat-form-field *ngIf="!isEditing" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" [type]="showPassword ? 'text' : 'password'">
+      <button mat-icon-button (click)="togglePasswordVisibility()" type="button" matSuffix>
+        <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+      </button>
+      <button>show</button>
+      <mat-error *ngIf="userForm.get('password')?.hasError('required') && userForm.get('password')?.touched">
+        Password is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Role</mat-label>
+      <mat-select formControlName="role">
+        <mat-option *ngFor="let role of roles" [value]="role">{{ role }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="userForm.get('role')?.hasError('required') && userForm.get('role')?.touched">
+        Role is required.
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button class="btn" (click)="onSave()">
+    {{ isEditing ? 'Save' : 'Create' }}
+  </button>
+</mat-dialog-actions>

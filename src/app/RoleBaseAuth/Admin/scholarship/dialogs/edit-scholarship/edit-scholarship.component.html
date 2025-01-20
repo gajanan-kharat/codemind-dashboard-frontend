@@ -1,0 +1,130 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit Scholarship Information' : 'Create New Scholarship ' }}</h2>
+<button class="cancel-btn" (click)="onCancel()">
+    <mat-icon>close</mat-icon>
+  </button>  
+  <div mat-dialog-content>
+<form [formGroup]="scholarshipForm" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" required>
+    <mat-error *ngIf="scholarshipForm.controls['name'].hasError('required')">Name is required.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>college Name</mat-label>
+    <input matInput formControlName="collegeName" required>
+    <mat-error *ngIf="scholarshipForm.controls['collegeName'].hasError('required')">College Name is required.</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label> Mobile Name</mat-label>
+    <input matInput formControlName="mobileNumber" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Graduation Marks</mat-label>
+    <input matInput formControlName="graduationMarks" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>HSC Marks</mat-label>
+    <input matInput formControlName="hscMarks" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>SSC Marks</mat-label>
+    <input matInput formControlName="sscMarks" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Address</mat-label>
+    <input matInput formControlName="address" required>
+  </mat-form-field>
+
+   <!-- Course -->
+   <mat-form-field appearance="fill">
+    <mat-label>Course</mat-label>
+    <mat-select formControlName="course">
+      <mat-option *ngFor="let course of courses" [value]="course">{{ course }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="scholarshipForm.get('course')?.hasError('required') && scholarshipForm.get('course')?.touched">
+      Course is required.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Batch -->
+  <mat-form-field appearance="fill">
+    <mat-label>Batch</mat-label>
+    <mat-select formControlName="batch">
+      <mat-option *ngFor="let batch of batches" [value]="batch">{{ batch }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="scholarshipForm.get('batch')?.hasError('required') && scholarshipForm.get('batch')?.touched">
+      Batch is required.
+    </mat-error>
+  </mat-form-field>
+ 
+ <!-- Visited Status Dropdown -->
+ <mat-form-field appearance="fill">
+    <mat-label>Scholarship Status</mat-label>
+    <mat-select formControlName="scholarshipStatus" (selectionChange)="onScholarshipStatusChange($event.value)">
+      <mat-option *ngFor="let option of visitedStatusOptions" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+ <ng-container *ngIf="selectedScholarshipStatus != 'Selected'">
+  <mat-form-field appearance="fill">
+    <mat-label>Scholarship Score</mat-label>
+    <input matInput formControlName="scholarshipScore" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Interview Feedback</mat-label>
+    <mat-select formControlName="interviewFeedback">
+      <mat-option *ngFor="let option of feedback" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  </ng-container>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Date</mat-label>
+    <input matInput [matDatepicker]="datepicker" formControlName="date" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+    <mat-datepicker #datepicker></mat-datepicker>
+    <mat-error *ngIf="scholarshipForm.get('date')?.hasError('required') && scholarshipForm.get('date')?.touched">
+        Date is required.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Source</mat-label>
+    <input matInput formControlName="source" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Comments</mat-label>
+    <input matInput formControlName="sourcecomment" required>
+  </mat-form-field>
+
+  <app-edit-payment-dialog 
+  *ngIf="selectedScholarshipStatus === 'Selected'" 
+   [isIntereseted]="true" 
+   [formGroup]="scholarshipForm">
+ </app-edit-payment-dialog>
+</form>
+</div>
+<div mat-dialog-actions>
+    <button  class="save-btn" mat-button color="primary" type="submit" [disabled]="!scholarshipForm.valid" (click)="onSubmit()">
+      {{ isEditMode ? 'Update' : 'Create' }}
+    </button>
+</div>
+
+

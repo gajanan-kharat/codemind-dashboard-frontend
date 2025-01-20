@@ -1,0 +1,90 @@
+.content {
+    padding: 16px;
+  }
+  .top-cards {
+    margin-bottom: 16px;
+  }
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    // justify-content: space-between;
+  }
+  .card {
+    width: 100%;
+    max-width: 180px;
+    padding: 8px 25px 8px 25px;
+  }
+
+  .count{
+    font-size: 1.3rem !important;
+    font-weight: bold;
+  }
+ 
+  .filters{
+    display: flex;
+    gap:10px;
+  }
+  .courses{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .course-icon {
+    font-size: 35px;
+    color: #3fb554;
+    display: flex;
+    justify-content: center;
+    // margin-top: 10px;
+    text-align: center;
+    color:#daeefc;
+  }
+  .courses p{
+    text-align: center;
+    font-size: 1rem;
+    margin: 0px;
+    font-weight: bold;
+    color: #fff;
+  }
+  .card {
+    cursor: pointer;
+    transition: transform 0.4s ease-in-out;
+  }
+  .card.selected {
+    background-color: #8edb87; 
+    color: white;
+    .course-icon {
+      color:white;
+    }
+  }
+  .card:hover {
+    transform: scale(1.1);
+  }
+  
+  
+  @media (max-width: 600px) {
+    .card {
+       width: 48% !important;
+    }
+    :host ::ng-deep .mdc-data-table__cell, .mdc-data-table__header-cell {
+      padding: 0px 0px 0 2px !important;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .card-container {
+      gap: 12px;
+    }
+    .card {
+      width: 100%;
+      max-width: 185px;
+    }
+    .content {
+      margin-top: 10px;
+    }
+    :host ::ng-deep .mdc-data-table__cell, .mdc-data-table__header-cell {
+        padding: 0px 0px 0 10px;
+    }
+  }
+  

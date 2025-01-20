@@ -1,0 +1,225 @@
+<div *ngIf="isLoading" class="loader-container">
+  <mat-spinner></mat-spinner>
+</div>
+
+<h1 mat-dialog-title>{{ isEditMode ? 'Edit Student' : 'New Student' }}</h1>
+<button class="cancel-btn" (click)="onCancel()">
+  <mat-icon>close</mat-icon>
+</button>
+
+<div mat-dialog-content>
+  <form [formGroup]="studentForm">
+    <!-- Personal Information Section -->
+    <div class="section">
+      <h3>Personal Information</h3>
+      <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName">
+        <mat-error *ngIf="studentForm.get('firstName')?.hasError('required') && studentForm.get('firstName')?.touched">
+          First Name is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName">
+        <mat-error *ngIf="studentForm.get('lastName')?.hasError('required') && studentForm.get('lastName')?.touched">
+          Last Name is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+        <mat-error *ngIf="studentForm.get('email')?.hasError('required') && studentForm.get('email')?.touched">
+          Email is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Mobile Number</mat-label>
+        <input matInput formControlName="mobileNumber">
+        <mat-error *ngIf="studentForm.get('mobileNumber')?.hasError('required') && studentForm.get('mobileNumber')?.touched">
+          Mobile Number is required.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Course Details Section -->
+    <div class="section">
+      <h3>Course Details</h3>
+      <mat-form-field appearance="fill">
+        <mat-label>Course</mat-label>
+        <mat-select formControlName="course">
+          <mat-option *ngFor="let course of courses" [value]="course">{{ course }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="studentForm.get('course')?.hasError('required') && studentForm.get('course')?.touched">
+          Course is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Batch</mat-label>
+        <mat-select formControlName="batch">
+          <mat-option *ngFor="let batch of batches" [value]="batch">{{ batch }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="studentForm.get('batch')?.hasError('required') && studentForm.get('batch')?.touched">
+          Course is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Graduation</mat-label>
+        <input matInput formControlName="graduation">
+        <mat-error *ngIf="studentForm.get('graduation')?.hasError('required') && studentForm.get('graduation')?.touched">
+          Graduation is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Passing Year</mat-label>
+        <mat-select formControlName="passingYear">
+          <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="studentForm.get('passingYear')?.hasError('required') && studentForm.get('passingYear')?.touched">
+          Passing Year is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>College Name</mat-label>
+        <input matInput formControlName="collegeName">
+        <mat-error *ngIf="studentForm.get('collegeName')?.hasError('required') && studentForm.get('collegeName')?.touched">
+          College Name is required.
+        </mat-error>
+      </mat-form-field>
+
+       <!-- Birthdate Field -->
+  <mat-form-field appearance="fill">
+    <mat-label>Birthdate</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="birthdate">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="studentForm.get('birthdate')?.hasError('required') && studentForm.get('birthdate')?.touched">
+      Birthdate is required.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Gender Field -->
+  <mat-form-field appearance="fill">
+    <mat-label>Gender</mat-label>
+    <mat-select formControlName="gender">
+      <mat-option value="Male">Male</mat-option>
+      <mat-option value="Female">Female</mat-option>
+      <mat-option value="Other">Other</mat-option>
+    </mat-select>
+    <mat-error *ngIf="studentForm.get('gender')?.hasError('required') && studentForm.get('gender')?.touched">
+      Gender is required.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Currently Working Field -->
+  <mat-form-field appearance="fill">
+    <mat-label>Are you currently working?</mat-label>
+    <mat-select formControlName="currentlyWorking">
+      <mat-option value="Yes">Yes</mat-option>
+      <mat-option value="No">No</mat-option>
+    </mat-select>
+    <mat-error *ngIf="studentForm.get('currentlyWorking')?.hasError('required') && studentForm.get('currentlyWorking')?.touched">
+      This field is required.
+    </mat-error>
+  </mat-form-field>
+    </div>
+
+    <!-- Additional Information Section -->
+    <div class="section">
+      <h3>Additional Information</h3>
+      <mat-form-field appearance="fill">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="address">
+        <mat-error *ngIf="studentForm.get('address')?.hasError('required') && studentForm.get('address')?.touched">
+          Address is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>City</mat-label>
+        <input matInput formControlName="cityName">
+        <mat-error *ngIf="studentForm.get('cityName')?.hasError('required') && studentForm.get('cityName')?.touched">
+          City Name is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>State</mat-label>
+        <input matInput formControlName="state">
+        <mat-error *ngIf="studentForm.get('state')?.hasError('required') && studentForm.get('state')?.touched">
+          City Name is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Attendance</mat-label>
+        <input matInput formControlName="attendance">
+        <mat-error *ngIf="studentForm.get('attendance')?.hasError('required') && studentForm.get('attendance')?.touched">
+          Attendance required.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Parent's Email</mat-label>
+        <input matInput formControlName="parentEmail">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Parent's Mobile Number</mat-label>
+        <input matInput formControlName="parentMobileNumber">
+      </mat-form-field>
+    </div>
+    <!-- Mock Interview Feedback Section -->
+    <div class="section">
+      <h3>Mock Feedback</h3>
+      <mat-form-field appearance="fill">
+        <mat-label>Mock-1 Feedback</mat-label>
+        <mat-select formControlName="mock1Feedback">
+          <mat-option *ngFor="let status of mockStatuses" [value]="status">{{ status }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Mock-2 Feedback</mat-label>
+        <mat-select formControlName="mock2Feedback">
+          <mat-option *ngFor="let status of mockStatuses" [value]="status">{{ status }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Mock-3 Feedback</mat-label>
+        <mat-select formControlName="mock3Feedback">
+          <mat-option *ngFor="let status of mockStatuses" [value]="status">{{ status }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <!-- Payment Status Section -->
+<div class="section">
+  <h3>Payment & Placement Status</h3>
+  <!--<mat-form-field appearance="fill">
+    <mat-label>Payment Status</mat-label>
+    <mat-select formControlName="paymentStatus">
+      <mat-option *ngFor="let status of paymentStatuses" [value]="status">{{ status }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="studentForm.get('paymentStatus')?.hasError('required') && studentForm.get('paymentStatus')?.touched">
+      Payment Status is required.
+    </mat-error>
+  </mat-form-field>-->
+
+  <mat-form-field appearance="fill">
+    <mat-label>Payment Status</mat-label>
+    <input matInput formControlName="paymentStatus" readonly>
+  </mat-form-field>
+
+  <!-- Placement Status Section -->
+  <!-- <h3>Placement Status</h3> -->
+  <mat-form-field appearance="fill">
+    <mat-label>Placement Status</mat-label>
+    <mat-select formControlName="placementStatus">
+      <mat-option *ngFor="let status of  placementStatuses" [value]="status">{{ status }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="studentForm.get('placementStatus')?.hasError('required') && studentForm.get('placementStatus')?.touched">
+      Placement Status is required.
+    </mat-error>
+  </mat-form-field>
+</div>
+  </form>
+</div>
+<div class="bottom-section" mat-dialog-actions>  
+  <button *ngIf="!isEditMode" class="save-btn" mat-button (click)="onSaveAdd()">Save</button>
+  <button *ngIf="isEditMode" class="save-btn" mat-button (click)="onSave()">Save</button>
+  <button *ngIf="isEditMode" class="report-btn" mat-button (click)="generateReport()">Report</button> 
+</div>

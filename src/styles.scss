@@ -1,0 +1,201 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'ngx-toastr/toastr';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;700&display=swap');
+@import "~aos/dist/aos.css";
+html, body { height: 100%; }
+:root {
+    --primary-color: #012d64;
+    --secondary-color: #06b0ff;
+    --light-blue: #f4f9ff;
+    --white: #fff;
+    --dark-blue: #038ed2;
+    --border-color: #e2e2e2;
+    --box-shadow: 0 4px 10px #0000001a;
+    --border-radius: 12px;
+    --font-size-large: 2.5rem;
+    --font-size-medium: 1.5rem;
+    --font-size-small: 1.3rem;
+    --font-size-xsmall: 1rem;
+    --font-size-xxsmall: 13px;
+    --padding: 10px;
+    --margin: 20px;
+}
+
+
+body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    background-color: #f5f5f5;
+    
+
+    
+}
+.mat-typography,h1,h2,h3,h4,h5,h6,p {
+    font-family: IBM Plex Sans Condensed, sans-serif !important;
+}
+
+.container {/* Enable Grid */
+    place-items: center;
+    position: relative; 
+    width: 95%;
+    height: auto;
+}
+/*.owl-carousel .owl-nav .owl-prev, 
+.owl-carousel .owl-nav .owl-next {
+    background-image: linear-gradient(99deg, #012d64, #06b0ff);
+    border-radius: 100%; 
+    width: 40px; 
+    height: 40px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: transparent; 
+    font-size: 1.5rem; 
+    line-height: 1; 
+    text-align: center; 
+    text-decoration: none; 
+    transition: background 0.3s ease, transform 0.3s ease; 
+    position: relative;
+}
+.owl-carousel .owl-nav .owl-prev::before {
+    content: ''; 
+    position: absolute;
+    width: 20px; 
+    height: 20px; 
+    background: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M14%2019l-7-7%207-7%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22/%3E%3C/svg%3E') no-repeat center center;
+    background-size: contain;
+}
+
+.owl-carousel .owl-nav .owl-next::before {
+    content: ''; 
+    position: absolute;
+    width: 20px; 
+    height: 20px; 
+    background: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20width%3D%2224%22%20height%3D%2224%22%3E%3Cpath%20d%3D%22M10%2019l7-7-7-7%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22/%3E%3C/svg%3E') no-repeat center center;
+    background-size: contain;
+}
+
+.owl-carousel .owl-nav .owl-prev:hover,
+.owl-carousel .owl-nav .owl-next:hover {
+    background: #026ba5;
+    transform: scale(1.1); 
+    color: transparent; 
+}*/
+
+
+/* Material CSS*/
+
+//filters input height
+.mdc-text-field--filled:not(.mdc-text-field--disabled){
+    height:50px;
+  }
+
+//table top margin
+.mat-mdc-form-field-subscript-wrapper {
+    margin-top: -5px;
+}
+
+//table header & rows height
+.mat-mdc-table .mdc-data-table__header-row {
+    height: 42px;
+    font-weight: bold;
+}
+.mat-mdc-table .mdc-data-table__row{
+    height: 42px;
+}
+
+//table head
+.mat-mdc-table thead {
+    background-color: #d1d4d0 !important;
+    color: white !important;
+  }
+
+ /* Paginator */
+ .mat-mdc-paginator-container {
+    background-color: rgb(241, 245, 240);
+  }
+
+  //mat-dialog box
+ 
+
+  /* Material Design Adjustments */
+  /*::ng-deep .mat-primary .mat-mdc-select-arrow {
+    color: #3fb554;
+  }
+  
+  ::ng-deep .mat-mdc-form-field.mat-focused.mat-primary .mat-mdc-select-arrow {
+    color: #3fb554;
+  }
+  
+  ::ng-deep .mat-primary .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
+    color: var(--mdc-theme-primary, #3fb554);
+  }
+  
+  ::ng-deep .mat-primary .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal::after {
+    color: var(--mdc-theme-primary, #3fb554);
+  }
+  
+  :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-floating-label,
+  :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-floating-label--float-above {
+    color: #3fb554;
+  }*/
+
+ 
+  //edit icon 
+  .edit {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .blue-icon{
+    color: rgb(28, 162, 240);
+  }
+  .red-icon {
+    color: rgb(249, 44, 98);
+  }
+  //refresh-icon
+  .refresh-icon{
+    margin-top: 10px;
+    color:#4b4b4a;
+    cursor: pointer ;
+    padding: 10px;
+    border-radius: 50%;
+    transition: transform 0.6s ease, background-color 0.3s ease;
+  }
+  .refresh-icon:hover{
+   background-color: rgb(233, 229, 229);
+   border-radius: 50%;
+   transform: scale(1.2);
+  }
+  //loader
+   .loader-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+  }
+
+  //Email Button 
+  .email-btn{
+    margin-left: 10px;
+    background-color: #676afc;
+    border-style: none;
+    color: #fff;
+    padding: 5px 10px; 
+    border-radius: 20px; 
+    transition: transform 0.4s ease-in-out;
+    cursor: pointer;
+  }
+  .email-btn:hover {
+    transform: scale(1.05); 
+  }
+
+  // No Data message line
+  .no-data-message{
+    text-align: center;
+    font-weight: bold;
+    padding-top: 10px;
+  }

@@ -1,0 +1,67 @@
+<h1 mat-dialog-title>Edit Not Interested Student</h1>
+<button class="cancel-btn" (click)="onCancel()">
+  <mat-icon>close</mat-icon>
+</button>
+<div mat-dialog-content>
+  <form [formGroup]="notInterestedForm">
+    <!-- Student Fields -->
+    <mat-form-field appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName">
+      <mat-error *ngIf="notInterestedForm.get('firstName')?.hasError('required') && notInterestedForm.get('firstName')?.touched">
+        First name is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName">
+      <mat-error *ngIf="notInterestedForm.get('lastName')?.hasError('required') && notInterestedForm.get('lastName')?.touched">
+        Last name is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Mobile Number</mat-label>
+      <input matInput formControlName="mobileNumber">
+      <mat-error *ngIf="notInterestedForm.get('mobileNumber')?.hasError('required') && notInterestedForm.get('mobileNumber')?.touched">
+        Mobile number is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+       <mat-label>Email</mat-label>
+       <input matInput formControlName="email">
+       <mat-error *ngIf="notInterestedForm.get('email')?.hasError('required') && notInterestedForm.get('email')?.touched">
+            Email is required.
+       </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Course</mat-label>
+      <mat-select formControlName="course">
+        <mat-option *ngFor="let course of courses" [value]="course">{{ course }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="notInterestedForm.get('course')?.hasError('required') && notInterestedForm.get('course')?.touched">
+        Course is required.
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Source</mat-label>
+      <input matInput formControlName="source" placeholder="Enter Source">
+      <mat-error *ngIf="notInterestedForm.get('source')?.hasError('required') && notInterestedForm.get('source')?.touched">
+        Source is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Source Comments</mat-label>
+      <input matInput formControlName="sourcecomment" placeholder="Enter sourcecomment">
+      <mat-error *ngIf="notInterestedForm.get('sourcecomment')?.hasError('required') && notInterestedForm.get('sourcecomment')?.touched">
+        Source Comments is required.
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div class="button-container" mat-dialog-actions>
+  <button class="save-btn" mat-button (click)="onSaveNotInterested()">Update</button>
+  <!-- <button class="save-btn" mat-button (click)="onSendEmail()">Send Email</button> -->
+</div>
+

@@ -1,0 +1,146 @@
+  .sidenav-container {
+    height: 100%;
+  }
+  .sidenav {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    background: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgb(203, 202, 202);
+    // transition: width 0.2s ease-in-out;
+  }
+  .sidenav.collapsed {
+    width: 70px;
+    // transition: width 0.3s ease;
+  }
+  .mat-toolbar {
+    display: flex;
+    align-items: center;
+    background: #78bb6b;
+    height: 50px;
+    border-radius: 10px;
+    padding-left: -10px;
+  }
+  .profile-menu {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    padding-top: 10px;
+    gap: 10px;
+  }
+  .profile-menu .username {
+    font-size: 15px;
+  }
+  .profile-pic {
+    width: 40px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: #9e02f9;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 0 3px #ffff;
+  }
+  .profile-name{
+    display:flex;
+    flex-direction: column;
+  }
+  .role{
+    font-size: smaller;
+    font-weight: bold;
+    color:#5aa6f3;
+  }
+  .spacer {
+    flex: 1;
+  }
+  .content {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.3s ease;
+  }
+
+  .top-menu {
+    padding-left: 16px;
+    padding-top: 5px;
+  }
+
+  .list p {
+    display: flex;
+    align-items: center;
+    padding: 5px 0px 5px 30px;
+    font-size: 15px;
+    cursor: pointer;
+    gap: 10px;
+  }
+
+  // .list p:hover {
+  //   background-color: #ebedef;
+  //   color: rgb(4, 51, 239);
+  //   padding-left: 30px;
+  //   overflow-y: hidden;
+  //   border-radius: 10px;
+  // }
+
+
+  .logout {
+    position: absolute;
+    bottom: 0px;
+  }
+
+  .list .logout:hover {
+    // background-color: #f5f5f5;
+    color: red;
+
+  }
+  /* Full width content when sidenav is collapsed on larger screens */
+  .full-width {
+    margin-left: 0px;
+    transition: margin-left 0.3s ease; 
+  }
+
+  .list .item {
+    transition: color 0.3s;
+    margin:5px;
+  }
+
+  .list .item.selected {
+    background-color: #5aa6f3;
+    color: rgb(255, 255, 255);
+    border-radius: 20px;
+  }
+
+  .list .item.selected:hover {
+    color: rgb(255, 255, 255);
+  }
+
+  .list .item:hover {
+    color: #5aa6f3;
+  }
+
+  .list .item.selected mat-icon {
+    color: rgb(255, 255, 255);
+  }
+
+  /* For mobile view (less than 600px) */
+  @media (max-width: 600px) {
+    .sidenav {
+      width: 40%;
+      position: fixed;
+      z-index: 1000;
+    }
+
+    .sidenav.collapsed {
+      width: 70px;
+    }
+
+    .username {
+      display: none;
+    }
+  }

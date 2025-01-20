@@ -1,0 +1,43 @@
+.student-table {
+  margin-bottom: 16px;
+}
+
+.filter-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dropdown-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+
+  :host ::ng-deep .mdc-data-table__cell,
+  .mdc-data-table__header-cell {
+    padding: 0 2px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .content {
+    margin-top: 10px;
+  }
+
+  .filter-container {
+    display: block;
+  }
+
+  :host ::ng-deep .mdc-data-table__cell,
+  .mdc-data-table__header-cell {
+    padding: 0 10px;
+  }
+}

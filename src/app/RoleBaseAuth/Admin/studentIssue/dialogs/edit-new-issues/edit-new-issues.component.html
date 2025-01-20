@@ -1,0 +1,97 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit Student Issues' : 'Create New Student Issues' }}</h2>
+<button class="cancel-btn" (click)="onCancel()">
+  <mat-icon>close</mat-icon>
+</button>
+<div mat-dialog-content>
+  <form [formGroup]="studentIssueForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName" type="text" required>
+      <mat-error *ngIf="studentIssueForm.get('firstName')?.hasError('required')">First name is required.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName" type="text" required>
+      <mat-error *ngIf="studentIssueForm.get('lastName')?.hasError('required')">Last name is required.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Mobile Number</mat-label>
+      <input matInput formControlName="mobileNumber" type="text" required>
+      <mat-error *ngIf="studentIssueForm.get('mobileNumber')?.hasError('required')">Mobile number is
+        required.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" required>
+      <mat-error *ngIf="studentIssueForm.get('email')?.hasError('required')">Email is required.</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill">
+      <mat-label>Select Course</mat-label>
+      <mat-select formControlName="course">
+        <mat-option *ngFor="let course of courses" [value]="course">{{course}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="studentIssueForm.get('course')?.hasError('required')">Course is required.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Batch</mat-label>
+      <mat-select formControlName="batch">
+        <mat-option *ngFor="let batch of batches" [value]="batch">{{batch}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="studentIssueForm.get('batch')?.hasError('required')">Batch is required.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Source</mat-label>
+      <input matInput formControlName="source" type="text" required>
+      <mat-error *ngIf="studentIssueForm.get('source')?.hasError('required')">Source is required.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Issue Created Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="issue_created_date" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Issue Status</mat-label>
+      <mat-select formControlName="issueStatus" required>
+        <mat-option *ngFor="let option of issueStatus" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Issue Description</mat-label>
+      <input matInput formControlName="description" required>
+      <mat-error *ngIf="studentIssueForm.get('description')?.hasError('required')">Description is required.</mat-error>
+    </mat-form-field>
+
+    <!-- <div formGroupName="technicalExpert"> -->
+      <mat-form-field appearance="fill">
+        <mat-label>Technical Expert Name</mat-label>
+        <input matInput formControlName="technicalExpertName" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label> Issue Assigned Date</mat-label>
+        <input matInput [matDatepicker]="mentorPicker" formControlName="issue_assigned_date" required>
+        <mat-datepicker-toggle matSuffix [for]="mentorPicker"></mat-datepicker-toggle>
+        <mat-datepicker #mentorPicker></mat-datepicker>
+      </mat-form-field>
+    <!-- </div> -->
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button class="save-btn" mat-button color="primary" type="submit" [disabled]="!studentIssueForm.valid"
+    (click)="onSubmit()">
+    {{ isEditMode ? 'Update' : 'Create' }}
+  </button>
+</div>

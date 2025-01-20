@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '../authGurad/auth.guard';
 import { AdminDashboardComponent } from './dashborads/admin-dashboard/admin-dashboard.component';
 import { CounselorDashboardComponent } from './dashborads/counselor-dashboard/counselor-dashboard.component';
 import { LoginComponent } from './loginPage/login/login.component';
@@ -17,6 +16,7 @@ import { MainBootcampComponent } from './Admin/bootcamp/main-bootcamp/main-bootc
 import { NewIssuesComponent } from './Admin/studentIssue/component/new-issues/new-issues.component';
 import { StudentIssusesDashboardComponent } from './dashborads/student-issuses-dashboard/student-issuses-dashboard.component';
 import { InvertoryComponent } from './Admin/inventory/component/invertory/invertory.component';
+import { AuthGuard } from '../AuthGurad/auth.guard';
 
 const routes: Routes = [
   // { path: 'signup', component: SignupComponent },
